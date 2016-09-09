@@ -2,10 +2,10 @@
 
 namespace Spatie\UptimeMonitor;
 
-class UptimeMonitorClass
+class SkeletonClass
 {
     /**
-     * Create a new UptimeMonitor Instance
+     * Create a new UptimeMonitor Instance.
      */
     public function __construct()
     {
@@ -13,7 +13,7 @@ class UptimeMonitorClass
     }
 
     /**
-     * Friendly welcome
+     * Friendly welcome.
      *
      * @param string $phrase Phrase to return
      *
