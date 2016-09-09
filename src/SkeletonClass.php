@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Spatie\UptimeMonitor;
 
-class SkeletonClass
+class UptimeMonitorClass
 {
     /**
-     * Create a new Skeleton Instance
+     * Create a new UptimeMonitor Instance
      */
     public function __construct()
     {

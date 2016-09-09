@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\ServiceProvider;
 
-class SkeletonServiceProvider extends ServiceProvider
+class UptimeMonitorServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -12,14 +12,14 @@ class SkeletonServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/skeleton.php' => config_path('skeleton.php'),
+            __DIR__.'/../config/UptimeMonitor.php' => config_path('UptimeMonitor.php'),
         ], 'config');
 
         /*
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'skeleton');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'UptimeMonitor');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/skeleton'),
+            __DIR__.'/../resources/views' => base_path('resources/views/vendor/UptimeMonitor'),
         ], 'views');
         */
     }
@@ -29,6 +29,6 @@ class SkeletonServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'skeleton');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'UptimeMonitor');
     }
 }

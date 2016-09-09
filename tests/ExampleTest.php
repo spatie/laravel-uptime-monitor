@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton\Test;
+namespace Spatie\UptimeMonitor\Test;
 
 class ExampleTest extends \PHPUnit_Framework_TestCase
 {

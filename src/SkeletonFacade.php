@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Spatie\Skeleton\SkeletonClass
+ * @see \Spatie\UptimeMonitor\UptimeMonitorClass
  */
-class SkeletonFacade extends Facade
+class UptimeMonitorFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class SkeletonFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'skeleton';
+        return 'UptimeMonitor';
     }
 }

@@ -1,34 +1,42 @@
 {
-    "name": "spatie/:package_name",
-    "description": ":package_description",
+    "name": "spatie/laravel-uptime-monitor",
+    "description": "A powerful, easy to configure uptime monitor",
     "keywords": [
         "spatie",
-        ":package_name"
+        "laravel-uptime-monitor"
     ],
-    "homepage": "https://github.com/spatie/:package_name",
+    "homepage": "https://github.com/spatie/laravel-uptime-monitor",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Freek Van der Herten",
+            "email": "freek@spatie.be",
             "homepage": "https://spatie.be",
             "role": "Developer"
         }
     ],
     "require": {
-        "php" : "^7.0"
+        "php": "^7.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "illuminate/console": "^5.3",
+        "illuminate/database": "^5.3",
+        "illuminate/notifications": "^5.3",
+        "illuminate/queue": "^5.3",
+        "illuminate/support": "^5.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "5.*"
+        "mockery/mockery": "^0.9.5",
+        "orchestra/testbench": "^3.3",
+        "phpunit/phpunit": "^5.5"
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src"
+            "Spatie\\UptimeMonitor\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Test\\": "tests"
+            "Spatie\\UptimeMonitor\\Test\\": "tests"
         }
     },
     "scripts": {
