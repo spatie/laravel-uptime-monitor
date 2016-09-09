@@ -4,7 +4,7 @@ namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\ServiceProvider;
 
-class UptimeMonitorServiceProvider extends ServiceProvider
+class SkeletonServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

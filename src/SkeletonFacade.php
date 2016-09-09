@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \Spatie\UptimeMonitor\UptimeMonitorClass
  */
-class UptimeMonitorFacade extends Facade
+class SkeletonFacade extends Facade
 {
     /**
      * Get the registered name of the component.
