@@ -10,7 +10,7 @@ use Spatie\Backup\Commands\MonitorCommand;
 use Spatie\Backup\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
-class BackupServiceProvider extends ServiceProvider
+class UptimeMonitorServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
