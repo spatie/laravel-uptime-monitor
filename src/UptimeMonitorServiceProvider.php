@@ -3,11 +3,9 @@
 namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\Backup\Commands\BackupCommand;
-use Spatie\Backup\Commands\CleanupCommand;
-use Spatie\Backup\Commands\ListCommand;
-use Spatie\Backup\Commands\MonitorCommand;
-use Spatie\Backup\Helpers\ConsoleOutput;
+use Spatie\UptimeMonitor\Console\Commands\CheckUptimeMonitors;
+use Spatie\UptimeMonitor\Console\Commands\CreateUptimeMonitor;
+use Spatie\UptimeMonitor\Console\Commands\DeleteUptimeMonitor;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class BackupServiceProvider extends ServiceProvider
@@ -17,9 +15,13 @@ class BackupServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/laravel-backup.php' => config_path('laravel-backup.php'),
-        ], 'config');
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+            $this->publishes([
+                __DIR__ . '/../config/laravel-backup.php' => config_path('laravel-backup.php'),
+            ], 'config');
+        }
     }
 
     /**
@@ -31,16 +33,14 @@ class BackupServiceProvider extends ServiceProvider
 
         $this->app['events']->subscribe(EventHandler::class);
 
-        $this->app->bind('command.backup:run', BackupCommand::class);
-        $this->app->bind('command.backup:clean', CleanupCommand::class);
-        $this->app->bind('command.backup:list', ListCommand::class);
-        $this->app->bind('command.backup:monitor', MonitorCommand::class);
+        $this->app->bind('command.check:run', CheckUptimeMonitors::class);
+        $this->app->bind('command.create:clean', CreateUptimeMonitor::class);
+        $this->app->bind('command.delete:list', DeleteUptimeMonitor::class);
 
         $this->commands([
-            'command.backup:run',
-            'command.backup:clean',
-            'command.backup:list',
-            'command.backup:monitor',
+            'command.uptime-monitor:run',
+            'command.uptime-monitor:create',
+            'command.uptime-monitor:delete'
         ]);
 
         $this->app->singleton(ConsoleOutput::class);
