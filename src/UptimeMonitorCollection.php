@@ -64,7 +64,7 @@ class UptimeMonitorCollection extends Collection
 
             $promise = $this->getCachedResponse($pingMonitor);
 
-            if (!$promise instanceof PromiseInterface) {
+            if (! $promise instanceof PromiseInterface) {
                 $this->log('use cached response', $pingMonitor);
 
                 $promise = $client->requestAsync(

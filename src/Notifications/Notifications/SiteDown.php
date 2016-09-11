@@ -23,7 +23,7 @@ class SiteDown extends Notification
         $mailMessage = (new MailMessage)
             ->error()
             ->subject("Site {$this->event->uptimeMonitor->url} is down")
-            ->line("Site is down");
+            ->line('Site is down');
 
         return $mailMessage;
     }
