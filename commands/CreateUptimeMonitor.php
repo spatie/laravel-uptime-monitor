@@ -20,6 +20,5 @@ class CreateUptimeMonitor extends Command
 
     public function handle()
     {
-
     }
 }
