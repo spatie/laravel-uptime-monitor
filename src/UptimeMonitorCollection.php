@@ -8,14 +8,9 @@ use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\EachPromise;
-use GuzzleHttp\Promise\FulfilledPromise;
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Collection;
 use Log;
 use Psr\Http\Message\ResponseInterface;
-use Spatie\UptimeMonitor\Models\UptimeMonitor;
 
 class UptimeMonitorCollection extends Collection
 {
@@ -28,23 +23,19 @@ class UptimeMonitorCollection extends Collection
         (new EachPromise($this->getPromises(), [
             'concurrency' => 100,
             'fulfilled' => function (ResponseInterface $response, $index) {
-                $pingMonitor = $this->items[$index];
+                $uptimeMonitor = $this->items[$index];
 
-                $this->log('fulfilled ping', $pingMonitor);
+                $this->log('fulfilled ping', $uptimeMonitor);
 
-                $pingMonitor->pingSucceeded($response->getBody());
-
-                $this->cacheResponse($response, $pingMonitor);
+                $uptimeMonitor->pingSucceeded($response->getBody());
             },
 
             'rejected' => function (RequestException $exception, $index) {
-                $pingMonitor = $this->items[$index];
+                $uptimeMonitor = $this->items[$index];
 
-                $this->log("rejected ping because: {$exception->getMessage()}", $pingMonitor);
+                $this->log("rejected ping because: {$exception->getMessage()}", $uptimeMonitor);
 
-                $pingMonitor->pingFailed($exception->getMessage());
-
-                $this->cacheException($exception, $pingMonitor);
+                $uptimeMonitor->pingFailed($exception->getMessage());
             },
         ]))->promise()->wait();
 
@@ -59,55 +50,17 @@ class UptimeMonitorCollection extends Collection
             ],
         ]);
 
-        foreach ($this->items as $pingMonitor) {
-            $this->log('checking', $pingMonitor);
+        foreach ($this->items as $uptimeMonitor) {
+            $this->log('checking', $uptimeMonitor);
 
-            $promise = $this->getCachedResponse($pingMonitor);
-
-            if (!$promise instanceof PromiseInterface) {
-                $this->log('use cached response', $pingMonitor);
-
-                $promise = $client->requestAsync(
-                    $pingMonitor->getPingRequestMethod(),
-                    $pingMonitor->url,
-                    ['connect_timeout' => 10]
-                );
-            }
+            $promise = $client->requestAsync(
+                $uptimeMonitor->getPingRequestMethod(),
+                $uptimeMonitor->url,
+                ['connect_timeout' => 10]
+            );
 
             yield $promise;
         }
-    }
-
-    /**
-     * @param \Spatie\UptimeMonitor\Models\UptimeMonitor $uptimeMonitor
-     *
-     * @return bool|PromiseInterface
-     */
-    protected function getCachedResponse(UptimeMonitor $uptimeMonitor)
-    {
-        $cachedResult = Cache::get($uptimeMonitor->getCacheKey());
-
-        if ($cachedResult instanceof ResponseInterface) {
-            return new FulfilledPromise($cachedResult);
-        }
-
-        if (is_string($cachedResult)) {
-            return new RejectedPromise(
-                new RequestException($cachedResult, new Request($uptimeMonitor->getPingRequestMethod(), $uptimeMonitor->url))
-            );
-        }
-
-        return false;
-    }
-
-    protected function cacheResponse(ResponseInterface $response, PingMonitor $pingMonitor)
-    {
-        Cache::put($pingMonitor->getCacheKey(), $response, 1);
-    }
-
-    protected function cacheException(RequestException $exception, PingMonitor $pingMonitor)
-    {
-        Cache::put($pingMonitor->getCacheKey(), $exception->getMessage(), 1);
     }
 
     /**

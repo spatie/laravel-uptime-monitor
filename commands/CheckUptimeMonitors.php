@@ -25,7 +25,7 @@ class CheckUptimeMonitors extends Command
     public function handle()
     {
         $uptimeMonitors = UptimeMonitor::all()->filter(function (UptimeMonitor $uptimeMonitor) {
-            return $uptimeMonitor->shouldRun();
+            return $uptimeMonitor->shouldCheck();
         });
 
         $this->comment('Need to check '.count($uptimeMonitors).' sites...');

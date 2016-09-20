@@ -2,32 +2,47 @@
 
 namespace Spatie\UptimeMonitor\Models;
 
-use App\Events\SiteDown;
+use Spatie\UptimeMonitor\Events\SiteDown;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\Request;
+use Spatie\UptimeMonitor\Events\SiteRestored;
+use Spatie\UptimeMonitor\Events\SiteUp;
 use UrlSigner;
 
 class UptimeMonitor extends Model
 {
-    const STATUS_ONLINE = 'online';
-    const STATUS_OFFLINE = 'offline';
+    const STATUS_UP = 'online';
+    const STATUS_DOWN = 'offline';
     const STATUS_NEVER_CHECKED = 'never checked';
 
     protected $guarded = [];
 
-    protected $dates = ['last_checked_on'];
+    protected $dates = [
+        'last_checked_on',
+        'last_status_change_on',
+        'ssl_certificate_valid_until',
+    ];
 
-    public function shouldRun() : bool
+    public static function boot()
     {
-        if (is_null($this->last_checked_on)) {
+        static::saving(function (UptimeMonitor $uptimeMonitor) {
+            if ($uptimeMonitor->getOriginal('status') != $uptimeMonitor->status) {
+                $uptimeMonitor->last_status_change_on = Carbon::now();
+            };
+        });
+    }
+
+    public function shouldCheck() : bool
+    {
+        if (! $this->enabled) {
+            return false;
+        }
+
+        if ($this->status = static::STATUS_NEVER_CHECKED) {
             return true;
         }
 
-        if ($this->status === self::STATUS_OFFLINE) {
+        if ($this->status === static::STATUS_DOWN) {
             return true;
         }
 
@@ -36,7 +51,21 @@ class UptimeMonitor extends Model
 
     public function pingSucceeded($responseHtml)
     {
-        $this->status = self::STATUS_ONLINE;
+        if (!$this->lookForStringPresentOnResponse($responseHtml)) {
+            $this->siteIsDown("String `{$this->look_for_string}` was not found on the response");
+        }
+
+        $this->siteIsUp();
+    }
+
+    public function pingFailed(string $reason)
+    {
+        $this->siteIsDown($reason);
+    }
+
+    public function siteIsUp()
+    {
+        $this->status = self::STATUS_UP;
         $this->last_failure_reason = '';
 
         $wasFailing = $this->times_failed_in_a_row > 0;
@@ -46,9 +75,30 @@ class UptimeMonitor extends Model
 
         $this->save();
 
-        $eventClass = 'App\\Events\\'.($wasFailing ? 'SiteRestored' : 'SiteUp');
+        $eventClass = ($wasFailing ? SiteRestored::class : SiteUp::class);
 
         event(new $eventClass($this));
+    }
+
+    public function siteIsDown(string $reason)
+    {
+        $previousStatus = $this->status;
+
+        $this->status = static::STATUS_DOWN;
+
+        $this->times_failed_in_a_row++;
+
+        $this->last_checked_on = Carbon::now();
+
+        $this->last_failure_reason = $reason;
+
+        $this->save();
+
+        if ($this->shouldFireDownEvent($previousStatus)) {
+
+            event(new SiteDown($this));
+        }
+
     }
 
     public function lookForStringPresentOnResponse(string $responseHtml = '') : bool
@@ -60,28 +110,21 @@ class UptimeMonitor extends Model
         return str_contains($responseHtml, $this->look_for_string);
     }
 
-    public function pingFailed(string $reason)
-    {
-        $this->status = self::STATUS_OFFLINE;
-
-        $this->times_failed_in_a_row++;
-
-        $this->last_checked_on = Carbon::now();
-
-        $this->last_failure_reason = $reason;
-
-        $this->save();
-
-        event(new SiteDown($this));
-    }
-
-    public function getCacheKey() : string
-    {
-        return "{$this->getPingRequestMethod()}:{$this->url}";
-    }
-
     public function getPingRequestMethod() : string
     {
         return $this->look_for_string == '' ? 'HEAD' : 'GET';
+    }
+
+    protected function shouldFireDownEvent($previousStatus): bool
+    {
+        if ($previousStatus != static::STATUS_DOWN) {
+            return true;
+        }
+
+        if (Carbon::now()->diffInMinutes() >= config('resend_down_notification_every_minutes')) {
+            return true;
+        }
+
+        return false;
     }
 }

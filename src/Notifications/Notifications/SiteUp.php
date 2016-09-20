@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Spatie\UptimeMonitor\Events\SiteDown as SiteDownEvent;
 use Spatie\UptimeMonitor\Models\UptimeMonitor;
 
-class SiteDown extends Notification
+class SiteUp extends Notification
 {
     /** @var \Spatie\UptimeMonitor\Events\SiteDown */
     protected $event;
@@ -22,9 +22,9 @@ class SiteDown extends Notification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->error()
-            ->subject("Site {$this->event->uptimeMonitor->url} is down.")
-            ->line("Site is down");
+            ->success()
+            ->subject("Site {$this->event->uptimeMonitor->url} is up.")
+            ->line("Site is up");
 
         return $mailMessage;
     }
@@ -32,13 +32,13 @@ class SiteDown extends Notification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->error()
-            ->content("Site {$this->event->uptimeMonitor->url} is down");
+            ->success()
+            ->content("Site {$this->event->uptimeMonitor->url} is up");
     }
 
     public function isStillRelevant(): bool
     {
-        return $this->event->uptimeMonitor->status == UptimeMonitor::STATUS_DOWN;
+        return $this->event->uptimeMonitor->status == UptimeMonitor::STATUS_UP;
     }
 
     public function setEvent(SiteDownEvent $event)

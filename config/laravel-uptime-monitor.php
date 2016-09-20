@@ -12,7 +12,9 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\UptimeMonitor\Notifications\Notifications\BackupHasFailed::class => ['mail'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteDown::class => ['mail'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored::class => ['mail'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => [],
         ],
 
         /*
@@ -29,4 +31,8 @@ return [
             'webhook_url' => '',
         ],
     ],
+
+    'queue_name' => 'default',
+
+    'resend_down_notification_every_minutes' => 60,
 ];

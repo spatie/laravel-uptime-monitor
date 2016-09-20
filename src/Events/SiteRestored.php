@@ -2,7 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Events;
 
-class SiteRestored
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class SiteRestored implements ShouldQueue
 {
     /** @var \Spatie\UptimeMonitor\Models\UptimeMonitor */
     public $uptimeMonitor;
