@@ -24,7 +24,7 @@ class SiteRestored extends Notification
         $mailMessage = (new MailMessage)
             ->success()
             ->subject("Site {$this->event->uptimeMonitor->url} has been restored.")
-            ->line("Site has been restored");
+            ->line('Site has been restored');
 
         return $mailMessage;
     }
