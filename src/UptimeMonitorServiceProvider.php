@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\UptimeMonitor\Commands\CheckUptimeMonitors;
 use Spatie\UptimeMonitor\Commands\CreateUptimeMonitor;
 use Spatie\UptimeMonitor\Commands\DeleteUptimeMonitor;
+use Spatie\UptimeMonitor\Commands\ListUptimeMonitors;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class UptimeMonitorServiceProvider extends ServiceProvider
@@ -36,11 +37,13 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         $this->app->bind('command.uptime-monitor:check', CheckUptimeMonitors::class);
         $this->app->bind('command.uptime-monitor:create', CreateUptimeMonitor::class);
         $this->app->bind('command.uptime-monitor:delete', DeleteUptimeMonitor::class);
+        $this->app->bind('command.uptime-monitor:list', ListUptimeMonitors::class);
 
         $this->commands([
             'command.uptime-monitor:check',
             'command.uptime-monitor:create',
-            'command.uptime-monitor:delete'
+            'command.uptime-monitor:delete',
+            'command.uptime-monitor:list',
         ]);
     }
 }

@@ -15,7 +15,6 @@ class CreateUptimeMonitorsTable extends Migration
     {
         Schema::create('uptime_monitors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('url');
             $table->string('look_for_string')->default('');
             $table->boolean('check_ssl_certificate')->default(false);

@@ -26,6 +26,10 @@ You can install the package via composer:
 composer require spatie/laravel-uptime-monitor
 ```
 
+```bash
+php artisan vendor:publish --provider="Spatie\UptimeMonitor\UptimeMonitorServiceProvider"
+```
+
 ## Usage
 
 ``` php
