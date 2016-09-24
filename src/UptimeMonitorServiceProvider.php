@@ -16,10 +16,10 @@ class UptimeMonitorServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../config/laravel-backup.php' => config_path('laravel-backup.php'),
+                __DIR__.'/../config/laravel-backup.php' => config_path('laravel-backup.php'),
             ], 'config');
         }
     }
@@ -40,7 +40,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         $this->commands([
             'command.uptime-monitor:run',
             'command.uptime-monitor:create',
-            'command.uptime-monitor:delete'
+            'command.uptime-monitor:delete',
         ]);
 
         $this->app->singleton(ConsoleOutput::class);

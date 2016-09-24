@@ -24,7 +24,7 @@ class SiteUp extends Notification
         $mailMessage = (new MailMessage)
             ->success()
             ->subject("Site {$this->event->uptimeMonitor->url} is up.")
-            ->line("Site is up");
+            ->line('Site is up');
 
         return $mailMessage;
     }
