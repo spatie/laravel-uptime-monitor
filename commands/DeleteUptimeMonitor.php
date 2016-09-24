@@ -20,6 +20,5 @@ class DeleteUptimeMonitor extends Command
 
     public function handle()
     {
-
     }
 }

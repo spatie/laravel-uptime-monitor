@@ -29,7 +29,6 @@ class EventHandler
             if ($notification->isStillRelevant()) {
                 $notifiable->notify($notification);
             }
-
         });
     }
 
@@ -55,7 +54,7 @@ class EventHandler
                 return $notificationName === $eventName;
             });
 
-        if (!$notificationClass) {
+        if (! $notificationClass) {
             throw NotificationCouldNotBeSent::noNotifcationClassForEvent($event);
         }
 
