@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\Console\Commands\CreateUptimeMonitor;
 use Spatie\UptimeMonitor\Console\Commands\DeleteUptimeMonitor;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
-class BackupServiceProvider extends ServiceProvider
+class UptimeMonitorServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
