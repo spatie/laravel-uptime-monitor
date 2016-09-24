@@ -3,12 +3,13 @@
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Illuminate\Notifications\Notification;
-use Spatie\UptimeMonitor\Events\SiteDown as SiteDownEvent;
+use Spatie\UptimeMonitor\Events\SiteUp as SiteUpEvent;
 use Spatie\UptimeMonitor\Models\UptimeMonitor;
+use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteRestored extends Notification
+class SiteRestored extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\SiteDown */
     protected $event;
@@ -33,7 +34,19 @@ class SiteRestored extends Notification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->uptimeMonitor->url} has been restored");
+            ->content("Site {$this->event->uptimeMonitor->url} has been restored")
+            ->attachment(function(SlackAttachment $attachment) {
+                $attachment->fields($this->getUptimeMonitorProperties());
+            });;
+    }
+
+    public function getUptimeMonitorProperties($extraProperties = []): array
+    {
+        $extraProperties = [
+            'online since' => $this->event->uptimeMonitor->last_status_change_on->diffForHumans(),
+        ];
+
+        return parent::getUptimeMonitorProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool
@@ -41,7 +54,7 @@ class SiteRestored extends Notification
         return $this->event->uptimeMonitor->status == UptimeMonitor::STATUS_UP;
     }
 
-    public function setEvent(SiteDownEvent $event)
+    public function setEvent(SiteUpEvent $event)
     {
         $this->event = $event;
 

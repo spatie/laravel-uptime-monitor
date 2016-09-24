@@ -18,14 +18,14 @@ class UptimeMonitorCollection extends Collection
     {
         $this->resetItemKeys();
 
-        consoleOutput()->info("Start checking for {$this->count()} monitors...");
+
 
         (new EachPromise($this->getPromises(), [
             'concurrency' => 100,
             'fulfilled' => function (ResponseInterface $response, $index) {
                 $uptimeMonitor = $this->items[$index];
 
-                $this->log('fulfilled ping', $uptimeMonitor);
+                consoleOutput()->info("Could reach {$uptimeMonitor->url}");
 
                 $uptimeMonitor->pingSucceeded($response->getBody());
             },
@@ -33,13 +33,11 @@ class UptimeMonitorCollection extends Collection
             'rejected' => function (RequestException $exception, $index) {
                 $uptimeMonitor = $this->items[$index];
 
-                $this->log("rejected ping because: {$exception->getMessage()}", $uptimeMonitor);
+                consoleOutput()->error("Could not reach {$uptimeMonitor->url} error: `{$exception->getMessage()}`");
 
                 $uptimeMonitor->pingFailed($exception->getMessage());
             },
         ]))->promise()->wait();
-
-        Log::info('Checking done!');
     }
 
     protected function getPromises() : Generator
@@ -51,7 +49,7 @@ class UptimeMonitorCollection extends Collection
         ]);
 
         foreach ($this->items as $uptimeMonitor) {
-            $this->log('checking', $uptimeMonitor);
+            consoleOutput()->info("checking {$uptimeMonitor->url}");
 
             $promise = $client->requestAsync(
                 $uptimeMonitor->getPingRequestMethod(),
@@ -69,10 +67,5 @@ class UptimeMonitorCollection extends Collection
     protected function resetItemKeys()
     {
         $this->items = $this->values()->all();
-    }
-
-    public function log($message, UptimeMonitor $pingMonitor)
-    {
-        Log::info("$message (url: {$pingMonitor->url} id: {$pingMonitor->id})");
     }
 }

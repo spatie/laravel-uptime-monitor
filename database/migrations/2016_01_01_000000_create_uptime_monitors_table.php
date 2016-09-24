@@ -25,7 +25,7 @@ class CreateUptimeMonitorsTable extends Migration
             $table->timestamp('last_status_change_on')->nullable();
             $table->timestamp('last_checked_on')->nullable();
             $table->string('ssl_certificate_valid')->default(true);
-            $table->timestamp('ssl_certificate_valid_until')->nullable();
+            $table->timestamp('ssl_certificate_expiration_date')->nullable();
             $table->timestamps();
         });
     }

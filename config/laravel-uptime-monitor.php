@@ -12,9 +12,9 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteDown::class => ['mail'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored::class => ['mail'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteDown::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => ['slack'],
         ],
 
         /*
@@ -28,7 +28,7 @@ return [
         ],
 
         'slack' => [
-            'webhook_url' => '',
+            'webhook_url' => env('UPTIME_MONITOR_SLACK_WEBHOOK_URL'),
         ],
     ],
 

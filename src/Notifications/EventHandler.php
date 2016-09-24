@@ -4,10 +4,9 @@ namespace Spatie\UptimeMonitor\Notifications;
 
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Notifications\Notification;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
-use Spatie\UptimeMonitor\Notifications\Notifications\SiteDown;
+use Spatie\UptimeMonitor\Events\SiteDown;
 
 class EventHandler
 {
@@ -40,7 +39,7 @@ class EventHandler
 
     protected function determineNotifiable()
     {
-        $notifiableClass = $this->config->get('laravel-backup.notifications.notifiable');
+        $notifiableClass = $this->config->get('laravel-uptime-monitor.notifications.notifiable');
 
         return app($notifiableClass);
     }
@@ -49,7 +48,7 @@ class EventHandler
     {
         $eventName = class_basename($event);
 
-        $notificationClass = collect($this->config->get('laravel-backup.notifications.notifications'))
+        $notificationClass = collect($this->config->get('laravel-uptime-monitor.notifications.notifications'))
             ->filter(function (array $notificationChannels) {
                 return count($notificationChannels);
             })

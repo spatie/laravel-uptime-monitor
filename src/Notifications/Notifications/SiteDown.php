@@ -3,12 +3,13 @@
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Illuminate\Notifications\Notification;
 use Spatie\UptimeMonitor\Events\SiteDown as SiteDownEvent;
 use Spatie\UptimeMonitor\Models\UptimeMonitor;
+use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteDown extends Notification
+class SiteDown extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\SiteDown */
     protected $event;
@@ -33,7 +34,19 @@ class SiteDown extends Notification
     {
         return (new SlackMessage)
             ->error()
-            ->content("Site {$this->event->uptimeMonitor->url} is down");
+            ->content("Site {$this->event->uptimeMonitor->url} is down")
+            ->attachment(function(SlackAttachment $attachment) {
+                $attachment->fields($this->getUptimeMonitorProperties());
+            });
+    }
+
+    public function getUptimeMonitorProperties($extraProperties = []): array
+    {
+        $extraProperties = [
+            'offline since' => $this->event->uptimeMonitor->last_status_change_on->diffForHumans(),
+        ];
+
+        return parent::getUptimeMonitorProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool

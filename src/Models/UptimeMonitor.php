@@ -20,7 +20,7 @@ class UptimeMonitor extends Model
     protected $dates = [
         'last_checked_on',
         'last_status_change_on',
-        'ssl_certificate_valid_until',
+        'ssl_certificate_expiration_date',
     ];
 
     public static function boot()

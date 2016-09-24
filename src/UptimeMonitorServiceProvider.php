@@ -7,6 +7,7 @@ use Spatie\UptimeMonitor\Commands\CheckUptimeMonitors;
 use Spatie\UptimeMonitor\Commands\CreateUptimeMonitor;
 use Spatie\UptimeMonitor\Commands\DeleteUptimeMonitor;
 use Spatie\UptimeMonitor\Commands\ListUptimeMonitors;
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class UptimeMonitorServiceProvider extends ServiceProvider
