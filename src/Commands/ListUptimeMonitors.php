@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Commands;
 
 use Illuminate\Console\Command;
+use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\UptimeMonitor;
 
 class ListUptimeMonitors extends Command
@@ -26,10 +27,12 @@ class ListUptimeMonitors extends Command
         $rows = UptimeMonitor::all()->map(function (UptimeMonitor $uptimeMonitor) {
             $url = $uptimeMonitor->url;
 
-            return compact('url');
+            $reachable = $uptimeMonitor->status === UptimeMonitor::STATUS_UP ? Emoji::ok() : Emoji::notOk();
+
+            return compact('url', 'reachable');
         });
 
-        $titles = ['url'];
+        $titles = ['URL', 'Reachable'];
 
         $this->table($titles, $rows);
     }

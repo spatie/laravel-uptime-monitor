@@ -2,14 +2,15 @@
 
 namespace Spatie\UptimeMonitor\Helpers;
 
-class Format
+class Emoji
 {
-    public static function emoji(bool $bool): string
+    public static function ok(): string
     {
-        if ($bool) {
             return "\u{2705}";
-        }
+    }
 
+    public static function notOk(): string
+    {
         return "\u{274C}";
     }
 }
