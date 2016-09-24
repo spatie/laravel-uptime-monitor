@@ -36,9 +36,7 @@ class CreateUptimeMonitor extends Command
             'look_for_string' => $lookForString ?? '',
         ]);
 
-        $this->warn("A new uptime monitor for {$uptimeMonitor} was created!");
-
-        $this->info("All done!");
+        $this->warn("A new uptime monitor for {$uptimeMonitor->url} was created!");
 
     }
 }
