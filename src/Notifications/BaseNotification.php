@@ -3,7 +3,6 @@
 namespace Spatie\UptimeMonitor\Notifications;
 
 use Illuminate\Notifications\Notification;
-use Spatie\UptimeMonitor\Models\UptimeMonitor;
 
 abstract class BaseNotification extends Notification
 {
@@ -18,5 +17,5 @@ abstract class BaseNotification extends Notification
         return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
     }
 
-    public abstract function isStillRelevant(): bool;
+    abstract public function isStillRelevant(): bool;
 }
