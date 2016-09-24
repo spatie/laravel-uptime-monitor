@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Services\PingMonitors;
 
-use Cache;
 use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;

@@ -4,7 +4,6 @@ namespace Spatie\UptimeMonitor\Notifications;
 
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Notifications\Notification;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
 use Spatie\UptimeMonitor\Notifications\Notifications\SiteDown;
@@ -22,7 +21,6 @@ class EventHandler
     public function subscribe(Dispatcher $events)
     {
         $events->listen($this->allUptimeMonitorEventClasses(), function ($event) {
-
             $notification = $this->determineNotification($event);
 
             if (! $notification) {
@@ -34,7 +32,6 @@ class EventHandler
 
                 $notifiable->notify($notification);
             }
-
         });
     }
 
