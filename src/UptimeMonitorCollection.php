@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Services\PingMonitors;
 
-use Spatie\UptimeMonitor\Models\PingMonitor;
 use Cache;
 use Generator;
 use GuzzleHttp\Client;
@@ -11,6 +10,7 @@ use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
 use Log;
 use Psr\Http\Message\ResponseInterface;
+use Spatie\UptimeMonitor\Models\UptimeMonitor;
 
 class UptimeMonitorCollection extends Collection
 {
@@ -18,7 +18,7 @@ class UptimeMonitorCollection extends Collection
     {
         $this->resetItemKeys();
 
-        Log::info("Start checking for {$this->count()} monitors...");
+        consoleOutput()->info("Start checking for {$this->count()} monitors...");
 
         (new EachPromise($this->getPromises(), [
             'concurrency' => 100,
@@ -71,7 +71,7 @@ class UptimeMonitorCollection extends Collection
         $this->items = $this->values()->all();
     }
 
-    public function log($message, PingMonitor $pingMonitor)
+    public function log($message, UptimeMonitor $pingMonitor)
     {
         Log::info("$message (url: {$pingMonitor->url} id: {$pingMonitor->id})");
     }

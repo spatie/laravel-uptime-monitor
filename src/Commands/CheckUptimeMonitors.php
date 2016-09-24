@@ -2,11 +2,10 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\UptimeMonitor;
 use Spatie\UptimeMonitor\Services\PingMonitors\UptimeMonitorCollection;
 
-class CheckUptimeMonitors extends Command
+class CheckUptimeMonitors extends BaseCommand
 {
     /**
      * The name and signature of the console command.

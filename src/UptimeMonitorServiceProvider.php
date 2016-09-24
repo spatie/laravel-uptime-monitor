@@ -45,5 +45,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             'command.uptime-monitor:delete',
             'command.uptime-monitor:list',
         ]);
+
+        $this->app->singleton(ConsoleOutput::class);
     }
 }

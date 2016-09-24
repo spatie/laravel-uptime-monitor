@@ -22,11 +22,16 @@ class EventHandler
     public function subscribe(Dispatcher $events)
     {
         $events->listen($this->allUptimeMonitorEventClasses(), function ($event) {
-            $notifiable = $this->determineNotifiable();
 
             $notification = $this->determineNotification($event);
 
+            if (! $notification) {
+                return;
+            }
+
             if ($notification->isStillRelevant()) {
+                $notifiable = $this->determineNotifiable();
+
                 $notifiable->notify($notification);
             }
 
@@ -40,7 +45,7 @@ class EventHandler
         return app($notifiableClass);
     }
 
-    protected function determineNotification($event): Notification
+    protected function determineNotification($event)
     {
         $eventName = class_basename($event);
 
@@ -55,11 +60,9 @@ class EventHandler
                 return $notificationName === $eventName;
             });
 
-        if (!$notificationClass) {
-            throw NotificationCouldNotBeSent::noNotifcationClassForEvent($event);
+        if ($notificationClass) {
+            return app($notificationClass)->setEvent($event);
         }
-
-        return app($notificationClass)->setEvent($event);
     }
 
     protected function allUptimeMonitorEventClasses(): array
