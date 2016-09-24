@@ -22,6 +22,5 @@ class ListUptimeMonitors extends Command
 
     public function handle()
     {
-
     }
 }
