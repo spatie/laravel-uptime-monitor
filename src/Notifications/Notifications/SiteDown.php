@@ -25,7 +25,7 @@ class SiteDown extends BaseNotification
         $mailMessage = (new MailMessage)
             ->error()
             ->subject("Site {$this->event->uptimeMonitor->url} is down.")
-            ->line("Site is down");
+            ->line('Site is down');
 
         return $mailMessage;
     }
@@ -35,7 +35,7 @@ class SiteDown extends BaseNotification
         return (new SlackMessage)
             ->error()
             ->content("Site {$this->event->uptimeMonitor->url} is down")
-            ->attachment(function(SlackAttachment $attachment) {
+            ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getUptimeMonitorProperties());
             });
     }

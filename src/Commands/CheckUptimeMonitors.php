@@ -23,7 +23,6 @@ class CheckUptimeMonitors extends BaseCommand
 
     public function handle()
     {
-
         $uptimeMonitors = UptimeMonitor::all()->filter(function (UptimeMonitor $uptimeMonitor) {
             return $uptimeMonitor->shouldCheck();
         });

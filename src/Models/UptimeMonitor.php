@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
-use UrlSigner;
 
 class UptimeMonitor extends Model
 {
@@ -28,7 +27,7 @@ class UptimeMonitor extends Model
         static::saving(function (UptimeMonitor $uptimeMonitor) {
             if ($uptimeMonitor->getOriginal('status') != $uptimeMonitor->status) {
                 $uptimeMonitor->last_status_change_on = Carbon::now();
-            };
+            }
         });
     }
 
@@ -51,7 +50,7 @@ class UptimeMonitor extends Model
 
     public function pingSucceeded($responseHtml)
     {
-        if (!$this->lookForStringPresentOnResponse($responseHtml)) {
+        if (! $this->lookForStringPresentOnResponse($responseHtml)) {
             $this->siteIsDown("String `{$this->look_for_string}` was not found on the response");
         }
 
@@ -95,10 +94,8 @@ class UptimeMonitor extends Model
         $this->save();
 
         if ($this->shouldFireDownEvent($previousStatus)) {
-
             event(new SiteDown($this));
         }
-
     }
 
     public function lookForStringPresentOnResponse(string $responseHtml = '') : bool
