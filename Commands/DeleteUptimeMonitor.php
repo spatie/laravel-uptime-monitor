@@ -1,15 +1,15 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Console\Commands;
+namespace Spatie\UptimeMonitor\Commands;
 
-class CreateUptimeMonitor extends Command
+class DeleteUptimeMonitor extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'uptime-monitor:create';
+    protected $signature = 'uptime-monitor:delete';
 
     /**
      * The console command description.
