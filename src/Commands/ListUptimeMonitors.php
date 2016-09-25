@@ -32,7 +32,6 @@ class ListUptimeMonitors extends Command
 
     public function listUnhealthySites()
     {
-
     }
 
     public function listHealthySites()
