@@ -18,11 +18,13 @@
     "require": {
         "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2",
-        "spatie/ssl-certificate": "^1.0.0",
         "illuminate/console": "^5.3.8",
         "illuminate/database": "^5.3.8",
         "illuminate/queue": "^5.3.8",
-        "illuminate/support": "^5.3.8"
+        "illuminate/support": "^5.3.8",
+        "myclabs/php-enum": "^1.4",
+        "spatie/ssl-certificate": "^1.0.0",
+        "spatie/url": "^0.3.0"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.5",

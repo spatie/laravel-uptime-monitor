@@ -3,7 +3,8 @@
 namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\UptimeMonitor\Commands\CheckUptimeMonitors;
+use Spatie\UptimeMonitor\Commands\CheckSslCertificates;
+use Spatie\UptimeMonitor\Commands\CheckUptime;
 use Spatie\UptimeMonitor\Commands\CreateUptimeMonitor;
 use Spatie\UptimeMonitor\Commands\DeleteUptimeMonitor;
 use Spatie\UptimeMonitor\Commands\ListUptimeMonitors;
@@ -35,13 +36,15 @@ class UptimeMonitorServiceProvider extends ServiceProvider
 
         $this->app['events']->subscribe(EventHandler::class);
 
-        $this->app->bind('command.uptime-monitor:check', CheckUptimeMonitors::class);
+        $this->app->bind('command.uptime-monitor:check-uptime', CheckUptime::class);
+        $this->app->bind('command.uptime-monitor:check-ssl', CheckSslCertificates::class);
         $this->app->bind('command.uptime-monitor:create', CreateUptimeMonitor::class);
         $this->app->bind('command.uptime-monitor:delete', DeleteUptimeMonitor::class);
         $this->app->bind('command.uptime-monitor:list', ListUptimeMonitors::class);
 
         $this->commands([
-            'command.uptime-monitor:check',
+            'command.uptime-monitor:check-uptime',
+            'command.uptime-monitor:check-ssl',
             'command.uptime-monitor:create',
             'command.uptime-monitor:delete',
             'command.uptime-monitor:list',

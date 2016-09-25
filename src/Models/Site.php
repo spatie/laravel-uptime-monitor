@@ -7,46 +7,54 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\Url\Url;
 use UrlSigner;
 
-class UptimeMonitor extends Model
+class Site extends Model
 {
-    const STATUS_UP = 'online';
-    const STATUS_DOWN = 'offline';
-    const STATUS_NEVER_CHECKED = 'never checked';
-
     protected $guarded = [];
 
     protected $dates = [
-        'last_checked_on',
-        'last_status_change_on',
+        'uptime_last_checked_on',
+        'last_uptime_status_change_on',
         'ssl_certificate_expiration_date',
     ];
 
+    public function scopeEnabled($query)
+    {
+        return $query->where('enabled', true);
+    }
+
+    public function getUrlAttribute()
+    {
+        return Url::fromString($this->attributes['url']);
+    }
+
     public static function boot()
     {
-        static::saving(function (UptimeMonitor $uptimeMonitor) {
-            if ($uptimeMonitor->getOriginal('status') != $uptimeMonitor->status) {
-                $uptimeMonitor->last_status_change_on = Carbon::now();
+        static::saving(function (Site $site) {
+            if ($site->getOriginal('status') != $site->status) {
+                $site->last_uptime_status_change_on = Carbon::now();
             };
         });
     }
 
-    public function shouldCheck() : bool
+    public function shouldCheckUptime() : bool
     {
         if (! $this->enabled) {
             return false;
         }
 
-        if ($this->status = static::STATUS_NEVER_CHECKED) {
+        if ($this->status = UptimeStatus::NOT_YET_CHECKED) {
             return true;
         }
 
-        if ($this->status === static::STATUS_DOWN) {
+        if ($this->status === UptimeStatus::DOWN) {
             return true;
         }
 
-        return $this->last_checked_on->diffInMinutes() >= $this->ping_every_minutes;
+        return $this->uptime_last_checked_on->diffInMinutes() >= $this->ping_every_minutes;
     }
 
     public function pingSucceeded($responseHtml)
@@ -65,13 +73,13 @@ class UptimeMonitor extends Model
 
     public function siteIsUp()
     {
-        $this->status = self::STATUS_UP;
+        $this->status = UptimeStatus::UP;
         $this->last_failure_reason = '';
 
         $wasFailing = $this->times_failed_in_a_row > 0;
 
         $this->times_failed_in_a_row = 0;
-        $this->last_checked_on = Carbon::now();
+        $this->uptime_last_checked_on = Carbon::now();
 
         $this->save();
 
@@ -84,11 +92,11 @@ class UptimeMonitor extends Model
     {
         $previousStatus = $this->status;
 
-        $this->status = static::STATUS_DOWN;
+        $this->status = UptimeStatus::DOWN;
 
         $this->times_failed_in_a_row++;
 
-        $this->last_checked_on = Carbon::now();
+        $this->uptime_last_checked_on = Carbon::now();
 
         $this->last_failure_reason = $reason;
 
@@ -117,7 +125,7 @@ class UptimeMonitor extends Model
 
     protected function shouldFireDownEvent($previousStatus): bool
     {
-        if ($previousStatus != static::STATUS_DOWN) {
+        if ($previousStatus != UptimeStatus::DOWN) {
             return true;
         }
 

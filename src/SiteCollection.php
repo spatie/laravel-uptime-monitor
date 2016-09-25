@@ -10,32 +10,29 @@ use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
 use Log;
 use Psr\Http\Message\ResponseInterface;
-use Spatie\UptimeMonitor\Models\UptimeMonitor;
 
-class UptimeMonitorCollection extends Collection
+class SiteCollection extends Collection
 {
-    public function check()
+    public function checkUptime()
     {
         $this->resetItemKeys();
-
-
 
         (new EachPromise($this->getPromises(), [
             'concurrency' => 100,
             'fulfilled' => function (ResponseInterface $response, $index) {
-                $uptimeMonitor = $this->items[$index];
+                $site = $this->items[$index];
 
-                consoleOutput()->info("Could reach {$uptimeMonitor->url}");
+                consoleOutput()->info("Could reach {$site->url}");
 
-                $uptimeMonitor->pingSucceeded($response->getBody());
+                $site->pingSucceeded($response->getBody());
             },
 
             'rejected' => function (RequestException $exception, $index) {
-                $uptimeMonitor = $this->items[$index];
+                $site = $this->items[$index];
 
-                consoleOutput()->error("Could not reach {$uptimeMonitor->url} error: `{$exception->getMessage()}`");
+                consoleOutput()->error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
 
-                $uptimeMonitor->pingFailed($exception->getMessage());
+                $site->pingFailed($exception->getMessage());
             },
         ]))->promise()->wait();
     }
@@ -48,12 +45,12 @@ class UptimeMonitorCollection extends Collection
             ],
         ]);
 
-        foreach ($this->items as $uptimeMonitor) {
-            consoleOutput()->info("checking {$uptimeMonitor->url}");
+        foreach ($this->items as $site) {
+            consoleOutput()->info("checking {$site->url}");
 
             $promise = $client->requestAsync(
-                $uptimeMonitor->getPingRequestMethod(),
-                $uptimeMonitor->url,
+                $site->getPingRequestMethod(),
+                $site->url,
                 ['connect_timeout' => 10]
             );
 

@@ -3,15 +3,15 @@
 namespace Spatie\UptimeMonitor\Events;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Spatie\UptimeMonitor\Models\UptimeMonitor;
+use Spatie\UptimeMonitor\Models\Site;
 
 class SiteDown implements ShouldQueue
 {
-    /** @var \Spatie\UptimeMonitor\Models\UptimeMonitor */
-    public $uptimeMonitor;
+    /** @var \Spatie\UptimeMonitor\Models\Site */
+    public $site;
 
-    public function __construct(UptimeMonitor $uptimeMonitor)
+    public function __construct(Site $site)
     {
-        $this->uptimeMonitor = $uptimeMonitor;
+        $this->uptimeMonitor = $site;
     }
 }

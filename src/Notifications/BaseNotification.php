@@ -19,18 +19,18 @@ abstract class BaseNotification extends Notification
 
     public function getUptimeMonitorProperties($extraProperties): array
     {
-        $uptimeMonitor = $this->event->uptimeMonitor;
+        $site = $this->event->uptimeMonitor;
 
-        $properties['url'] = $uptimeMonitor->url;
+        $properties['url'] = $site->url;
 
-        if (! empty($uptimeMonitor->look_for_string)) {
-            $properties['look for string'] = $uptimeMonitor->look_for_string;
+        if (! empty($site->look_for_string)) {
+            $properties['look for string'] = $site->look_for_string;
         }
 
         $properties = array_merge($properties, $extraProperties);
 
-        if ($uptimeMonitor->check_ssl_certificate) {
-            $properties['ssl certificate valid'] = $uptimeMonitor->ssl_certificate_valid ? 'yes' : 'no';
+        if ($site->check_ssl_certificate) {
+            $properties['ssl certificate valid'] = $site->ssl_certificate_valid ? 'yes' : 'no';
             $properties['ssl certificate expiration date'] = $properties->ssl_certificate_expiration_date->format('Y/m/d H:i:s');
         }
 

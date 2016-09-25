@@ -6,7 +6,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Spatie\UptimeMonitor\Events\SiteDown as SiteDownEvent;
-use Spatie\UptimeMonitor\Models\UptimeMonitor;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class SiteDown extends BaseNotification
@@ -43,7 +43,7 @@ class SiteDown extends BaseNotification
     public function getUptimeMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'offline since' => $this->event->uptimeMonitor->last_status_change_on->diffForHumans(),
+            'offline since' => $this->event->uptimeMonitor->last_uptime_status_change_on->diffForHumans(),
         ];
 
         return parent::getUptimeMonitorProperties($extraProperties);
@@ -51,7 +51,7 @@ class SiteDown extends BaseNotification
 
     public function isStillRelevant(): bool
     {
-        return $this->event->uptimeMonitor->status == UptimeMonitor::STATUS_DOWN;
+        return $this->event->uptimeMonitor->status == UptimeStatus::DOWN;
     }
 
     public function setEvent(SiteDownEvent $event)

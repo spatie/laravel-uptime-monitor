@@ -33,8 +33,8 @@ php artisan vendor:publish --provider="Spatie\UptimeMonitor\UptimeMonitorService
 ## Usage
 
 ``` php
-$UptimeMonitor = new Spatie\UptimeMonitor();
-echo $UptimeMonitor->echoPhrase('Hello, Spatie!');
+$site = new Spatie\UptimeMonitor();
+echo $site->echoPhrase('Hello, Spatie!');
 ```
 
 ## Changelog

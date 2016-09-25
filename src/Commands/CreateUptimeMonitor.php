@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\UptimeMonitor\Models\UptimeMonitor;
+use Spatie\UptimeMonitor\Models\Site;
 
 class CreateUptimeMonitor extends Command
 {
@@ -31,12 +31,12 @@ class CreateUptimeMonitor extends Command
             $lookForString = $this->ask("Which string?");
         }
 
-        $uptimeMonitor = UptimeMonitor::create([
+        $site = Site::create([
             'url' => $url,
             'look_for_string' => $lookForString ?? '',
         ]);
 
-        $this->warn("A new uptime monitor for {$uptimeMonitor->url} was created!");
+        $this->warn("A new uptime monitor for {$site->url} was created!");
 
     }
 }

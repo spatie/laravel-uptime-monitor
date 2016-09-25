@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\UptimeMonitor\Models\UptimeMonitor;
+use Spatie\UptimeMonitor\Models\Site;
 
 class DeleteUptimeMonitor extends Command
 {
@@ -27,16 +27,16 @@ class DeleteUptimeMonitor extends Command
 
         $url = $this->ask("Specify the url of the uptime monitor that should be deleted");
 
-        $uptimeMonitor = UptimeMonitor::where('url', $url)->first();
+        $site = Site::where('url', $url)->first();
 
-        if (! $uptimeMonitor) {
+        if (! $site) {
             $this->error("There is no uptime monitor for url {$url}");
 
             return;
         }
 
-        if ($this->confirm("Are you sure you want to delete the uptime monitor for {$uptimeMonitor->url}?")) {
-            $uptimeMonitor->delete();
+        if ($this->confirm("Are you sure you want to delete the uptime monitor for {$site->url}?")) {
+            $site->delete();
 
             $this->warn("Uptime monitor {$url} deleted!");
         }
