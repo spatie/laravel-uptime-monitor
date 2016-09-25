@@ -4,7 +4,6 @@ namespace Spatie\UptimeMonitor\Commands;
 
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\Services\PingMonitors\UptimeMonitorCollection;
 use Spatie\UptimeMonitor\SiteRepository;
 
 class CheckSslCertificates extends BaseCommand
@@ -29,7 +28,7 @@ class CheckSslCertificates extends BaseCommand
 
         $this->comment('Start checking the ssl certificate of '.count($sites).' sites...');
 
-        SiteRepository::getAllForSslCheck()->each(function(Site $site) {
+        SiteRepository::getAllForSslCheck()->each(function (Site $site) {
             $this->info("Checking ssl-certificate of {$site->url}");
 
             $certificate = SslCertificate::createForHostName($site->url->getHost());
