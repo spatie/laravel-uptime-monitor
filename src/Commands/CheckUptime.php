@@ -2,9 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\Services\PingMonitors\UptimeChecker;
-use Spatie\UptimeMonitor\Services\PingMonitors\UptimeMonitorCollection;
 use Spatie\UptimeMonitor\SiteRepository;
 
 class CheckUptime extends BaseCommand

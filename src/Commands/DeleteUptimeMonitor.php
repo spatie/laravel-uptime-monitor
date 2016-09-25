@@ -25,7 +25,7 @@ class DeleteUptimeMonitor extends Command
     {
         $this->warn("Let's create your new uptime monitor!");
 
-        $url = $this->ask("Specify the url of the uptime monitor that should be deleted");
+        $url = $this->ask('Specify the url of the uptime monitor that should be deleted');
 
         $site = Site::where('url', $url)->first();
 
