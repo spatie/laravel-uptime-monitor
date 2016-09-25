@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
+use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\Url\Url;
 use UrlSigner;
@@ -46,11 +47,11 @@ class Site extends Model
             return false;
         }
 
-        if ($this->status = UptimeStatus::NOT_YET_CHECKED) {
+        if ($this->uptime_status = UptimeStatus::NOT_YET_CHECKED) {
             return true;
         }
 
-        if ($this->status === UptimeStatus::DOWN) {
+        if ($this->uptime_status === UptimeStatus::DOWN) {
             return true;
         }
 
@@ -73,7 +74,7 @@ class Site extends Model
 
     public function siteIsUp()
     {
-        $this->status = UptimeStatus::UP;
+        $this->uptime_status = UptimeStatus::UP;
         $this->last_failure_reason = '';
 
         $wasFailing = $this->times_failed_in_a_row > 0;
@@ -90,9 +91,9 @@ class Site extends Model
 
     public function siteIsDown(string $reason)
     {
-        $previousStatus = $this->status;
+        $previousStatus = $this->uptime_status;
 
-        $this->status = UptimeStatus::DOWN;
+        $this->uptime_status = UptimeStatus::DOWN;
 
         $this->times_failed_in_a_row++;
 
@@ -134,5 +135,19 @@ class Site extends Model
         }
 
         return false;
+    }
+
+    public function isHealthy()
+    {
+        if (in_array($this->uptime_status, [UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED])) {
+
+            return false;
+        }
+
+        if ($this->check_ssl_certificate && $this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+            return false;
+        }
+
+        return true;
     }
 }

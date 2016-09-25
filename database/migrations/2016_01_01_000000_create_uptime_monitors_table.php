@@ -27,6 +27,7 @@ class CreateSitesTable extends Migration
             $table->boolean('check_ssl_certificate')->default(false);
             $table->string('ssl_certificate_status')->default(SslCertificateStatus::NOT_YET_CHECKED);
             $table->timestamp('ssl_certificate_expiration_date')->nullable();
+            $table->string('ssl_certificate_issuer')->nullable();
             $table->timestamps();
         });
     }

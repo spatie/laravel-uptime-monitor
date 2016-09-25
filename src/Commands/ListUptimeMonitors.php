@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\SiteRepository;
 
 class ListUptimeMonitors extends Command
 {
@@ -25,15 +26,39 @@ class ListUptimeMonitors extends Command
 
     public function handle()
     {
-        $rows = Site::all()->map(function (Site $site) {
+        $this->listUnhealthySites();
+        $this->listHealthySites();
+    }
+
+    public function listUnhealthySites()
+    {
+
+    }
+
+    public function listHealthySites()
+    {
+        $this->info('Healthy sites');
+        $this->info('============');
+
+        $rows = SiteRepository::healthySites()->map(function (Site $site) {
             $url = $site->url;
 
-            $reachable = $site->status === UptimeStatus::UP ? Emoji::ok() : Emoji::notOk();
+            $reachable = ($site->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
 
-            return compact('url', 'reachable');
+            $onlineSince = $site->last_uptime_status_change_on->diffForHumans();
+
+            if ($site->check_ssl_certificate) {
+                $sslCertificateFound = Emoji::ok();
+                $sslCertificateExpirationDate = $site->ssl_certificate_expiration_date->diffForHumans();
+                $sslCertificateIssuer = $site->ssl_certificate_issuer;
+            }
+
+
+
+            return compact('url', 'reachable', 'onlineSince', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
         });
 
-        $titles = ['URL', 'Reachable'];
+        $titles = ['URL', 'Reachable', 'Online since', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
 
         $this->table($titles, $rows);
     }
