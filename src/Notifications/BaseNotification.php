@@ -37,5 +37,5 @@ abstract class BaseNotification extends Notification
         return $properties;
     }
 
-    public abstract function isStillRelevant(): bool;
+    abstract public function isStillRelevant(): bool;
 }
