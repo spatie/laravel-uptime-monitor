@@ -25,7 +25,7 @@ class SiteUp extends BaseNotification
         $mailMessage = (new MailMessage)
             ->success()
             ->subject("Site {$this->event->uptimeMonitor->url} is up.")
-            ->line("Site is up");
+            ->line('Site is up');
 
         return $mailMessage;
     }
@@ -35,7 +35,7 @@ class SiteUp extends BaseNotification
         return (new SlackMessage)
             ->success()
             ->content("Site {$this->event->uptimeMonitor->url} is up")
-            ->attachment(function(SlackAttachment $attachment) {
+            ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getUptimeMonitorProperties());
             });
     }
