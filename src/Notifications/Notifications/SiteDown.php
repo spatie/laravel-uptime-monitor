@@ -51,7 +51,7 @@ class SiteDown extends BaseNotification
 
     public function isStillRelevant(): bool
     {
-        return $this->event->uptimeMonitor->status == UptimeStatus::DOWN;
+        return $this->event->uptimeMonitor->uptime_status == UptimeStatus::DOWN;
     }
 
     public function setEvent(SiteDownEvent $event)

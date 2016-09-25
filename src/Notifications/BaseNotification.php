@@ -21,7 +21,7 @@ abstract class BaseNotification extends Notification
     {
         $site = $this->event->uptimeMonitor;
 
-        $properties['url'] = $site->url;
+        $properties['url'] = (string)$site->url;
 
         if (! empty($site->look_for_string)) {
             $properties['look for string'] = $site->look_for_string;
@@ -30,8 +30,8 @@ abstract class BaseNotification extends Notification
         $properties = array_merge($properties, $extraProperties);
 
         if ($site->check_ssl_certificate) {
-            $properties['ssl certificate valid'] = $site->ssl_certificate_valid ? 'yes' : 'no';
-            $properties['ssl certificate expiration date'] = $properties->ssl_certificate_expiration_date->format('Y/m/d H:i:s');
+            $properties['ssl certificate valid'] = $site->ssl_certificate_status;
+            $properties['ssl certificate expiration date'] = $site->ssl_certificate_expiration_date->diffForHumans();
         }
 
         return $properties;

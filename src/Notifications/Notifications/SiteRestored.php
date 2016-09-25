@@ -52,7 +52,7 @@ class SiteRestored extends BaseNotification
 
     public function isStillRelevant(): bool
     {
-        return $this->event->uptimeMonitor->status == UptimeStatus::UP;
+        return $this->event->uptimeMonitor->uptime_status == UptimeStatus::UP;
     }
 
     public function setEvent(SiteUpEvent $event)
