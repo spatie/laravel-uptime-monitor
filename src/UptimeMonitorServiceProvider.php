@@ -19,10 +19,10 @@ class UptimeMonitorServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../config/laravel-uptime-monitor.php' => config_path('laravel-uptime-monitor.php'),
+                __DIR__.'/../config/laravel-uptime-monitor.php' => config_path('laravel-uptime-monitor.php'),
             ], 'config');
         }
     }
