@@ -39,6 +39,6 @@ class CreateSitesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ping_monitors');
+        Schema::drop('sites');
     }
 }
