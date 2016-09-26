@@ -5,9 +5,8 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SiteUp as SiteUpEvent;
+use Spatie\UptimeMonitor\Events\SiteRestored as SiteRestoredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class SiteRestored extends BaseNotification
@@ -55,7 +54,7 @@ class SiteRestored extends BaseNotification
         return $this->event->uptimeMonitor->uptime_status == UptimeStatus::UP;
     }
 
-    public function setEvent(SiteUpEvent $event)
+    public function setEvent(SiteRestoredEvent $event)
     {
         $this->event = $event;
 

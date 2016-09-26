@@ -26,21 +26,81 @@ class ListUptimeMonitors extends Command
 
     public function handle()
     {
-        $this->listUnhealthySites();
+        $this->listSitesThatAreDown();
+        $this->listSitesWithSslProblems();
         $this->listHealthySites();
     }
 
-    public function listUnhealthySites()
+    public function listSitesThatAreDown()
     {
+        $downSites = SiteRepository::downSites();
+
+        if (!$downSites->count()) {
+            return;
+        }
+
+        $this->info('Sites that are down');
+        $this->info('===================');
+
+        $rows = $downSites->map(function (Site $site) {
+            $url = $site->url;
+
+            $reachable = ($site->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
+
+            $offlineSince = $site->last_uptime_status_change_on->diffForHumans();
+
+            $reason = $site->last_failure_reason != '' ?chunk_split($site->last_failure_reason, 15, "\n") : '';
+
+            if ($site->check_ssl_certificate) {
+                $sslCertificateFound = Emoji::ok();
+                $sslCertificateExpirationDate = $site->ssl_certificate_expiration_date->diffForHumans();
+                $sslCertificateIssuer = $site->ssl_certificate_issuer;
+            }
+
+            return compact('url', 'reachable', 'offlineSince', 'reason',  'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+        });
+
+        $titles = ['URL', 'Reachable', 'Offine since', 'Reason', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
+
+        $this->table($titles, $rows);
+    }
+
+    protected function listSitesWithSslProblems()
+    {
+        $sitesWithSslProblems = SiteRepository::withSslProblems();
+
+        if (!$sitesWithSslProblems->count()) {
+            return;
+        }
+
+        $rows = $sitesWithSslProblems->map(function (Site $site) {
+            $url = $site->url;
+
+            $reachable = ($site->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
+
+            $sslCertificateFound = Emoji::notOk();
+            $sslCertificateExpirationDate = $site->ssl_certificate_expiration_date ? $site->ssl_certificate_expiration_date->diffForHumans() : '';
+            $sslCertificateIssuer = $site->ssl_certificate_issuer ?? 'Unknown';
+
+
+            return compact('url', 'reachable', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+        });
+
 
     }
 
     public function listHealthySites()
     {
+        $healthySites = SiteRepository::healthySites();
+
+        if (!$healthySites->count()) {
+            return;
+        }
+
         $this->info('Healthy sites');
         $this->info('============');
 
-        $rows = SiteRepository::healthySites()->map(function (Site $site) {
+        $rows = $healthySites->map(function (Site $site) {
             $url = $site->url;
 
             $reachable = ($site->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
@@ -54,7 +114,6 @@ class ListUptimeMonitors extends Command
             }
 
 
-
             return compact('url', 'reachable', 'onlineSince', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
         });
 
@@ -62,4 +121,6 @@ class ListUptimeMonitors extends Command
 
         $this->table($titles, $rows);
     }
+
+
 }

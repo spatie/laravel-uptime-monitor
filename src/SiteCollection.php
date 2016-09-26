@@ -54,6 +54,8 @@ class SiteCollection extends Collection
                 ['connect_timeout' => 10]
             );
 
+            //    ['connect_timeout' => 10, 'curl' => [CURLOPT_SSLVERSION =>CURL_SSLVERSION_SSLv3]]
+
             yield $promise;
         }
     }

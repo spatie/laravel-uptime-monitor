@@ -3,6 +3,8 @@
 namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\Collection;
+use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\Services\PingMonitors\SiteCollection;
 
@@ -33,17 +35,37 @@ class SiteRepository
         return Site::enabled()
             ->orderBy('url')
             ->get()
-            ->filter(function(Site $site) {
-               return $site->isHealthy();
+            ->filter(function (Site $site) {
+                return $site->isHealthy();
             });
     }
 
-    public function unhealthySites(): Collection
+    public static function downSites()
     {
         return Site::enabled()
             ->orderBy('url')
             ->get()
-            ->reject(function(Site $site) {
+            ->filter(function (Site $site) {
+                return $site->uptime_status == UptimeStatus::DOWN;
+            });
+    }
+
+    public static function withSslProblems()
+    {
+        return Site::enabled()
+            ->orderBy('url')
+            ->get()
+            ->filter(function (Site $site) {
+                return $site->ssl_certificate_status == SslCertificateStatus::INVALID;
+            });
+    }
+
+    public static function unhealthySites(): Collection
+    {
+        return Site::enabled()
+            ->orderBy('url')
+            ->get()
+            ->reject(function (Site $site) {
                 return $site->isHealthy();
             });
     }
