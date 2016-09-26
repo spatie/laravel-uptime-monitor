@@ -10,7 +10,6 @@ use Spatie\UptimeMonitor\Events\SiteUp;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\Url\Url;
-use UrlSigner;
 
 class Site extends Model
 {
@@ -37,7 +36,7 @@ class Site extends Model
         static::saving(function (Site $site) {
             if ($site->getOriginal('status') != $site->status) {
                 $site->last_uptime_status_change_on = Carbon::now();
-            };
+            }
         });
     }
 
@@ -60,7 +59,7 @@ class Site extends Model
 
     public function pingSucceeded($responseHtml)
     {
-        if (!$this->lookForStringPresentOnResponse($responseHtml)) {
+        if (! $this->lookForStringPresentOnResponse($responseHtml)) {
             $this->siteIsDown("String `{$this->look_for_string}` was not found on the response");
         }
 
@@ -104,10 +103,8 @@ class Site extends Model
         $this->save();
 
         if ($this->shouldFireDownEvent($previousStatus)) {
-
             event(new SiteDown($this));
         }
-
     }
 
     public function lookForStringPresentOnResponse(string $responseHtml = '') : bool
@@ -140,7 +137,6 @@ class Site extends Model
     public function isHealthy()
     {
         if (in_array($this->uptime_status, [UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED])) {
-
             return false;
         }
 

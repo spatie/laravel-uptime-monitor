@@ -28,7 +28,7 @@ class CreateUptimeMonitor extends Command
         $url = $this->ask("Which url to you want to monitor? Should start with either 'http://' or 'https://'");
 
         if ($this->confirm('Should we look for a specific string on the response?')) {
-            $lookForString = $this->ask("Which string?");
+            $lookForString = $this->ask('Which string?');
         }
 
         $site = Site::create([
@@ -37,6 +37,5 @@ class CreateUptimeMonitor extends Command
         ]);
 
         $this->warn("A new uptime monitor for {$site->url} was created!");
-
     }
 }

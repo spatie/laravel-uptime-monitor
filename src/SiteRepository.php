@@ -33,8 +33,8 @@ class SiteRepository
         return Site::enabled()
             ->orderBy('url')
             ->get()
-            ->filter(function(Site $site) {
-               return $site->isHealthy();
+            ->filter(function (Site $site) {
+                return $site->isHealthy();
             });
     }
 
@@ -43,7 +43,7 @@ class SiteRepository
         return Site::enabled()
             ->orderBy('url')
             ->get()
-            ->reject(function(Site $site) {
+            ->reject(function (Site $site) {
                 return $site->isHealthy();
             });
     }
