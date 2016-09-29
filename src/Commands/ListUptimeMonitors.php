@@ -35,7 +35,7 @@ class ListUptimeMonitors extends Command
     {
         $downSites = SiteRepository::downSites();
 
-        if (!$downSites->count()) {
+        if (! $downSites->count()) {
             return;
         }
 
@@ -49,7 +49,7 @@ class ListUptimeMonitors extends Command
 
             $offlineSince = $site->last_uptime_status_change_on->diffForHumans();
 
-            $reason = $site->last_failure_reason != '' ?chunk_split($site->last_failure_reason, 15, "\n") : '';
+            $reason = $site->last_failure_reason != '' ? chunk_split($site->last_failure_reason, 15, "\n") : '';
 
             if ($site->check_ssl_certificate) {
                 $sslCertificateFound = Emoji::ok();
@@ -57,7 +57,7 @@ class ListUptimeMonitors extends Command
                 $sslCertificateIssuer = $site->ssl_certificate_issuer;
             }
 
-            return compact('url', 'reachable', 'offlineSince', 'reason',  'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+            return compact('url', 'reachable', 'offlineSince', 'reason', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
         });
 
         $titles = ['URL', 'Reachable', 'Offine since', 'Reason', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
@@ -69,7 +69,7 @@ class ListUptimeMonitors extends Command
     {
         $sitesWithSslProblems = SiteRepository::withSslProblems();
 
-        if (!$sitesWithSslProblems->count()) {
+        if (! $sitesWithSslProblems->count()) {
             return;
         }
 
@@ -85,15 +85,13 @@ class ListUptimeMonitors extends Command
 
             return compact('url', 'reachable', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
         });
-
-
     }
 
     public function listHealthySites()
     {
         $healthySites = SiteRepository::healthySites();
 
-        if (!$healthySites->count()) {
+        if (! $healthySites->count()) {
             return;
         }
 
@@ -121,6 +119,4 @@ class ListUptimeMonitors extends Command
 
         $this->table($titles, $rows);
     }
-
-
 }
