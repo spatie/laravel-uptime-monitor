@@ -2,13 +2,11 @@
 
 namespace Spatie\UptimeMonitor\Services\PingMonitors;
 
-use Cache;
 use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
-use Log;
 use Psr\Http\Message\ResponseInterface;
 
 class SiteCollection extends Collection
