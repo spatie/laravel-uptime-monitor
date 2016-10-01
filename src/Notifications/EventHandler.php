@@ -21,7 +21,6 @@ class EventHandler
     public function subscribe(Dispatcher $events)
     {
         $events->listen($this->allUptimeMonitorEventClasses(), function ($event) {
-
             $notification = $this->determineNotification($event);
 
             if (! $notification) {
@@ -33,7 +32,6 @@ class EventHandler
 
                 $notifiable->notify($notification);
             }
-
         });
     }
 

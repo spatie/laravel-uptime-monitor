@@ -25,7 +25,7 @@ class SiteRestored extends BaseNotification
         $mailMessage = (new MailMessage)
             ->success()
             ->subject("Site {$this->event->uptimeMonitor->url} has been restored.")
-            ->line("Site has been restored");
+            ->line('Site has been restored');
 
         return $mailMessage;
     }
@@ -35,9 +35,9 @@ class SiteRestored extends BaseNotification
         return (new SlackMessage)
             ->success()
             ->content("Site {$this->event->uptimeMonitor->url} has been restored")
-            ->attachment(function(SlackAttachment $attachment) {
+            ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getUptimeMonitorProperties());
-            });;
+            });
     }
 
     public function getUptimeMonitorProperties($extraProperties = []): array

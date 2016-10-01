@@ -21,7 +21,7 @@ abstract class BaseNotification extends Notification
     {
         $site = $this->event->uptimeMonitor;
 
-        $properties['url'] = (string)$site->url;
+        $properties['url'] = (string) $site->url;
 
         if (! empty($site->look_for_string)) {
             $properties['look for string'] = $site->look_for_string;
@@ -37,5 +37,5 @@ abstract class BaseNotification extends Notification
         return $properties;
     }
 
-    public abstract function isStillRelevant(): bool;
+    abstract public function isStillRelevant(): bool;
 }
