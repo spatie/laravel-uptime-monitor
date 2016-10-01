@@ -1,3 +1,7 @@
+# DO NOT USE (yet)
+
+This code is pre-alpha quality. Unless you want to be bitten by a thousand bugs, refrain from using it.
+
 # A powerful, easy to configure uptime monitor
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-uptime-monitor.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-uptime-monitor)
