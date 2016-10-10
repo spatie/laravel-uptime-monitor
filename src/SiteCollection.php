@@ -20,7 +20,7 @@ class SiteCollection extends Collection
             'fulfilled' => function (ResponseInterface $response, $index) {
                 $site = $this->items[$index];
 
-                consoleOutput()->info("Could reach {$site->url}");
+                uptimeMonitorConsoleOutput()->info("Could reach {$site->url}");
 
                 $site->pingSucceeded($response->getBody());
             },
@@ -28,7 +28,7 @@ class SiteCollection extends Collection
             'rejected' => function (RequestException $exception, $index) {
                 $site = $this->items[$index];
 
-                consoleOutput()->error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
+                uptimeMonitorConsoleOutput()->error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
 
                 $site->pingFailed($exception->getMessage());
             },
@@ -44,7 +44,7 @@ class SiteCollection extends Collection
         ]);
 
         foreach ($this->items as $site) {
-            consoleOutput()->info("checking {$site->url}");
+            uptimeMonitorConsoleOutput()->info("checking {$site->url}");
 
             $promise = $client->requestAsync(
                 $site->getPingRequestMethod(),

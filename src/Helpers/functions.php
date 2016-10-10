@@ -2,7 +2,7 @@
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 
-function consoleOutput(): ConsoleOutput
+function uptimeMonitorConsoleOutput(): ConsoleOutput
 {
     return app(ConsoleOutput::class);
 }
