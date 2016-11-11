@@ -26,8 +26,7 @@ class CheckSslCertificates extends BaseCommand
                 $certificate = SslCertificate::createForHostName($site->url->getHost());
 
                 $site->updateWithCertificate($certificate);
-            }
-            catch(CouldNotDownloadCertificate $exception) {
+            } catch (CouldNotDownloadCertificate $exception) {
                 $this->error("Could not download certifcate of {$site->url} because: {$exception->getMessage()}");
                 $site->updateWithCertificateException($exception);
             }
