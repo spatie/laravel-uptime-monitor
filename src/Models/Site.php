@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Models;
 
+use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\SiteDown;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -145,5 +146,27 @@ class Site extends Model
         }
 
         return true;
+    }
+
+    public function updateWithCertificate(SslCertificate $certificate)
+    {
+        $this->ssl_certificate_status = $certificate->isValid()
+            ? SslCertificateStatus::VALID
+            : SslCertificateStatus::INVALID;
+
+        $this->ssl_certificate_expiration_date = $certificate->expirationDate();
+
+        $this->ssl_certificate_issuer = $certificate->getIssuer();
+
+        $this->save();
+    }
+
+    public function updateWithCertifcateException($exception)
+    {
+        $this->ssl_certificate_status = SslCertificateStatus::INVALID;
+        $this->ssl_certificate_expiration_date = null;
+        $this->ssl_certificate_issuer = '';
+
+        $this->save();
     }
 }
