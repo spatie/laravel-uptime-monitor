@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Events;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\UptimeMonitor\Models\Site;
 
-class SiteRestored implements ShouldQueue
+class InvalidSslCertificateFound implements ShouldQueue
 {
     /** @var \Spatie\UptimeMonitor\Models\Site */
     public $site;

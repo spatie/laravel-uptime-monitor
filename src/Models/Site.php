@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Models;
 
 use Spatie\SslCertificate\SslCertificate;
+use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\SiteDown;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -10,10 +11,13 @@ use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Presenters\SitePresenter;
 use Spatie\Url\Url;
 
 class Site extends Model
 {
+    use SitePresenter;
+
     protected $guarded = [];
 
     protected $dates = [
@@ -159,14 +163,18 @@ class Site extends Model
         $this->ssl_certificate_issuer = $certificate->getIssuer();
 
         $this->save();
+
+        event(new ValidSslCertificateFound($this));
     }
 
-    public function updateWithCertifcateException($exception)
+    public function updateWithCertificateException($exception)
     {
         $this->ssl_certificate_status = SslCertificateStatus::INVALID;
         $this->ssl_certificate_expiration_date = null;
         $this->ssl_certificate_issuer = '';
 
         $this->save();
+
+        event(new InvalidSslCertificateFound($this));
     }
 }

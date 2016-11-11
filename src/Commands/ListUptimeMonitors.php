@@ -45,22 +45,22 @@ class ListUptimeMonitors extends Command
         $rows = $downSites->map(function (Site $site) {
             $url = $site->url;
 
-            $reachable = ($site->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
+            $reachable = $site->reachableAsEmoji;
 
-            $offlineSince = $site->last_uptime_status_change_on->diffForHumans();
+            $offlineSince = $site->formattedLastUpdatedStatusChangeDate;
 
-            $reason = $site->last_failure_reason != '' ? chunk_split($site->last_failure_reason, 15, "\n") : '';
+            $reason = $site->chunkedLastFailureReason;
 
             if ($site->check_ssl_certificate) {
                 $sslCertificateFound = Emoji::ok();
-                $sslCertificateExpirationDate = $site->ssl_certificate_expiration_date->diffForHumans();
+                $sslCertificateExpirationDate = $site->formattedSslCertificateExpirationDate;
                 $sslCertificateIssuer = $site->ssl_certificate_issuer;
             }
 
             return compact('url', 'reachable', 'offlineSince', 'reason', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
         });
 
-        $titles = ['URL', 'Reachable', 'Offine since', 'Reason', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
+        $titles = ['URL', 'Reachable', 'Offline since', 'Reason', 'SSL Certificate', 'SSL Expiration date', 'SSL Issuer'];
 
         $this->table($titles, $rows);
     }
@@ -76,10 +76,10 @@ class ListUptimeMonitors extends Command
         $rows = $sitesWithSslProblems->map(function (Site $site) {
             $url = $site->url;
 
-            $reachable = ($site->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
+            $reachable = $site->reachableAsEmoji;
 
             $sslCertificateFound = Emoji::notOk();
-            $sslCertificateExpirationDate = $site->ssl_certificate_expiration_date ? $site->ssl_certificate_expiration_date->diffForHumans() : '';
+            $sslCertificateExpirationDate = $site->formattedSslCertificateExpirationDate;
             $sslCertificateIssuer = $site->ssl_certificate_issuer ?? 'Unknown';
 
 
@@ -101,13 +101,13 @@ class ListUptimeMonitors extends Command
         $rows = $healthySites->map(function (Site $site) {
             $url = $site->url;
 
-            $reachable = ($site->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
+            $reachable = $site->reachableAsEmoji;
 
-            $onlineSince = $site->last_uptime_status_change_on->diffForHumans();
+            $onlineSince = $site->formattedLastUpdatedStatusChangeDate;
 
             if ($site->check_ssl_certificate) {
                 $sslCertificateFound = Emoji::ok();
-                $sslCertificateExpirationDate = $site->ssl_certificate_expiration_date->diffForHumans();
+                $sslCertificateExpirationDate = $site->formattedSslCertificateExpirationDate;
                 $sslCertificateIssuer = $site->ssl_certificate_issuer;
             }
 

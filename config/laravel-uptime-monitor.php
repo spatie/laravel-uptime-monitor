@@ -14,7 +14,10 @@ return [
         'notifications' => [
             \Spatie\UptimeMonitor\Notifications\Notifications\SiteDown::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => [],
+
+            \Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => [],
         ],
 
         /*
@@ -32,7 +35,9 @@ return [
         ],
     ],
 
-    'queue_name' => 'default',
-
+    /*
+     * The package will keep reminding you that a site is down by keeping sending you a notifications
+     * after this amount of minutes.
+     */
     'resend_down_notification_every_minutes' => 60,
 ];

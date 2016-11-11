@@ -12,6 +12,6 @@ class SiteDown implements ShouldQueue
 
     public function __construct(Site $site)
     {
-        $this->uptimeMonitor = $site;
+        $this->site = $site;
     }
 }

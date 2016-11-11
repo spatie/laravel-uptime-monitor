@@ -40,7 +40,7 @@ class CheckSslCertificates extends BaseCommand
             }
             catch(CouldNotDownloadCertificate $exception) {
                 $this->error("Could not download certifcate of {$site->url} because: {$exception->getMessage()}");
-                $site->updateWithCertifcateException($exception);
+                $site->updateWithCertificateException($exception);
             }
         });
 
