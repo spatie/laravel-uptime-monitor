@@ -19,7 +19,7 @@ abstract class BaseNotification extends Notification
 
     public function getUptimeMonitorProperties($extraProperties): array
     {
-        $site = $this->event->uptimeMonitor;
+        $site = $this->event->site;
 
         $properties['url'] = (string) $site->url;
 
@@ -31,7 +31,7 @@ abstract class BaseNotification extends Notification
 
         if ($site->check_ssl_certificate) {
             $properties['ssl certificate valid'] = $site->ssl_certificate_status;
-            $properties['ssl certificate expiration date'] = $site->ssl_certificate_expiration_date->diffForHumans();
+            $properties['ssl certificate expiration date'] = $site->formattedSslCertificateExpirationDate;
         }
 
         return $properties;

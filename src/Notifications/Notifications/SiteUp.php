@@ -24,7 +24,7 @@ class SiteUp extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Site {$this->event->uptimeMonitor->url} is up.")
+            ->subject("Site {$this->event->site->url} is up.")
             ->line('Site is up');
 
         return $mailMessage;
@@ -34,7 +34,7 @@ class SiteUp extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->uptimeMonitor->url} is up")
+            ->content("Site {$this->event->site->url} is up")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getUptimeMonitorProperties());
             });
@@ -42,13 +42,13 @@ class SiteUp extends BaseNotification
 
     public function isStillRelevant(): bool
     {
-        return $this->event->uptimeMonitor->uptime_status == UptimeStatus::UP;
+        return $this->event->site->uptime_status == UptimeStatus::UP;
     }
 
     public function getUptimeMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'online since' => $this->event->uptimeMonitor->last_uptime_status_change_on->diffForHumans(),
+            'online since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
         ];
 
         return parent::getUptimeMonitorProperties($extraProperties);

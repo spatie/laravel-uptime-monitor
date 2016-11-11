@@ -7,6 +7,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
 use Spatie\UptimeMonitor\Events\SiteDown;
+use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
 
 class EventHandler
 {
@@ -68,6 +69,7 @@ class EventHandler
             SiteDown::class,
             SiteUp::class,
             SiteRestored::class,
+            ValidSslCertificateFound::class,
         ];
     }
 }
