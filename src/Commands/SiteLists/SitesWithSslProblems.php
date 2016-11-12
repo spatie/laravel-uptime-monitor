@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Commands\UptimeMonitorLists;
+namespace Spatie\UptimeMonitor\Commands\SiteLists;
 
 use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;

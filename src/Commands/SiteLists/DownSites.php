@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Commands\UptimeMonitorLists;
+namespace Spatie\UptimeMonitor\Commands\SiteLists;
 
 use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
-class HealthySites
+class DownSites
 {
     protected $output;
 
@@ -18,21 +18,23 @@ class HealthySites
 
     public function display()
     {
-        $healthySites = SiteRepository::healthySites();
+        $downSites = SiteRepository::downSites();
 
-        if (! $healthySites->count()) {
+        if (! $downSites->count()) {
             return;
         }
 
-        $this->output->info('Healthy sites');
-        $this->output->info('============');
+        $this->output->info('Sites that are down');
+        $this->output->info('===================');
 
-        $rows = $healthySites->map(function (Site $site) {
+        $rows = $downSites->map(function (Site $site) {
             $url = $site->url;
 
             $reachable = $site->reachableAsEmoji;
 
-            $onlineSince = $site->formattedLastUpdatedStatusChangeDate;
+            $offlineSince = $site->formattedLastUpdatedStatusChangeDate;
+
+            $reason = $site->chunkedLastFailureReason;
 
             if ($site->check_ssl_certificate) {
                 $sslCertificateFound = Emoji::ok();
@@ -40,11 +42,10 @@ class HealthySites
                 $sslCertificateIssuer = $site->ssl_certificate_issuer;
             }
 
-
-            return compact('url', 'reachable', 'onlineSince', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+            return compact('url', 'reachable', 'offlineSince', 'reason', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
         });
 
-        $titles = ['URL', 'Reachable', 'Online since', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
+        $titles = ['URL', 'Reachable', 'Offline since', 'Reason', 'SSL Certificate', 'SSL Expiration date', 'SSL Issuer'];
 
         $this->output->table($titles, $rows);
     }

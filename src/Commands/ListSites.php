@@ -3,9 +3,9 @@
 namespace Spatie\UptimeMonitor\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\UptimeMonitor\Commands\UptimeMonitorLists\DownSites;
-use Spatie\UptimeMonitor\Commands\UptimeMonitorLists\HealthySites;
-use Spatie\UptimeMonitor\Commands\UptimeMonitorLists\SitesWithSslProblems;
+use Spatie\UptimeMonitor\Commands\SiteLists\DownSites;
+use Spatie\UptimeMonitor\Commands\SiteLists\HealthySites;
+use Spatie\UptimeMonitor\Commands\SiteLists\SitesWithSslProblems;
 
 class ListSites extends Command
 {
