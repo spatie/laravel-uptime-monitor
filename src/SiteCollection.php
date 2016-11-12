@@ -47,7 +47,7 @@ class SiteCollection extends Collection
             uptimeMonitorConsoleOutput()->info("checking {$site->url}");
 
             $promise = $client->requestAsync(
-                $site->getPingRequestMethod(),
+                $site->uptime_check_method,
                 $site->url,
                 ['connect_timeout' => 10]
             );

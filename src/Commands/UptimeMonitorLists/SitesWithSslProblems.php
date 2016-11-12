@@ -3,7 +3,6 @@
 namespace Spatie\UptimeMonitor\Commands\UptimeMonitorLists;
 
 use Illuminate\Console\Command;
-use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
@@ -30,17 +29,12 @@ class SitesWithSslProblems
         $rows = $sitesWithSslProblems->map(function (Site $site) {
             $url = $site->url;
 
-            $reachable = $site->reachableAsEmoji;
+            $reason = $site->ssl_certificate_failure_reason;
 
-            $sslCertificateFound = Emoji::notOk();
-            $sslCertificateExpirationDate = $site->formattedSslCertificateExpirationDate;
-            $sslCertificateIssuer = $site->ssl_certificate_issuer ?? 'Unknown';
-
-
-            return compact('url', 'reachable', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+            return compact('url', 'reason');
         });
 
-        $titles = ['URL', 'Reachable', 'SSL Certificate', 'SSL Expiration date', 'SSL Issuer'];
+        $titles = ['URL', 'Problem description'];
 
         $this->output->table($titles, $rows);
     }

@@ -33,6 +33,7 @@ class CreateUptimeMonitor extends Command
         $site = Site::create([
             'url' => $url,
             'look_for_string' => $lookForString ?? '',
+            'uptime_check_method' => $lookForString === '' ? 'head' : 'get',
             'check_ssl_certificate' => $url->getScheme() === 'https',
         ]);
 

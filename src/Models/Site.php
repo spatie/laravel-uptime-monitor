@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Models;
 
+use Exception;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\SiteDown;
@@ -21,8 +22,8 @@ class Site extends Model
     protected $guarded = [];
 
     protected $dates = [
-        'uptime_last_checked_on',
-        'last_uptime_status_change_on',
+        'uptime_last_check_date',
+        'uptime_status_last_change_date',
         'ssl_certificate_expiration_date',
     ];
 
@@ -40,7 +41,7 @@ class Site extends Model
     {
         static::saving(function (Site $site) {
             if ($site->getOriginal('status') != $site->status) {
-                $site->last_uptime_status_change_on = Carbon::now();
+                $site->uptime_status_last_change_date = Carbon::now();
             }
         });
     }
@@ -59,7 +60,7 @@ class Site extends Model
             return true;
         }
 
-        return $this->uptime_last_checked_on->diffInMinutes() >= $this->ping_every_minutes;
+        return $this->uptime_last_check_date->diffInMinutes() >= $this->ping_every_minutes;
     }
 
     public function pingSucceeded($responseHtml)
@@ -79,12 +80,12 @@ class Site extends Model
     public function siteIsUp()
     {
         $this->uptime_status = UptimeStatus::UP;
-        $this->last_failure_reason = '';
+        $this->uptime_failure_reason = '';
 
-        $wasFailing = $this->times_failed_in_a_row > 0;
+        $wasFailing = $this->uptime_check_times_failed_in_a_row > 0;
 
-        $this->times_failed_in_a_row = 0;
-        $this->uptime_last_checked_on = Carbon::now();
+        $this->uptime_check_times_failed_in_a_row = 0;
+        $this->uptime_last_check_date = Carbon::now();
 
         $this->save();
 
@@ -99,11 +100,11 @@ class Site extends Model
 
         $this->uptime_status = UptimeStatus::DOWN;
 
-        $this->times_failed_in_a_row++;
+        $this->uptime_check_times_failed_in_a_row++;
 
-        $this->uptime_last_checked_on = Carbon::now();
+        $this->uptime_last_check_date = Carbon::now();
 
-        $this->last_failure_reason = $reason;
+        $this->uptime_failure_reason = $reason;
 
         $this->save();
 
@@ -119,11 +120,6 @@ class Site extends Model
         }
 
         return str_contains($responseHtml, $this->look_for_string);
-    }
-
-    public function getPingRequestMethod() : string
-    {
-        return $this->look_for_string == '' ? 'HEAD' : 'GET';
     }
 
     protected function shouldFireDownEvent($previousStatus): bool
@@ -167,11 +163,12 @@ class Site extends Model
         event(new ValidSslCertificateFound($this));
     }
 
-    public function updateWithCertificateException($exception)
+    public function updateWithCertificateException(Exception $exception)
     {
         $this->ssl_certificate_status = SslCertificateStatus::INVALID;
         $this->ssl_certificate_expiration_date = null;
         $this->ssl_certificate_issuer = '';
+        $this->ssl_certificate_failure_reason = $exception->getMessage();
 
         $this->save();
 

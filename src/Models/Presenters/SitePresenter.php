@@ -14,7 +14,7 @@ trait SitePresenter
 
     public function getFormattedLastUpdatedStatusChangeDateAttribute(): string
     {
-        return $this->formatDate('last_uptime_status_change_on');
+        return $this->formatDate('uptime_status_last_change_date');
     }
 
     public function getFormattedSslCertificateExpirationDateAttribute(): string
@@ -24,11 +24,11 @@ trait SitePresenter
 
     public function getChunkedLastFailureReasonAttribute(): string
     {
-        if ($this->last_failure_reason == '') {
+        if ($this->uptime_failure_reason == '') {
             return '';
         }
 
-        return chunk_split($this->last_failure_reason, 15, "\n");
+        return chunk_split($this->uptime_failure_reason, 15, "\n");
     }
 
     protected function formatDate(string $attributeName): string
