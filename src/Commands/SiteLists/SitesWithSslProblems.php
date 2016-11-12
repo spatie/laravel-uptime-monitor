@@ -23,8 +23,8 @@ class SitesWithSslProblems
             return;
         }
 
-        $this->output->info('Sites with ssl problems');
-        $this->output->info('=======================');
+        $this->output->warn('Sites with ssl problems');
+        $this->output->warn('=======================');
 
         $rows = $sitesWithSslProblems->map(function (Site $site) {
             $url = $site->url;
@@ -37,5 +37,6 @@ class SitesWithSslProblems
         $titles = ['URL', 'Problem description'];
 
         $this->output->table($titles, $rows);
+        $this->output->line('');
     }
 }

@@ -16,6 +16,8 @@ class ListSites extends Command
 
     public function handle()
     {
+        $this->line('');
+
         (new UncheckedSites($this))->display();
         (new DownSites($this))->display();
         (new SitesWithSslProblems($this))->display();

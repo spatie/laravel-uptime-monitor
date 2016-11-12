@@ -24,8 +24,8 @@ class UncheckedSites
             return;
         }
 
-        $this->output->info('Sites that have not been checked yet');
-        $this->output->info('====================================');
+        $this->output->warn('Sites that have not been checked yet');
+        $this->output->warn('====================================');
 
         $rows = $downSites->map(function (Site $site) {
             $url = $site->url;
@@ -36,5 +36,6 @@ class UncheckedSites
         $titles = ['URL'];
 
         $this->output->table($titles, $rows);
+        $this->output->line('');
     }
 }

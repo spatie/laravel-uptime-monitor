@@ -24,8 +24,8 @@ class DownSites
             return;
         }
 
-        $this->output->info('Sites that are down');
-        $this->output->info('===================');
+        $this->output->warn('Sites that are down');
+        $this->output->warn('===================');
 
         $rows = $downSites->map(function (Site $site) {
             $url = $site->url;
@@ -48,5 +48,6 @@ class DownSites
         $titles = ['URL', 'Reachable', 'Offline since', 'Reason', 'SSL Certificate', 'SSL Expiration date', 'SSL Issuer'];
 
         $this->output->table($titles, $rows);
+        $this->output->line('');
     }
 }

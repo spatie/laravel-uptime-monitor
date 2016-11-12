@@ -25,7 +25,7 @@ class HealthySites
         }
 
         $this->output->info('Healthy sites');
-        $this->output->info('============');
+        $this->output->info('=============');
 
         $rows = $healthySites->map(function (Site $site) {
             $url = $site->url;
@@ -47,5 +47,6 @@ class HealthySites
         $titles = ['URL', 'Reachable', 'Online since', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
 
         $this->output->table($titles, $rows);
+        $this->output->line('');
     }
 }
