@@ -5,11 +5,11 @@ namespace Spatie\UptimeMonitor\Commands;
 use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;
 
-class DeleteUptimeMonitor extends Command
+class DeleteSite extends Command
 {
-    protected $signature = 'uptime-monitor:delete';
+    protected $signature = 'sites:delete';
 
-    protected $description = 'Create an uptime monitor';
+    protected $description = 'Stop monitoring a site';
 
     public function handle()
     {

@@ -7,11 +7,11 @@ use Spatie\UptimeMonitor\Commands\UptimeMonitorLists\DownSites;
 use Spatie\UptimeMonitor\Commands\UptimeMonitorLists\HealthySites;
 use Spatie\UptimeMonitor\Commands\UptimeMonitorLists\SitesWithSslProblems;
 
-class ListUptimeMonitors extends Command
+class ListSites extends Command
 {
-    protected $signature = 'uptime-monitor:list';
+    protected $signature = 'sites:list';
 
-    protected $description = 'List all uptime monitors';
+    protected $description = 'List all sites';
 
     public function handle()
     {

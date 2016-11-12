@@ -6,11 +6,11 @@ use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\Url\Url;
 
-class CreateUptimeMonitor extends Command
+class CreateSite extends Command
 {
-    protected $signature = 'uptime-monitor:create';
+    protected $signature = 'sites:create';
 
-    protected $description = 'Create an uptime monitor';
+    protected $description = 'Create a site to monitor';
 
     public function handle()
     {

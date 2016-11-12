@@ -9,7 +9,7 @@ use Spatie\UptimeMonitor\SiteRepository;
 
 class CheckSslCertificates extends BaseCommand
 {
-    protected $signature = 'uptime-monitor:check-ssl';
+    protected $signature = 'sites:check-ssl';
 
     protected $description = 'Check the ssl certificates of all sites';
 
