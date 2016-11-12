@@ -191,7 +191,7 @@ class Site extends Model
         if ($this->ssl_certificate_status === SslCertificateStatus::VALID) {
             event(new ValidSslCertificateFound($this, $certificate));
 
-            if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.send_notification_when_ssl_certificate_will_expire_in_days')) {
+            if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.notifications.send_notification_when_ssl_certificate_will_expire_in_days')) {
                 event(new SoonExpiringSslCertificateFound($site, $certificate));
             }
 
