@@ -69,4 +69,12 @@ class SiteRepository
                 return $site->isHealthy();
             });
     }
+
+    public static function uncheckedSites()
+    {
+        return Site::enabled()
+            ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
+            ->orderBy('url')
+            ->get();
+    }
 }

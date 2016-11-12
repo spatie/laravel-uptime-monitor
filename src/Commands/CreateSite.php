@@ -33,7 +33,7 @@ class CreateSite extends Command
         $site = Site::create([
             'url' => $url,
             'look_for_string' => $lookForString ?? '',
-            'uptime_check_method' => $lookForString === '' ? 'head' : 'get',
+            'uptime_check_method' => isset($lookForString)  ? 'get' : 'head',
             'check_ssl_certificate' => $url->getScheme() === 'https',
         ]);
 
