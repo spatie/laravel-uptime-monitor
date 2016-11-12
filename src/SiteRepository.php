@@ -13,64 +13,67 @@ class SiteRepository
 {
     public static function getAllForUptimeCheck(): SiteCollection
     {
-        $sites = Site::query()
+        $sites = Site::enabled()
             ->get()
             ->filter(function (Site $site) {
                 return $site->shouldCheckUptime();
-            });
+            })
+            ->sortByHost();;
 
         return new SiteCollection($sites);
     }
 
     public static function getAllForSslCheck(): Collection
     {
-        return Site::query()
+        return Site::enabled()
             ->where('check_ssl_certificate', true)
-            ->get();
+            ->get()
+            ->sortByHost();;
     }
 
     public static function healthySites(): Collection
     {
-        return Site::query()
+        return Site::enabled()
             ->get()
             ->filter(function (Site $site) {
                 return $site->isHealthy();
-            });
+            })
+        ->sortByHost();
+
     }
 
     public static function downSites()
     {
-        return Site::query()
+        return Site::enabled()
             ->where('uptime_status', UptimeStatus::DOWN)
-            ->get();
+            ->get()
+            ->sortByHost();;
     }
 
     public static function withSslProblems()
     {
-        return Site::query()
+        return Site::enabled()
             ->where('check_ssl_certificate', true)
             ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
-            ->get();
+            ->get()
+            ->sortByHost();;
     }
 
     public static function unhealthySites(): Collection
     {
-        return Site::query()
+        return Site::enabled()
             ->get()
             ->reject(function (Site $site) {
                 return $site->isHealthy();
-            });
+            })
+            ->sortByHost();;
     }
 
     public static function uncheckedSites()
     {
-        return Site::query()
+        return Site::enabled()
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
-            ->get();
-    }
-
-    protected static function query(): Builder
-    {
-        return Site::enabled()->orderBy('url');
+            ->get()
+            ->sortByHost();;
     }
 }

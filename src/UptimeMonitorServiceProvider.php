@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Spatie\UptimeMonitor\Commands\CheckSslCertificates;
 use Spatie\UptimeMonitor\Commands\CheckUptime;
@@ -9,6 +10,7 @@ use Spatie\UptimeMonitor\Commands\CreateSite;
 use Spatie\UptimeMonitor\Commands\DeleteSite;
 use Spatie\UptimeMonitor\Commands\ListSites;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
+use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class UptimeMonitorServiceProvider extends ServiceProvider
@@ -51,5 +53,11 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         ]);
 
         $this->app->singleton(ConsoleOutput::class);
+
+        Collection::macro('sortByHost', function() {
+            return $this->sortBy(function(Site $site) {
+                return $site->url->getHost();
+            });
+        });
     }
 }
