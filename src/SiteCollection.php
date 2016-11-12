@@ -16,7 +16,7 @@ class SiteCollection extends Collection
         $this->resetItemKeys();
 
         (new EachPromise($this->getPromises(), [
-            'concurrency' => 100,
+            'concurrency' => config('laravel-uptime-monitor.concurrent_uptime_checks'),
             'fulfilled' => function (ResponseInterface $response, $index) {
                 $site = $this->items[$index];
 
