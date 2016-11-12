@@ -5,13 +5,13 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SiteUp as SiteUpEvent;
+use Spatie\UptimeMonitor\Events\ValidSslCertificateFound as ValidSslCertificateFoundEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteUp extends BaseNotification
+class ValidSslCertificateFound extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SiteDown */
+    /** @var \Spatie\UptimeMonitor\Events\ValidSslCertificateFound */
     protected $event;
 
     /**
@@ -24,8 +24,8 @@ class SiteUp extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Site {$this->event->site->url} is up.")
-            ->line('Site is up');
+            ->subject("Found a valid certificate for {$this->event->site->url}.")
+            ->line('Found a valid certificate');
 
         return $mailMessage;
     }
@@ -34,13 +34,13 @@ class SiteUp extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->site->url} is up")
+            ->content("Found a valid ssl certificate for {$this->event->site->url}")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getSiteProperties());
             });
     }
 
-    public function setEvent(SiteUpEvent $event)
+    public function setEvent(ValidSslCertificateFoundEvent $event)
     {
         $this->event = $event;
 

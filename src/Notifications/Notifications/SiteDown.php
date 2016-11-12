@@ -36,17 +36,17 @@ class SiteDown extends BaseNotification
             ->error()
             ->content("Site {$this->event->site->url} is down")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getUptimeMonitorProperties());
+                $attachment->fields($this->getSiteProperties());
             });
     }
 
-    public function getUptimeMonitorProperties($extraProperties = []): array
+    public function getSiteProperties($extraProperties = []): array
     {
         $extraProperties = [
             'offline since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
         ];
 
-        return parent::getUptimeMonitorProperties($extraProperties);
+        return parent::getSiteProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool

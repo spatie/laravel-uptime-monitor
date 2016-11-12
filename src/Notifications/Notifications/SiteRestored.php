@@ -36,17 +36,17 @@ class SiteRestored extends BaseNotification
             ->success()
             ->content("Site {$this->event->site->url} has been restored")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getUptimeMonitorProperties());
+                $attachment->fields($this->getSiteProperties());
             });
     }
 
-    public function getUptimeMonitorProperties($extraProperties = []): array
+    public function getSiteProperties($extraProperties = []): array
     {
         $extraProperties = [
             'online since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
         ];
 
-        return parent::getUptimeMonitorProperties($extraProperties);
+        return parent::getSiteProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool

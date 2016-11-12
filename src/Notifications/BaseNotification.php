@@ -17,7 +17,7 @@ abstract class BaseNotification extends Notification
         return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
     }
 
-    public function getUptimeMonitorProperties($extraProperties): array
+    public function getSiteProperties($extraProperties): array
     {
         $site = $this->event->site;
 
@@ -33,11 +33,15 @@ abstract class BaseNotification extends Notification
 
         if ($site->check_ssl_certificate) {
             $properties['ssl certificate valid'] = $site->ssl_certificate_status;
+            $properties['ssl certificate issuer'] = $site->ssl_certificate_issuer;
             $properties['ssl certificate expiration date'] = $site->formattedSslCertificateExpirationDate;
         }
 
         return array_filter($properties);
     }
 
-    abstract public function isStillRelevant(): bool;
+    public function isStillRelevant(): bool
+    {
+        return true;
+    }
 }

@@ -18,7 +18,7 @@ return [
 
             \Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\SoonExpiringSslCertificateFound::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => ['slack'],
         ],
 
         /*
