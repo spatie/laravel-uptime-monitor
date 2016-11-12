@@ -17,6 +17,7 @@ return [
             \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => [],
 
             \Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SoonExpiringSslCertificateFound::class => [],
             \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => [],
         ],
 
@@ -25,6 +26,18 @@ return [
          * notifiable will use the variables specified in this config file.
          */
         'notifiable' => \Spatie\UptimeMonitor\Notifications\Notifiable::class,
+
+        /*
+         * The package will keep reminding you that a site is down by keeping
+         * sending you a notifications after this amount of minutes.
+         */
+        'resend_down_notification_every_minutes' => 60,
+
+        /*
+         * You will be notified whenever an ssl certificate will
+         * expire in the given amount of days.
+         */
+        'send_notification_when_ssl_certificate_will_expire_in_days' => 10,
 
         'mail' => [
             'to' => 'your@email.com',
@@ -35,9 +48,5 @@ return [
         ],
     ],
 
-    /*
-     * The package will keep reminding you that a site is down by keeping sending you a notifications
-     * after this amount of minutes.
-     */
-    'resend_down_notification_every_minutes' => 60,
+
 ];

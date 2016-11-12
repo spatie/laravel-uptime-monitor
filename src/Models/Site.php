@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
+use Spatie\UptimeMonitor\Events\SoonExpiringSslCertificateFound;
+use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Presenters\SitePresenter;
@@ -150,7 +152,7 @@ class Site extends Model
 
     public function updateWithCertificate(SslCertificate $certificate)
     {
-        $this->ssl_certificate_status = $certificate->isValid()
+        $this->ssl_certificate_status = $certificate->isValid($this->url)
             ? SslCertificateStatus::VALID
             : SslCertificateStatus::INVALID;
 
@@ -160,7 +162,7 @@ class Site extends Model
 
         $this->save();
 
-        event(new ValidSslCertificateFound($this));
+        $this->fireEventsForUpdatedSiteWithCertificate($this, $certificate);
     }
 
     public function updateWithCertificateException(Exception $exception)
@@ -172,6 +174,34 @@ class Site extends Model
 
         $this->save();
 
-        event(new InvalidSslCertificateFound($this));
+        event(new InvalidSslCertificateFound($this, $exception->getMessage()));
+    }
+
+    protected function fireEventsForUpdatedSiteWithCertificate(Site $site, SslCertificate $certificate)
+    {
+        if ($this->ssl_certificate_status === SslCertificateStatus::VALID) {
+            event(new ValidSslCertificateFound($this, $certificate));
+
+            if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.send_notification_when_ssl_certificate_will_expire_in_days')) {
+                event(new SoonExpiringSslCertificateFound($site, $certificate));
+            }
+
+            return;
+        }
+
+        if ($this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+
+            $reason = 'Unknown reason';
+
+            if ($certificate->appliesToUrl($this->url)) {
+                $reason = "Certificate does not apply to {$this->url} but only to these domains: " . implode(',', $certificate->getAdditionalDomains());
+            }
+
+            if ($certificate->isExpired()) {
+                $reason = "The certificate is expired";
+            }
+
+            event(new InvalidSslCertificateFound($this, $reason, $certificate));
+        }
     }
 }

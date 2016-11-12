@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^7.0",
-        "guzzlehttp/guzzle": "^6.2",
         "illuminate/console": "^5.3.8",
         "illuminate/database": "^5.3.8",
         "illuminate/queue": "^5.3.8",
@@ -25,6 +24,9 @@
         "myclabs/php-enum": "^1.4",
         "spatie/ssl-certificate": "^1.0.0",
         "spatie/url": "^1.0.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "Allows notifications to be sent via Slack"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.5",
