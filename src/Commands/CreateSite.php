@@ -10,7 +10,7 @@ class CreateSite extends Command
 {
     protected $signature = 'sites:create';
 
-    protected $description = 'Create a site to monitor';
+    protected $description = 'Add a site to monitor';
 
     public function handle()
     {

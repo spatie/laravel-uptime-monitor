@@ -7,28 +7,26 @@ use Spatie\UptimeMonitor\Models\Site;
 
 class DeleteSite extends Command
 {
-    protected $signature = 'sites:delete';
+    protected $signature = 'sites:delete {url}';
 
     protected $description = 'Stop monitoring a site';
 
     public function handle()
     {
-        $this->warn("Let's create your new uptime monitor!");
-
-        $url = $this->ask('Specify the url of the uptime monitor that should be deleted');
+        $url = $this->argument('url');
 
         $site = Site::where('url', $url)->first();
 
         if (! $site) {
-            $this->error("There is no uptime monitor for url {$url}");
+            $this->error("Site {$url} is not configured");
 
             return;
         }
 
-        if ($this->confirm("Are you sure you want to delete the uptime monitor for {$site->url}?")) {
+        if ($this->confirm("Are you sure you want stop monitoring {$site->url}?")) {
             $site->delete();
 
-            $this->warn("Uptime monitor {$url} deleted!");
+            $this->warn("{$site->url} will not be monitored anymore");
         }
     }
 }
