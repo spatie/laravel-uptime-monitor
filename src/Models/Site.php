@@ -136,6 +136,9 @@ class Site extends Model
             return true;
         }
 
+        /*
+         * @TODO: Fix this so it send a notification every x minutes
+         */
         if (Carbon::now()->diffInMinutes() >= config('resend_down_notification_every_minutes')) {
             return true;
         }

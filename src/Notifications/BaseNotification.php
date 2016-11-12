@@ -21,6 +21,8 @@ abstract class BaseNotification extends Notification
     {
         $site = $this->event->site;
 
+        $properties['location'] = config('laravel-uptime-monitor.location');
+
         $properties['url'] = (string) $site->url;
 
         if (! empty($site->look_for_string)) {
@@ -34,7 +36,7 @@ abstract class BaseNotification extends Notification
             $properties['ssl certificate expiration date'] = $site->formattedSslCertificateExpirationDate;
         }
 
-        return $properties;
+        return array_filter($properties);
     }
 
     abstract public function isStillRelevant(): bool;

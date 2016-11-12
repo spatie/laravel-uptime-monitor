@@ -17,15 +17,9 @@ return [
             \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => ['slack'],
 
             \Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SoonExpiringSslCertificateFound::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SoonExpiringSslCertificateFound::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => [],
         ],
-
-        /*
-         * Here you can specify the notifiable to which the notifications should be sent. The default
-         * notifiable will use the variables specified in this config file.
-         */
-        'notifiable' => \Spatie\UptimeMonitor\Notifications\Notifiable::class,
 
         /*
          * The package will keep reminding you that a site is down by keeping
@@ -46,7 +40,20 @@ return [
         'slack' => [
             'webhook_url' => env('UPTIME_MONITOR_SLACK_WEBHOOK_URL'),
         ],
+
+        /*
+         * Here you can specify the notifiable to which the notifications should be sent. The default
+         * notifiable will use the variables specified in this config file.
+         */
+        'notifiable' => \Spatie\UptimeMonitor\Notifications\Notifiable::class,
     ],
+
+    /*
+     * The location from where you are running the uptime checks. This location will be mentioned
+     * in all notifications that will be sent
+     */
+    'location' => '',
+
 
     /**
      * To speed up the uptime checking process uptime monitor can check multiple sites
