@@ -17,7 +17,7 @@ abstract class BaseNotification extends Notification
         return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
     }
 
-    public function getSiteProperties($extraProperties): array
+    public function getSiteProperties($extraProperties = []): array
     {
         $site = $this->event->site;
 

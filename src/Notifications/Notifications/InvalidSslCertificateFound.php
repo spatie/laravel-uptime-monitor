@@ -39,6 +39,13 @@ class InvalidSslCertificateFound extends BaseNotification
             });
     }
 
+    public function getSiteProperties($properties = []): array
+    {
+        $extraProperties = ['failure reason' => $this->event->site->ssl_certificate_failure_reason];
+
+        return parent::getSiteProperties($extraProperties);
+    }
+
     public function setEvent(InvalidSslCertificateFoundEvent $event)
     {
         $this->event = $event;
