@@ -43,21 +43,17 @@ class SiteRepository
     public static function downSites()
     {
         return Site::enabled()
+            ->where('uptime_status', UptimeStatus::DOWN)
             ->orderBy('url')
-            ->get()
-            ->filter(function (Site $site) {
-                return $site->uptime_status == UptimeStatus::DOWN;
-            });
+            ->get();
     }
 
     public static function withSslProblems()
     {
         return Site::enabled()
+            ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
             ->orderBy('url')
-            ->get()
-            ->filter(function (Site $site) {
-                return $site->ssl_certificate_status == SslCertificateStatus::INVALID;
-            });
+            ->get();
     }
 
     public static function unhealthySites(): Collection
