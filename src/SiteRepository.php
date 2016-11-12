@@ -48,6 +48,7 @@ class SiteRepository
     public static function withSslProblems()
     {
         return Site::query()
+            ->where('check_ssl_certificate', true)
             ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
             ->get();
     }

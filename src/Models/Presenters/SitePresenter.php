@@ -28,7 +28,16 @@ trait SitePresenter
             return '';
         }
 
-        return chunk_split($this->uptime_failure_reason, 15, "\n");
+        return chunk_split($this->uptime_failure_reason, 30, "\n");
+    }
+
+    public function getChunkedLastSslFailureReasonAttribute(): string
+    {
+        if ($this->ssl_certificate_failure_reason == '') {
+            return '';
+        }
+
+        return chunk_split($this->ssl_certificate_failure_reason, 60, "\n");
     }
 
     protected function formatDate(string $attributeName): string

@@ -42,7 +42,13 @@ class Site extends Model
     public static function boot()
     {
         static::saving(function (Site $site) {
-            if ($site->getOriginal('status') != $site->status) {
+            if (is_null($site->uptime_status_last_change_date)) {
+                $site->uptime_status_last_change_date = Carbon::now();
+
+                return;
+            }
+
+            if ($site->getOriginal('uptime_status') != $site->uptime_status) {
                 $site->uptime_status_last_change_date = Carbon::now();
             }
         });

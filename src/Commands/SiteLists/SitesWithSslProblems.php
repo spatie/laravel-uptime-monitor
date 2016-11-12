@@ -29,7 +29,7 @@ class SitesWithSslProblems
         $rows = $sitesWithSslProblems->map(function (Site $site) {
             $url = $site->url;
 
-            $reason = $site->ssl_certificate_failure_reason;
+            $reason = $site->chunkedLastSslFailureReason;
 
             return compact('url', 'reason');
         });
