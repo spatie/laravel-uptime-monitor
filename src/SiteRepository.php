@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
@@ -12,8 +13,7 @@ class SiteRepository
 {
     public static function getAllForUptimeCheck(): SiteCollection
     {
-        $sites = Site::enabled()
-            ->orderBy('url')
+        $sites = Site::query()
             ->get()
             ->filter(function (Site $site) {
                 return $site->shouldCheckUptime();
@@ -24,16 +24,14 @@ class SiteRepository
 
     public static function getAllForSslCheck(): Collection
     {
-        return Site::enabled()
-            ->orderBy('url')
+        return Site::query()
             ->where('check_ssl_certificate', true)
             ->get();
     }
 
     public static function healthySites(): Collection
     {
-        return Site::enabled()
-            ->orderBy('url')
+        return Site::query()
             ->get()
             ->filter(function (Site $site) {
                 return $site->isHealthy();
@@ -42,24 +40,21 @@ class SiteRepository
 
     public static function downSites()
     {
-        return Site::enabled()
+        return Site::query()
             ->where('uptime_status', UptimeStatus::DOWN)
-            ->orderBy('url')
             ->get();
     }
 
     public static function withSslProblems()
     {
-        return Site::enabled()
+        return Site::query()
             ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
-            ->orderBy('url')
             ->get();
     }
 
     public static function unhealthySites(): Collection
     {
-        return Site::enabled()
-            ->orderBy('url')
+        return Site::query()
             ->get()
             ->reject(function (Site $site) {
                 return $site->isHealthy();
@@ -68,9 +63,13 @@ class SiteRepository
 
     public static function uncheckedSites()
     {
-        return Site::enabled()
+        return Site::query()
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
-            ->orderBy('url')
             ->get();
+    }
+
+    protected static function query(): Builder
+    {
+        return Site::enabled()->orderBy('url');
     }
 }
