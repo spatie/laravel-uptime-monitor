@@ -31,12 +31,12 @@ class CreateSite extends Command
         }
 
         $site = Site::create([
-            'url' => $url,
+            'url' => trim($url, '/'),
             'look_for_string' => $lookForString ?? '',
             'uptime_check_method' => isset($lookForString)  ? 'get' : 'head',
             'check_ssl_certificate' => $url->getScheme() === 'https',
         ]);
 
-        $this->warn("A new uptime monitor for {$site->url} was created!");
+        $this->warn("{$site->url} will be monitored!");
     }
 }
