@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test;
 
+use Carbon\Carbon;
 use Event;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
@@ -10,7 +11,11 @@ abstract class TestCase extends Orchestra
 {
     public function setUp()
     {
+        Carbon::setTestNow(Carbon::create(2016, 1, 1, 00, 00, 00));
+
         parent::setUp();
+
+        $this->withFactories(__DIR__.'/factories');
     }
 
     /**
@@ -30,9 +35,7 @@ abstract class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app)
     {
-        $this->testHelper->initializeTempDirectory();
-
-        $app['config']->set('database.default', ':memory:');
+        $app['config']->set('database.default', 'sqlite');
 
         $app['config']->set('mail.driver', 'log');
 
@@ -40,16 +43,19 @@ abstract class TestCase extends Orchestra
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'prefix' => '',
+            'database' => ':memory:',
         ]);
+
+        $this->setUpDatabase();
     }
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function setUpDatabase($app)
+    protected function setUpDatabase()
     {
+
         include_once __DIR__.'/../database/migrations/create_sites_table.php.stub';
 
         (new \CreateSitesTable())->up();
+
+
     }
 }
