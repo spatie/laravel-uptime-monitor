@@ -21,9 +21,14 @@ return [
             \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => ['slack'],
         ],
 
+        /**
+         * Fire SiteDown-event only after the given amount of checks have consecutively failed.
+         */
+        'fire_down_event_after_consecutive_failed_checks' => 1,
+
         /*
-         * The package will keep reminding you that a site is down by keeping
-         * sending you a notifications after this amount of minutes.
+         * To keep reminding you that a site is down down notifications
+         * will be resent every given amount of minutes.
          */
         'resend_down_notification_every_minutes' => 60,
 

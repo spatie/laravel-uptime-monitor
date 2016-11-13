@@ -90,10 +90,11 @@ class Site extends Model
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_failure_reason = '';
 
-        $wasFailing = $this->uptime_check_times_failed_in_a_row > 0;
+        $wasFailing = ! is_null($this->down_event_fired_on_date);
 
         $this->uptime_check_times_failed_in_a_row = 0;
         $this->uptime_last_check_date = Carbon::now();
+        $this->down_event_fired_on_date = null;
 
         $this->save();
 
@@ -104,8 +105,6 @@ class Site extends Model
 
     public function siteIsDown(string $reason)
     {
-        $previousStatus = $this->uptime_status;
-
         $this->uptime_status = UptimeStatus::DOWN;
 
         $this->uptime_check_times_failed_in_a_row++;
@@ -116,7 +115,9 @@ class Site extends Model
 
         $this->save();
 
-        if ($this->shouldFireDownEvent($previousStatus)) {
+        if ($this->shouldFireDownEvent()) {
+            $this->down_event_fired_on_date = Carbon::now();
+
             event(new SiteDown($this));
         }
     }
@@ -130,16 +131,21 @@ class Site extends Model
         return str_contains($responseHtml, $this->look_for_string);
     }
 
-    protected function shouldFireDownEvent($previousStatus): bool
+    protected function shouldFireDownEvent(): bool
     {
-        if ($previousStatus != UptimeStatus::DOWN) {
+        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks')) {
             return true;
         }
 
-        /*
-         * @TODO: Fix this so it send a notification every x minutes
-         */
-        if (Carbon::now()->diffInMinutes() >= config('resend_down_notification_every_minutes')) {
+        if (is_null($this->down_event_fired_on_date)) {
+            return false;
+        }
+
+        if (config('resend_down_notification_every_minutes') == 0) {
+            return false;
+        }
+
+        if ($this->down_event_fired_on_date()->diffInMinutes() >= config('laravel-uptime-monitor.resend_down_notification_every_minutes')) {
             return true;
         }
 

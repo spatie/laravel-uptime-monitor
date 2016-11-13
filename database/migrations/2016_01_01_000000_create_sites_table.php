@@ -25,6 +25,7 @@ class CreateSitesTable extends Migration
             $table->integer('uptime_check_times_failed_in_a_row')->default(0);
             $table->timestamp('uptime_status_last_change_date')->nullable();
             $table->timestamp('uptime_last_check_date')->nullable();
+            $table->timestamp('down_event_fired_on_date')->nullable();
             $table->string('uptime_check_method')->default('get');
 
             $table->boolean('check_ssl_certificate')->default(false);
