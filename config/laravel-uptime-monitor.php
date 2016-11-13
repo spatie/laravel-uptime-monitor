@@ -24,7 +24,7 @@ return [
         /**
          * Fire SiteDown-event only after the given amount of checks have consecutively failed.
          */
-        'fire_down_event_after_consecutive_failed_checks' => 1,
+        'fire_down_event_after_consecutive_failed_checks' => 2,
 
         /*
          * To keep reminding you that a site is down down notifications

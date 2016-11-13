@@ -26,6 +26,7 @@ class Site extends Model
     protected $dates = [
         'uptime_last_check_date',
         'uptime_status_last_change_date',
+        'down_event_fired_on_date',
         'ssl_certificate_expiration_date',
     ];
 
@@ -117,6 +118,7 @@ class Site extends Model
 
         if ($this->shouldFireDownEvent()) {
             $this->down_event_fired_on_date = Carbon::now();
+            $this->save();
 
             event(new SiteDown($this));
         }
@@ -133,7 +135,7 @@ class Site extends Model
 
     protected function shouldFireDownEvent(): bool
     {
-        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks')) {
+        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.notifications.fire_down_event_after_consecutive_failed_checks')) {
             return true;
         }
 
@@ -141,11 +143,11 @@ class Site extends Model
             return false;
         }
 
-        if (config('resend_down_notification_every_minutes') == 0) {
+        if (config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes') == 0) {
             return false;
         }
 
-        if ($this->down_event_fired_on_date()->diffInMinutes() >= config('laravel-uptime-monitor.resend_down_notification_every_minutes')) {
+        if ($this->down_event_fired_on_date->diffInMinutes() >= config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes')) {
             return true;
         }
 
