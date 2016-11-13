@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
@@ -18,7 +17,7 @@ class SiteRepository
             ->filter(function (Site $site) {
                 return $site->shouldCheckUptime();
             })
-            ->sortByHost();;
+            ->sortByHost();
 
         return new SiteCollection($sites);
     }
@@ -28,7 +27,7 @@ class SiteRepository
         return Site::enabled()
             ->where('check_ssl_certificate', true)
             ->get()
-            ->sortByHost();;
+            ->sortByHost();
     }
 
     public static function healthySites(): Collection
@@ -66,7 +65,7 @@ class SiteRepository
             ->reject(function (Site $site) {
                 return $site->isHealthy();
             })
-            ->sortByHost();;
+            ->sortByHost();
     }
 
     public static function uncheckedSites()
@@ -74,6 +73,6 @@ class SiteRepository
         return Site::enabled()
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
             ->get()
-            ->sortByHost();;
+            ->sortByHost();
     }
 }

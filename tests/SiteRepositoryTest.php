@@ -2,10 +2,10 @@
 
 namespace Spatie\UptimeMonitor\Test;
 
-class ExampleTest extends \PHPUnit_Framework_TestCase
+class SiteRepositoryTest extends TestCase
 {
     /** @test */
-    public function true_is_true()
+    public function setUp()
     {
         $this->assertTrue(true);
     }

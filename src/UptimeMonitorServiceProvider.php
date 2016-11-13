@@ -27,6 +27,15 @@ class UptimeMonitorServiceProvider extends ServiceProvider
                 __DIR__.'/../config/laravel-uptime-monitor.php' => config_path('laravel-uptime-monitor.php'),
             ], 'config');
         }
+
+        if (! class_exists('CreateSitesTable')) {
+            // Publish the migration
+            $timestamp = date('Y_m_d_His', time());
+
+            $this->publishes([
+                __DIR__.'/../database/migrations/create_sites_table.php.stub' => database_path('migrations/'.$timestamp.'_create_sites_table.php'),
+            ], 'migrations');
+        }
     }
 
     /**
