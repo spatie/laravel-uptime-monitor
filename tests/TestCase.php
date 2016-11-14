@@ -3,7 +3,6 @@
 namespace Spatie\UptimeMonitor\Test;
 
 use Carbon\Carbon;
-use Event;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 
@@ -51,11 +50,8 @@ abstract class TestCase extends Orchestra
 
     protected function setUpDatabase()
     {
-
         include_once __DIR__.'/../database/migrations/create_sites_table.php.stub';
 
         (new \CreateSitesTable())->up();
-
-
     }
 }

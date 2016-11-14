@@ -34,8 +34,8 @@ class SiteRepositoryTest extends TestCase
     {
         return $sites
             ->pluck('url')
-            ->map(function(Url $url) {
-               return trim($url, '/');
+            ->map(function (Url $url) {
+                return trim($url, '/');
             })
         ->toArray();
     }

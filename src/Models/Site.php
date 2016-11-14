@@ -30,6 +30,11 @@ class Site extends Model
         'ssl_certificate_expiration_date',
     ];
 
+    protected $casts = [
+        'enabled' => 'boolean',
+        'check_ssl_certificate' => 'boolean',
+    ];
+
     public function scopeEnabled($query)
     {
         return $query->where('enabled', true);
