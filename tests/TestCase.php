@@ -8,8 +8,13 @@ use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
+    /** @var \Spatie\UptimeMonitor\Test\Server  */
+    protected $server;
+
     public function setUp()
     {
+        $this->server = new Server();
+
         Carbon::setTestNow(Carbon::create(2016, 1, 1, 00, 00, 00));
 
         parent::setUp();
@@ -53,5 +58,22 @@ abstract class TestCase extends Orchestra
         include_once __DIR__.'/../database/migrations/create_sites_table.php.stub';
 
         (new \CreateSitesTable())->up();
+    }
+
+    public function progressMinutes(int $minutes)
+    {
+        $newNow = Carbon::now()->addMinutes($minutes);
+
+        Carbon::setTestNow($newNow);
+    }
+
+    public function bringTestServerUp()
+    {
+        $this->server->up();
+    }
+
+    public function bringTestServerDown()
+    {
+        $this->server->down();
     }
 }

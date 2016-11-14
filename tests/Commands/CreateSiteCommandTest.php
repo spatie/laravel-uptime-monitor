@@ -70,5 +70,8 @@ class CreateSiteCommandTest extends TestCase
 
         $this->assertSame($site->uptime_status, UptimeStatus::NOT_YET_CHECKED);
         $this->assertFalse($site->check_ssl_certificate);
+
+        $this->bringTestServerUp();
+        $this->bringTestServerDown();
     }
 }
