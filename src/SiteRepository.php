@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\Services\PingMonitors\SiteCollection;
 
 class SiteRepository
 {

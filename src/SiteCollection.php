@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Services\PingMonitors;
+namespace Spatie\UptimeMonitor;
 
 use Generator;
 use GuzzleHttp\Client;

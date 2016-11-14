@@ -79,9 +79,11 @@ class Site extends Model
 
     public function pingSucceeded($responseHtml)
     {
+
         if (! $this->lookForStringPresentOnResponse($responseHtml)) {
             $this->siteIsDown("String `{$this->look_for_string}` was not found on the response");
         }
+
 
         $this->siteIsUp();
     }
@@ -93,6 +95,7 @@ class Site extends Model
 
     public function siteIsUp()
     {
+
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_failure_reason = '';
 
