@@ -54,7 +54,7 @@ return [
 
     /*
      * The location from where you are running the uptime checks. This location will be mentioned
-     * in all notifications that will be sent
+     * in all notifications that will be sent.
      */
     'location' => '',
 
