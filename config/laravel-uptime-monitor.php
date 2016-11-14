@@ -13,11 +13,11 @@ return [
         'notifications' => [
             \Spatie\UptimeMonitor\Notifications\Notifications\SiteDown::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => [],
 
             \Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\SoonExpiringSslCertificateFound::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => [],
         ],
 
         /**
@@ -54,7 +54,7 @@ return [
 
     /*
      * The location from where you are running the uptime checks. This location will be mentioned
-     * in all notifications that will be sent
+     * in all notifications that will be sent.
      */
     'location' => '',
 
