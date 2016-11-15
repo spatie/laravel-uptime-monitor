@@ -23,7 +23,7 @@ class EventHandler
 
     public function subscribe(Dispatcher $events)
     {
-        $events->listen($this->allUptimeMonitorEventClasses(), function ($event) {
+        $events->listen($this->allEventClasses(), function ($event) {
             $notification = $this->determineNotification($event);
 
             if (! $notification) {
@@ -65,7 +65,7 @@ class EventHandler
         }
     }
 
-    protected function allUptimeMonitorEventClasses(): array
+    protected function allEventClasses(): array
     {
         return [
             SiteDown::class,

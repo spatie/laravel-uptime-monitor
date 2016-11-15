@@ -9,21 +9,22 @@ class Notifiable
     use NotifiableTrait;
 
     /**
-     * Route notifications for the mail channel.
-     *
-     * @return string
+     * @return string|null
      */
     public function routeNotificationForMail()
     {
         return config('laravel-uptime-monitor.notifications.mail.to');
     }
 
+    /**
+     * @return string|null
+     */
     public function routeNotificationForSlack()
     {
         return config('laravel-uptime-monitor.notifications.slack.webhook_url');
     }
 
-    public function getKey()
+    public function getKey(): string
     {
         return static::class;
     }
