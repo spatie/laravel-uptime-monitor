@@ -119,4 +119,9 @@ abstract class TestCase extends Orchestra
             $this->markTestSkipped('No internet connection available.');
         }
     }
+
+    protected function resetEventAssertions()
+    {
+        Event::fake();
+    }
 }

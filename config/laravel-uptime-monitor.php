@@ -53,7 +53,6 @@ return [
      */
     'location' => '',
 
-
     /**
      * To speed up the uptime checking process uptime monitor can check multiple sites
      * concurrently. Set this to a lower value if you're getting weird errors

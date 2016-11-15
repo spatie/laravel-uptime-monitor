@@ -77,14 +77,22 @@ class SiteDownTest extends TestCase
         $sites->checkUptime();
 
         Event::assertFired(SiteDown::class);
-
-
     }
 
-    protected function resetEventAssertions()
+    public function the_down_event_will_be_fired_when_a_site_is_up_but_the_look_for_string_is_not_found_on_the_response()
     {
-        Event::fake();
+        $this->server->setResponseBody("Hi, welcome on the page");
+
+        factory(Site::class)->create(['look_for_string' => 'Another page']);
+
+        $sites = SiteRepository::getAllForUptimeCheck();
+
+        $sites->checkUptime();
+
+        Event::assertFired(SiteDown::class);
     }
+
+
 
 
 }
