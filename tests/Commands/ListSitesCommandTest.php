@@ -19,6 +19,19 @@ class ListSitesCommandTest extends TestCase
     }
 
     /** @test */
+    public function it_can_show_sites_that_have_not_been_checked_yet()
+    {
+        $site = factory(Site::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
+
+        Artisan::call('sites:list');
+
+        $this->seeInConsoleOutput([
+            "Sites that have not been checked yet",
+            $site->url,
+        ]);
+    }
+
+    /** @test */
     public function it_can_show_healthy_sites()
     {
         $site = factory(Site::class)->create(['uptime_status' => UptimeStatus::UP]);

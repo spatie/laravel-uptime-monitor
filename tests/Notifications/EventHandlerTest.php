@@ -4,7 +4,6 @@ namespace Spatie\UptimeMonitor\Test\Notifications;
 
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\SiteRestored as SiteRestoredEvent;
-use Spatie\UptimeMonitor\Events\ValidSslCertificateFound as ValidSslCertificateFoundEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
@@ -12,7 +11,6 @@ use Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound 
 use Spatie\UptimeMonitor\Notifications\Notifications\SiteDown;
 use Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored;
 use Spatie\UptimeMonitor\Notifications\Notifications\SiteUp;
-use Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound;
 use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\UptimeMonitor\Events\SiteUp as SiteUpEvent;
 use Spatie\UptimeMonitor\Events\SiteDown as SiteDownEvent;
