@@ -47,24 +47,27 @@ return [
         'notifiable' => \Spatie\UptimeMonitor\Notifications\Notifiable::class,
     ],
 
+    'uptime_check' => [
+
+        /**
+         * To speed up the uptime checking process uptime monitor can check multiple sites
+         * concurrently. Set this to a lower value if you're getting weird errors
+         * running the uptime check.
+         */
+        'concurrent_checks' => 10,
+
+        /**
+         * The uptime check for a site will fail if site does not respond after the
+         * given amount of seconds.
+         */
+        'timeout_per_site' => 10,
+    ],
+
     /*
      * The location from where you are running the uptime checks. This location will be mentioned
      * in all notifications that will be sent.
      */
     'location' => '',
-
-    /**
-     * To speed up the uptime checking process uptime monitor can check multiple sites
-     * concurrently. Set this to a lower value if you're getting weird errors
-     * running the uptime check.
-     */
-    'concurrent_uptime_checks' => 10,
-
-    /**
-     * The uptime check for a site will fail if site does not respond after the
-     * given amount of seconds.
-     */
-    'uptime_check_timeout' => 10,
 
     /**
      * Fire SiteDown-event only after the given amount of checks have consecutively failed.

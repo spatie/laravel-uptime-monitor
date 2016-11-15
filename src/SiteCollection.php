@@ -16,7 +16,7 @@ class SiteCollection extends Collection
         $this->resetItemKeys();
 
         (new EachPromise($this->getPromises(), [
-            'concurrency' => config('laravel-uptime-monitor.concurrent_uptime_checks'),
+            'concurrency' => config('laravel-uptime-monitor.uptime_check.concurrent_checks'),
             'fulfilled' => function (ResponseInterface $response, $index) {
                 $site = $this->items[$index];
 
@@ -45,11 +45,10 @@ class SiteCollection extends Collection
 
         foreach ($this->items as $site) {
             uptimeMonitorConsoleOutput()->info("checking {$site->url}");
-
             $promise = $client->requestAsync(
                 $site->uptime_check_method,
                 $site->url,
-                ['connect_timeout' => null]
+                ['connect_timeout' => config('laravel-uptime-monitor.uptime_check.timeout_per_site')]
             );
 
             yield $promise;
