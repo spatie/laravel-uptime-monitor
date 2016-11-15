@@ -23,7 +23,7 @@ class SitesWithSslProblems
             return;
         }
 
-        $this->output->warn('Sites with ssl problems');
+        $this->output->warn('Sites with ssl certificate problems');
         $this->output->warn('=======================');
 
         $rows = $sitesWithSslProblems->map(function (Site $site) {
