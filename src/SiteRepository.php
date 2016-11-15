@@ -11,14 +11,14 @@ class SiteRepository
 {
     public static function getAllEnabledSites(): Collection
     {
-        return Site::enabled()
+        return self::query()
             ->get()
             ->sortByHost();
     }
 
     public static function getAllForUptimeCheck(): SiteCollection
     {
-        $sites = Site::enabled()
+        $sites = self::query()
             ->get()
             ->filter(function (Site $site) {
                 return $site->shouldCheckUptime();
@@ -30,7 +30,7 @@ class SiteRepository
 
     public static function getAllForSslCheck(): Collection
     {
-        return Site::enabled()
+        return self::query()
             ->where('check_ssl_certificate', true)
             ->get()
             ->sortByHost();
@@ -38,7 +38,7 @@ class SiteRepository
 
     public static function healthySites(): Collection
     {
-        return Site::enabled()
+        return self::query()
             ->get()
             ->filter(function (Site $site) {
                 return $site->isHealthy();
@@ -47,26 +47,26 @@ class SiteRepository
 
     }
 
-    public static function downSites()
+    public static function downSites(): Collection
     {
-        return Site::enabled()
+        return self::query()
             ->where('uptime_status', UptimeStatus::DOWN)
             ->get()
-            ->sortByHost();;
+            ->sortByHost();
     }
 
-    public static function withSslProblems()
+    public static function withSslProblems(): Collection
     {
-        return Site::enabled()
+        return self::query()
             ->where('check_ssl_certificate', true)
             ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
             ->get()
-            ->sortByHost();;
+            ->sortByHost();
     }
 
     public static function unhealthySites(): Collection
     {
-        return Site::enabled()
+        return self::query()
             ->get()
             ->reject(function (Site $site) {
                 return $site->isHealthy();
@@ -74,11 +74,29 @@ class SiteRepository
             ->sortByHost();
     }
 
-    public static function uncheckedSites()
+    public static function uncheckedSites(): Collection
     {
-        return Site::enabled()
+        return self::query()
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
             ->get()
             ->sortByHost();
+    }
+
+    protected static function query()
+    {
+        $modelClass = static::determineSiteModel();
+
+        return $modelClass::enabled();
+    }
+
+    protected static function determineSiteModel(): string
+    {
+        $siteModel = config('laravel-uptime_monitor.site_model') ?? Site::class;
+
+        if (! is_a($siteModel, Site::class, true)) {
+            throw InvalidConfiguration::modelIsNotValid($siteModel);
+        }
+
+        return $siteModel;
     }
 }
