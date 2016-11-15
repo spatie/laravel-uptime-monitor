@@ -40,6 +40,11 @@ class SiteUp extends BaseNotification
             });
     }
 
+    public function isStillRelevant(): bool
+    {
+        return $this->event->site->uptime_status != UptimeStatus::DOWN;
+    }
+
     public function setEvent(SiteUpEvent $event)
     {
         $this->event = $event;
