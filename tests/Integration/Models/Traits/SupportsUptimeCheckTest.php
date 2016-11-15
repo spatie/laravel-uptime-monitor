@@ -74,4 +74,10 @@ class SupportsUptimeCheckTest extends TestCase
 
         $this->assertTrue($this->site->uptime_status_last_change_date->diffInMinutes() === 0);
     }
+
+    /** @test */
+    public function it_will_update_the_last_checked_date_no_matter_what_the_update_status_of_a_site_is()
+    {
+        $this->assertNull($this->site->uptime_last_check_date);
+    }
 }
