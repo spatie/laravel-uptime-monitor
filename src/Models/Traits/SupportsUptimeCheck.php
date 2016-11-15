@@ -27,16 +27,16 @@ trait SupportsUptimeCheck
         return $this->uptime_last_check_date->diffInMinutes() >= $this->ping_every_minutes;
     }
 
-    public function pingSucceeded($responseHtml)
+    public function couldReachSite($responseHtml)
     {
-        if (!$this->lookForStringPresentOnResponse($responseHtml)) {
+        if (!str_contains($responseHtml, $this->look_for_string)) {
             $this->siteIsDown("String `{$this->look_for_string}` was not found on the response.");
         }
 
         $this->siteIsUp();
     }
 
-    public function pingFailed(string $reason)
+    public function couldNotReachSite(string $reason)
     {
         $this->siteIsDown($reason);
     }
@@ -72,20 +72,12 @@ trait SupportsUptimeCheck
         $this->save();
 
         if ($this->shouldFireDownEvent()) {
+
             $this->down_event_fired_on_date = Carbon::now();
             $this->save();
 
             event(new SiteDown($this));
         }
-    }
-
-    public function lookForStringPresentOnResponse(string $responseHtml = '') : bool
-    {
-        if ($this->look_for_string == '') {
-            return true;
-        }
-
-        return str_contains($responseHtml, $this->look_for_string);
     }
 
     protected function shouldFireDownEvent(): bool
@@ -98,7 +90,7 @@ trait SupportsUptimeCheck
             return false;
         }
 
-        if (config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes') == 0) {
+        if (config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes') === 0) {
             return false;
         }
 

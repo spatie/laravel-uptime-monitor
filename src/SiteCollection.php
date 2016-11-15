@@ -23,7 +23,7 @@ class SiteCollection extends Collection
 
                 ConsoleOutput::info("Could reach {$site->url}");
 
-                $site->pingSucceeded($response->getBody());
+                $site->couldReachSite($response->getBody());
             },
 
             'rejected' => function (RequestException $exception, $index) {
@@ -31,7 +31,7 @@ class SiteCollection extends Collection
 
                 ConsoleOutput::error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
 
-                $site->pingFailed($exception->getMessage());
+                $site->couldNotReachSite($exception->getMessage());
             },
         ]))->promise()->wait();
     }
