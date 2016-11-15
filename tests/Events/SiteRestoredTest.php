@@ -25,7 +25,7 @@ class SiteRestoredTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_restored_event_when_a_down_site_is_restored()
+    public function the_restored_event_will_be_fired_when_a_down_site_is_restored()
     {
         $sites = SiteRepository::getAllForUptimeCheck();
 

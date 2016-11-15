@@ -23,7 +23,7 @@ class SiteUpTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_up_event_when_a_site_is_up()
+    public function the_up_event_will_be_fired_when_a_site_is_up()
     {
         SiteRepository::getAllForUptimeCheck()->checkUptime();
 

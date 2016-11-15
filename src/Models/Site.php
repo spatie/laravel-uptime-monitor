@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Models;
 
 use Exception;
+use Spatie\SslCertificate\Exceptions\CouldNotDownloadCertificate;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\SiteDown;
@@ -37,7 +38,6 @@ class Site extends Model
     ];
 
 
-
     public function scopeEnabled($query)
     {
         return $query->where('enabled', true);
@@ -51,7 +51,7 @@ class Site extends Model
     public static function boot()
     {
         static::saving(function (Site $site) {
-            if(static::alreadyExists($site)) {
+            if (static::alreadyExists($site)) {
                 throw CannotSaveSite::alreadyExists($site);
             }
 
@@ -69,7 +69,7 @@ class Site extends Model
 
     public function shouldCheckUptime() : bool
     {
-        if (! $this->enabled) {
+        if (!$this->enabled) {
             return false;
         }
 
@@ -86,7 +86,7 @@ class Site extends Model
 
     public function pingSucceeded($responseHtml)
     {
-        if (! $this->lookForStringPresentOnResponse($responseHtml)) {
+        if (!$this->lookForStringPresentOnResponse($responseHtml)) {
             $this->siteIsDown("String `{$this->look_for_string}` was not found on the response");
         }
 
@@ -103,7 +103,7 @@ class Site extends Model
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_failure_reason = '';
 
-        $wasFailing = ! is_null($this->down_event_fired_on_date);
+        $wasFailing = !is_null($this->down_event_fired_on_date);
 
         $this->uptime_check_times_failed_in_a_row = 0;
         $this->uptime_last_check_date = Carbon::now();
@@ -239,9 +239,21 @@ class Site extends Model
         $query = static::where('url', $site->url);
 
         if ($site->exists) {
-            $query->where('id', '<>',$site->id);
+            $query->where('id', '<>', $site->id);
         }
 
         return (bool)$query->first();
+    }
+
+    public function checkSslCertificate()
+    {
+        try {
+            $certificate = SslCertificate::createForHostName($this->url->getHost());
+
+            $this->updateWithCertificate($certificate);
+
+        } catch (CouldNotDownloadCertificate $exception) {
+            $this->updateWithCertificateException($exception);
+        }
     }
 }

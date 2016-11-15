@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Commands;
 
 use Spatie\SslCertificate\Exceptions\CouldNotDownloadCertificate;
 use Spatie\SslCertificate\SslCertificate;
+use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
@@ -19,24 +20,21 @@ class CheckSslCertificates extends BaseCommand
     {
         $sites = SiteRepository::getAllForSslCheck();
 
-        if($url = $this->option('url')) {
-            $sites = $sites->filter(function(Site $site) use ($url) {
+        if ($url = $this->option('url')) {
+            $sites = $sites->filter(function (Site $site) use ($url) {
                 return in_array((string)$site->url, explode(',', $url));
             });
         };
 
-        $this->comment('Start checking the ssl certificate of '.count($sites).' sites...');
+        $this->comment('Start checking the ssl certificate of ' . count($sites) . ' sites...');
 
         $sites->each(function (Site $site) {
             $this->info("Checking ssl-certificate of {$site->url}");
 
-            try {
-                $certificate = SslCertificate::createForHostName($site->url->getHost());
+            $site->checkSslCertificate();
 
-                $site->updateWithCertificate($certificate);
-            } catch (CouldNotDownloadCertificate $exception) {
-                $this->error("Could not download certificate of {$site->url} because: {$exception->getMessage()}");
-                $site->updateWithCertificateException($exception);
+            if ($site->ssl_certificate_status !== SslCertificateStatus::VALID) {
+                $this->error("Could not download certificate of {$site->url} because: {$site->ssl_certificate_failure_reason}");
             }
         });
 

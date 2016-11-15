@@ -24,7 +24,7 @@ class SiteDownTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_down_event_when_the_uptime_check_failed_for_the_configured_amount_of_times()
+    public function the_down_event_will_be_fired_when_the_uptime_check_failed_for_the_configured_amount_of_times()
     {
         $this->server->down();
 
