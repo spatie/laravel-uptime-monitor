@@ -12,6 +12,7 @@ use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
 use Spatie\UptimeMonitor\Events\SoonExpiringSslCertificateFound;
 use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
+use Spatie\UptimeMonitor\Exceptions\CannotSaveSite;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Presenters\SitePresenter;
@@ -35,6 +36,8 @@ class Site extends Model
         'check_ssl_certificate' => 'boolean',
     ];
 
+
+
     public function scopeEnabled($query)
     {
         return $query->where('enabled', true);
@@ -48,6 +51,10 @@ class Site extends Model
     public static function boot()
     {
         static::saving(function (Site $site) {
+            if(static::alreadyExists($site)) {
+                throw CannotSaveSite::alreadyExists($site);
+            }
+
             if (is_null($site->uptime_status_last_change_date)) {
                 $site->uptime_status_last_change_date = Carbon::now();
 
@@ -225,5 +232,16 @@ class Site extends Model
 
             event(new InvalidSslCertificateFound($this, $reason, $certificate));
         }
+    }
+
+    protected static function alreadyExists(Site $site): bool
+    {
+        $query = static::where('url', $site->url);
+
+        if ($site->exists) {
+            $query->where('id', '<>',$site->id);
+        }
+
+        return (bool)$query->first();
     }
 }

@@ -9,7 +9,6 @@ use Spatie\UptimeMonitor\Notifications\Notifications\SiteUp;
 use Spatie\UptimeMonitor\Test\TestCase;
 use Notification;
 
-
 class SiteUpTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Site */
