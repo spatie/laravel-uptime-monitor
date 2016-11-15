@@ -3,13 +3,14 @@
 namespace Spatie\UptimeMonitor\Test\Events;
 
 use Artisan;
-use Spatie\UptimeMonitor\Events\SiteDown;
+use Spatie\UptimeMonitor\Events\SiteRestored;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
 use Spatie\UptimeMonitor\SiteRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class SiteDownTest extends TestCase
+class SiteRestoredTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Site */
     protected $site;
@@ -24,23 +25,27 @@ class SiteDownTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_down_event_when_the_uptime_check_failed_for_the_configured_amount_of_times()
+    public function it_will_fire_the_restored_event_when_a_down_site_is_restored()
     {
-        $this->server->down();
-
         $sites = SiteRepository::getAllForUptimeCheck();
+
+        $this->server->down();
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks');
 
         foreach(range(1, $consecutiveFailsNeeded) as $index){
             $sites->checkUptime();
-
-            if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(SiteDown::class);
-            }
         }
 
-        Event::assertFired(SiteDown::class, function ($event) {
+        $this->site = $this->site->fresh();
+
+        $this->server->up();
+
+        Event::assertNotFired(SiteRestored::class);
+
+        $sites->checkUptime();
+
+        Event::assertFired(SiteRestored::class, function ($event) {
             return $event->site->id === $this->site->id;
         });
 

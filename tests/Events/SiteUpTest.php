@@ -4,7 +4,6 @@ namespace Spatie\UptimeMonitor\Test\Events;
 
 use Artisan;
 use Spatie\UptimeMonitor\Events\SiteUp;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
 use Spatie\UptimeMonitor\SiteRepository;
