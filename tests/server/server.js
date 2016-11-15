@@ -1,15 +1,15 @@
 "use strict";
 
-let app = require('express')();
+var app = require('express')();
 
-let bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-let serverResponse = {};
+var serverResponse = {};
 
 app.get('/', function (request, response) {
-    const statusCode = serverResponse.statusCode;
+    var statusCode = serverResponse.statusCode;
 
     response.writeHead(statusCode || 200, { 'Content-Type': 'text/html' });
     response.end(serverResponse.body || "This is the testserver");
@@ -24,8 +24,8 @@ app.post('/setServerResponse', function(request, response) {
 });
 
 let server = app.listen(8080, function () {
-    const host = 'localhost';
-    const port = server.address().port;
+    var host = 'localhost';
+    var port = server.address().port;
 
     console.log('Testing server listening at http://%s:%s', host, port);
 });
