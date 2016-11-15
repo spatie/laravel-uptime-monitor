@@ -8,7 +8,7 @@ use Spatie\Url\Url;
 
 class CreateSite extends Command
 {
-    protected $signature = 'sites:create';
+    protected $signature = 'sites:create {url}';
 
     protected $description = 'Add a site to monitor';
 
@@ -16,9 +16,7 @@ class CreateSite extends Command
     {
         $this->warn("Let's create your new uptime monitor!");
 
-        $url = $this->ask("Which url to you want to monitor? Should start with either 'http://' or 'https://'");
-
-        $url = Url::fromString($url);
+        $url = Url::fromString($this->argument('url'));
 
         if (! in_array($url->getScheme(), ['http', 'https'])) {
             $this->error('The given url did not start with `http://` or `https://`.');

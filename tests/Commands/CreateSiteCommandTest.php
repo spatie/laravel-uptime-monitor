@@ -30,18 +30,12 @@ class CreateSiteCommandTest extends TestCase
     public function it_can_create_a_https_site()
     {
         $this->command
-            ->shouldReceive('ask')
-            ->once()
-            ->with('/Which url to you want to monitor/')
-            ->andReturn('https://mysite.com');
-
-        $this->command
             ->shouldReceive('confirm')
             ->once()
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:create');
+        Artisan::call('sites:create', ['url' => 'https://mysite.com']);
 
         $site = Site::where('url', 'https://mysite.com')->first();
 
@@ -53,18 +47,12 @@ class CreateSiteCommandTest extends TestCase
     public function it_can_create_a_http_site()
     {
         $this->command
-            ->shouldReceive('ask')
-            ->once()
-            ->with('/Which url to you want to monitor/')
-            ->andReturn('http://mysite.com');
-
-        $this->command
             ->shouldReceive('confirm')
             ->once()
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:create');
+        Artisan::call('sites:create', ['url' => 'http://mysite.com']);
 
         $site = Site::where('url', 'http://mysite.com')->first();
 
