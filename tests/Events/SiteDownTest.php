@@ -46,7 +46,7 @@ class SiteDownTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_down_event_again_if_a_site_after_the_configured_amout_of_minutes_if_the_site_stays_down()
+    public function it_will_fire_the_down_event_again_if_a_site_after_the_configured_amount_of_minutes_if_the_site_stays_down()
     {
         $this->server->down();
 
@@ -79,11 +79,15 @@ class SiteDownTest extends TestCase
         Event::assertFired(SiteDown::class);
     }
 
+    /** @test */
     public function the_down_event_will_be_fired_when_a_site_is_up_but_the_look_for_string_is_not_found_on_the_response()
     {
         $this->server->setResponseBody("Hi, welcome on the page");
 
-        factory(Site::class)->create(['look_for_string' => 'Another page']);
+        $this->site->look_for_string = 'Another page';
+        $this->site->save();
+
+        $this->app['config']->set('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks', 1);
 
         $sites = SiteRepository::getAllForUptimeCheck();
 

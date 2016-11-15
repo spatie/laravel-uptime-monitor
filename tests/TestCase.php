@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Test;
 
 use Artisan;
 use Carbon\Carbon;
+use Event;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 
