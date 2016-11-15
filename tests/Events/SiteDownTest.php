@@ -44,6 +44,8 @@ class SiteDownTest extends TestCase
             return $event->site->id === $this->site->id;
         });
 
+        Event::fake();
+
         Event::assertFired(SiteDown::class, function ($event) {
             return $event->site->id === $this->site->id;
         });
