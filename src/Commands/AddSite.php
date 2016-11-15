@@ -14,8 +14,6 @@ class AddSite extends BaseCommand
 
     public function handle()
     {
-        $this->warn("Let's create your new uptime monitor!");
-
         $url = Url::fromString($this->argument('url'));
 
         if (! in_array($url->getScheme(), ['http', 'https'])) {

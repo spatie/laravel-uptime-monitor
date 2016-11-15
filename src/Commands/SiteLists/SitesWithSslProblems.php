@@ -18,7 +18,7 @@ class SitesWithSslProblems
         }
 
         ConsoleOutput::warn('Sites with ssl certificate problems');
-        ConsoleOutput::warn('=======================');
+        ConsoleOutput::warn('===================================');
 
         $rows = $sitesWithSslProblems->map(function (Site $site) {
             $url = $site->url;
