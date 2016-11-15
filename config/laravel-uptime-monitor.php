@@ -75,8 +75,17 @@ return [
         'fire_down_event_after_consecutive_failures' => 2
     ],
 
+    /**
+     * To add or modify behaviour to the Site model you can specify your
+     * own model here. There only requirement is that is extends
+     * `Spatie\UptimeMonitor\Test\Models\Site`.
+     */
+     'model' => Spatie\UptimeMonitor\Test\Models\Site::class,
 
     /**
-     * @TODO: add support for custom model / repo
+     * To add or modify behaviour to the site repository you can specify your own
+     * repository here.There only requirement is that is extends
+     * `Spatie\UptimeMonitor\SiteRepository`.
      */
+     'repository' => Spatie\UptimeMonitor\SiteRepository::class,
 ];
