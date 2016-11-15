@@ -89,9 +89,7 @@ class SiteDownTest extends TestCase
 
         $this->app['config']->set('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks', 1);
 
-        $sites = SiteRepository::getAllForUptimeCheck();
-
-        $sites->checkUptime();
+        SiteRepository::getAllForUptimeCheck()->checkUptime();
 
         Event::assertFired(SiteDown::class);
     }
