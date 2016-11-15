@@ -91,7 +91,7 @@ class SiteRepository
 
     protected static function determineSiteModel(): string
     {
-        $siteModel = config('laravel-uptime_monitor.site_model') ?? Site::class;
+        $siteModel = config('laravel-uptime-monitor.site_model') ?? Site::class;
 
         if (! is_a($siteModel, Site::class, true)) {
             throw InvalidConfiguration::modelIsNotValid($siteModel);
