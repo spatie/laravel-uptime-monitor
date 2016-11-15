@@ -10,6 +10,23 @@ use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 trait SupportsUptimeCheck
 {
+    public static function bootSupportsUptimeCheck()
+    {
+        dd('omg it booted');
+        static::saving(function (Site $site) {
+            if (is_null($site->uptime_status_last_change_date)) {
+                $site->uptime_status_last_change_date = Carbon::now();
+
+                return;
+            }
+
+            if ($site->getOriginal('uptime_status') != $site->uptime_status) {
+                $site->uptime_status_last_change_date = Carbon::now();
+            }
+        });
+    }
+
+
     public function shouldCheckUptime() : bool
     {
         if (!$this->enabled) {

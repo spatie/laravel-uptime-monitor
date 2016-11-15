@@ -54,6 +54,7 @@ class Site extends Model
                 throw CannotSaveSite::alreadyExists($site);
             }
 
+            /*
             if (is_null($site->uptime_status_last_change_date)) {
                 $site->uptime_status_last_change_date = Carbon::now();
 
@@ -63,6 +64,7 @@ class Site extends Model
             if ($site->getOriginal('uptime_status') != $site->uptime_status) {
                 $site->uptime_status_last_change_date = Carbon::now();
             }
+            */
         });
     }
 
