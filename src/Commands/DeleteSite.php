@@ -9,7 +9,7 @@ class DeleteSite extends Command
 {
     protected $signature = 'sites:delete {url}';
 
-    protected $description = 'Stop monitoring a site';
+    protected $description = 'Stop monitoring a site by deleting it from the database';
 
     public function handle()
     {

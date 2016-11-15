@@ -6,9 +6,9 @@ use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\Url\Url;
 
-class CreateSite extends Command
+class AddSite extends Command
 {
-    protected $signature = 'sites:create {url}';
+    protected $signature = 'sites:add {url}';
 
     protected $description = 'Add a site to monitor';
 

@@ -10,16 +10,16 @@ use Spatie\UptimeMonitor\Test\TestCase;
 
 class CreateSiteCommandTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Commands\CreateSite|m\Mock */
+    /** @var \Spatie\UptimeMonitor\Commands\AddSite|m\Mock */
     protected $command;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->command = m::mock('Spatie\UptimeMonitor\Commands\CreateSite[ask, confirm]');
+        $this->command = m::mock('Spatie\UptimeMonitor\Commands\AddSite[ask, confirm]');
 
-        $this->app->bind('command.sites:create', function () {
+        $this->app->bind('command.sites:add', function () {
             return $this->command;
         });
     }
@@ -33,7 +33,7 @@ class CreateSiteCommandTest extends TestCase
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:create', ['url' => 'https://mysite.com']);
+        Artisan::call('sites:add', ['url' => 'https://mysite.com']);
 
         $site = Site::where('url', 'https://mysite.com')->first();
 
@@ -50,7 +50,7 @@ class CreateSiteCommandTest extends TestCase
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:create', ['url' => 'http://mysite.com']);
+        Artisan::call('sites:add', ['url' => 'http://mysite.com']);
 
         $site = Site::where('url', 'http://mysite.com')->first();
 

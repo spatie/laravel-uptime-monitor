@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Spatie\UptimeMonitor\Commands\CheckSslCertificates;
 use Spatie\UptimeMonitor\Commands\CheckUptime;
-use Spatie\UptimeMonitor\Commands\CreateSite;
+use Spatie\UptimeMonitor\Commands\AddSite;
 use Spatie\UptimeMonitor\Commands\DeleteSite;
 use Spatie\UptimeMonitor\Commands\ListSites;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
@@ -49,14 +49,14 @@ class UptimeMonitorServiceProvider extends ServiceProvider
 
         $this->app->bind('command.sites:check-uptime', CheckUptime::class);
         $this->app->bind('command.sites:check-ssl', CheckSslCertificates::class);
-        $this->app->bind('command.sites:create', CreateSite::class);
+        $this->app->bind('command.sites:add', AddSite::class);
         $this->app->bind('command.sites:delete', DeleteSite::class);
         $this->app->bind('command.sites:list', ListSites::class);
 
         $this->commands([
             'command.sites:check-uptime',
             'command.sites:check-ssl',
-            'command.sites:create',
+            'command.sites:add',
             'command.sites:delete',
             'command.sites:list',
         ]);
