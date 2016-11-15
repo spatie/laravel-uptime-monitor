@@ -80,7 +80,7 @@ return [
      * own model here. There only requirement is that is extends
      * `Spatie\UptimeMonitor\Test\Models\Site`.
      */
-     'model' => Spatie\UptimeMonitor\Test\Models\Site::class,
+     'model' => Spatie\UptimeMonitor\Models\Site::class,
 
     /**
      * To add or modify behaviour to the site repository you can specify your own
