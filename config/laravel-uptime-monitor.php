@@ -63,7 +63,7 @@ return [
          * When a site is down we'll check the uptime every time `sites:check-uptime` runs
          * regardless of this setting.
          */
-        'uptime_check_interval_in_minutes' => 5,
+        'run_interval_in_minutes' => 5,
 
         /**
          * To speed up the uptime checking process uptime monitor can check multiple sites

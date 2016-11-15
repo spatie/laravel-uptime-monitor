@@ -16,11 +16,15 @@ trait SupportsUptimeCheck
             return false;
         }
 
-        if ($this->uptime_status = UptimeStatus::NOT_YET_CHECKED) {
+        if ($this->uptime_status == UptimeStatus::NOT_YET_CHECKED) {
             return true;
         }
 
-        if ($this->uptime_status === UptimeStatus::DOWN) {
+        if ($this->uptime_status == UptimeStatus::DOWN) {
+            return true;
+        }
+
+        if (is_null($this->uptime_last_check_date)) {
             return true;
         }
 
