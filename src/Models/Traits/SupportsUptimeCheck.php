@@ -51,7 +51,6 @@ trait SupportsUptimeCheck
         $this->uptime_check_times_failed_in_a_row = 0;
         $this->uptime_last_check_date = Carbon::now();
         $this->down_event_fired_on_date = null;
-
         $this->save();
 
         $eventClass = ($wasFailing ? SiteRestored::class : SiteUp::class);
@@ -62,13 +61,9 @@ trait SupportsUptimeCheck
     public function siteIsDown(string $reason)
     {
         $this->uptime_status = UptimeStatus::DOWN;
-
         $this->uptime_check_times_failed_in_a_row++;
-
         $this->uptime_last_check_date = Carbon::now();
-
         $this->uptime_failure_reason = $reason;
-
         $this->save();
 
         if ($this->shouldFireDownEvent()) {

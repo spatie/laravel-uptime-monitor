@@ -31,9 +31,7 @@ trait SupportsSslCertificateCheck
             : SslCertificateStatus::INVALID;
 
         $this->ssl_certificate_expiration_date = $certificate->expirationDate();
-
         $this->ssl_certificate_issuer = $certificate->getIssuer();
-
         $this->save();
 
         $this->fireEventsForUpdatedSiteWithCertificate($this, $certificate);
@@ -45,7 +43,6 @@ trait SupportsSslCertificateCheck
         $this->ssl_certificate_expiration_date = null;
         $this->ssl_certificate_issuer = '';
         $this->ssl_certificate_failure_reason = $exception->getMessage();
-
         $this->save();
 
         event(new InvalidSslCertificateFound($this, $exception->getMessage()));
