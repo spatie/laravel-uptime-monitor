@@ -21,7 +21,7 @@ abstract class BaseNotification extends Notification
     {
         $site = $this->event->site;
 
-        $properties['location'] = config('laravel-uptime-monitor.location');
+        $properties['location'] = config('laravel-uptime-monitor.notifications.location');
 
         $properties['url'] = (string) $site->url;
 

@@ -21,6 +21,12 @@ return [
         ],
 
         /*
+         * The location from where you are running this Laravel application. This location will be mentioned
+         * in all notifications that will be sent.
+         */
+        'location' => '',
+
+        /*
          * To keep reminding you that a site is down down notifications
          * will be resent every given amount of minutes.
          */
@@ -61,18 +67,14 @@ return [
          * given amount of seconds.
          */
         'timeout_per_site' => 10,
+
+        /**
+         * Fire SiteDown-event only after the given amount of checks
+         * have consecutively failed for a site.
+         */
+        'fire_down_event_after_consecutive_failures' => 2
     ],
 
-    /*
-     * The location from where you are running the uptime checks. This location will be mentioned
-     * in all notifications that will be sent.
-     */
-    'location' => '',
-
-    /**
-     * Fire SiteDown-event only after the given amount of checks have consecutively failed.
-     */
-    'fire_down_event_after_consecutive_failed_checks' => 2,
 
     /**
      * @TODO: add support for custom model / repo

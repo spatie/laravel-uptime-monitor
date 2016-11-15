@@ -30,7 +30,7 @@ class SiteDownTest extends TestCase
 
         $sites = SiteRepository::getAllForUptimeCheck();
 
-        $consecutiveFailsNeeded = config('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks');
+        $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
         foreach(range(1, $consecutiveFailsNeeded) as $index){
             $sites->checkUptime();
@@ -52,7 +52,7 @@ class SiteDownTest extends TestCase
 
         $sites = SiteRepository::getAllForUptimeCheck();
 
-        $consecutiveFailsNeeded = config('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks');
+        $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
         foreach(range(1, $consecutiveFailsNeeded) as $index){
             $sites->checkUptime();
@@ -87,7 +87,7 @@ class SiteDownTest extends TestCase
         $this->site->look_for_string = 'Another page';
         $this->site->save();
 
-        $this->app['config']->set('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks', 1);
+        $this->app['config']->set('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures', 1);
 
         SiteRepository::getAllForUptimeCheck()->checkUptime();
 
