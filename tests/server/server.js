@@ -23,7 +23,7 @@ app.post('/setServerResponse', function(request, response) {
     response.send("Response set");
 });
 
-let server = app.listen(8080, function () {
+var server = app.listen(8080, function () {
     var host = 'localhost';
     var port = server.address().port;
 
