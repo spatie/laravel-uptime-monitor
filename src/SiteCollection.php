@@ -29,7 +29,7 @@ class SiteCollection extends Collection
 
             'rejected' => function (RequestException $exception, $index) {
                 $site = $this->getSiteAtIndex($index);
-                
+
                 ConsoleOutput::error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
 
                 $site->couldNotReachSite($exception->getMessage());

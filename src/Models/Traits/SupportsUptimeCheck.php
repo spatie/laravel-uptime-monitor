@@ -24,7 +24,7 @@ trait SupportsUptimeCheck
             return true;
         }
 
-        return $this->uptime_last_check_date->diffInMinutes() >= $this->ping_every_minutes;
+        return $this->uptime_last_check_date->diffInMinutes() >= $this->uptime_check_interval_in_minutes;
     }
 
     public function couldReachSite($responseHtml)

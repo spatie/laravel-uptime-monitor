@@ -14,8 +14,8 @@ use Spatie\Url\Url;
 
 class Site extends Model
 {
-    use SupportsSslCertificateCheck,
-        SupportsUptimeCheck,
+    use SupportsUptimeCheck,
+        SupportsSslCertificateCheck,
         SitePresenter;
 
     protected $guarded = [];

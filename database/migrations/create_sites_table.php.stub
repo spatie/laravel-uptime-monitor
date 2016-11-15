@@ -20,6 +20,7 @@ class CreateSitesTable extends Migration
             $table->boolean('enabled')->default(true);
 
             $table->string('look_for_string')->default('');
+            $table->string('uptime_check_interval_in_minutes')->default(5);
             $table->string('uptime_status')->default(UptimeStatus::NOT_YET_CHECKED);
             $table->string('uptime_failure_reason')->default('');
             $table->integer('uptime_check_times_failed_in_a_row')->default(0);

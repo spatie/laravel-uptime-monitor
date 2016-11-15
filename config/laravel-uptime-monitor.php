@@ -55,6 +55,16 @@ return [
 
     'uptime_check' => [
 
+        /*
+         * An uptime check will be performed if the last check was performed more that the
+         * given amount of minutes ago. If you change this setting you have to manually
+         * update the `uptime_check_interval_in_minutes` value of your existing sites.
+         *
+         * When a site is down we'll check the uptime every time `sites:check-uptime` runs
+         * regardless of this setting.
+         */
+        'uptime_check_interval_in_minutes' => 5,
+
         /**
          * To speed up the uptime checking process uptime monitor can check multiple sites
          * concurrently. Set this to a lower value if you're getting weird errors
