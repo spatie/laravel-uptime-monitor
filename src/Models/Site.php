@@ -40,6 +40,10 @@ class Site extends Model
 
     public function getUrlAttribute()
     {
+        if (! isset($this->attributes['url'])) {
+            return;
+        }
+
         return Url::fromString($this->attributes['url']);
     }
 

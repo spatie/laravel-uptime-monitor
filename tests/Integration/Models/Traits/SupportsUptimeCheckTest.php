@@ -58,4 +58,20 @@ class SupportsUptimeCheckTest extends TestCase
             $this->progressMinutes(1);
         }
     }
+
+    /** @test */
+    public function it_will_set_uptime_status_last_change_date_when_the_status_changes()
+    {
+        $this->assertTrue($this->site->uptime_status_last_change_date->diffInMinutes() === 0);
+
+        $this->progressMinutes(5);
+
+        $this->assertFalse($this->site->uptime_status_last_change_date->diffInMinutes() === 0);
+
+        $this->artisan('sites:check-uptime');
+
+        $this->site = $this->site->fresh();
+
+        $this->assertTrue($this->site->uptime_status_last_change_date->diffInMinutes() === 0);
+    }
 }
