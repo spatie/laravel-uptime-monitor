@@ -49,7 +49,7 @@ class SiteCollection extends Collection
             $promise = $client->requestAsync(
                 $site->uptime_check_method,
                 $site->url,
-                ['connect_timeout' => 10]
+                ['connect_timeout' => null]
             );
 
             yield $promise;

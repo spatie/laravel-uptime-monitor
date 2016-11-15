@@ -61,6 +61,12 @@ return [
     'concurrent_uptime_checks' => 10,
 
     /**
+     * The uptime check for a site will fail if site does not respond after the
+     * given amount of seconds.
+     */
+    'uptime_check_timeout' => 10,
+
+    /**
      * Fire SiteDown-event only after the given amount of checks have consecutively failed.
      */
     'fire_down_event_after_consecutive_failed_checks' => 2,
