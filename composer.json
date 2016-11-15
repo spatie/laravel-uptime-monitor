@@ -18,17 +18,17 @@
     "require": {
         "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2",
-        "illuminate/console": "^5.3.8",
-        "illuminate/database": "^5.3.8",
-        "illuminate/queue": "^5.3.8",
-        "illuminate/support": "^5.3.8",
+        "illuminate/console": "^5.3.16",
+        "illuminate/database": "^5.3.16",
+        "illuminate/queue": "^5.3.16",
+        "illuminate/support": "^5.3.16",
         "myclabs/php-enum": "^1.4",
         "spatie/ssl-certificate": "^1.0.0",
         "spatie/url": "^1.0.1"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.5",
-        "orchestra/testbench": "^3.3.1",
+        "orchestra/testbench": "^3.3.4",
         "phpunit/phpunit": "^5.5"
     },
     "autoload": {
