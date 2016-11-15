@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test;
 
+use Artisan;
 use Carbon\Carbon;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
@@ -75,5 +76,15 @@ abstract class TestCase extends Orchestra
     public function bringTestServerDown()
     {
         $this->server->down();
+    }
+
+    protected function seeInConsoleOutput(string $searchString)
+    {
+        $this->assertContains($searchString, Artisan::output());
+    }
+
+    protected function dontSeeInConsoleOutput(string $searchString)
+    {
+        $this->assertNotContains($searchString, Artisan::output());
     }
 }
