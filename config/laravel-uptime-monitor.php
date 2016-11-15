@@ -20,11 +20,6 @@ return [
             \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => [],
         ],
 
-        /**
-         * Fire SiteDown-event only after the given amount of checks have consecutively failed.
-         */
-        'fire_down_event_after_consecutive_failed_checks' => 2,
-
         /*
          * To keep reminding you that a site is down down notifications
          * will be resent every given amount of minutes.
@@ -65,4 +60,13 @@ return [
      * running the uptime check.
      */
     'concurrent_uptime_checks' => 10,
+
+    /**
+     * Fire SiteDown-event only after the given amount of checks have consecutively failed.
+     */
+    'fire_down_event_after_consecutive_failed_checks' => 2,
+
+    /**
+     * @TODO: add support for custom model / repo
+     */
 ];

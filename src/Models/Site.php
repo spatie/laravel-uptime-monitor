@@ -143,7 +143,7 @@ class Site extends Model
 
     protected function shouldFireDownEvent(): bool
     {
-        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.notifications.fire_down_event_after_consecutive_failed_checks')) {
+        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.fire_down_event_after_consecutive_failed_checks')) {
             return true;
         }
 
