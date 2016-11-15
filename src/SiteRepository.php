@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\Collection;
+use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
