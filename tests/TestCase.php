@@ -9,7 +9,7 @@ use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
-    /** @var \Spatie\UptimeMonitor\Test\Server  */
+    /** @var \Spatie\UptimeMonitor\Test\Server */
     protected $server;
 
     public function setUp()
@@ -20,7 +20,7 @@ abstract class TestCase extends Orchestra
 
         parent::setUp();
 
-        $this->withFactories(__DIR__.'/factories');
+        $this->withFactories(__DIR__ . '/factories');
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class TestCase extends Orchestra
 
     protected function setUpDatabase()
     {
-        include_once __DIR__.'/../database/migrations/create_sites_table.php.stub';
+        include_once __DIR__ . '/../database/migrations/create_sites_table.php.stub';
 
         (new \CreateSitesTable())->up();
     }
@@ -78,13 +78,36 @@ abstract class TestCase extends Orchestra
         $this->server->down();
     }
 
-    protected function seeInConsoleOutput(string $searchString)
+    /**
+     * @param string|array $searchStrings
+     */
+    protected function seeInConsoleOutput($searchStrings)
     {
-        $this->assertContains($searchString, Artisan::output());
+        if (!is_array($searchStrings)) {
+            $searchStrings = [$searchStrings];
+        }
+
+        $output = Artisan::output();
+
+        foreach ($searchStrings as $searchString) {
+            $this->assertContains((string)$searchString, $output);
+        }
+
     }
 
-    protected function dontSeeInConsoleOutput(string $searchString)
+    /**
+     * @param string|array $searchStrings
+     */
+    protected function dontSeeInConsoleOutput($searchStrings)
     {
-        $this->assertNotContains($searchString, Artisan::output());
+        if (!is_array($searchStrings)) {
+            $searchStrings = [$searchStrings];
+        }
+
+        $output = Artisan::output();
+
+        foreach ($searchStrings as $searchString) {
+            $this->assertNotContains((string)$searchString, $output);
+        }
     }
 }

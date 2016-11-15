@@ -9,6 +9,13 @@ use Spatie\UptimeMonitor\Models\Site;
 
 class SiteRepository
 {
+    public static function getAllEnabledSites(): Collection
+    {
+        return Site::enabled()
+            ->get()
+            ->sortByHost();
+    }
+
     public static function getAllForUptimeCheck(): SiteCollection
     {
         $sites = Site::enabled()
