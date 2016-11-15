@@ -57,7 +57,8 @@ class SiteCollection extends Collection
     }
 
     /**
-     * Make sure the keys are in consecutive order without gaps.
+     * In order to make use of Guzzle promises we have to make sure the
+     * keys of the collection are in consecutive order without gaps.
      */
     protected function resetItemKeys()
     {
