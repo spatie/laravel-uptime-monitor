@@ -77,14 +77,14 @@ return [
 
     /**
      * To add or modify behaviour to the Site model you can specify your
-     * own model here. There only requirement is that is extends
+     * own model here. They only requirement is that it should extend
      * `Spatie\UptimeMonitor\Test\Models\Site`.
      */
      'model' => Spatie\UptimeMonitor\Models\Site::class,
 
     /**
      * To add or modify behaviour to the site repository you can specify your own
-     * repository here.There only requirement is that is extends
+     * repository here. The only requirement is that it should extend
      * `Spatie\UptimeMonitor\SiteRepository`.
      */
      'repository' => Spatie\UptimeMonitor\SiteRepository::class,
