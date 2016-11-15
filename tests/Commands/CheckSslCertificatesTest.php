@@ -40,6 +40,8 @@ class CheckSslCertificatesCommandTest extends TestCase
 
     public function it_can_check_the_ssl_certificate_of_multiple_specific_sites()
     {
+
+
         $site1 = factory(Site::class)->create(['check_ssl_certificate' => true]);
         $site2 = factory(Site::class)->create([
             'url' => 'https://google.com',

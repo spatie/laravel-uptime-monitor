@@ -110,4 +110,13 @@ abstract class TestCase extends Orchestra
             $this->assertNotContains((string)$searchString, $output);
         }
     }
+
+    public function skipIfNotConnectedToTheInternet()
+    {
+        try {
+            file_get_contents('https://google.com');
+        } catch (\ErrorException $e) {
+            $this->markTestSkipped('No internet connection available.');
+        }
+    }
 }
