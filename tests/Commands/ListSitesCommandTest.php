@@ -27,7 +27,7 @@ class ListSitesCommandTest extends TestCase
 
         $this->seeInConsoleOutput([
             "Healthy sites",
-            $site->url
+            $site->url,
         ]);
     }
 
@@ -40,7 +40,7 @@ class ListSitesCommandTest extends TestCase
 
         $this->seeInConsoleOutput([
             "Sites that are down",
-            $site->url
+            $site->url,
         ]);
     }
 
@@ -56,7 +56,7 @@ class ListSitesCommandTest extends TestCase
 
         $this->seeInConsoleOutput([
             "Sites with ssl certificate problems",
-            $site->url
+            $site->url,
         ]);
     }
 }
