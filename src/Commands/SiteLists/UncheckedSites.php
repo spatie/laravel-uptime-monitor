@@ -10,14 +10,7 @@ use Spatie\UptimeMonitor\SiteRepository;
 
 class UncheckedSites
 {
-    protected $output;
-
-    public function __construct(Command $output)
-    {
-        $this->output = $output;
-    }
-
-    public function display()
+    public static function display()
     {
         $downSites = SiteRepository::uncheckedSites();
 

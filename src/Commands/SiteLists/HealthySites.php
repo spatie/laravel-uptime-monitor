@@ -10,9 +10,7 @@ use Spatie\UptimeMonitor\SiteRepository;
 
 class HealthySites
 {
-    protected $output;
-    
-    public function display()
+    public static function display()
     {
         $healthySites = SiteRepository::healthySites();
 

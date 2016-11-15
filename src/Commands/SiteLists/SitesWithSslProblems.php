@@ -9,14 +9,7 @@ use Spatie\UptimeMonitor\SiteRepository;
 
 class SitesWithSslProblems
 {
-    protected $output;
-
-    public function __construct(Command $output)
-    {
-        $this->output = $output;
-    }
-
-    public function display()
+    public static function display()
     {
         $sitesWithSslProblems = SiteRepository::withSslProblems();
 

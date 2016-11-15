@@ -23,9 +23,9 @@ class ListSites extends BaseCommand
             $this->info("You can add a site using the `sites:add` command");
         }
 
-        (new UncheckedSites($this))->display();
-        (new DownSites($this))->display();
-        (new SitesWithSslProblems($this))->display();
-        (new HealthySites())->display();
+        UncheckedSites::display();
+        DownSites::display();
+        SitesWithSslProblems::display();
+        HealthySites::display();
     }
 }

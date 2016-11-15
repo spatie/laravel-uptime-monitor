@@ -10,14 +10,7 @@ use Spatie\UptimeMonitor\SiteRepository;
 
 class DownSites
 {
-    protected $output;
-
-    public function __construct(Command $output)
-    {
-        $this->output = $output;
-    }
-
-    public function display()
+    public static function display()
     {
         $downSites = SiteRepository::downSites();
 

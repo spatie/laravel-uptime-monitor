@@ -87,7 +87,7 @@ class Site extends Model
     public function pingSucceeded($responseHtml)
     {
         if (!$this->lookForStringPresentOnResponse($responseHtml)) {
-            $this->siteIsDown("String `{$this->look_for_string}` was not found on the response");
+            $this->siteIsDown("String `{$this->look_for_string}` was not found on the response.");
         }
 
         $this->siteIsUp();
