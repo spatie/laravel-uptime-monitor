@@ -2,14 +2,13 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Commands\SiteLists\DownSites;
 use Spatie\UptimeMonitor\Commands\SiteLists\HealthySites;
 use Spatie\UptimeMonitor\Commands\SiteLists\SitesWithSslProblems;
 use Spatie\UptimeMonitor\Commands\SiteLists\UncheckedSites;
 use Spatie\UptimeMonitor\SiteRepository;
 
-class ListSites extends Command
+class ListSites extends BaseCommand
 {
     protected $signature = 'sites:list';
 
@@ -27,6 +26,6 @@ class ListSites extends Command
         (new UncheckedSites($this))->display();
         (new DownSites($this))->display();
         (new SitesWithSslProblems($this))->display();
-        (new HealthySites($this))->display();
+        (new HealthySites())->display();
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\Url\Url;
 
-class AddSite extends Command
+class AddSite extends BaseCommand
 {
     protected $signature = 'sites:add {url}';
 

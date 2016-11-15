@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Commands\SiteLists;
 
 use Illuminate\Console\Command;
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
@@ -23,8 +24,8 @@ class SitesWithSslProblems
             return;
         }
 
-        $this->output->warn('Sites with ssl certificate problems');
-        $this->output->warn('=======================');
+        ConsoleOutput::warn('Sites with ssl certificate problems');
+        ConsoleOutput::warn('=======================');
 
         $rows = $sitesWithSslProblems->map(function (Site $site) {
             $url = $site->url;
@@ -36,7 +37,7 @@ class SitesWithSslProblems
 
         $titles = ['URL', 'Problem description'];
 
-        $this->output->table($titles, $rows);
-        $this->output->line('');
+        ConsoleOutput::table($titles, $rows);
+        ConsoleOutput::line('');
     }
 }

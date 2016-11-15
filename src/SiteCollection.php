@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 
 class SiteCollection extends Collection
 {
@@ -20,7 +21,7 @@ class SiteCollection extends Collection
             'fulfilled' => function (ResponseInterface $response, $index) {
                 $site = $this->items[$index];
 
-                uptimeMonitorConsoleOutput()->info("Could reach {$site->url}");
+                ConsoleOutput::info("Could reach {$site->url}");
 
                 $site->pingSucceeded($response->getBody());
             },
@@ -28,7 +29,7 @@ class SiteCollection extends Collection
             'rejected' => function (RequestException $exception, $index) {
                 $site = $this->items[$index];
 
-                uptimeMonitorConsoleOutput()->error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
+                ConsoleOutput::error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
 
                 $site->pingFailed($exception->getMessage());
             },
@@ -44,7 +45,7 @@ class SiteCollection extends Collection
         ]);
 
         foreach ($this->items as $site) {
-            uptimeMonitorConsoleOutput()->info("checking {$site->url}");
+            ConsoleOutput::info("checking {$site->url}");
             $promise = $client->requestAsync(
                 $site->uptime_check_method,
                 $site->url,

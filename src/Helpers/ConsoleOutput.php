@@ -5,24 +5,25 @@ namespace Spatie\UptimeMonitor\Helpers;
 class ConsoleOutput
 {
     /** @var \Illuminate\Console\OutputStyle */
-    protected $output;
+    public static $output;
 
     /**
      * @param $output
      */
     public function setOutput($output)
     {
-        $this->output = $output;
+        static::$output = $output;
     }
 
-    public function __call(string $method, array $arguments)
+    public static function __callStatic(string $method, $arguments)
     {
         $consoleOutput = app(static::class);
 
-        if (! $consoleOutput->output) {
+        if (! $consoleOutput::$output) {
+            var_dump('nope');
             return;
         }
 
-        $consoleOutput->output->$method($arguments[0]);
+        static::$output->$method(...$arguments);
     }
 }

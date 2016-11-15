@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Commands;
 use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;
 
-class DeleteSite extends Command
+class DeleteSite extends BaseCommand
 {
     protected $signature = 'sites:delete {url}';
 

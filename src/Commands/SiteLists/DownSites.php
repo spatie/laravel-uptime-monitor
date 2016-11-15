@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Commands\SiteLists;
 
 use Illuminate\Console\Command;
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
@@ -24,8 +25,8 @@ class DownSites
             return;
         }
 
-        $this->output->warn('Sites that are down');
-        $this->output->warn('===================');
+        ConsoleOutput::warn('Sites that are down');
+        ConsoleOutput::warn('===================');
 
         $rows = $downSites->map(function (Site $site) {
             $url = $site->url;
@@ -47,7 +48,7 @@ class DownSites
 
         $titles = ['URL', 'Reachable', 'Offline since', 'Reason', 'SSL Certificate', 'SSL Expiration date', 'SSL Issuer'];
 
-        $this->output->table($titles, $rows);
-        $this->output->line('');
+        ConsoleOutput::table($titles, $rows);
+        ConsoleOutput::line('');
     }
 }

@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Commands\SiteLists;
 
 use Illuminate\Console\Command;
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
@@ -10,12 +11,7 @@ use Spatie\UptimeMonitor\SiteRepository;
 class HealthySites
 {
     protected $output;
-
-    public function __construct(Command $output)
-    {
-        $this->output = $output;
-    }
-
+    
     public function display()
     {
         $healthySites = SiteRepository::healthySites();
@@ -24,8 +20,8 @@ class HealthySites
             return;
         }
 
-        $this->output->info('Healthy sites');
-        $this->output->info('=============');
+        ConsoleOutput::info('Healthy sites');
+        ConsoleOutput::info('=============');
 
         $rows = $healthySites->map(function (Site $site) {
             $url = $site->url;
@@ -46,7 +42,7 @@ class HealthySites
 
         $titles = ['URL', 'Reachable', 'Online since', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
 
-        $this->output->table($titles, $rows);
-        $this->output->line('');
+        ConsoleOutput::table($titles, $rows);
+        ConsoleOutput::line('');
     }
 }

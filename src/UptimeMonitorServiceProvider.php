@@ -61,8 +61,6 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             'command.sites:list',
         ]);
 
-        $this->app->singleton(ConsoleOutput::class);
-
         Collection::macro('sortByHost', function() {
             return $this->sortBy(function(Site $site) {
                 return $site->url->getHost();

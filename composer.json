@@ -34,10 +34,7 @@
     "autoload": {
         "psr-4": {
             "Spatie\\UptimeMonitor\\": "src"
-        },
-        "files": [
-            "src/Helpers/functions.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

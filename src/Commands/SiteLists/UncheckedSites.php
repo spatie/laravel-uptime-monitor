@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Commands\SiteLists;
 
 use Illuminate\Console\Command;
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
@@ -24,8 +25,8 @@ class UncheckedSites
             return;
         }
 
-        $this->output->warn('Sites that have not been checked yet');
-        $this->output->warn('====================================');
+        ConsoleOutput::warn('Sites that have not been checked yet');
+        ConsoleOutput::warn('====================================');
 
         $rows = $downSites->map(function (Site $site) {
             $url = $site->url;
@@ -35,7 +36,7 @@ class UncheckedSites
 
         $titles = ['URL'];
 
-        $this->output->table($titles, $rows);
-        $this->output->line('');
+        ConsoleOutput::table($titles, $rows);
+        ConsoleOutput::line('');
     }
 }
