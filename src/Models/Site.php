@@ -49,22 +49,12 @@ class Site extends Model
 
     public static function boot()
     {
+        parent::boot();
+
         static::saving(function (Site $site) {
             if (static::alreadyExists($site)) {
                 throw CannotSaveSite::alreadyExists($site);
             }
-
-            /*
-            if (is_null($site->uptime_status_last_change_date)) {
-                $site->uptime_status_last_change_date = Carbon::now();
-
-                return;
-            }
-
-            if ($site->getOriginal('uptime_status') != $site->uptime_status) {
-                $site->uptime_status_last_change_date = Carbon::now();
-            }
-            */
         });
     }
 

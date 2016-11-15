@@ -6,13 +6,13 @@ use Spatie\UptimeMonitor\Events\SiteDown;
 use Carbon\Carbon;
 use Spatie\UptimeMonitor\Events\SiteRestored;
 use Spatie\UptimeMonitor\Events\SiteUp;
+use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 trait SupportsUptimeCheck
 {
     public static function bootSupportsUptimeCheck()
     {
-        dd('omg it booted');
         static::saving(function (Site $site) {
             if (is_null($site->uptime_status_last_change_date)) {
                 $site->uptime_status_last_change_date = Carbon::now();
