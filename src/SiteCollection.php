@@ -9,6 +9,7 @@ use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
+use Spatie\UptimeMonitor\Models\Site;
 
 class SiteCollection extends Collection
 {
@@ -19,7 +20,7 @@ class SiteCollection extends Collection
         (new EachPromise($this->getPromises(), [
             'concurrency' => config('laravel-uptime-monitor.uptime_check.concurrent_checks'),
             'fulfilled' => function (ResponseInterface $response, $index) {
-                $site = $this->items[$index];
+                $site = $this->getSiteAtIndex($index);
 
                 ConsoleOutput::info("Could reach {$site->url}");
 
@@ -27,8 +28,8 @@ class SiteCollection extends Collection
             },
 
             'rejected' => function (RequestException $exception, $index) {
-                $site = $this->items[$index];
-
+                $site = $this->getSiteAtIndex($index);
+                
                 ConsoleOutput::error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
 
                 $site->couldNotReachSite($exception->getMessage());
@@ -64,4 +65,10 @@ class SiteCollection extends Collection
     {
         $this->items = $this->values()->all();
     }
+
+    protected function getSiteAtIndex(int $index): Site
+    {
+        return $this->items[$index];
+    }
+
 }
