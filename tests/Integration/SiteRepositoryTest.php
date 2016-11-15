@@ -1,11 +1,12 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Test;
+namespace Spatie\UptimeMonitor\Test\Integration;
 
 use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\Url\Url;
 
 class SiteRepositoryTest extends TestCase

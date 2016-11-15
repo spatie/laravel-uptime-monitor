@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Test\Models;
+namespace Spatie\UptimeMonitor\Test\Integration\Models;
 
 use Spatie\UptimeMonitor\Exceptions\CannotSaveSite;
 use Spatie\UptimeMonitor\Models\Site;

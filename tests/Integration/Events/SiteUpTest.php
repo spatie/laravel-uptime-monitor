@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Test\Events;
+namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Artisan;
 use Spatie\UptimeMonitor\Events\SiteUp;

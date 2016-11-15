@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Test\Commands;
+namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;

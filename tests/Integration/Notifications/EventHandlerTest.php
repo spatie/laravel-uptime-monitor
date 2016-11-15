@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Test\Notifications;
+namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\SiteRestored as SiteRestoredEvent;
