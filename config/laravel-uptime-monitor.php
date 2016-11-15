@@ -73,6 +73,11 @@ return [
          * have consecutively failed for a site.
          */
         'fire_down_event_after_consecutive_failures' => 2
+
+        /**
+         * When reaching out to sites this user agent will be used.
+         */
+        'user_agent' => 'spatie/laravel-uptime-monitor uptime checker',
     ],
 
     /**

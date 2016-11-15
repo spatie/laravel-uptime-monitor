@@ -40,7 +40,7 @@ class SiteCollection extends Collection
     {
         $client = new Client([
             'headers' => [
-                'User-Agent' => 'spatie/laravel-uptime-monitor uptime checker',
+                'User-Agent' => config('laravel-uptime-monitor.uptime_check.user_agent'),
             ],
         ]);
 
