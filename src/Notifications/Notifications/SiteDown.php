@@ -12,7 +12,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 class SiteDown extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\SiteDown */
-    protected $event;
+    public $event;
 
     /**
      * Get the mail representation of the notification.

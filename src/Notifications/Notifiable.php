@@ -22,4 +22,9 @@ class Notifiable
     {
         return config('laravel-uptime-monitor.notifications.slack.webhook_url');
     }
+
+    public function getKey()
+    {
+        return static::class;
+    }
 }

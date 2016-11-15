@@ -11,7 +11,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 class InvalidSslCertificateFound extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\InvalidSslCertificateFound */
-    protected $event;
+    public $event;
 
     /**
      * Get the mail representation of the notification.
