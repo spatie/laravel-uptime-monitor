@@ -4,14 +4,14 @@ namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Helpers\Emoji;
-use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 class HealthyMonitors
 {
     public static function display()
     {
-        $healthySites = SiteRepository::healthySites();
+        $healthySites = MonitorRepository::healthyMonitors();
 
         if (! $healthySites->count()) {
             return;
@@ -20,17 +20,17 @@ class HealthyMonitors
         ConsoleOutput::info('Healthy sites');
         ConsoleOutput::info('=============');
 
-        $rows = $healthySites->map(function (Site $site) {
-            $url = $site->url;
+        $rows = $healthySites->map(function (Monitor $monitor) {
+            $url = $monitor->url;
 
-            $reachable = $site->reachableAsEmoji;
+            $reachable = $monitor->reachableAsEmoji;
 
-            $onlineSince = $site->formattedLastUpdatedStatusChangeDate;
+            $onlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
 
-            if ($site->check_ssl_certificate) {
+            if ($monitor->check_ssl_certificate) {
                 $sslCertificateFound = Emoji::ok();
-                $sslCertificateExpirationDate = $site->formattedSslCertificateExpirationDate;
-                $sslCertificateIssuer = $site->ssl_certificate_issuer;
+                $sslCertificateExpirationDate = $monitor->formattedSslCertificateExpirationDate;
+                $sslCertificateIssuer = $monitor->ssl_certificate_issuer;
             }
 
 

@@ -5,8 +5,8 @@ namespace Spatie\UptimeMonitor\Commands;
 use Spatie\UptimeMonitor\Commands\MonitorLists\FailedMonitors;
 use Spatie\UptimeMonitor\Commands\MonitorLists\HealthyMonitors;
 use Spatie\UptimeMonitor\Commands\MonitorLists\MonitorsReportingSslProblems;
-use Spatie\UptimeMonitor\Commands\MonitorLists\VirginMonitors;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\Commands\MonitorLists\UncheckedMonitors;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 class ListSites extends BaseCommand
 {
@@ -18,12 +18,12 @@ class ListSites extends BaseCommand
     {
         $this->line('');
 
-        if (! SiteRepository::getAllEnabledSites()->count()) {
+        if (! MonitorRepository::getAllEnabledMonitors()->count()) {
             $this->warn('There are no sites configured or enabled.');
             $this->info('You can add a site using the `sites:add` command');
         }
 
-        VirginMonitors::display();
+        UncheckedMonitors::display();
         FailedMonitors::display();
         MonitorsReportingSslProblems::display();
         HealthyMonitors::display();

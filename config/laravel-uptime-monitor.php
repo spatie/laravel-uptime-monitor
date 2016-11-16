@@ -93,5 +93,5 @@ return [
      * own model here. They only requirement is that it should extend
      * `Spatie\UptimeMonitor\Test\Models\Site`.
      */
-     'site_model' => Spatie\UptimeMonitor\Models\Site::class,
+     'site_model' => Spatie\UptimeMonitor\Models\Monitor::class,
 ];

@@ -2,15 +2,15 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Spatie\UptimeMonitor\Events\SiteUp;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Events\MonitorHealthy;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class SiteUpTest extends TestCase
 {
-    protected $site;
+    protected $monitor;
 
     public function setUp()
     {
@@ -18,15 +18,15 @@ class SiteUpTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Site::class)->create();
+        $this->site = factory(Monitor::class)->create();
     }
 
     /** @test */
     public function the_up_event_will_be_fired_when_a_site_is_up()
     {
-        SiteRepository::getAllForUptimeCheck()->checkUptime();
+        MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
-        Event::assertFired(SiteUp::class, function ($event) {
+        Event::assertFired(MonitorHealthy::class, function ($event) {
             return $event->site->id === $this->site->id;
         });
     }
@@ -39,8 +39,8 @@ class SiteUpTest extends TestCase
         $this->site->look_for_string = 'welcome';
         $this->site->save();
 
-        SiteRepository::getAllForUptimeCheck()->checkUptime();
+        MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
-        Event::assertFired(SiteUp::class);
+        Event::assertFired(MonitorHealthy::class);
     }
 }

@@ -4,14 +4,14 @@ namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Helpers\Emoji;
-use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 class FailedMonitors
 {
     public static function display()
     {
-        $downSites = SiteRepository::downSites();
+        $downSites = MonitorRepository::failingMonitors();
 
         if (! $downSites->count()) {
             return;
@@ -20,19 +20,19 @@ class FailedMonitors
         ConsoleOutput::warn('Monitors that have failed');
         ConsoleOutput::warn('=========================');
 
-        $rows = $downSites->map(function (Site $site) {
-            $url = $site->url;
+        $rows = $downSites->map(function (Monitor $monitor) {
+            $url = $monitor->url;
 
-            $reachable = $site->reachableAsEmoji;
+            $reachable = $monitor->reachableAsEmoji;
 
-            $offlineSince = $site->formattedLastUpdatedStatusChangeDate;
+            $offlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
 
-            $reason = $site->chunkedLastFailureReason;
+            $reason = $monitor->chunkedLastFailureReason;
 
-            if ($site->check_ssl_certificate) {
+            if ($monitor->check_ssl_certificate) {
                 $sslCertificateFound = Emoji::ok();
-                $sslCertificateExpirationDate = $site->formattedSslCertificateExpirationDate;
-                $sslCertificateIssuer = $site->ssl_certificate_issuer;
+                $sslCertificateExpirationDate = $monitor->formattedSslCertificateExpirationDate;
+                $sslCertificateIssuer = $monitor->ssl_certificate_issuer;
             }
 
             return compact('url', 'reachable', 'offlineSince', 'reason', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');

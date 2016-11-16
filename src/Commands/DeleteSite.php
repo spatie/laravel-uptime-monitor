@@ -2,7 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 class DeleteSite extends BaseCommand
 {
@@ -14,18 +14,18 @@ class DeleteSite extends BaseCommand
     {
         $url = $this->argument('url');
 
-        $site = Site::where('url', $url)->first();
+        $monitor = Monitor::where('url', $url)->first();
 
-        if (! $site) {
+        if (! $monitor) {
             $this->error("Site {$url} is not configured");
 
             return;
         }
 
-        if ($this->confirm("Are you sure you want stop monitoring {$site->url}?")) {
-            $site->delete();
+        if ($this->confirm("Are you sure you want stop monitoring {$monitor->url}?")) {
+            $monitor->delete();
 
-            $this->warn("{$site->url} will not be monitored anymore");
+            $this->warn("{$monitor->url} will not be monitored anymore");
         }
     }
 }

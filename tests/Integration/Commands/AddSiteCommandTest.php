@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 use Artisan;
 use Mockery as m;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class AddSiteCommandTest extends TestCase
@@ -35,10 +35,10 @@ class AddSiteCommandTest extends TestCase
 
         Artisan::call('sites:add', ['url' => 'https://mysite.com']);
 
-        $site = Site::where('url', 'https://mysite.com')->first();
+        $monitor = Monitor::where('url', 'https://mysite.com')->first();
 
-        $this->assertSame($site->uptime_status, UptimeStatus::NOT_YET_CHECKED);
-        $this->assertTrue($site->check_ssl_certificate);
+        $this->assertSame($monitor->uptime_status, UptimeStatus::NOT_YET_CHECKED);
+        $this->assertTrue($monitor->check_ssl_certificate);
     }
 
     /** @test */
@@ -52,10 +52,10 @@ class AddSiteCommandTest extends TestCase
 
         Artisan::call('sites:add', ['url' => 'http://mysite.com']);
 
-        $site = Site::where('url', 'http://mysite.com')->first();
+        $monitor = Monitor::where('url', 'http://mysite.com')->first();
 
-        $this->assertSame($site->uptime_status, UptimeStatus::NOT_YET_CHECKED);
-        $this->assertFalse($site->check_ssl_certificate);
+        $this->assertSame($monitor->uptime_status, UptimeStatus::NOT_YET_CHECKED);
+        $this->assertFalse($monitor->check_ssl_certificate);
 
         $this->bringTestServerUp();
         $this->bringTestServerDown();

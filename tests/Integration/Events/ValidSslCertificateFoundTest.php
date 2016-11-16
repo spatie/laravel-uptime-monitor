@@ -5,14 +5,14 @@ namespace Spatie\UptimeMonitor\Test\Integration\Events;
 use Carbon\Carbon;
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class ValidSslCertificateFoundTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Models\Site */
-    protected $site;
+    /** @var \Spatie\UptimeMonitor\Models\Monitor */
+    protected $monitor;
 
     public function setUp()
     {
@@ -22,7 +22,7 @@ class ValidSslCertificateFoundTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Site::class)->create([
+        $this->site = factory(Monitor::class)->create([
             'check_ssl_certificate' => true,
             'url' => 'https://google.com',
         ]);

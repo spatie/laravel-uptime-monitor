@@ -3,26 +3,26 @@
 namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
-use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 class MonitorsReportingSslProblems
 {
     public static function display()
     {
-        $sitesWithSslProblems = SiteRepository::withSslProblems();
+        $monitorsWithSslProblems = MonitorRepository::withSslProblems();
 
-        if (! $sitesWithSslProblems->count()) {
+        if (! $monitorsWithSslProblems->count()) {
             return;
         }
 
         ConsoleOutput::warn('Monitors reporting SSL Certificate problems');
         ConsoleOutput::warn('===========================================');
 
-        $rows = $sitesWithSslProblems->map(function (Site $site) {
-            $url = $site->url;
+        $rows = $monitorsWithSslProblems->map(function (Monitor $monitor) {
+            $url = $monitor->url;
 
-            $reason = $site->chunkedLastSslFailureReason;
+            $reason = $monitor->chunkedLastSslFailureReason;
 
             return compact('url', 'reason');
         });

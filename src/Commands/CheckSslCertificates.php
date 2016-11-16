@@ -3,8 +3,8 @@
 namespace Spatie\UptimeMonitor\Commands;
 
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
-use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 class CheckSslCertificates extends BaseCommand
 {
@@ -16,23 +16,23 @@ class CheckSslCertificates extends BaseCommand
 
     public function handle()
     {
-        $sites = SiteRepository::getAllForSslCheck();
+        $monitors = MonitorRepository::getAllForSslCheck();
 
         if ($url = $this->option('url')) {
-            $sites = $sites->filter(function (Site $site) use ($url) {
-                return in_array((string) $site->url, explode(',', $url));
+            $monitors = $monitors->filter(function (Monitor $monitor) use ($url) {
+                return in_array((string) $monitor->url, explode(',', $url));
             });
         }
 
-        $this->comment('Start checking the ssl certificate of '.count($sites).' sites...');
+        $this->comment('Start checking the ssl certificate of '.count($monitors).' sites...');
 
-        $sites->each(function (Site $site) {
-            $this->info("Checking ssl-certificate of {$site->url}");
+        $monitors->each(function (Monitor $monitor) {
+            $this->info("Checking ssl-certificate of {$monitor->url}");
 
-            $site->checkSslCertificate();
+            $monitor->checkSslCertificate();
 
-            if ($site->ssl_certificate_status !== SslCertificateStatus::VALID) {
-                $this->error("Could not download certificate of {$site->url} because: {$site->ssl_certificate_failure_reason}");
+            if ($monitor->ssl_certificate_status !== SslCertificateStatus::VALID) {
+                $this->error("Could not download certificate of {$monitor->url} because: {$monitor->ssl_certificate_failure_reason}");
             }
         });
 

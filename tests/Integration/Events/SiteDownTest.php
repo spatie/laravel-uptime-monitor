@@ -3,15 +3,15 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Spatie\UptimeMonitor\Events\MonitorFailed;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class SiteDownTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Models\Site */
-    protected $site;
+    /** @var \Spatie\UptimeMonitor\Models\Monitor */
+    protected $monitor;
 
     public function setUp()
     {
@@ -19,7 +19,7 @@ class SiteDownTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Site::class)->create();
+        $this->site = factory(Monitor::class)->create();
     }
 
     /** @test */
@@ -27,12 +27,12 @@ class SiteDownTest extends TestCase
     {
         $this->server->down();
 
-        $sites = SiteRepository::getAllForUptimeCheck();
+        $monitors = MonitorRepository::getAllForUptimeCheck();
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
-            $sites->checkUptime();
+            $monitors->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
                 Event::assertNotFired(MonitorFailed::class);
@@ -49,12 +49,12 @@ class SiteDownTest extends TestCase
     {
         $this->server->down();
 
-        $sites = SiteRepository::getAllForUptimeCheck();
+        $monitors = MonitorRepository::getAllForUptimeCheck();
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
-            $sites->checkUptime();
+            $monitors->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
                 Event::assertNotFired(MonitorFailed::class);
@@ -65,7 +65,7 @@ class SiteDownTest extends TestCase
 
         $this->resetEventAssertions();
 
-        $sites->checkUptime();
+        $monitors->checkUptime();
 
         Event::assertNotFired(MonitorFailed::class);
 
@@ -73,7 +73,7 @@ class SiteDownTest extends TestCase
 
         $this->progressMinutes(config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes'));
 
-        $sites->checkUptime();
+        $monitors->checkUptime();
 
         Event::assertFired(MonitorFailed::class);
     }
@@ -88,7 +88,7 @@ class SiteDownTest extends TestCase
 
         $this->app['config']->set('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures', 1);
 
-        SiteRepository::getAllForUptimeCheck()->checkUptime();
+        MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
         Event::assertFired(MonitorFailed::class);
     }

@@ -6,7 +6,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\MonitorRecovered;
-use Spatie\UptimeMonitor\Events\SiteUp;
+use Spatie\UptimeMonitor\Events\MonitorHealthy;
 use Spatie\UptimeMonitor\Events\MonitorFailed;
 use Spatie\UptimeMonitor\Events\SoonExpiringSslCertificateFound;
 use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
@@ -69,7 +69,7 @@ class EventHandler
     {
         return [
             MonitorFailed::class,
-            SiteUp::class,
+            MonitorHealthy::class,
             MonitorRecovered::class,
             ValidSslCertificateFound::class,
             InvalidSslCertificateFound::class,

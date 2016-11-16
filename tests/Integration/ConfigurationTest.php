@@ -3,23 +3,23 @@
 namespace Spatie\UptimeMonitor\Test;
 
 use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
-use Spatie\UptimeMonitor\Models\Site;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 class ConfigurationTest extends TestCase
 {
     /** @test */
     public function a_custom_site_model_can_be_specified()
     {
-        factory(Site::class)->create();
+        factory(Monitor::class)->create();
 
-        $customModel = new class extends Site {
+        $customModel = new class extends Monitor {
             public $table = 'sites';
         };
 
         $this->app['config']->set('laravel-uptime-monitor.site_model', get_class($customModel));
 
-        $this->assertInstanceOf(get_class($customModel), SiteRepository::getAllEnabledSites()->first());
+        $this->assertInstanceOf(get_class($customModel), MonitorRepository::getAllEnabledMonitors()->first());
     }
 
     /** @test */
@@ -32,6 +32,6 @@ class ConfigurationTest extends TestCase
 
         $this->expectException(InvalidConfiguration::class);
 
-        SiteRepository::getAllEnabledSites();
+        MonitorRepository::getAllEnabledMonitors();
     }
 }

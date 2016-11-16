@@ -4,19 +4,19 @@ namespace Spatie\UptimeMonitor\Events;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\SslCertificate\SslCertificate;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 class SoonExpiringSslCertificateFound implements ShouldQueue
 {
-    /** @var \Spatie\UptimeMonitor\Models\Site */
-    public $site;
+    /** @var \Spatie\UptimeMonitor\Models\Monitor */
+    public $monitor;
 
     /** @var \Spatie\SslCertificate\SslCertificate */
     public $certificate;
 
-    public function __construct(Site $site, SslCertificate $certificate)
+    public function __construct(Monitor $monitor, SslCertificate $certificate)
     {
-        $this->site = $site;
+        $this->site = $monitor;
 
         $this->certificate = $certificate;
     }

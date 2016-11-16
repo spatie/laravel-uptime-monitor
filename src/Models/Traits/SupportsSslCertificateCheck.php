@@ -9,7 +9,7 @@ use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\SoonExpiringSslCertificateFound;
 use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 trait SupportsSslCertificateCheck
 {
@@ -48,13 +48,13 @@ trait SupportsSslCertificateCheck
         event(new InvalidSslCertificateFound($this, $exception->getMessage()));
     }
 
-    protected function fireEventsForUpdatedSiteWithCertificate(Site $site, SslCertificate $certificate)
+    protected function fireEventsForUpdatedSiteWithCertificate(Monitor $monitor, SslCertificate $certificate)
     {
         if ($this->ssl_certificate_status === SslCertificateStatus::VALID) {
             event(new ValidSslCertificateFound($this, $certificate));
 
             if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.notifications.send_notification_when_ssl_certificate_will_expire_in_days')) {
-                event(new SoonExpiringSslCertificateFound($site, $certificate));
+                event(new SoonExpiringSslCertificateFound($monitor, $certificate));
             }
 
             return;

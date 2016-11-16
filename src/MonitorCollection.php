@@ -9,9 +9,9 @@ use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 
-class SiteCollection extends Collection
+class MonitorCollection extends Collection
 {
     public function checkUptime()
     {
@@ -20,19 +20,19 @@ class SiteCollection extends Collection
         (new EachPromise($this->getPromises(), [
             'concurrency' => config('laravel-uptime-monitor.uptime_check.concurrent_checks'),
             'fulfilled' => function (ResponseInterface $response, $index) {
-                $site = $this->getSiteAtIndex($index);
+                $monitor = $this->getSiteAtIndex($index);
 
-                ConsoleOutput::info("Could reach {$site->url}");
+                ConsoleOutput::info("Could reach {$monitor->url}");
 
-                $site->couldReachSite($response->getBody());
+                $monitor->couldReachSite($response->getBody());
             },
 
             'rejected' => function (RequestException $exception, $index) {
-                $site = $this->getSiteAtIndex($index);
+                $monitor = $this->getSiteAtIndex($index);
 
-                ConsoleOutput::error("Could not reach {$site->url} error: `{$exception->getMessage()}`");
+                ConsoleOutput::error("Could not reach {$monitor->url} error: `{$exception->getMessage()}`");
 
-                $site->couldNotReachSite($exception->getMessage());
+                $monitor->couldNotReachSite($exception->getMessage());
             },
         ]))->promise()->wait();
     }
@@ -45,11 +45,11 @@ class SiteCollection extends Collection
             ],
         ]);
 
-        foreach ($this->items as $site) {
-            ConsoleOutput::info("checking {$site->url}");
+        foreach ($this->items as $monitor) {
+            ConsoleOutput::info("checking {$monitor->url}");
             $promise = $client->requestAsync(
-                $site->uptime_check_method,
-                $site->url,
+                $monitor->uptime_check_method,
+                $monitor->url,
                 ['connect_timeout' => config('laravel-uptime-monitor.uptime_check.timeout_per_site')]
             );
 
@@ -66,7 +66,7 @@ class SiteCollection extends Collection
         $this->items = $this->values()->all();
     }
 
-    protected function getSiteAtIndex(int $index): Site
+    protected function getSiteAtIndex(int $index): Monitor
     {
         return $this->items[$index];
     }

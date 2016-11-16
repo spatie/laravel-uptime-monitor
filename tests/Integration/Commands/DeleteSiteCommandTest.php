@@ -4,7 +4,7 @@ namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
 use Mockery as m;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class DeleteSiteCommandTest extends TestCase
@@ -27,13 +27,13 @@ class DeleteSiteCommandTest extends TestCase
 
         $this->url = 'https://mysite.com';
 
-        factory(Site::class)->create(['url' => $this->url]);
+        factory(Monitor::class)->create(['url' => $this->url]);
     }
 
     /** @test */
     public function it_can_delete_a_site()
     {
-        $this->assertEquals(1, Site::where('url', $this->url)->count());
+        $this->assertEquals(1, Monitor::where('url', $this->url)->count());
 
         $this->command
             ->shouldReceive('confirm')
@@ -43,6 +43,6 @@ class DeleteSiteCommandTest extends TestCase
 
         Artisan::call('sites:delete', ['url' => $this->url]);
 
-        $this->assertEquals(0, Site::where('url', $this->url)->count());
+        $this->assertEquals(0, Monitor::where('url', $this->url)->count());
     }
 }

@@ -19,22 +19,22 @@ abstract class BaseNotification extends Notification
 
     public function getSiteProperties($extraProperties = []): array
     {
-        $site = $this->event->site;
+        $monitor = $this->event->site;
 
         $properties['location'] = config('laravel-uptime-monitor.notifications.location');
 
-        $properties['url'] = (string) $site->url;
+        $properties['url'] = (string) $monitor->url;
 
-        if (! empty($site->look_for_string)) {
-            $properties['look for string'] = $site->look_for_string;
+        if (! empty($monitor->look_for_string)) {
+            $properties['look for string'] = $monitor->look_for_string;
         }
 
         $properties = array_merge($properties, $extraProperties);
 
-        if ($site->check_ssl_certificate) {
-            $properties['ssl certificate valid'] = $site->ssl_certificate_status;
-            $properties['ssl certificate issuer'] = $site->ssl_certificate_issuer;
-            $properties['ssl certificate expiration date'] = $site->formattedSslCertificateExpirationDate;
+        if ($monitor->check_ssl_certificate) {
+            $properties['ssl certificate valid'] = $monitor->ssl_certificate_status;
+            $properties['ssl certificate issuer'] = $monitor->ssl_certificate_issuer;
+            $properties['ssl certificate expiration date'] = $monitor->formattedSslCertificateExpirationDate;
         }
 
         return array_filter($properties);

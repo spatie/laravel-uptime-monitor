@@ -4,19 +4,19 @@ namespace Spatie\UptimeMonitor\Test\Integration\Models\Traits;
 
 use Carbon\Carbon;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class SupportsUptimeCheckTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Models\Site */
-    protected $site;
+    /** @var \Spatie\UptimeMonitor\Models\Monitor */
+    protected $monitor;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->site = factory(Site::class)->create(['uptime_last_check_date' => Carbon::now()]);
+        $this->site = factory(Monitor::class)->create(['uptime_last_check_date' => Carbon::now()]);
     }
 
     /** @test */

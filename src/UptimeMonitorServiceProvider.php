@@ -9,7 +9,7 @@ use Spatie\UptimeMonitor\Commands\CheckUptime;
 use Spatie\UptimeMonitor\Commands\AddSite;
 use Spatie\UptimeMonitor\Commands\DeleteSite;
 use Spatie\UptimeMonitor\Commands\ListSites;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class UptimeMonitorServiceProvider extends ServiceProvider
@@ -61,8 +61,8 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         ]);
 
         Collection::macro('sortByHost', function () {
-            return $this->sortBy(function (Site $site) {
-                return $site->url->getHost();
+            return $this->sortBy(function (Monitor $monitor) {
+                return $monitor->url->getHost();
             });
         });
     }

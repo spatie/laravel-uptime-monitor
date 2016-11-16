@@ -6,27 +6,27 @@ use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 
-class SiteRepository
+class MonitorRepository
 {
-    public static function getAllEnabledSites(): Collection
+    public static function getAllEnabledMonitors(): Collection
     {
         return self::query()
             ->get()
             ->sortByHost();
     }
 
-    public static function getAllForUptimeCheck(): SiteCollection
+    public static function getAllForUptimeCheck(): MonitorCollection
     {
-        $sites = self::query()
+        $monitors = self::query()
             ->get()
-            ->filter(function (Site $site) {
-                return $site->shouldCheckUptime();
+            ->filter(function (Monitor $monitor) {
+                return $monitor->shouldCheckUptime();
             })
             ->sortByHost();
 
-        return new SiteCollection($sites);
+        return new MonitorCollection($monitors);
     }
 
     public static function getAllForSslCheck(): Collection
@@ -37,17 +37,17 @@ class SiteRepository
             ->sortByHost();
     }
 
-    public static function healthySites(): Collection
+    public static function healthyMonitors(): Collection
     {
         return self::query()
             ->get()
-            ->filter(function (Site $site) {
-                return $site->isHealthy();
+            ->filter(function (Monitor $monitor) {
+                return $monitor->isHealthy();
             })
         ->sortByHost();
     }
 
-    public static function downSites(): Collection
+    public static function failingMonitors(): Collection
     {
         return self::query()
             ->where('uptime_status', UptimeStatus::DOWN)
@@ -64,17 +64,17 @@ class SiteRepository
             ->sortByHost();
     }
 
-    public static function unhealthySites(): Collection
+    public static function unhealthyMonitors(): Collection
     {
         return self::query()
             ->get()
-            ->reject(function (Site $site) {
-                return $site->isHealthy();
+            ->reject(function (Monitor $monitor) {
+                return $monitor->isHealthy();
             })
             ->sortByHost();
     }
 
-    public static function uncheckedSites(): Collection
+    public static function uncheckMonitors(): Collection
     {
         return self::query()
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
@@ -91,12 +91,12 @@ class SiteRepository
 
     protected static function determineSiteModel(): string
     {
-        $siteModel = config('laravel-uptime-monitor.site_model') ?? Site::class;
+        $monitorModel = config('laravel-uptime-monitor.site_model') ?? Monitor::class;
 
-        if (! is_a($siteModel, Site::class, true)) {
-            throw InvalidConfiguration::modelIsNotValid($siteModel);
+        if (! is_a($monitorModel, Monitor::class, true)) {
+            throw InvalidConfiguration::modelIsNotValid($monitorModel);
         }
 
-        return $siteModel;
+        return $monitorModel;
     }
 }
