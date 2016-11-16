@@ -8,7 +8,7 @@ use Event;
 use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class MonitoredRecoveredTest extends TestCase
+class MonitorRecoveredTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;

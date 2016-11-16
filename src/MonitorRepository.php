@@ -98,7 +98,7 @@ class MonitorRepository
     {
         $model = static::determineMonitorModel();
 
-        return $model::where('url', (string)$url)->first();
+        return $model::where('url', (string) $url)->first();
     }
 
     protected static function query()
