@@ -3,10 +3,8 @@
 return [
 
     /*
-     * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
-     *
-     * You can also use your own notification classes, just make sure the class is named after one of
-     * the `Spatie\Backup\Events` classes.
+     * You can get notified when specific events occur. Out of the box you can use 'mail'
+     * and 'slack'. Of course you can also specify your own notification classes.
      */
     'notifications' => [
 

@@ -12,7 +12,12 @@ This code is pre-alpha quality. Unless you want to be bitten by a thousand bugs,
 [![StyleCI](https://styleci.io/repos/67774357/shield?branch=master)](https://styleci.io/repos/67774357)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-uptime-monitor.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-uptime-monitor)
 
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
+Laravel-uptime-monitor is a powerful, easy to configure uptime monitor. It can notify you when your site is down (and when it goes back up). You can also be notified a few days before an SSL certificate of one of your sites will expire. Under the hood the package leverages Laravel 5.3's notifications, so it's easy to use Slack, Telegram or any notification provider that has your preference.
+
+## Documentation
+You'll find the documentation on [https://docs.spatie.be/laravel-uptime-monitor/v1](https://docs.spatie.be/laravel-uptime-monitor/v1). It includes detailed info on how to install and use the package.
+
+Find yourself stuck using the package? Found a bug? Do you have general questions or suggestions for improving the media library? Feel free to [create an issue on GitHub](https://github.com/spatie/laravel-uptime-monitor/issues), we'll try to address it as soon as possible.
 
 ## Postcardware
 
@@ -21,25 +26,6 @@ You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it mak
 Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
 
 The best postcards will get published on the open source page on our website.
-
-## Installation
-
-You can install the package via Composer:
-
-``` bash
-composer require spatie/laravel-uptime-monitor
-```
-
-```bash
-php artisan vendor:publish --provider="Spatie\UptimeMonitor\UptimeMonitorServiceProvider"
-```
-
-## Usage
-
-``` php
-$site = new Spatie\UptimeMonitor();
-echo $site->echoPhrase('Hello, Spatie!');
-```
 
 ## Changelog
 
