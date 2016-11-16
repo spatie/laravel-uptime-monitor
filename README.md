@@ -47,8 +47,14 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
+To run the tests you'll have to start the included node based server first
+
 ``` bash
-$ composer test
+cd tests/server
+./start_server.sh
+
+cd ../..
+vendor/bin/phpunit
 ```
 
 ## Contributing
