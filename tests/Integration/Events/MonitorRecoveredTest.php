@@ -25,7 +25,7 @@ class MonitoredRecoveredTest extends TestCase
     /** @test */
     public function the_recovered_event_will_be_fired_when_an_uptime_check_succeeds_after_it_has_failed()
     {
-        $monitors = MonitorRepository::getAllForUptimeCheck();
+        $monitors = MonitorRepository::getForUptimeCheck();
 
         $this->server->down();
 

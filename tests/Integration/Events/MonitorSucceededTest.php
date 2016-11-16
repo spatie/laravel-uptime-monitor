@@ -24,7 +24,7 @@ class MonitorSucceededTest extends TestCase
     /** @test */
     public function the_succeeded_event_will_be_fired_when_an_uptime_check_succeeds()
     {
-        MonitorRepository::getAllForUptimeCheck()->checkUptime();
+        MonitorRepository::getForUptimeCheck()->checkUptime();
 
         Event::assertFired(MonitorSucceeded::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
@@ -39,7 +39,7 @@ class MonitorSucceededTest extends TestCase
         $this->monitor->look_for_string = 'welcome';
         $this->monitor->save();
 
-        MonitorRepository::getAllForUptimeCheck()->checkUptime();
+        MonitorRepository::getForUptimeCheck()->checkUptime();
 
         Event::assertFired(MonitorSucceeded::class);
     }

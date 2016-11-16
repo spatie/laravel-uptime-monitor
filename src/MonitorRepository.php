@@ -10,14 +10,14 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 class MonitorRepository
 {
-    public static function getAllEnabledMonitors(): Collection
+    public static function getEnabled(): Collection
     {
         return self::query()
             ->get()
             ->sortByHost();
     }
 
-    public static function getAllForUptimeCheck(): MonitorCollection
+    public static function getForUptimeCheck(): MonitorCollection
     {
         $monitors = self::query()
             ->get()
@@ -29,7 +29,7 @@ class MonitorRepository
         return new MonitorCollection($monitors);
     }
 
-    public static function getAllForSslCheck(): Collection
+    public static function getForSslCheck(): Collection
     {
         return self::query()
             ->where('check_ssl_certificate', true)
@@ -37,7 +37,7 @@ class MonitorRepository
             ->sortByHost();
     }
 
-    public static function healthyMonitors(): Collection
+    public static function getHealthy(): Collection
     {
         return self::query()
             ->get()
@@ -47,7 +47,7 @@ class MonitorRepository
         ->sortByHost();
     }
 
-    public static function getAllFailing(): Collection
+    public static function getFailing(): Collection
     {
         return self::query()
             ->where('uptime_status', UptimeStatus::DOWN)
@@ -55,7 +55,7 @@ class MonitorRepository
             ->sortByHost();
     }
 
-    public static function getAllWithSslProblems(): Collection
+    public static function getWithSslProblems(): Collection
     {
         return self::query()
             ->where('check_ssl_certificate', true)
@@ -64,7 +64,7 @@ class MonitorRepository
             ->sortByHost();
     }
 
-    public static function getAllUnhealthy(): Collection
+    public static function getUnhealthy(): Collection
     {
         return self::query()
             ->get()
@@ -74,7 +74,7 @@ class MonitorRepository
             ->sortByHost();
     }
 
-    public static function getAllUnchecked(): Collection
+    public static function getUnchecked(): Collection
     {
         return self::query()
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)

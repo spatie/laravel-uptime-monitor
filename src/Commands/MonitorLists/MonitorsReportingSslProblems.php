@@ -10,7 +10,7 @@ class MonitorsReportingSslProblems
 {
     public static function display()
     {
-        $monitorsWithSslProblems = MonitorRepository::getAllWithSslProblems();
+        $monitorsWithSslProblems = MonitorRepository::getWithSslProblems();
 
         if (! $monitorsWithSslProblems->count()) {
             return;

@@ -18,7 +18,7 @@ class ListMonitors extends BaseCommand
     {
         $this->line('');
 
-        if (! MonitorRepository::getAllEnabledMonitors()->count()) {
+        if (! MonitorRepository::getEnabled()->count()) {
             $this->warn('There are no monitors created or enabled.');
             $this->info('You create a monitor using the `monitor:create` command');
         }

@@ -16,7 +16,7 @@ class CheckSslCertificates extends BaseCommand
 
     public function handle()
     {
-        $monitors = MonitorRepository::getAllForSslCheck();
+        $monitors = MonitorRepository::getForSslCheck();
 
         if ($url = $this->option('url')) {
             $monitors = $monitors->filter(function (Monitor $monitor) use ($url) {

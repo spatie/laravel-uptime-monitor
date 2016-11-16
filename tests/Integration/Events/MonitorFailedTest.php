@@ -27,7 +27,7 @@ class MonitorFailedTest extends TestCase
     {
         $this->server->down();
 
-        $monitors = MonitorRepository::getAllForUptimeCheck();
+        $monitors = MonitorRepository::getForUptimeCheck();
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
@@ -49,7 +49,7 @@ class MonitorFailedTest extends TestCase
     {
         $this->server->down();
 
-        $monitors = MonitorRepository::getAllForUptimeCheck();
+        $monitors = MonitorRepository::getForUptimeCheck();
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
@@ -88,7 +88,7 @@ class MonitorFailedTest extends TestCase
 
         $this->app['config']->set('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures', 1);
 
-        MonitorRepository::getAllForUptimeCheck()->checkUptime();
+        MonitorRepository::getForUptimeCheck()->checkUptime();
 
         Event::assertFired(MonitorFailed::class);
     }

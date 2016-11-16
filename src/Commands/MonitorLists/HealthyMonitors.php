@@ -11,7 +11,7 @@ class HealthyMonitors
 {
     public static function display()
     {
-        $healthyMonitor = MonitorRepository::healthyMonitors();
+        $healthyMonitor = MonitorRepository::getHealthy();
 
         if (! $healthyMonitor->count()) {
             return;

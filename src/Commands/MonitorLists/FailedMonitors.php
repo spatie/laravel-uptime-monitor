@@ -11,7 +11,7 @@ class FailedMonitors
 {
     public static function display()
     {
-        $failingMonitors = MonitorRepository::getAllFailing();
+        $failingMonitors = MonitorRepository::getFailing();
 
         if (! $failingMonitors->count()) {
             return;

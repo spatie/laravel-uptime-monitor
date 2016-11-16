@@ -10,7 +10,7 @@ class UncheckedMonitors
 {
     public static function display()
     {
-        $uncheckedMonitors = MonitorRepository::getAllUnchecked();
+        $uncheckedMonitors = MonitorRepository::getUnchecked();
 
         if (! $uncheckedMonitors->count()) {
             return;

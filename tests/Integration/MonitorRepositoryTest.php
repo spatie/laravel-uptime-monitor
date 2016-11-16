@@ -26,7 +26,7 @@ class MonitorRepositoryTest extends TestCase
 
         Monitor::create(['url' => 'http://down2.com', 'uptime_status' => UptimeStatus::DOWN]);
 
-        $failingMonitors = MonitorRepository::getAllFailing();
+        $failingMonitors = MonitorRepository::getFailing();
 
         $this->assertEquals(['http://down1.com', 'http://down2.com'], $this->getMonitorUrls($failingMonitors));
     }
