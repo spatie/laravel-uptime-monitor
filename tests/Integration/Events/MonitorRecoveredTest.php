@@ -29,7 +29,7 @@ class MonitorRecoveredTest extends TestCase
 
         $this->server->down();
 
-        $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
+        $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures');
 
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $monitors->checkUptime();

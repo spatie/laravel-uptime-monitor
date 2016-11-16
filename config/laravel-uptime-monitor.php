@@ -30,12 +30,6 @@ return [
          */
         'resend_down_notification_every_minutes' => 60,
 
-        /*
-         * You will be notified whenever an ssl certificate will
-         * expire in the given amount of days.
-         */
-        'send_notification_when_ssl_certificate_will_expire_in_days' => 10,
-
         'mail' => [
             'to' => 'your@email.com',
         ],
@@ -77,15 +71,25 @@ return [
         'timeout_per_site' => 10,
 
         /*
-         * Fire SiteDown-event only after the given amount of checks
-         * have consecutively failed for a site.
+         * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
+         * the given amount of checks have consecutively failed for a site.
          */
-        'fire_down_event_after_consecutive_failures' => 2,
+        'fire_monitor_failed_event_after_consecutive_failures' => 2,
 
         /*
          * When reaching out to sites this user agent will be used.
          */
         'user_agent' => 'spatie/laravel-uptime-monitor uptime checker',
+    ],
+
+    'ssl-check' => [
+
+        /*
+         * The `Spatie\UptimeMonitor\Events\SslExpiresSoon` event will fire
+         * when a certificate is found whose expiration date is in
+         * the next amount given days.
+         */
+        'fire_expiring_soon_event_when_ssl_certificate_will_expire_in_less_than_days' => 10,
     ],
 
     /*

@@ -96,7 +96,7 @@ trait SupportsUptimeCheck
 
     protected function shouldFireDownEvent(): bool
     {
-        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures')) {
+        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures')) {
             return true;
         }
 
