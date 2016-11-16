@@ -9,6 +9,7 @@ use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\SoonExpiringSslCertificateFound;
 use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Site;
 
 trait SupportsSslCertificateCheck
 {
