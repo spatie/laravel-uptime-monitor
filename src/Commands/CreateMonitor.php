@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Commands;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\Url\Url;
 
-class AddSite extends BaseCommand
+class CreateMonitor extends BaseCommand
 {
     protected $signature = 'monitor:create {url}';
 

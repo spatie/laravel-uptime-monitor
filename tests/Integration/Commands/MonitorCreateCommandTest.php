@@ -10,7 +10,7 @@ use Spatie\UptimeMonitor\Test\TestCase;
 
 class MonitorCreateCommandTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Commands\AddSite|m\Mock */
+    /** @var \Spatie\UptimeMonitor\Commands\CreateMonitor|m\Mock */
     protected $command;
 
     public function setUp()
