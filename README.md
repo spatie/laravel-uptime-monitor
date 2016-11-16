@@ -1,6 +1,6 @@
 # DO NOT USE (yet)
 
-This code is pre-alpha quality. Unless you want to be bitten by a thousand bugs, refrain from using it.
+This code is not yet stable. Brave souls may try to use, but be awere there might be bugs (and breaking changes until version 1.0.0 is tagged).
 
 # A powerful, easy to configure uptime monitor
 
