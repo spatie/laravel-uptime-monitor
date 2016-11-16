@@ -2,16 +2,16 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Spatie\UptimeMonitor\Events\SiteDown;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Events\MonitorFailed;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
-use Spatie\UptimeMonitor\SiteRepository;
+use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class SiteDownTest extends TestCase
+class MonitorRecoveredTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Models\Site */
-    protected $site;
+    /** @var \Spatie\UptimeMonitor\Models\Monitor */
+    protected $monitor;
 
     public function setUp()
     {
@@ -19,7 +19,7 @@ class SiteDownTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Site::class)->create();
+        $this->monitor = factory(Monitor::class)->create();
     }
 
     /** @test */
@@ -27,20 +27,20 @@ class SiteDownTest extends TestCase
     {
         $this->server->down();
 
-        $sites = SiteRepository::getAllForUptimeCheck();
+        $monitors = MonitorRepository::getAllForUptimeCheck();
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
-            $sites->checkUptime();
+            $monitors->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(SiteDown::class);
+                Event::assertNotFired(MonitorFailed::class);
             }
         }
 
-        Event::assertFired(SiteDown::class, function ($event) {
-            return $event->site->id === $this->site->id;
+        Event::assertFired(MonitorFailed::class, function ($event) {
+            return $event->monitor->id === $this->monitor->id;
         });
     }
 
@@ -49,33 +49,33 @@ class SiteDownTest extends TestCase
     {
         $this->server->down();
 
-        $sites = SiteRepository::getAllForUptimeCheck();
+        $monitors = MonitorRepository::getAllForUptimeCheck();
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
-            $sites->checkUptime();
+            $monitors->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(SiteDown::class);
+                Event::assertNotFired(MonitorFailed::class);
             }
         }
 
-        Event::assertFired(SiteDown::class);
+        Event::assertFired(MonitorFailed::class);
 
         $this->resetEventAssertions();
 
-        $sites->checkUptime();
+        $monitors->checkUptime();
 
-        Event::assertNotFired(SiteDown::class);
+        Event::assertNotFired(MonitorFailed::class);
 
         $this->resetEventAssertions();
 
         $this->progressMinutes(config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes'));
 
-        $sites->checkUptime();
+        $monitors->checkUptime();
 
-        Event::assertFired(SiteDown::class);
+        Event::assertFired(MonitorFailed::class);
     }
 
     /** @test */
@@ -83,13 +83,13 @@ class SiteDownTest extends TestCase
     {
         $this->server->setResponseBody('Hi, welcome on the page');
 
-        $this->site->look_for_string = 'Another page';
-        $this->site->save();
+        $this->monitor->look_for_string = 'Another page';
+        $this->monitor->save();
 
         $this->app['config']->set('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures', 1);
 
-        SiteRepository::getAllForUptimeCheck()->checkUptime();
+        MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
-        Event::assertFired(SiteDown::class);
+        Event::assertFired(MonitorFailed::class);
     }
 }

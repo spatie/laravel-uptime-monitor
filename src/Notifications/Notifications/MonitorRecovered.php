@@ -5,13 +5,13 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SiteUp as SiteUpEvent;
+use Spatie\UptimeMonitor\Events\MonitorRecovered as MonitorRecoveredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteUp extends BaseNotification
+class MonitorRecovered extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SiteDown */
+    /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
     public $event;
 
     /**
@@ -24,8 +24,8 @@ class SiteUp extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Site {$this->event->site->url} is up.")
-            ->line('Site is up');
+            ->subject("Site {$this->event->monitor->url} has been restored.")
+            ->line('Site has been restored');
 
         return $mailMessage;
     }
@@ -34,18 +34,27 @@ class SiteUp extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->site->url} is up")
+            ->content("Site {$this->event->monitor->url} has been restored")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getSiteProperties());
+                $attachment->fields($this->getMonitorProperties());
             });
+    }
+
+    public function getMonitorProperties($extraProperties = []): array
+    {
+        $extraProperties = [
+            'online since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
+        ];
+
+        return parent::getMonitorProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool
     {
-        return $this->event->site->uptime_status != UptimeStatus::DOWN;
+        return $this->event->monitor->uptime_status == UptimeStatus::UP;
     }
 
-    public function setEvent(SiteUpEvent $event)
+    public function setEvent(MonitorRecoveredEvent $event)
     {
         $this->event = $event;
 

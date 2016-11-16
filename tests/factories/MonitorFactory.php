@@ -1,9 +1,9 @@
 <?php
 
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 
-$factory->define(Site::class, function (Faker\Generator $faker) {
+$factory->define(Monitor::class, function (Faker\Generator $faker) {
     return [
         'url' => 'http://localhost:8080',
         'uptime_status' => UptimeStatus::UP,

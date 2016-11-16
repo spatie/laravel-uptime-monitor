@@ -57,9 +57,9 @@ abstract class TestCase extends Orchestra
 
     protected function setUpDatabase()
     {
-        include_once __DIR__.'/../database/migrations/create_sites_table.php.stub';
+        include_once __DIR__.'/../database/migrations/create_monitors_table.php.stub';
 
-        (new \CreateSitesTable())->up();
+        (new \CreateMonitorsTable())->up();
     }
 
     public function progressMinutes(int $minutes)

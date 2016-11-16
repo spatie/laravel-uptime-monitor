@@ -5,7 +5,7 @@ use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSitesTable extends Migration
+class CreateMonitorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateSitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sites', function (Blueprint $table) {
+        Schema::create('monitors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url');
             $table->boolean('enabled')->default(true);
@@ -46,6 +46,6 @@ class CreateSitesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sites');
+        Schema::drop('monitors');
     }
 }

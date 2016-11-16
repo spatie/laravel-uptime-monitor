@@ -3,19 +3,19 @@
 namespace Spatie\UptimeMonitor\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\UptimeMonitor\Exceptions\CannotSaveSite;
+use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Presenters\SitePresenter;
+use Spatie\UptimeMonitor\Models\Presenters\MonitorPresenter;
 use Spatie\UptimeMonitor\Models\Traits\SupportsSslCertificateCheck;
 use Spatie\UptimeMonitor\Models\Traits\SupportsUptimeCheck;
 use Spatie\Url\Url;
 
-class Site extends Model
+class Monitor extends Model
 {
     use SupportsUptimeCheck,
         SupportsSslCertificateCheck,
-        SitePresenter;
+        MonitorPresenter;
 
     protected $guarded = [];
 
@@ -49,9 +49,9 @@ class Site extends Model
     {
         parent::boot();
 
-        static::saving(function (Site $site) {
-            if (static::alreadyExists($site)) {
-                throw CannotSaveSite::alreadyExists($site);
+        static::saving(function (Monitor $monitor) {
+            if (static::alreadyExists($monitor)) {
+                throw CannotSaveMonitor::alreadyExists($monitor);
             }
         });
     }
@@ -69,12 +69,12 @@ class Site extends Model
         return true;
     }
 
-    protected static function alreadyExists(Site $site): bool
+    protected static function alreadyExists(Monitor $monitor): bool
     {
-        $query = static::where('url', $site->url);
+        $query = static::where('url', $monitor->url);
 
-        if ($site->exists) {
-            $query->where('id', '<>', $site->id);
+        if ($monitor->exists) {
+            $query->where('id', '<>', $monitor->id);
         }
 
         return (bool) $query->first();

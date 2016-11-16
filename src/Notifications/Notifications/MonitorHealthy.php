@@ -5,13 +5,13 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SiteRestored as SiteRestoredEvent;
+use Spatie\UptimeMonitor\Events\MonitorHealthy as MonitorHealthyEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteRestored extends BaseNotification
+class MonitorHealthy extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SiteDown */
+    /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
     public $event;
 
     /**
@@ -24,8 +24,8 @@ class SiteRestored extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Site {$this->event->site->url} has been restored.")
-            ->line('Site has been restored');
+            ->subject("Site {$this->event->monitor->url} is up.")
+            ->line('Site is up');
 
         return $mailMessage;
     }
@@ -34,27 +34,18 @@ class SiteRestored extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->site->url} has been restored")
+            ->content("Site {$this->event->monitor->url} is up")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getSiteProperties());
+                $attachment->fields($this->getMonitorProperties());
             });
-    }
-
-    public function getSiteProperties($extraProperties = []): array
-    {
-        $extraProperties = [
-            'online since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
-        ];
-
-        return parent::getSiteProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool
     {
-        return $this->event->site->uptime_status == UptimeStatus::UP;
+        return $this->event->monitor->uptime_status != UptimeStatus::DOWN;
     }
 
-    public function setEvent(SiteRestoredEvent $event)
+    public function setEvent(MonitorHealthyEvent $event)
     {
         $this->event = $event;
 

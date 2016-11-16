@@ -6,10 +6,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Spatie\UptimeMonitor\Commands\CheckSslCertificates;
 use Spatie\UptimeMonitor\Commands\CheckUptime;
-use Spatie\UptimeMonitor\Commands\AddSite;
-use Spatie\UptimeMonitor\Commands\DeleteSite;
-use Spatie\UptimeMonitor\Commands\ListSites;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Commands\CreateMonitor;
+use Spatie\UptimeMonitor\Commands\DeleteMonitor;
+use Spatie\UptimeMonitor\Commands\ListMonitors;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class UptimeMonitorServiceProvider extends ServiceProvider
@@ -32,7 +32,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
-                __DIR__.'/../database/migrations/create_sites_table.php.stub' => database_path('migrations/'.$timestamp.'_create_sites_table.php'),
+                __DIR__.'/../database/migrations/create_monitors_table.php.stub' => database_path('migrations/'.$timestamp.'_create_monitors_table.php'),
             ], 'migrations');
         }
     }
@@ -46,23 +46,23 @@ class UptimeMonitorServiceProvider extends ServiceProvider
 
         $this->app['events']->subscribe(EventHandler::class);
 
-        $this->app->bind('command.sites:check-uptime', CheckUptime::class);
-        $this->app->bind('command.sites:check-ssl', CheckSslCertificates::class);
-        $this->app->bind('command.sites:add', AddSite::class);
-        $this->app->bind('command.sites:delete', DeleteSite::class);
-        $this->app->bind('command.sites:list', ListSites::class);
+        $this->app->bind('command.monitor:check-uptime', CheckUptime::class);
+        $this->app->bind('command.monitor:check-ssl', CheckSslCertificates::class);
+        $this->app->bind('command.monitor:create', CreateMonitor::class);
+        $this->app->bind('command.monitor:delete', DeleteMonitor::class);
+        $this->app->bind('command.monitor:list', ListMonitors::class);
 
         $this->commands([
-            'command.sites:check-uptime',
-            'command.sites:check-ssl',
-            'command.sites:add',
-            'command.sites:delete',
-            'command.sites:list',
+            'command.monitor:check-uptime',
+            'command.monitor:check-ssl',
+            'command.monitor:create',
+            'command.monitor:delete',
+            'command.monitor:list',
         ]);
 
         Collection::macro('sortByHost', function () {
-            return $this->sortBy(function (Site $site) {
-                return $site->url->getHost();
+            return $this->sortBy(function (Monitor $monitor) {
+                return $monitor->url->getHost();
             });
         });
     }

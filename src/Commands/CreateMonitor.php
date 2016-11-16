@@ -2,14 +2,14 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\Url\Url;
 
-class AddSite extends BaseCommand
+class CreateMonitor extends BaseCommand
 {
-    protected $signature = 'sites:add {url}';
+    protected $signature = 'monitor:create {url}';
 
-    protected $description = 'Add a site to monitor';
+    protected $description = 'Create a monitor';
 
     public function handle()
     {
@@ -25,7 +25,7 @@ class AddSite extends BaseCommand
             $lookForString = $this->ask('Which string?');
         }
 
-        $site = Site::create([
+        $monitor = Monitor::create([
             'url' => trim($url, '/'),
             'look_for_string' => $lookForString ?? '',
             'uptime_check_method' => isset($lookForString) ? 'get' : 'head',
@@ -33,6 +33,6 @@ class AddSite extends BaseCommand
             'uptime_check_interval_in_minutes' => config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes'),
         ]);
 
-        $this->warn("{$site->url} will be monitored!");
+        $this->warn("{$monitor->url} will be monitored!");
     }
 }

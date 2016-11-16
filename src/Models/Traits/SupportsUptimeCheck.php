@@ -2,26 +2,26 @@
 
 namespace Spatie\UptimeMonitor\Models\Traits;
 
-use Spatie\UptimeMonitor\Events\SiteDown;
+use Spatie\UptimeMonitor\Events\MonitorFailed;
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\SiteRestored;
-use Spatie\UptimeMonitor\Events\SiteUp;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Events\MonitorRecovered;
+use Spatie\UptimeMonitor\Events\MonitorHealthy;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 trait SupportsUptimeCheck
 {
     public static function bootSupportsUptimeCheck()
     {
-        static::saving(function (Site $site) {
-            if (is_null($site->uptime_status_last_change_date)) {
-                $site->uptime_status_last_change_date = Carbon::now();
+        static::saving(function (Monitor $monitor) {
+            if (is_null($monitor->uptime_status_last_change_date)) {
+                $monitor->uptime_status_last_change_date = Carbon::now();
 
                 return;
             }
 
-            if ($site->getOriginal('uptime_status') != $site->uptime_status) {
-                $site->uptime_status_last_change_date = Carbon::now();
+            if ($monitor->getOriginal('uptime_status') != $monitor->uptime_status) {
+                $monitor->uptime_status_last_change_date = Carbon::now();
             }
         });
     }
@@ -47,21 +47,21 @@ trait SupportsUptimeCheck
         return $this->uptime_last_check_date->diffInMinutes() >= $this->uptime_check_interval_in_minutes;
     }
 
-    public function couldReachSite($responseHtml)
+    public function uptimeRequestSucceeded($responseHtml)
     {
         if (! str_contains($responseHtml, $this->look_for_string)) {
-            $this->siteIsDown("String `{$this->look_for_string}` was not found on the response.");
+            $this->uptimeTestFailed("String `{$this->look_for_string}` was not found on the response.");
         }
 
-        $this->siteIsUp();
+        $this->uptimeTestSucceeded();
     }
 
-    public function couldNotReachSite(string $reason)
+    public function uptimeRequestFailed(string $reason)
     {
-        $this->siteIsDown($reason);
+        $this->uptimeTestFailed($reason);
     }
 
-    public function siteIsUp()
+    public function uptimeTestSucceeded()
     {
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_failure_reason = '';
@@ -73,12 +73,12 @@ trait SupportsUptimeCheck
         $this->down_event_fired_on_date = null;
         $this->save();
 
-        $eventClass = ($wasFailing ? SiteRestored::class : SiteUp::class);
+        $eventClass = ($wasFailing ? MonitorRecovered::class : MonitorHealthy::class);
 
         event(new $eventClass($this));
     }
 
-    public function siteIsDown(string $reason)
+    public function uptimeTestFailed(string $reason)
     {
         $this->uptime_status = UptimeStatus::DOWN;
         $this->uptime_check_times_failed_in_a_row++;
@@ -90,7 +90,7 @@ trait SupportsUptimeCheck
             $this->down_event_fired_on_date = Carbon::now();
             $this->save();
 
-            event(new SiteDown($this));
+            event(new MonitorFailed($this));
         }
     }
 

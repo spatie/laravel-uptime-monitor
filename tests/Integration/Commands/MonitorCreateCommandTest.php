@@ -5,21 +5,21 @@ namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 use Artisan;
 use Mockery as m;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Site;
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class AddSiteCommandTest extends TestCase
+class MonitorCreateCommandTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Commands\AddSite|m\Mock */
+    /** @var \Spatie\UptimeMonitor\Commands\CreateMonitor|m\Mock */
     protected $command;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->command = m::mock('Spatie\UptimeMonitor\Commands\AddSite[ask, confirm]');
+        $this->command = m::mock('Spatie\UptimeMonitor\Commands\CreateMonitor[ask, confirm]');
 
-        $this->app->bind('command.sites:add', function () {
+        $this->app->bind('command.monitor:create', function () {
             return $this->command;
         });
     }
@@ -33,12 +33,12 @@ class AddSiteCommandTest extends TestCase
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:add', ['url' => 'https://mysite.com']);
+        Artisan::call('monitor:create', ['url' => 'https://mysite.com']);
 
-        $site = Site::where('url', 'https://mysite.com')->first();
+        $monitor = Monitor::where('url', 'https://mysite.com')->first();
 
-        $this->assertSame($site->uptime_status, UptimeStatus::NOT_YET_CHECKED);
-        $this->assertTrue($site->check_ssl_certificate);
+        $this->assertSame($monitor->uptime_status, UptimeStatus::NOT_YET_CHECKED);
+        $this->assertTrue($monitor->check_ssl_certificate);
     }
 
     /** @test */
@@ -50,12 +50,12 @@ class AddSiteCommandTest extends TestCase
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:add', ['url' => 'http://mysite.com']);
+        Artisan::call('monitor:create', ['url' => 'http://mysite.com']);
 
-        $site = Site::where('url', 'http://mysite.com')->first();
+        $monitor = Monitor::where('url', 'http://mysite.com')->first();
 
-        $this->assertSame($site->uptime_status, UptimeStatus::NOT_YET_CHECKED);
-        $this->assertFalse($site->check_ssl_certificate);
+        $this->assertSame($monitor->uptime_status, UptimeStatus::NOT_YET_CHECKED);
+        $this->assertFalse($monitor->check_ssl_certificate);
 
         $this->bringTestServerUp();
         $this->bringTestServerDown();

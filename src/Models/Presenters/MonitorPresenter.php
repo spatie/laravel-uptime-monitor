@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Models\Presenters;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
-trait SitePresenter
+trait MonitorPresenter
 {
     public function getReachableAsEmojiAttribute(): string
     {

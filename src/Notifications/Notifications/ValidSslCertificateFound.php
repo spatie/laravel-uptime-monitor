@@ -23,7 +23,7 @@ class ValidSslCertificateFound extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Found a valid certificate for {$this->event->site->url}.")
+            ->subject("Found a valid certificate for {$this->event->monitor->url}.")
             ->line('Found a valid certificate');
 
         return $mailMessage;
@@ -33,9 +33,9 @@ class ValidSslCertificateFound extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Found a valid ssl certificate for {$this->event->site->url}")
+            ->content("Found a valid ssl certificate for {$this->event->monitor->url}")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getSiteProperties());
+                $attachment->fields($this->getMonitorProperties());
             });
     }
 

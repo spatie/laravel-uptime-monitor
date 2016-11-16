@@ -5,13 +5,13 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SiteDown as SiteDownEvent;
+use Spatie\UptimeMonitor\Events\MonitorFailed as MonitorFailedEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteDown extends BaseNotification
+class MonitorFailed extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SiteDown */
+    /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
     public $event;
 
     /**
@@ -24,8 +24,8 @@ class SiteDown extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->error()
-            ->subject("Site {$this->event->site->url} is down.")
-            ->line('Site is down');
+            ->subject("The uptime check for monitor {$this->event->monitor->url} failed.")
+            ->line("The uptime check for monitor {$this->event->monitor->url} failed.");
 
         return $mailMessage;
     }
@@ -34,27 +34,27 @@ class SiteDown extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content("Site {$this->event->site->url} is down")
+            ->content("The uptime check for monitor {$this->event->monitor->url} failed.")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getSiteProperties());
+                $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function getSiteProperties($extraProperties = []): array
+    public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'offline since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
+            'failing since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
         ];
 
-        return parent::getSiteProperties($extraProperties);
+        return parent::getMonitorProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool
     {
-        return $this->event->site->uptime_status == UptimeStatus::DOWN;
+        return $this->event->monitor->uptime_status == UptimeStatus::DOWN;
     }
 
-    public function setEvent(SiteDownEvent $event)
+    public function setEvent(MonitorFailedEvent $event)
     {
         $this->event = $event;
 
