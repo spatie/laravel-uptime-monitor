@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Artisan;
 use Spatie\UptimeMonitor\Events\SiteDown;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
@@ -32,7 +31,7 @@ class SiteDownTest extends TestCase
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
-        foreach(range(1, $consecutiveFailsNeeded) as $index){
+        foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $sites->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
@@ -54,7 +53,7 @@ class SiteDownTest extends TestCase
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
-        foreach(range(1, $consecutiveFailsNeeded) as $index){
+        foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $sites->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
@@ -82,7 +81,7 @@ class SiteDownTest extends TestCase
     /** @test */
     public function the_down_event_will_be_fired_when_a_site_is_up_but_the_look_for_string_is_not_found_on_the_response()
     {
-        $this->server->setResponseBody("Hi, welcome on the page");
+        $this->server->setResponseBody('Hi, welcome on the page');
 
         $this->site->look_for_string = 'Another page';
         $this->site->save();
@@ -93,8 +92,4 @@ class SiteDownTest extends TestCase
 
         Event::assertFired(SiteDown::class);
     }
-
-
-
-
 }

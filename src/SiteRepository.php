@@ -45,7 +45,6 @@ class SiteRepository
                 return $site->isHealthy();
             })
         ->sortByHost();
-
     }
 
     public static function downSites(): Collection

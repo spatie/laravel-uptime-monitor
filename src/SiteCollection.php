@@ -70,5 +70,4 @@ class SiteCollection extends Collection
     {
         return $this->items[$index];
     }
-
 }

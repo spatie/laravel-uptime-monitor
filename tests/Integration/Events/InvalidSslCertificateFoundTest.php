@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Artisan;
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
@@ -30,6 +29,5 @@ class InvalidSslCertificateFoundTest extends TestCase
         Event::assertFired(InvalidSslCertificateFound::class, function ($event) {
             return $event->site->id === $this->site->id;
         });
-
     }
 }

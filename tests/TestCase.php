@@ -21,7 +21,7 @@ abstract class TestCase extends Orchestra
 
         parent::setUp();
 
-        $this->withFactories(__DIR__ . '/factories');
+        $this->withFactories(__DIR__.'/factories');
     }
 
     /**
@@ -57,7 +57,7 @@ abstract class TestCase extends Orchestra
 
     protected function setUpDatabase()
     {
-        include_once __DIR__ . '/../database/migrations/create_sites_table.php.stub';
+        include_once __DIR__.'/../database/migrations/create_sites_table.php.stub';
 
         (new \CreateSitesTable())->up();
     }
@@ -84,16 +84,15 @@ abstract class TestCase extends Orchestra
      */
     protected function seeInConsoleOutput($searchStrings)
     {
-        if (!is_array($searchStrings)) {
+        if (! is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
 
         $output = Artisan::output();
 
         foreach ($searchStrings as $searchString) {
-            $this->assertContains((string)$searchString, $output);
+            $this->assertContains((string) $searchString, $output);
         }
-
     }
 
     /**
@@ -101,14 +100,14 @@ abstract class TestCase extends Orchestra
      */
     protected function dontSeeInConsoleOutput($searchStrings)
     {
-        if (!is_array($searchStrings)) {
+        if (! is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
 
         $output = Artisan::output();
 
         foreach ($searchStrings as $searchString) {
-            $this->assertNotContains((string)$searchString, $output);
+            $this->assertNotContains((string) $searchString, $output);
         }
     }
 

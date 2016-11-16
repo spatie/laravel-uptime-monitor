@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;
 
 class DeleteSite extends BaseCommand

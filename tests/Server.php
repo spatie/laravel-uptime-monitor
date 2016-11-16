@@ -22,18 +22,17 @@ class Server
             'form_params' => [
                 'statusCode' => $statusCode,
                 'body' => $text,
-            ]
+            ],
         ]);
     }
 
     public function up()
     {
-        $this->setResponseBody("Site is up", 200);
+        $this->setResponseBody('Site is up', 200);
     }
-
 
     public function down()
     {
-        $this->setResponseBody("Site is down", 503);
+        $this->setResponseBody('Site is down', 503);
     }
 }

@@ -14,8 +14,8 @@ class ListSitesCommandTest extends TestCase
     {
         Artisan::call('sites:list');
 
-        $this->seeInConsoleOutput("There are no sites configured or enabled");
-        $this->dontSeeInConsoleOutput("Healthy sites");
+        $this->seeInConsoleOutput('There are no sites configured or enabled');
+        $this->dontSeeInConsoleOutput('Healthy sites');
     }
 
     /** @test */
@@ -26,7 +26,7 @@ class ListSitesCommandTest extends TestCase
         Artisan::call('sites:list');
 
         $this->seeInConsoleOutput([
-            "Sites that have not been checked yet",
+            'Sites that have not been checked yet',
             $site->url,
         ]);
     }
@@ -39,7 +39,7 @@ class ListSitesCommandTest extends TestCase
         Artisan::call('sites:list');
 
         $this->seeInConsoleOutput([
-            "Healthy sites",
+            'Healthy sites',
             $site->url,
         ]);
     }
@@ -52,7 +52,7 @@ class ListSitesCommandTest extends TestCase
         Artisan::call('sites:list');
 
         $this->seeInConsoleOutput([
-            "Sites that are down",
+            'Sites that are down',
             $site->url,
         ]);
     }
@@ -62,13 +62,13 @@ class ListSitesCommandTest extends TestCase
     {
         $site = factory(Site::class)->create([
             'check_ssl_certificate' => true,
-            'ssl_certificate_status' => SslCertificateStatus::INVALID
+            'ssl_certificate_status' => SslCertificateStatus::INVALID,
         ]);
 
         Artisan::call('sites:list');
 
         $this->seeInConsoleOutput([
-            "Sites with ssl certificate problems",
+            'Sites with ssl certificate problems',
             $site->url,
         ]);
     }

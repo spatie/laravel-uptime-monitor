@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Commands\SiteLists;
 
-use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
