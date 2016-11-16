@@ -14,7 +14,7 @@ class DisableMonitor extends BaseCommand
 
     public function handle()
     {
-        foreach(explode(',', $this->argument('url')) as $url) {
+        foreach (explode(',', $this->argument('url')) as $url) {
             $this->disableMonitor(trim($url));
         }
     }
@@ -23,11 +23,13 @@ class DisableMonitor extends BaseCommand
     {
         if (! $monitor = MonitorRepository::findByUrl($url)) {
             $this->error("There is no monitor configured for url `{$url}`.");
+
             return;
-        };
+        }
 
         if (! $monitor->enabled) {
             $this->warn("The monitor for url `{$url}` was already disabled.");
+
             return;
         }
 

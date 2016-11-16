@@ -6,7 +6,7 @@ use Artisan;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class DisableCommandTest extends TestCase
+class DisableMonitorCommandTest extends TestCase
 {
     /** @test */
     public function it_can_disable_an_enabled_monitor()
@@ -61,6 +61,5 @@ class DisableCommandTest extends TestCase
 
         $this->assertFalse($monitor1->fresh()->enabled);
         $this->assertFalse($monitor2->fresh()->enabled);
-
     }
 }
