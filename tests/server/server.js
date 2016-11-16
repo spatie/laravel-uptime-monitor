@@ -18,8 +18,7 @@ app.get('/', function (request, response) {
 app.post('/setServerResponse', function(request, response) {
     serverResponse.statusCode = request.body.statusCode
     serverResponse.body = request.body.body;
-
-    console.log("Response set");
+    
     response.send("Response set");
 });
 
