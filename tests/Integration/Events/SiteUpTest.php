@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Artisan;
 use Spatie\UptimeMonitor\Events\SiteUp;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
@@ -35,7 +34,7 @@ class SiteUpTest extends TestCase
     /** @test */
     public function the_down_event_will_be_fired_when_a_site_is_up_and_the_look_for_string_is_found_on_the_response()
     {
-        $this->server->setResponseBody("Hi, welcome on the page");
+        $this->server->setResponseBody('Hi, welcome on the page');
 
         $this->site->look_for_string = 'welcome';
         $this->site->save();

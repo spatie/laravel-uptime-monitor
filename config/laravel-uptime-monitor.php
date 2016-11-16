@@ -65,32 +65,32 @@ return [
          */
         'run_interval_in_minutes' => 5,
 
-        /**
+        /*
          * To speed up the uptime checking process uptime monitor can check multiple sites
          * concurrently. Set this to a lower value if you're getting weird errors
          * running the uptime check.
          */
         'concurrent_checks' => 10,
 
-        /**
+        /*
          * The uptime check for a site will fail if site does not respond after the
          * given amount of seconds.
          */
         'timeout_per_site' => 10,
 
-        /**
+        /*
          * Fire SiteDown-event only after the given amount of checks
          * have consecutively failed for a site.
          */
         'fire_down_event_after_consecutive_failures' => 2,
 
-        /**
+        /*
          * When reaching out to sites this user agent will be used.
          */
         'user_agent' => 'spatie/laravel-uptime-monitor uptime checker',
     ],
 
-    /**
+    /*
      * To add or modify behaviour to the Site model you can specify your
      * own model here. They only requirement is that it should extend
      * `Spatie\UptimeMonitor\Test\Models\Site`.

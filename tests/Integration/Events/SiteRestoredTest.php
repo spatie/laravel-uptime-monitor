@@ -2,9 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Artisan;
 use Spatie\UptimeMonitor\Events\SiteRestored;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
 use Spatie\UptimeMonitor\SiteRepository;
@@ -33,7 +31,7 @@ class SiteRestoredTest extends TestCase
 
         $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures');
 
-        foreach(range(1, $consecutiveFailsNeeded) as $index){
+        foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $sites->checkUptime();
         }
 
@@ -48,6 +46,5 @@ class SiteRestoredTest extends TestCase
         Event::assertFired(SiteRestored::class, function ($event) {
             return $event->site->id === $this->site->id;
         });
-
     }
 }

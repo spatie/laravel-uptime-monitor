@@ -55,7 +55,7 @@ class CheckUptimeCommandTest extends TestCase
             'url' => 'https://bing.com',
         ]);
 
-        Artisan::call('sites:check-uptime', ['--url' => $site1->url . ',' . $site2->url]);
+        Artisan::call('sites:check-uptime', ['--url' => $site1->url.','.$site2->url]);
 
         $site1 = $site1->fresh();
         $site2 = $site2->fresh();

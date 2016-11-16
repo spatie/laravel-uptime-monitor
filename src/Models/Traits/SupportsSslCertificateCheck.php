@@ -18,7 +18,6 @@ trait SupportsSslCertificateCheck
             $certificate = SslCertificate::createForHostName($this->url->getHost());
 
             $this->updateWithCertificate($certificate);
-
         } catch (CouldNotDownloadCertificate $exception) {
             $this->updateWithCertificateException($exception);
         }
@@ -61,15 +60,14 @@ trait SupportsSslCertificateCheck
         }
 
         if ($this->ssl_certificate_status === SslCertificateStatus::INVALID) {
-
             $reason = 'Unknown reason';
 
             if ($certificate->appliesToUrl($this->url)) {
-                $reason = "Certificate does not apply to {$this->url} but only to these domains: " . implode(',', $certificate->getAdditionalDomains());
+                $reason = "Certificate does not apply to {$this->url} but only to these domains: ".implode(',', $certificate->getAdditionalDomains());
             }
 
             if ($certificate->isExpired()) {
-                $reason = "The certificate is expired";
+                $reason = 'The certificate is expired';
             }
 
             event(new InvalidSslCertificateFound($this, $reason, $certificate));

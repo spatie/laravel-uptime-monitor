@@ -19,8 +19,8 @@ class ListSites extends BaseCommand
         $this->line('');
 
         if (! SiteRepository::getAllEnabledSites()->count()) {
-            $this->warn("There are no sites configured or enabled.");
-            $this->info("You can add a site using the `sites:add` command");
+            $this->warn('There are no sites configured or enabled.');
+            $this->info('You can add a site using the `sites:add` command');
         }
 
         UncheckedSites::display();

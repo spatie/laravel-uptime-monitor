@@ -38,10 +38,9 @@ class EventHandlerTest extends TestCase
         $notificationClass,
         $siteAttributes,
         $shouldSendNotification
-    )
-    {
+    ) {
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.' . SiteUp::class,
+            'laravel-uptime-monitor.notifications.notifications.'.SiteUp::class,
             ['slack']
         );
 
@@ -59,7 +58,7 @@ class EventHandlerTest extends TestCase
             );
         }
 
-        if (!$shouldSendNotification) {
+        if (! $shouldSendNotification) {
             Notification::assertNotSentTo(
                 new Notifiable(),
                 $notificationClass
@@ -101,9 +100,8 @@ class EventHandlerTest extends TestCase
      */
     public function it_send_notifications_to_the_channels_configured_in_the_config_file(array $configuredChannels)
     {
-
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.' . SiteUp::class,
+            'laravel-uptime-monitor.notifications.notifications.'.SiteUp::class,
             $configuredChannels
         );
 
@@ -121,7 +119,6 @@ class EventHandlerTest extends TestCase
         );
     }
 
-
     public function channelDataProvider(): array
     {
         return [
@@ -129,6 +126,4 @@ class EventHandlerTest extends TestCase
             [['mail', 'slack']],
         ];
     }
-
-
 }

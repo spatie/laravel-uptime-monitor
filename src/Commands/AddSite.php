@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\Url\Url;
 
@@ -29,9 +28,9 @@ class AddSite extends BaseCommand
         $site = Site::create([
             'url' => trim($url, '/'),
             'look_for_string' => $lookForString ?? '',
-            'uptime_check_method' => isset($lookForString)  ? 'get' : 'head',
+            'uptime_check_method' => isset($lookForString) ? 'get' : 'head',
             'check_ssl_certificate' => $url->getScheme() === 'https',
-            'uptime_check_interval_in_minutes' => config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes')
+            'uptime_check_interval_in_minutes' => config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes'),
         ]);
 
         $this->warn("{$site->url} will be monitored!");

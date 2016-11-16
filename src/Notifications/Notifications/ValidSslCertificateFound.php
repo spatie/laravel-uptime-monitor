@@ -6,7 +6,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Spatie\UptimeMonitor\Events\ValidSslCertificateFound as ValidSslCertificateFoundEvent;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class ValidSslCertificateFound extends BaseNotification

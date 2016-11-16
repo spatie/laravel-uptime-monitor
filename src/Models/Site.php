@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveSite;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
@@ -31,7 +30,6 @@ class Site extends Model
         'enabled' => 'boolean',
         'check_ssl_certificate' => 'boolean',
     ];
-
 
     public function scopeEnabled($query)
     {
@@ -79,6 +77,6 @@ class Site extends Model
             $query->where('id', '<>', $site->id);
         }
 
-        return (bool)$query->first();
+        return (bool) $query->first();
     }
 }

@@ -26,10 +26,9 @@ trait SupportsUptimeCheck
         });
     }
 
-
     public function shouldCheckUptime() : bool
     {
-        if (!$this->enabled) {
+        if (! $this->enabled) {
             return false;
         }
 
@@ -50,7 +49,7 @@ trait SupportsUptimeCheck
 
     public function couldReachSite($responseHtml)
     {
-        if (!str_contains($responseHtml, $this->look_for_string)) {
+        if (! str_contains($responseHtml, $this->look_for_string)) {
             $this->siteIsDown("String `{$this->look_for_string}` was not found on the response.");
         }
 
@@ -67,7 +66,7 @@ trait SupportsUptimeCheck
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_failure_reason = '';
 
-        $wasFailing = !is_null($this->down_event_fired_on_date);
+        $wasFailing = ! is_null($this->down_event_fired_on_date);
 
         $this->uptime_check_times_failed_in_a_row = 0;
         $this->uptime_last_check_date = Carbon::now();
@@ -88,7 +87,6 @@ trait SupportsUptimeCheck
         $this->save();
 
         if ($this->shouldFireDownEvent()) {
-
             $this->down_event_fired_on_date = Carbon::now();
             $this->save();
 
