@@ -16,8 +16,8 @@ class UncheckedMonitors
             return;
         }
 
-        ConsoleOutput::warn('Monitors that have not been used yet');
-        ConsoleOutput::warn('====================================');
+        ConsoleOutput::warn('Monitors that have not been checked yet');
+        ConsoleOutput::warn('=======================================');
 
         $rows = $downSites->map(function (Monitor $monitor) {
             $url = $monitor->url;

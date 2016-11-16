@@ -14,7 +14,7 @@ class ListMonitorsCommandTest extends TestCase
     {
         Artisan::call('monitor:list');
 
-        $this->seeInConsoleOutput('There are no sites configured or enabled');
+        $this->seeInConsoleOutput('There are no monitors created or enabled');
         $this->dontSeeInConsoleOutput('Healthy sites');
     }
 
@@ -26,7 +26,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Sites that have not been checked yet',
+            'Monitors that have not been checked yet',
             $monitor->url,
         ]);
     }
@@ -39,7 +39,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Healthy sites',
+            'Healthy monitors',
             $monitor->url,
         ]);
     }
@@ -52,7 +52,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Sites that are down',
+            'Monitors that have failed',
             $monitor->url,
         ]);
     }
@@ -68,7 +68,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Sites with ssl certificate problems',
+            'Monitors reporting SSL certificate problems',
             $monitor->url,
         ]);
     }

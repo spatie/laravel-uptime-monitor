@@ -17,8 +17,8 @@ class HealthyMonitors
             return;
         }
 
-        ConsoleOutput::info('Healthy sites');
-        ConsoleOutput::info('=============');
+        ConsoleOutput::info('Healthy monitors');
+        ConsoleOutput::info('================');
 
         $rows = $healthySites->map(function (Monitor $monitor) {
             $url = $monitor->url;

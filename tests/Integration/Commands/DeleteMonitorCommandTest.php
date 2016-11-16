@@ -19,7 +19,7 @@ class DeleteMonitorCommandTest extends TestCase
     {
         parent::setUp();
 
-        $this->command = m::mock('Spatie\UptimeMonitor\Commands\DeleteSite[confirm]');
+        $this->command = m::mock('Spatie\UptimeMonitor\Commands\DeleteMonitor[confirm]');
 
         $this->app->bind('command.monitor:delete', function () {
             return $this->command;

@@ -14,7 +14,7 @@ class ConfigurationTest extends TestCase
         factory(Monitor::class)->create();
 
         $customModel = new class extends Monitor {
-            public $table = 'sites';
+            public $table = 'monitors';
         };
 
         $this->app['config']->set('laravel-uptime-monitor.monitor_model', get_class($customModel));

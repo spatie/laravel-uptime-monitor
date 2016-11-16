@@ -17,7 +17,7 @@ class MonitorCreateCommandTest extends TestCase
     {
         parent::setUp();
 
-        $this->command = m::mock('Spatie\UptimeMonitor\Commands\AddSite[ask, confirm]');
+        $this->command = m::mock('Spatie\UptimeMonitor\Commands\CreateMonitor[ask, confirm]');
 
         $this->app->bind('command.monitor:create', function () {
             return $this->command;

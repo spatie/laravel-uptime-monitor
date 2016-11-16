@@ -16,7 +16,7 @@ class MonitorsReportingSslProblems
             return;
         }
 
-        ConsoleOutput::warn('Monitors reporting SSL Certificate problems');
+        ConsoleOutput::warn('Monitors reporting SSL certificate problems');
         ConsoleOutput::warn('===========================================');
 
         $rows = $monitorsWithSslProblems->map(function (Monitor $monitor) {
