@@ -12,7 +12,7 @@ class ListSitesCommandTest extends TestCase
 {
     public function it_display_a_message_when_no_sites_are_configured()
     {
-        Artisan::call('sites:list');
+        Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput('There are no sites configured or enabled');
         $this->dontSeeInConsoleOutput('Healthy sites');
@@ -23,7 +23,7 @@ class ListSitesCommandTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
 
-        Artisan::call('sites:list');
+        Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
             'Sites that have not been checked yet',
@@ -36,7 +36,7 @@ class ListSitesCommandTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::UP]);
 
-        Artisan::call('sites:list');
+        Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
             'Healthy sites',
@@ -49,7 +49,7 @@ class ListSitesCommandTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::DOWN]);
 
-        Artisan::call('sites:list');
+        Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
             'Sites that are down',
@@ -65,7 +65,7 @@ class ListSitesCommandTest extends TestCase
             'ssl_certificate_status' => SslCertificateStatus::INVALID,
         ]);
 
-        Artisan::call('sites:list');
+        Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
             'Sites with ssl certificate problems',

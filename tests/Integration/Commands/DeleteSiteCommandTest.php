@@ -9,7 +9,7 @@ use Spatie\UptimeMonitor\Test\TestCase;
 
 class DeleteSiteCommandTest extends TestCase
 {
-    /** @var \Spatie\UptimeMonitor\Commands\DeleteSite|m\Mock */
+    /** @var \Spatie\UptimeMonitor\Commands\DeleteMonitor|m\Mock */
     protected $command;
 
     /** @var string */
@@ -21,7 +21,7 @@ class DeleteSiteCommandTest extends TestCase
 
         $this->command = m::mock('Spatie\UptimeMonitor\Commands\DeleteSite[confirm]');
 
-        $this->app->bind('command.sites:delete', function () {
+        $this->app->bind('command.monitor:delete', function () {
             return $this->command;
         });
 
@@ -41,7 +41,7 @@ class DeleteSiteCommandTest extends TestCase
             ->with('/Are you sure you want stop monitoring/')
             ->andReturn('yes');
 
-        Artisan::call('sites:delete', ['url' => $this->url]);
+        Artisan::call('monitor:delete', ['url' => $this->url]);
 
         $this->assertEquals(0, Monitor::where('url', $this->url)->count());
     }

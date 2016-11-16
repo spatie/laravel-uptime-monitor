@@ -7,9 +7,9 @@ use Spatie\Url\Url;
 
 class AddSite extends BaseCommand
 {
-    protected $signature = 'sites:add {url}';
+    protected $signature = 'monitor:create {url}';
 
-    protected $description = 'Add a site to monitor';
+    protected $description = 'Create a monitor';
 
     public function handle()
     {

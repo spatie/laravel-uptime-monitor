@@ -19,7 +19,7 @@ class AddSiteCommandTest extends TestCase
 
         $this->command = m::mock('Spatie\UptimeMonitor\Commands\AddSite[ask, confirm]');
 
-        $this->app->bind('command.sites:add', function () {
+        $this->app->bind('command.monitor:create', function () {
             return $this->command;
         });
     }
@@ -33,7 +33,7 @@ class AddSiteCommandTest extends TestCase
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:add', ['url' => 'https://mysite.com']);
+        Artisan::call('monitor:create', ['url' => 'https://mysite.com']);
 
         $monitor = Monitor::where('url', 'https://mysite.com')->first();
 
@@ -50,7 +50,7 @@ class AddSiteCommandTest extends TestCase
             ->with('/Should we look for a specific string on the response/')
             ->andReturn('');
 
-        Artisan::call('sites:add', ['url' => 'http://mysite.com']);
+        Artisan::call('monitor:create', ['url' => 'http://mysite.com']);
 
         $monitor = Monitor::where('url', 'http://mysite.com')->first();
 

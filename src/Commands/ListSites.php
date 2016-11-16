@@ -10,17 +10,17 @@ use Spatie\UptimeMonitor\MonitorRepository;
 
 class ListSites extends BaseCommand
 {
-    protected $signature = 'sites:list';
+    protected $signature = 'monitor:list';
 
-    protected $description = 'List all sites';
+    protected $description = 'List all monitors';
 
     public function handle()
     {
         $this->line('');
 
         if (! MonitorRepository::getAllEnabledMonitors()->count()) {
-            $this->warn('There are no sites configured or enabled.');
-            $this->info('You can add a site using the `sites:add` command');
+            $this->warn('There are no monitors created or enabled.');
+            $this->info('You create a monitor using the `monitor:create` command');
         }
 
         UncheckedMonitors::display();

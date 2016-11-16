@@ -4,14 +4,14 @@ namespace Spatie\UptimeMonitor\Commands;
 
 use Spatie\UptimeMonitor\Models\Monitor;
 
-class DeleteSite extends BaseCommand
+class DeleteMonitor extends BaseCommand
 {
-    protected $signature = 'sites:delete {url}';
+    protected $signature = 'monitor:delete {url}';
 
     protected $description = 'Stop monitoring a site by deleting it from the database';
 
     public function handle()
-    {
+    {@
         $url = $this->argument('url');
 
         $monitor = Monitor::where('url', $url)->first();
