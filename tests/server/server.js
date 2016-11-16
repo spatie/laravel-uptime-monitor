@@ -1,12 +1,11 @@
-"use strict";
+let app = require('express')();
 
-var app = require('express')();
+let bodyParser = require('body-parser');
 
-var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-var serverResponse = {};
+let serverResponse = {};
 
 app.get('/', function (request, response) {
     var statusCode = serverResponse.statusCode;
@@ -18,7 +17,7 @@ app.get('/', function (request, response) {
 app.post('/setServerResponse', function(request, response) {
     serverResponse.statusCode = request.body.statusCode
     serverResponse.body = request.body.body;
-    
+
     response.send("Response set");
 });
 
