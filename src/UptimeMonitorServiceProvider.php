@@ -64,7 +64,6 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             'command.monitor:enable',
             'command.monitor:disable',
             'command.monitor:list',
-
         ]);
 
         Collection::macro('sortByHost', function () {

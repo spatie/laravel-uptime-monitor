@@ -72,4 +72,19 @@ class ListMonitorsCommandTest extends TestCase
             $monitor->url,
         ]);
     }
+
+    /** @test */
+    public function it_can_show_disabled_monitors()
+    {
+        $monitor = factory(Monitor::class)->create([
+            'enabled' => false,
+        ]);
+
+        Artisan::call('monitor:list');
+
+        $this->seeInConsoleOutput([
+            'Monitors that have been disabled',
+            $monitor->url,
+        ]);
+    }
 }
