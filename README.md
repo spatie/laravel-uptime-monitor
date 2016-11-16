@@ -106,7 +106,7 @@ return [
          * when a certificate is found whose expiration date is in
          * the next amount given days.
          */
-        'fire_expiring_soon_event_when_certificate_will_expire_in_less_than_days' => 10,
+        'fire_expiring_soon_event_if_certificate_expires_within_days' => 10,
     ],
 
     /*
