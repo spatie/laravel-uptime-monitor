@@ -11,7 +11,7 @@ class DeleteMonitor extends BaseCommand
     protected $description = 'Stop monitoring a site by deleting it from the database';
 
     public function handle()
-    {@
+    {
         $url = $this->argument('url');
 
         $monitor = Monitor::where('url', $url)->first();
