@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Commands\SiteLists;
+namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
-class SitesWithSslProblems
+class MonitorsReportingSslProblems
 {
     public static function display()
     {
@@ -16,8 +16,8 @@ class SitesWithSslProblems
             return;
         }
 
-        ConsoleOutput::warn('Sites with ssl certificate problems');
-        ConsoleOutput::warn('===================================');
+        ConsoleOutput::warn('Monitors reporting SSL Certificate problems');
+        ConsoleOutput::warn('===========================================');
 
         $rows = $sitesWithSslProblems->map(function (Site $site) {
             $url = $site->url;

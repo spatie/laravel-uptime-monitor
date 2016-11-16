@@ -11,7 +11,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class SiteUp extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SiteDown */
+    /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
     public $event;
 
     /**

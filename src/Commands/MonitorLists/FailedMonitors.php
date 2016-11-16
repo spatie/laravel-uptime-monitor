@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Commands\SiteLists;
+namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
-class DownSites
+class FailedMonitors
 {
     public static function display()
     {
@@ -17,8 +17,8 @@ class DownSites
             return;
         }
 
-        ConsoleOutput::warn('Sites that are down');
-        ConsoleOutput::warn('===================');
+        ConsoleOutput::warn('Monitors that have failed');
+        ConsoleOutput::warn('=========================');
 
         $rows = $downSites->map(function (Site $site) {
             $url = $site->url;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Commands\SiteLists;
+namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
-class HealthySites
+class HealthyMonitors
 {
     public static function display()
     {

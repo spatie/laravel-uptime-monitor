@@ -2,9 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Models\Traits;
 
-use Spatie\UptimeMonitor\Events\SiteDown;
+use Spatie\UptimeMonitor\Events\MonitorFailed;
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\SiteRestored;
+use Spatie\UptimeMonitor\Events\MonitorRecovered;
 use Spatie\UptimeMonitor\Events\SiteUp;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
@@ -73,7 +73,7 @@ trait SupportsUptimeCheck
         $this->down_event_fired_on_date = null;
         $this->save();
 
-        $eventClass = ($wasFailing ? SiteRestored::class : SiteUp::class);
+        $eventClass = ($wasFailing ? MonitorRecovered::class : SiteUp::class);
 
         event(new $eventClass($this));
     }
@@ -90,7 +90,7 @@ trait SupportsUptimeCheck
             $this->down_event_fired_on_date = Carbon::now();
             $this->save();
 
-            event(new SiteDown($this));
+            event(new MonitorFailed($this));
         }
     }
 

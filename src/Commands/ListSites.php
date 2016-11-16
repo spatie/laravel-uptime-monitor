@@ -2,10 +2,10 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\Commands\SiteLists\DownSites;
-use Spatie\UptimeMonitor\Commands\SiteLists\HealthySites;
-use Spatie\UptimeMonitor\Commands\SiteLists\SitesWithSslProblems;
-use Spatie\UptimeMonitor\Commands\SiteLists\UncheckedSites;
+use Spatie\UptimeMonitor\Commands\MonitorLists\FailedMonitors;
+use Spatie\UptimeMonitor\Commands\MonitorLists\HealthyMonitors;
+use Spatie\UptimeMonitor\Commands\MonitorLists\MonitorsReportingSslProblems;
+use Spatie\UptimeMonitor\Commands\MonitorLists\VirginMonitors;
 use Spatie\UptimeMonitor\SiteRepository;
 
 class ListSites extends BaseCommand
@@ -23,9 +23,9 @@ class ListSites extends BaseCommand
             $this->info('You can add a site using the `sites:add` command');
         }
 
-        UncheckedSites::display();
-        DownSites::display();
-        SitesWithSslProblems::display();
-        HealthySites::display();
+        VirginMonitors::display();
+        FailedMonitors::display();
+        MonitorsReportingSslProblems::display();
+        HealthyMonitors::display();
     }
 }

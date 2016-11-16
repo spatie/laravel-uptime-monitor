@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Commands\SiteLists;
+namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Site;
 use Spatie\UptimeMonitor\SiteRepository;
 
-class UncheckedSites
+class VirginMonitors
 {
     public static function display()
     {
@@ -16,7 +16,7 @@ class UncheckedSites
             return;
         }
 
-        ConsoleOutput::warn('Sites that have not been checked yet');
+        ConsoleOutput::warn('Monitors that have not been used yet');
         ConsoleOutput::warn('====================================');
 
         $rows = $downSites->map(function (Site $site) {

@@ -2,7 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Spatie\UptimeMonitor\Events\SiteRestored;
+use Spatie\UptimeMonitor\Events\MonitorRecovered;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
 use Spatie\UptimeMonitor\SiteRepository;
@@ -39,11 +39,11 @@ class SiteRestoredTest extends TestCase
 
         $this->server->up();
 
-        Event::assertNotFired(SiteRestored::class);
+        Event::assertNotFired(MonitorRecovered::class);
 
         $sites->checkUptime();
 
-        Event::assertFired(SiteRestored::class, function ($event) {
+        Event::assertFired(MonitorRecovered::class, function ($event) {
             return $event->site->id === $this->site->id;
         });
     }

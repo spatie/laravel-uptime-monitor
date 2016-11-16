@@ -2,7 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Spatie\UptimeMonitor\Events\SiteDown;
+use Spatie\UptimeMonitor\Events\MonitorFailed;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
 use Spatie\UptimeMonitor\SiteRepository;
@@ -35,11 +35,11 @@ class SiteDownTest extends TestCase
             $sites->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(SiteDown::class);
+                Event::assertNotFired(MonitorFailed::class);
             }
         }
 
-        Event::assertFired(SiteDown::class, function ($event) {
+        Event::assertFired(MonitorFailed::class, function ($event) {
             return $event->site->id === $this->site->id;
         });
     }
@@ -57,17 +57,17 @@ class SiteDownTest extends TestCase
             $sites->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(SiteDown::class);
+                Event::assertNotFired(MonitorFailed::class);
             }
         }
 
-        Event::assertFired(SiteDown::class);
+        Event::assertFired(MonitorFailed::class);
 
         $this->resetEventAssertions();
 
         $sites->checkUptime();
 
-        Event::assertNotFired(SiteDown::class);
+        Event::assertNotFired(MonitorFailed::class);
 
         $this->resetEventAssertions();
 
@@ -75,7 +75,7 @@ class SiteDownTest extends TestCase
 
         $sites->checkUptime();
 
-        Event::assertFired(SiteDown::class);
+        Event::assertFired(MonitorFailed::class);
     }
 
     /** @test */
@@ -90,6 +90,6 @@ class SiteDownTest extends TestCase
 
         SiteRepository::getAllForUptimeCheck()->checkUptime();
 
-        Event::assertFired(SiteDown::class);
+        Event::assertFired(MonitorFailed::class);
     }
 }
