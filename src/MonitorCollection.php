@@ -20,7 +20,7 @@ class MonitorCollection extends Collection
         (new EachPromise($this->getPromises(), [
             'concurrency' => config('laravel-uptime-monitor.uptime_check.concurrent_checks'),
             'fulfilled' => function (ResponseInterface $response, $index) {
-                $monitor = $this->getSiteAtIndex($index);
+                $monitor = $this->getMonitorAtIndex($index);
 
                 ConsoleOutput::info("Could reach {$monitor->url}");
 
@@ -28,7 +28,7 @@ class MonitorCollection extends Collection
             },
 
             'rejected' => function (RequestException $exception, $index) {
-                $monitor = $this->getSiteAtIndex($index);
+                $monitor = $this->getMonitorAtIndex($index);
 
                 ConsoleOutput::error("Could not reach {$monitor->url} error: `{$exception->getMessage()}`");
 
@@ -66,7 +66,7 @@ class MonitorCollection extends Collection
         $this->items = $this->values()->all();
     }
 
-    protected function getSiteAtIndex(int $index): Monitor
+    protected function getMonitorAtIndex(int $index): Monitor
     {
         return $this->items[$index];
     }

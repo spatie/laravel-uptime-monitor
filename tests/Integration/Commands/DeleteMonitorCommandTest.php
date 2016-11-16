@@ -7,7 +7,7 @@ use Mockery as m;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class DeleteSiteCommandTest extends TestCase
+class DeleteMonitorCommandTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Commands\DeleteMonitor|m\Mock */
     protected $command;

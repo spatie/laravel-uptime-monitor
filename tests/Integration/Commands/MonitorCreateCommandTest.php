@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class AddSiteCommandTest extends TestCase
+class MonitorCreateCommandTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Commands\AddSite|m\Mock */
     protected $command;

@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class ListSitesCommandTest extends TestCase
+class ListMonitorsCommandTest extends TestCase
 {
     public function it_display_a_message_when_no_sites_are_configured()
     {

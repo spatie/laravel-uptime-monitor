@@ -11,7 +11,7 @@ class FailedMonitors
 {
     public static function display()
     {
-        $downSites = MonitorRepository::failingMonitors();
+        $downSites = MonitorRepository::getAllFailing();
 
         if (! $downSites->count()) {
             return;

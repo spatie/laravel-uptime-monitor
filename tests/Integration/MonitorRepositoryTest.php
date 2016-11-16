@@ -9,7 +9,7 @@ use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\Url\Url;
 
-class SiteRepositoryTest extends TestCase
+class MonitorRepositoryTest extends TestCase
 {
     /** @test */
     public function setUp()
@@ -26,7 +26,7 @@ class SiteRepositoryTest extends TestCase
 
         Monitor::create(['url' => 'http://down2.com', 'uptime_status' => UptimeStatus::DOWN]);
 
-        $downSites = MonitorRepository::failingMonitors();
+        $downSites = MonitorRepository::getAllFailing();
 
         $this->assertEquals(['http://down1.com', 'http://down2.com'], $this->getSiteUrls($downSites));
     }

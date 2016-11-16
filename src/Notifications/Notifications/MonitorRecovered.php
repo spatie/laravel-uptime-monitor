@@ -9,7 +9,7 @@ use Spatie\UptimeMonitor\Events\MonitorRecovered as SiteRestoredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteRestored extends BaseNotification
+class MonitorRecovered extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
     public $event;

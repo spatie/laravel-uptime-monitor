@@ -5,11 +5,11 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\MonitorHealthy as SiteUpEvent;
+use Spatie\UptimeMonitor\Events\MonitorFailed as SiteDownEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteUp extends BaseNotification
+class MonitorFailed extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
     public $event;
@@ -23,9 +23,9 @@ class SiteUp extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->success()
-            ->subject("Site {$this->event->site->url} is up.")
-            ->line('Site is up');
+            ->error()
+            ->subject("Site {$this->event->site->url} is down.")
+            ->line('Site is down');
 
         return $mailMessage;
     }
@@ -33,19 +33,28 @@ class SiteUp extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->success()
-            ->content("Site {$this->event->site->url} is up")
+            ->error()
+            ->content("Site {$this->event->site->url} is down")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getSiteProperties());
             });
     }
 
-    public function isStillRelevant(): bool
+    public function getSiteProperties($extraProperties = []): array
     {
-        return $this->event->site->uptime_status != UptimeStatus::DOWN;
+        $extraProperties = [
+            'offline since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
+        ];
+
+        return parent::getSiteProperties($extraProperties);
     }
 
-    public function setEvent(SiteUpEvent $event)
+    public function isStillRelevant(): bool
+    {
+        return $this->event->site->uptime_status == UptimeStatus::DOWN;
+    }
+
+    public function setEvent(SiteDownEvent $event)
     {
         $this->event = $event;
 

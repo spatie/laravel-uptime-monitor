@@ -5,11 +5,11 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\MonitorFailed as SiteDownEvent;
+use Spatie\UptimeMonitor\Events\MonitorHealthy as SiteUpEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SiteDown extends BaseNotification
+class MonitorHealthy extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
     public $event;
@@ -23,9 +23,9 @@ class SiteDown extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->error()
-            ->subject("Site {$this->event->site->url} is down.")
-            ->line('Site is down');
+            ->success()
+            ->subject("Site {$this->event->site->url} is up.")
+            ->line('Site is up');
 
         return $mailMessage;
     }
@@ -33,28 +33,19 @@ class SiteDown extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->error()
-            ->content("Site {$this->event->site->url} is down")
+            ->success()
+            ->content("Site {$this->event->site->url} is up")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getSiteProperties());
             });
     }
 
-    public function getSiteProperties($extraProperties = []): array
-    {
-        $extraProperties = [
-            'offline since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
-        ];
-
-        return parent::getSiteProperties($extraProperties);
-    }
-
     public function isStillRelevant(): bool
     {
-        return $this->event->site->uptime_status == UptimeStatus::DOWN;
+        return $this->event->site->uptime_status != UptimeStatus::DOWN;
     }
 
-    public function setEvent(SiteDownEvent $event)
+    public function setEvent(SiteUpEvent $event)
     {
         $this->event = $event;
 

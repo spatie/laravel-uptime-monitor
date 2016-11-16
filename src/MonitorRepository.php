@@ -47,7 +47,7 @@ class MonitorRepository
         ->sortByHost();
     }
 
-    public static function failingMonitors(): Collection
+    public static function getAllFailing(): Collection
     {
         return self::query()
             ->where('uptime_status', UptimeStatus::DOWN)
@@ -55,7 +55,7 @@ class MonitorRepository
             ->sortByHost();
     }
 
-    public static function withSslProblems(): Collection
+    public static function getAllWithSslProblems(): Collection
     {
         return self::query()
             ->where('check_ssl_certificate', true)
@@ -64,7 +64,7 @@ class MonitorRepository
             ->sortByHost();
     }
 
-    public static function unhealthyMonitors(): Collection
+    public static function getAllUnhealthy(): Collection
     {
         return self::query()
             ->get()
@@ -74,7 +74,7 @@ class MonitorRepository
             ->sortByHost();
     }
 
-    public static function uncheckMonitors(): Collection
+    public static function getAllUnchecked(): Collection
     {
         return self::query()
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
@@ -84,14 +84,14 @@ class MonitorRepository
 
     protected static function query()
     {
-        $modelClass = static::determineSiteModel();
+        $modelClass = static::determineMonitorModel();
 
         return $modelClass::enabled();
     }
 
-    protected static function determineSiteModel(): string
+    protected static function determineMonitorModel(): string
     {
-        $monitorModel = config('laravel-uptime-monitor.site_model') ?? Monitor::class;
+        $monitorModel = config('laravel-uptime-monitor.monitor_model') ?? Monitor::class;
 
         if (! is_a($monitorModel, Monitor::class, true)) {
             throw InvalidConfiguration::modelIsNotValid($monitorModel);

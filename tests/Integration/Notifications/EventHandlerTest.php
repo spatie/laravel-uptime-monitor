@@ -8,9 +8,9 @@ use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
 use Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound as InvalidSslCertificateFoundNotification;
-use Spatie\UptimeMonitor\Notifications\Notifications\SiteDown;
-use Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored;
-use Spatie\UptimeMonitor\Notifications\Notifications\SiteUp;
+use Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed;
+use Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered;
+use Spatie\UptimeMonitor\Notifications\Notifications\MonitorHealthy;
 use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\UptimeMonitor\Events\MonitorHealthy as SiteUpEvent;
 use Spatie\UptimeMonitor\Events\MonitorFailed as SiteDownEvent;
@@ -40,7 +40,7 @@ class EventHandlerTest extends TestCase
         $shouldSendNotification
     ) {
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.'.SiteUp::class,
+            'laravel-uptime-monitor.notifications.notifications.'.MonitorHealthy::class,
             ['slack']
         );
 
@@ -69,12 +69,12 @@ class EventHandlerTest extends TestCase
     public function eventClassDataProvider(): array
     {
         return [
-            [SiteUpEvent::class, SiteUp::class, ['uptime_status' => UptimeStatus::UP], true],
-            [SiteUpEvent::class, SiteUp::class, ['uptime_status' => UptimeStatus::DOWN], false],
-            [SiteDownEvent::class, SiteDown::class, ['uptime_status' => UptimeStatus::DOWN], true],
-            [SiteDownEvent::class, SiteDown::class, ['uptime_status' => UptimeStatus::UP], false],
-            [SiteRestoredEvent::class, SiteRestored::class, ['uptime_status' => UptimeStatus::UP], true],
-            [SiteRestoredEvent::class, SiteRestored::class, ['uptime_status' => UptimeStatus::DOWN], false],
+            [SiteUpEvent::class, MonitorHealthy::class, ['uptime_status' => UptimeStatus::UP], true],
+            [SiteUpEvent::class, MonitorHealthy::class, ['uptime_status' => UptimeStatus::DOWN], false],
+            [SiteDownEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::DOWN], true],
+            [SiteDownEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::UP], false],
+            [SiteRestoredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::UP], true],
+            [SiteRestoredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::DOWN], false],
         ];
     }
 
@@ -101,7 +101,7 @@ class EventHandlerTest extends TestCase
     public function it_send_notifications_to_the_channels_configured_in_the_config_file(array $configuredChannels)
     {
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.'.SiteUp::class,
+            'laravel-uptime-monitor.notifications.notifications.'.MonitorHealthy::class,
             $configuredChannels
         );
 
@@ -112,7 +112,7 @@ class EventHandlerTest extends TestCase
 
         Notification::assertSentTo(
             new Notifiable(),
-            SiteUp::class,
+            MonitorHealthy::class,
             function ($notification, $usedChannels) use ($configuredChannels) {
                 return $usedChannels == $configuredChannels;
             }

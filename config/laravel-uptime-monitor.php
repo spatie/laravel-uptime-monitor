@@ -9,9 +9,9 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteDown::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteRestored::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SiteUp::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorHealthy::class => [],
 
             \Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\SoonExpiringSslCertificateFound::class => ['slack'],
@@ -93,5 +93,5 @@ return [
      * own model here. They only requirement is that it should extend
      * `Spatie\UptimeMonitor\Test\Models\Site`.
      */
-     'site_model' => Spatie\UptimeMonitor\Models\Monitor::class,
+     'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
 ];

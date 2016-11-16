@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\Commands\MonitorLists\MonitorsReportingSslProblems;
 use Spatie\UptimeMonitor\Commands\MonitorLists\UncheckedMonitors;
 use Spatie\UptimeMonitor\MonitorRepository;
 
-class ListSites extends BaseCommand
+class ListMonitors extends BaseCommand
 {
     protected $signature = 'monitor:list';
 
