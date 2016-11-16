@@ -11,11 +11,11 @@ return [
         'notifications' => [
             \Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorHealthy::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorSucceeded::class => [],
 
-            \Spatie\UptimeMonitor\Notifications\Notifications\InvalidSslCertificateFound::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SoonExpiringSslCertificateFound::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\ValidSslCertificateFound::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SslCheckFailed::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SslExpiresSoon::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\SslCheckSucceeded::class => [],
         ],
 
         /*

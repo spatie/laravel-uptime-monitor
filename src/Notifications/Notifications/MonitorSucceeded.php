@@ -5,12 +5,13 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SoonExpiringSslCertificateFound as SoonExpiringSslCertificateFoundEvent;
+use Spatie\UptimeMonitor\Events\MonitorSucceeded as MonitorSucceededEvent;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SoonExpiringSslCertificateFound extends BaseNotification
+class MonitorSucceeded extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\ValidSslCertificateFound */
+    /** @var \Spatie\UptimeMonitor\Events\MonitorSucceeded */
     public $event;
 
     /**
@@ -22,9 +23,9 @@ class SoonExpiringSslCertificateFound extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->error()
-            ->subject("The certificate for {$this->event->monitor->url} will expire soon.")
-            ->line("The certificate for {$this->event->monitor->url} will expire in {$this->ssl_certificate_expiration_date->diffInDays()} days");
+            ->success()
+            ->subject("Site {$this->event->monitor->url} is up.")
+            ->line('Site is up');
 
         return $mailMessage;
     }
@@ -32,14 +33,19 @@ class SoonExpiringSslCertificateFound extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->error()
-            ->content("The certificate for {$this->event->monitor->url} will expire in {$this->event->monitor->ssl_certificate_expiration_date->diffInDays()} days")
+            ->success()
+            ->content("Site {$this->event->monitor->url} is up")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function setEvent(SoonExpiringSslCertificateFoundEvent $event)
+    public function isStillRelevant(): bool
+    {
+        return $this->event->monitor->uptime_status != UptimeStatus::DOWN;
+    }
+
+    public function setEvent(MonitorSucceededEvent $event)
     {
         $this->event = $event;
 

@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
+use Spatie\UptimeMonitor\Events\SslCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -34,7 +34,7 @@ class ValidSslCertificateFoundTest extends TestCase
 
         $this->monitor->checkSslCertificate();
 
-        Event::assertFired(ValidSslCertificateFound::class, function ($event) {
+        Event::assertFired(SslCheckSucceeded::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
         });
     }

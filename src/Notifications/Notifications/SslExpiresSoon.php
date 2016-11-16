@@ -5,12 +5,12 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\ValidSslCertificateFound as ValidSslCertificateFoundEvent;
+use Spatie\UptimeMonitor\Events\SslExpiresSoon as SoonExpiringSslCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class ValidSslCertificateFound extends BaseNotification
+class SslExpiresSoon extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\ValidSslCertificateFound */
+    /** @var \Spatie\UptimeMonitor\Events\SslExpiresSoon */
     public $event;
 
     /**
@@ -22,9 +22,9 @@ class ValidSslCertificateFound extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->success()
-            ->subject("Found a valid certificate for {$this->event->monitor->url}.")
-            ->line('Found a valid certificate');
+            ->error()
+            ->subject("The certificate for {$this->event->monitor->url} will expire soon.")
+            ->line("The certificate for {$this->event->monitor->url} will expire in {$this->ssl_certificate_expiration_date->diffInDays()} days");
 
         return $mailMessage;
     }
@@ -32,14 +32,14 @@ class ValidSslCertificateFound extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->success()
-            ->content("Found a valid ssl certificate for {$this->event->monitor->url}")
+            ->error()
+            ->content("The certificate for {$this->event->monitor->url} will expire in {$this->event->monitor->ssl_certificate_expiration_date->diffInDays()} days")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function setEvent(ValidSslCertificateFoundEvent $event)
+    public function setEvent(SoonExpiringSslCertificateFoundEvent $event)
     {
         $this->event = $event;
 

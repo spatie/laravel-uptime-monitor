@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Models\Monitor;
 
-class SoonExpiringSslCertificateFound implements ShouldQueue
+class SslExpiresSoon implements ShouldQueue
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     public $monitor;

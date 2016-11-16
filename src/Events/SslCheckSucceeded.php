@@ -6,22 +6,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Models\Monitor;
 
-class InvalidSslCertificateFound implements ShouldQueue
+class SslCheckSucceeded implements ShouldQueue
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     public $monitor;
 
-    /** @var string */
-    public $reason;
-
-    /** @var \Spatie\SslCertificate\SslCertificate|null */
+    /** @var \Spatie\SslCertificate\SslCertificate */
     public $certificate;
 
-    public function __construct(Monitor $monitor, string $reason, SslCertificate $certificate = null)
+    public function __construct(Monitor $monitor, SslCertificate $certificate)
     {
         $this->monitor = $monitor;
-
-        $this->reason = $reason;
 
         $this->certificate = $certificate;
     }

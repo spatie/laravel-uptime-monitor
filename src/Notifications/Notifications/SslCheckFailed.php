@@ -5,13 +5,12 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\MonitorHealthy as MonitorHealthyEvent;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Events\SslCheckFailed as InvalidSslCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class MonitorHealthy extends BaseNotification
+class SslCheckFailed extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
+    /** @var \Spatie\UptimeMonitor\Events\SslCheckSucceeded */
     public $event;
 
     /**
@@ -23,9 +22,9 @@ class MonitorHealthy extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->success()
-            ->subject("Site {$this->event->monitor->url} is up.")
-            ->line('Site is up');
+            ->error()
+            ->subject("Found an invalid certificate for {$this->event->monitor->url}.")
+            ->line('Found an invalid certificate');
 
         return $mailMessage;
     }
@@ -33,19 +32,21 @@ class MonitorHealthy extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->success()
-            ->content("Site {$this->event->monitor->url} is up")
+            ->error()
+            ->content("Found an invalid ssl certificate for {$this->event->monitor->url}")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function isStillRelevant(): bool
+    public function getMonitorProperties($properties = []): array
     {
-        return $this->event->monitor->uptime_status != UptimeStatus::DOWN;
+        $extraProperties = ['failure reason' => $this->event->monitor->ssl_certificate_failure_reason];
+
+        return parent::getMonitorProperties($extraProperties);
     }
 
-    public function setEvent(MonitorHealthyEvent $event)
+    public function setEvent(InvalidSslCertificateFoundEvent $event)
     {
         $this->event = $event;
 

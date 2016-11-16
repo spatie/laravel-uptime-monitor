@@ -11,7 +11,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class MonitorRecovered extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
+    /** @var \Spatie\UptimeMonitor\Events\MonitorRecovered */
     public $event;
 
     /**

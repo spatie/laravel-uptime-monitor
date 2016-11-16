@@ -4,12 +4,12 @@ namespace Spatie\UptimeMonitor\Notifications;
 
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
-use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
+use Spatie\UptimeMonitor\Events\SslCheckFailed;
 use Spatie\UptimeMonitor\Events\MonitorRecovered;
-use Spatie\UptimeMonitor\Events\MonitorHealthy;
+use Spatie\UptimeMonitor\Events\MonitorSucceeded;
 use Spatie\UptimeMonitor\Events\MonitorFailed;
-use Spatie\UptimeMonitor\Events\SoonExpiringSslCertificateFound;
-use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
+use Spatie\UptimeMonitor\Events\SslExpiresSoon;
+use Spatie\UptimeMonitor\Events\SslCheckSucceeded;
 
 class EventHandler
 {
@@ -69,11 +69,11 @@ class EventHandler
     {
         return [
             MonitorFailed::class,
-            MonitorHealthy::class,
+            MonitorSucceeded::class,
             MonitorRecovered::class,
-            ValidSslCertificateFound::class,
-            InvalidSslCertificateFound::class,
-            SoonExpiringSslCertificateFound::class,
+            SslCheckSucceeded::class,
+            SslCheckFailed::class,
+            SslExpiresSoon::class,
         ];
     }
 }
