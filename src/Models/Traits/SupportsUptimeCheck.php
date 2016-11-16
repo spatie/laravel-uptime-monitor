@@ -50,18 +50,18 @@ trait SupportsUptimeCheck
     public function uptimeRequestSucceeded($responseHtml)
     {
         if (! str_contains($responseHtml, $this->look_for_string)) {
-            $this->monitorIsDown("String `{$this->look_for_string}` was not found on the response.");
+            $this->uptimeTestFailed("String `{$this->look_for_string}` was not found on the response.");
         }
 
-        $this->monitorIsUp();
+        $this->uptimeTestSucceeded();
     }
 
     public function uptimeRequestFailed(string $reason)
     {
-        $this->monitorIsDown($reason);
+        $this->uptimeTestFailed($reason);
     }
 
-    public function siteIsUp()
+    public function uptimeTestSucceeded()
     {
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_failure_reason = '';
@@ -78,7 +78,7 @@ trait SupportsUptimeCheck
         event(new $eventClass($this));
     }
 
-    public function siteIsDown(string $reason)
+    public function uptimeTestFailed(string $reason)
     {
         $this->uptime_status = UptimeStatus::DOWN;
         $this->uptime_check_times_failed_in_a_row++;
