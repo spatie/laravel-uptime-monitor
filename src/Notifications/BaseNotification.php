@@ -17,9 +17,9 @@ abstract class BaseNotification extends Notification
         return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
     }
 
-    public function getSiteProperties($extraProperties = []): array
+    public function getMonitorProperties($extraProperties = []): array
     {
-        $monitor = $this->event->site;
+        $monitor = $this->event->monitor;
 
         $properties['location'] = config('laravel-uptime-monitor.notifications.location');
 

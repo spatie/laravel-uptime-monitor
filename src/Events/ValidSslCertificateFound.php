@@ -16,7 +16,7 @@ class ValidSslCertificateFound implements ShouldQueue
 
     public function __construct(Monitor $monitor, SslCertificate $certificate)
     {
-        $this->site = $monitor;
+        $this->monitor = $monitor;
 
         $this->certificate = $certificate;
     }

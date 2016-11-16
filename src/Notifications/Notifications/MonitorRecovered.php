@@ -24,7 +24,7 @@ class MonitorRecovered extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Site {$this->event->site->url} has been restored.")
+            ->subject("Site {$this->event->monitor->url} has been restored.")
             ->line('Site has been restored');
 
         return $mailMessage;
@@ -34,24 +34,24 @@ class MonitorRecovered extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->site->url} has been restored")
+            ->content("Site {$this->event->monitor->url} has been restored")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getSiteProperties());
+                $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function getSiteProperties($extraProperties = []): array
+    public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'online since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
+            'online since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
         ];
 
-        return parent::getSiteProperties($extraProperties);
+        return parent::getMonitorProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool
     {
-        return $this->event->site->uptime_status == UptimeStatus::UP;
+        return $this->event->monitor->uptime_status == UptimeStatus::UP;
     }
 
     public function setEvent(SiteRestoredEvent $event)

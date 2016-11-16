@@ -19,7 +19,7 @@ class MonitorRecoveredTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Monitor::class)->create();
+        $this->monitor = factory(Monitor::class)->create();
     }
 
     /** @test */
@@ -40,7 +40,7 @@ class MonitorRecoveredTest extends TestCase
         }
 
         Event::assertFired(MonitorFailed::class, function ($event) {
-            return $event->site->id === $this->site->id;
+            return $event->site->id === $this->monitor->id;
         });
     }
 
@@ -83,8 +83,8 @@ class MonitorRecoveredTest extends TestCase
     {
         $this->server->setResponseBody('Hi, welcome on the page');
 
-        $this->site->look_for_string = 'Another page';
-        $this->site->save();
+        $this->monitor->look_for_string = 'Another page';
+        $this->monitor->save();
 
         $this->app['config']->set('laravel-uptime-monitor.uptime_check.fire_down_event_after_consecutive_failures', 1);
 

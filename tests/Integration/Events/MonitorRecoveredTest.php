@@ -19,7 +19,7 @@ class SiteRestoredTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Monitor::class)->create();
+        $this->monitor = factory(Monitor::class)->create();
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class SiteRestoredTest extends TestCase
             $monitors->checkUptime();
         }
 
-        $this->site = $this->site->fresh();
+        $this->monitor = $this->monitor->fresh();
 
         $this->server->up();
 
@@ -44,7 +44,7 @@ class SiteRestoredTest extends TestCase
         $monitors->checkUptime();
 
         Event::assertFired(MonitorRecovered::class, function ($event) {
-            return $event->site->id === $this->site->id;
+            return $event->site->id === $this->monitor->id;
         });
     }
 }

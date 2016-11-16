@@ -24,7 +24,7 @@ class MonitorFailed extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->error()
-            ->subject("Site {$this->event->site->url} is down.")
+            ->subject("Site {$this->event->monitor->url} is down.")
             ->line('Site is down');
 
         return $mailMessage;
@@ -34,24 +34,24 @@ class MonitorFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content("Site {$this->event->site->url} is down")
+            ->content("Site {$this->event->monitor->url} is down")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getSiteProperties());
+                $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function getSiteProperties($extraProperties = []): array
+    public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'offline since' => $this->event->site->formattedLastUpdatedStatusChangeDate,
+            'offline since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
         ];
 
-        return parent::getSiteProperties($extraProperties);
+        return parent::getMonitorProperties($extraProperties);
     }
 
     public function isStillRelevant(): bool
     {
-        return $this->event->site->uptime_status == UptimeStatus::DOWN;
+        return $this->event->monitor->uptime_status == UptimeStatus::DOWN;
     }
 
     public function setEvent(SiteDownEvent $event)

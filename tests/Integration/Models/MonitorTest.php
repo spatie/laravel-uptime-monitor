@@ -15,7 +15,7 @@ class MonitorTest extends TestCase
     {
         parent::setUp();
 
-        $this->site = factory(Monitor::class)->create(['url' => 'http://mysite.com']);
+        $this->monitor = factory(Monitor::class)->create(['url' => 'http://mysite.com']);
     }
 
     /** @test */

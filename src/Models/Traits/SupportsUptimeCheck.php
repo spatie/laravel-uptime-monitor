@@ -47,18 +47,18 @@ trait SupportsUptimeCheck
         return $this->uptime_last_check_date->diffInMinutes() >= $this->uptime_check_interval_in_minutes;
     }
 
-    public function couldReachSite($responseHtml)
+    public function uptimeRequestSucceeded($responseHtml)
     {
         if (! str_contains($responseHtml, $this->look_for_string)) {
-            $this->siteIsDown("String `{$this->look_for_string}` was not found on the response.");
+            $this->monitorIsDown("String `{$this->look_for_string}` was not found on the response.");
         }
 
-        $this->siteIsUp();
+        $this->monitorIsUp();
     }
 
-    public function couldNotReachSite(string $reason)
+    public function uptimeRequestFailed(string $reason)
     {
-        $this->siteIsDown($reason);
+        $this->monitorIsDown($reason);
     }
 
     public function siteIsUp()

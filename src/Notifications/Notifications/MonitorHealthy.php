@@ -24,7 +24,7 @@ class MonitorHealthy extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Site {$this->event->site->url} is up.")
+            ->subject("Site {$this->event->monitor->url} is up.")
             ->line('Site is up');
 
         return $mailMessage;
@@ -34,15 +34,15 @@ class MonitorHealthy extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->site->url} is up")
+            ->content("Site {$this->event->monitor->url} is up")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getSiteProperties());
+                $attachment->fields($this->getMonitorProperties());
             });
     }
 
     public function isStillRelevant(): bool
     {
-        return $this->event->site->uptime_status != UptimeStatus::DOWN;
+        return $this->event->monitor->uptime_status != UptimeStatus::DOWN;
     }
 
     public function setEvent(SiteUpEvent $event)

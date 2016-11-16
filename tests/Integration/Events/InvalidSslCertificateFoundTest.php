@@ -18,16 +18,16 @@ class InvalidSslCertificateFoundTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
+        $this->monitor = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
     }
 
     /** @test */
     public function the_invalid_ssl_certificate_found_event_will_be_fired_when_an_invalid_ssl_certificate_is_found()
     {
-        $this->site->checkSslCertificate();
+        $this->monitor->checkSslCertificate();
 
         Event::assertFired(InvalidSslCertificateFound::class, function ($event) {
-            return $event->site->id === $this->site->id;
+            return $event->site->id === $this->monitor->id;
         });
     }
 }

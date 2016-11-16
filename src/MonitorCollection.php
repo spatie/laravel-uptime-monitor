@@ -24,7 +24,7 @@ class MonitorCollection extends Collection
 
                 ConsoleOutput::info("Could reach {$monitor->url}");
 
-                $monitor->couldReachSite($response->getBody());
+                $monitor->uptimeRequestSucceeded($response->getBody());
             },
 
             'rejected' => function (RequestException $exception, $index) {
@@ -32,7 +32,7 @@ class MonitorCollection extends Collection
 
                 ConsoleOutput::error("Could not reach {$monitor->url} error: `{$exception->getMessage()}`");
 
-                $monitor->couldNotReachSite($exception->getMessage());
+                $monitor->uptimeRequestFailed($exception->getMessage());
             },
         ]))->promise()->wait();
     }

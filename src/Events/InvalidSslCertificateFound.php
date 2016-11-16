@@ -19,7 +19,7 @@ class InvalidSslCertificateFound implements ShouldQueue
 
     public function __construct(Monitor $monitor, string $reason, SslCertificate $certificate = null)
     {
-        $this->site = $monitor;
+        $this->monitor = $monitor;
 
         $this->reason = $reason;
 

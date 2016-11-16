@@ -12,6 +12,6 @@ class MonitorHealthy implements ShouldQueue
 
     public function __construct(Monitor $monitor)
     {
-        $this->site = $monitor;
+        $this->monitor = $monitor;
     }
 }

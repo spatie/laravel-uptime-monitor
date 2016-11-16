@@ -22,7 +22,7 @@ class ValidSslCertificateFoundTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Monitor::class)->create([
+        $this->monitor = factory(Monitor::class)->create([
             'check_ssl_certificate' => true,
             'url' => 'https://google.com',
         ]);
@@ -33,10 +33,10 @@ class ValidSslCertificateFoundTest extends TestCase
     {
         $this->skipIfNotConnectedToTheInternet();
 
-        $this->site->checkSslCertificate();
+        $this->monitor->checkSslCertificate();
 
         Event::assertFired(ValidSslCertificateFound::class, function ($event) {
-            return $event->site->id === $this->site->id;
+            return $event->site->id === $this->monitor->id;
         });
     }
 }

@@ -18,7 +18,7 @@ class MonitorHealthyTest extends TestCase
 
         Event::fake();
 
-        $this->site = factory(Monitor::class)->create();
+        $this->monitor = factory(Monitor::class)->create();
     }
 
     /** @test */
@@ -27,7 +27,7 @@ class MonitorHealthyTest extends TestCase
         MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
         Event::assertFired(MonitorHealthy::class, function ($event) {
-            return $event->site->id === $this->site->id;
+            return $event->site->id === $this->monitor->id;
         });
     }
 
@@ -36,8 +36,8 @@ class MonitorHealthyTest extends TestCase
     {
         $this->server->setResponseBody('Hi, welcome on the page');
 
-        $this->site->look_for_string = 'welcome';
-        $this->site->save();
+        $this->monitor->look_for_string = 'welcome';
+        $this->monitor->save();
 
         MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
