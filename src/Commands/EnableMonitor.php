@@ -2,9 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
-use Spatie\Url\Url;
 
 class EnableMonitor extends BaseCommand
 {
