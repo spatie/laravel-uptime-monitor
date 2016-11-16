@@ -15,7 +15,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput('There are no monitors created or enabled');
-        $this->dontSeeInConsoleOutput('Healthy sites');
+        $this->dontSeeInConsoleOutput('Healthy monitors');
     }
 
     /** @test */
