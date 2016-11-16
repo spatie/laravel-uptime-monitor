@@ -36,7 +36,7 @@ class ValidSslCertificateFoundTest extends TestCase
         $this->monitor->checkSslCertificate();
 
         Event::assertFired(ValidSslCertificateFound::class, function ($event) {
-            return $event->site->id === $this->monitor->id;
+            return $event->monitor->id === $this->monitor->id;
         });
     }
 }

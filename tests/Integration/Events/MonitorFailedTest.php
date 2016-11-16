@@ -40,7 +40,7 @@ class MonitorRecoveredTest extends TestCase
         }
 
         Event::assertFired(MonitorFailed::class, function ($event) {
-            return $event->site->id === $this->monitor->id;
+            return $event->monitor->id === $this->monitor->id;
         });
     }
 

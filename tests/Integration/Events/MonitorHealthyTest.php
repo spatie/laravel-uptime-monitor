@@ -27,7 +27,7 @@ class MonitorHealthyTest extends TestCase
         MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
         Event::assertFired(MonitorHealthy::class, function ($event) {
-            return $event->site->id === $this->monitor->id;
+            return $event->monitor->id === $this->monitor->id;
         });
     }
 

@@ -44,7 +44,7 @@ class SiteRestoredTest extends TestCase
         $monitors->checkUptime();
 
         Event::assertFired(MonitorRecovered::class, function ($event) {
-            return $event->site->id === $this->monitor->id;
+            return $event->monitor->id === $this->monitor->id;
         });
     }
 }
