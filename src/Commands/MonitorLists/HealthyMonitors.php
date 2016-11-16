@@ -11,16 +11,16 @@ class HealthyMonitors
 {
     public static function display()
     {
-        $healthySites = MonitorRepository::healthyMonitors();
+        $healthyMonitor = MonitorRepository::healthyMonitors();
 
-        if (! $healthySites->count()) {
+        if (! $healthyMonitor->count()) {
             return;
         }
 
         ConsoleOutput::info('Healthy monitors');
         ConsoleOutput::info('================');
 
-        $rows = $healthySites->map(function (Monitor $monitor) {
+        $rows = $healthyMonitor->map(function (Monitor $monitor) {
             $url = $monitor->url;
 
             $reachable = $monitor->reachableAsEmoji;

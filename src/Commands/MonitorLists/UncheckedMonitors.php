@@ -10,16 +10,16 @@ class UncheckedMonitors
 {
     public static function display()
     {
-        $downSites = MonitorRepository::getAllUnchecked();
+        $uncheckedMonitors = MonitorRepository::getAllUnchecked();
 
-        if (! $downSites->count()) {
+        if (! $uncheckedMonitors->count()) {
             return;
         }
 
         ConsoleOutput::warn('Monitors that have not been checked yet');
         ConsoleOutput::warn('=======================================');
 
-        $rows = $downSites->map(function (Monitor $monitor) {
+        $rows = $uncheckedMonitors->map(function (Monitor $monitor) {
             $url = $monitor->url;
 
             return compact('url');

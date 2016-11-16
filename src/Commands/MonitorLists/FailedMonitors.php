@@ -11,16 +11,16 @@ class FailedMonitors
 {
     public static function display()
     {
-        $downSites = MonitorRepository::getAllFailing();
+        $failingMonitors = MonitorRepository::getAllFailing();
 
-        if (! $downSites->count()) {
+        if (! $failingMonitors->count()) {
             return;
         }
 
         ConsoleOutput::warn('Monitors that have failed');
         ConsoleOutput::warn('=========================');
 
-        $rows = $downSites->map(function (Monitor $monitor) {
+        $rows = $failingMonitors->map(function (Monitor $monitor) {
             $url = $monitor->url;
 
             $reachable = $monitor->reachableAsEmoji;

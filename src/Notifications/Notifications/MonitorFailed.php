@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\MonitorFailed as SiteDownEvent;
+use Spatie\UptimeMonitor\Events\MonitorFailed as MonitorFailedEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
@@ -24,8 +24,8 @@ class MonitorFailed extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->error()
-            ->subject("Site {$this->event->monitor->url} is down.")
-            ->line('Site is down');
+            ->subject("The uptime check for monitor {$this->event->monitor->url} failed.")
+            ->line("The uptime check for monitor {$this->event->monitor->url} failed.");
 
         return $mailMessage;
     }
@@ -34,7 +34,7 @@ class MonitorFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content("Site {$this->event->monitor->url} is down")
+            ->content("The uptime check for monitor {$this->event->monitor->url} failed.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
@@ -43,7 +43,7 @@ class MonitorFailed extends BaseNotification
     public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'offline since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
+            'failing since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
         ];
 
         return parent::getMonitorProperties($extraProperties);
@@ -54,7 +54,7 @@ class MonitorFailed extends BaseNotification
         return $this->event->monitor->uptime_status == UptimeStatus::DOWN;
     }
 
-    public function setEvent(SiteDownEvent $event)
+    public function setEvent(MonitorFailedEvent $event)
     {
         $this->event = $event;
 

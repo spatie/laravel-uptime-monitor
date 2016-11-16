@@ -89,7 +89,7 @@ class SupportsUptimeCheckTest extends TestCase
         }
     }
 
-    protected function siteAttributeIsSetToNow(string $attribute): bool
+    protected function monitorAttributeIsSetToNow(string $attribute): bool
     {
         $this->monitor = $this->monitor->fresh();
 

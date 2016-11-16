@@ -34,7 +34,7 @@ trait SupportsSslCertificateCheck
         $this->ssl_certificate_issuer = $certificate->getIssuer();
         $this->save();
 
-        $this->fireEventsForUpdatedSiteWithCertificate($this, $certificate);
+        $this->fireEventsForUpdatedMonitorWithCertificate($this, $certificate);
     }
 
     public function updateWithCertificateException(Exception $exception)
@@ -48,7 +48,7 @@ trait SupportsSslCertificateCheck
         event(new InvalidSslCertificateFound($this, $exception->getMessage()));
     }
 
-    protected function fireEventsForUpdatedSiteWithCertificate(Monitor $monitor, SslCertificate $certificate)
+    protected function fireEventsForUpdatedMonitorWithCertificate(Monitor $monitor, SslCertificate $certificate)
     {
         if ($this->ssl_certificate_status === SslCertificateStatus::VALID) {
             event(new ValidSslCertificateFound($this, $certificate));
