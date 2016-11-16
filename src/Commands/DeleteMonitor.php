@@ -8,7 +8,7 @@ class DeleteMonitor extends BaseCommand
 {
     protected $signature = 'monitor:delete {url}';
 
-    protected $description = 'Stop monitoring a site by deleting it from the database';
+    protected $description = 'Delete a monitor';
 
     public function handle()
     {
