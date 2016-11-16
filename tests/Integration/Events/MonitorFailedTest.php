@@ -45,7 +45,7 @@ class MonitorRecoveredTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_down_event_again_if_a_site_after_the_configured_amount_of_minutes_if_the_site_stays_down()
+    public function it_will_fire_the_faied_event_again_if_a_monitor_keeps_failing_after_the_configured_amount_of_minutes()
     {
         $this->server->down();
 
@@ -79,7 +79,7 @@ class MonitorRecoveredTest extends TestCase
     }
 
     /** @test */
-    public function the_down_event_will_be_fired_when_a_site_is_up_but_the_look_for_string_is_not_found_on_the_response()
+    public function the_failing_event_will_be_fired_when_a_site_is_but_the_look_for_string_is_not_found_on_the_response()
     {
         $this->server->setResponseBody('Hi, welcome on the page');
 

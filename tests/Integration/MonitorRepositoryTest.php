@@ -18,7 +18,7 @@ class MonitorRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_all_sites_that_are_down()
+    public function it_can_get_all_monitors_that_are_failing()
     {
         Monitor::create(['url' => 'http://down1.com', 'uptime_status' => UptimeStatus::DOWN]);
 

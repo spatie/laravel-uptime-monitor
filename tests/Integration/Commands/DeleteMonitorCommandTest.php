@@ -31,7 +31,7 @@ class DeleteMonitorCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_delete_a_site()
+    public function it_can_delete_a_monitor()
     {
         $this->assertEquals(1, Monitor::where('url', $this->url)->count());
 

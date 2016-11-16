@@ -22,7 +22,7 @@ class MonitorSucceededTest extends TestCase
     }
 
     /** @test */
-    public function the_up_event_will_be_fired_when_a_site_is_up()
+    public function the_succeeded_event_will_be_fired_when_an_uptime_check_succeeds()
     {
         MonitorRepository::getAllForUptimeCheck()->checkUptime();
 
@@ -32,7 +32,7 @@ class MonitorSucceededTest extends TestCase
     }
 
     /** @test */
-    public function the_down_event_will_be_fired_when_a_site_is_up_and_the_look_for_string_is_found_on_the_response()
+    public function the_succeed_event_will_be_fired_when_a_site_is_up_and_the_look_for_string_is_found_on_the_response()
     {
         $this->server->setResponseBody('Hi, welcome on the page');
 

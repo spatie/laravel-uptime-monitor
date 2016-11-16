@@ -8,7 +8,7 @@ use Event;
 use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class SiteRestoredTest extends TestCase
+class MonitoredRecovered extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
@@ -23,7 +23,7 @@ class SiteRestoredTest extends TestCase
     }
 
     /** @test */
-    public function the_restored_event_will_be_fired_when_a_down_site_is_restored()
+    public function the_recovered_event_will_be_fired_when_an_uptime_check_succeeds_after_it_has_failed()
     {
         $monitors = MonitorRepository::getAllForUptimeCheck();
 

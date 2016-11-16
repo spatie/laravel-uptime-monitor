@@ -19,7 +19,7 @@ class MonitorTest extends TestCase
     }
 
     /** @test */
-    public function it_will_throw_an_exception_when_creating_a_site_that_already_exists()
+    public function it_will_throw_an_exception_when_creating_a_monitor_that_already_exists()
     {
         $this->expectException(CannotSaveMonitor::class);
 
@@ -27,7 +27,7 @@ class MonitorTest extends TestCase
     }
 
     /** @test */
-    public function it_will_throw_an_exception_when_updating_a_url_to_an_url_of_a_site_that_already_exists()
+    public function it_will_throw_an_exception_when_updating_a_monitor_to_an_url_of_a_monitor_that_already_exists()
     {
         $monitor = factory(Monitor::class)->create(['url' => 'http://myothersite.com']);
 

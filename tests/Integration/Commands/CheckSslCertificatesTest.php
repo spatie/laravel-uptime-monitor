@@ -23,7 +23,7 @@ class CheckSslCertificatesTest extends TestCase
         $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor->url}");
     }
 
-    public function it_can_check_the_ssl_certificate_of_a_specific_site()
+    public function it_can_check_the_ssl_certificate_for_a_specific_monitor()
     {
         $monitor1 = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
         $monitor2 = factory(Monitor::class)->create([
@@ -37,7 +37,7 @@ class CheckSslCertificatesTest extends TestCase
         $this->dontSeeInConsoleOutput("Checking ssl-certificate of {$monitor2->url}");
     }
 
-    public function it_can_check_the_ssl_certificate_of_multiple_specific_sites()
+    public function it_can_check_the_ssl_certificates_for_a_specific_set_of_monitors()
     {
         $monitor1 = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
         $monitor2 = factory(Monitor::class)->create([

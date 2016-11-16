@@ -10,7 +10,7 @@ use Spatie\UptimeMonitor\Test\TestCase;
 
 class ListMonitorsCommandTest extends TestCase
 {
-    public function it_display_a_message_when_no_sites_are_configured()
+    public function it_display_a_message_when_no_monitors_are_configured()
     {
         Artisan::call('monitor:list');
 
@@ -19,7 +19,7 @@ class ListMonitorsCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_sites_that_have_not_been_checked_yet()
+    public function it_can_show_monitors_that_have_not_been_checked_yet()
     {
         $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
 
@@ -32,7 +32,7 @@ class ListMonitorsCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_healthy_sites()
+    public function it_can_show_healthy_monitors()
     {
         $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::UP]);
 
@@ -45,7 +45,7 @@ class ListMonitorsCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_sites_that_are_down()
+    public function it_can_show_monitors_with_failing_uptime_checks()
     {
         $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::DOWN]);
 
@@ -58,7 +58,7 @@ class ListMonitorsCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_sites_with_ssl_problems()
+    public function it_can_show_monitors_that_have_detected_ssl_problems()
     {
         $monitor = factory(Monitor::class)->create([
             'check_ssl_certificate' => true,

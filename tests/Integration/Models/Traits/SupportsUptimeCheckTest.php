@@ -20,7 +20,7 @@ class SupportsUptimeCheckTest extends TestCase
     }
 
     /** @test */
-    public function it_will_determine_that_a_site_most_be_rechecked_after_the_specified_amount_of_minutes()
+    public function it_will_determine_that_a_monitor_most_be_rechecked_after_the_specified_amount_of_minutes()
     {
         $this->assertFalse($this->monitor->shouldCheckUptime());
 
@@ -34,7 +34,7 @@ class SupportsUptimeCheckTest extends TestCase
     }
 
     /** @test */
-    public function it_will_determine_that_a_site_that_is_down_must_always_be_checked()
+    public function it_will_determine_that_a_failing_monitor_must_always_be_checked()
     {
         $this->monitor->uptime_status = UptimeStatus::DOWN();
         $this->monitor->save();
@@ -47,7 +47,7 @@ class SupportsUptimeCheckTest extends TestCase
     }
 
     /** @test */
-    public function it_will_determine_that_a_site_that_is_not_enabled_must_never_be_checked()
+    public function it_will_determine_that_a_monitor_that_is_not_enabled_must_never_be_checked()
     {
         $this->monitor->enabled = false;
         $this->monitor->save();
@@ -74,7 +74,7 @@ class SupportsUptimeCheckTest extends TestCase
     }
 
     /** @test */
-    public function it_will_update_the_last_checked_date_no_matter_what_the_update_status_of_a_site_is()
+    public function it_will_update_the_last_checked_date_no_matter_what_the_uptime_status_of_a_monitor_is()
     {
         foreach ([UptimeStatus::UP, UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED] as $status) {
             $this->monitor->uptime_status = $status;

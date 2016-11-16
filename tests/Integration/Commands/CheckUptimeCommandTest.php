@@ -22,7 +22,7 @@ class CheckUptimeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_the_uptime_of_a_specific_site()
+    public function it_can_perform_an_uptime_check_for_specific_monitor()
     {
         $monitor1 = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
         $monitor2 = factory(Monitor::class)->create([
@@ -40,7 +40,7 @@ class CheckUptimeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_the_uptime_of_multiple_specific_sites()
+    public function it_can_perform_an_uptime_checks_for_a_set_of_specific_monitors()
     {
         $this->skipIfNotConnectedToTheInternet();
 

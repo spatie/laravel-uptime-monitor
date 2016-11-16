@@ -25,7 +25,7 @@ class MonitorCreateCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_a_https_site()
+    public function it_can_create_a_monitor_for_a_https_site()
     {
         $this->command
             ->shouldReceive('confirm')
@@ -42,7 +42,7 @@ class MonitorCreateCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_a_http_site()
+    public function it_can_create_a_monitor_for_a_http_site()
     {
         $this->command
             ->shouldReceive('confirm')
