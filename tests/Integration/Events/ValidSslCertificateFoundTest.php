@@ -3,7 +3,6 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
 use Spatie\UptimeMonitor\Events\ValidSslCertificateFound;
 use Spatie\UptimeMonitor\Models\Site;
 use Event;
