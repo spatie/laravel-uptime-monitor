@@ -68,7 +68,7 @@ class SupportsUptimeCheckTest extends TestCase
 
         $this->assertFalse($this->monitorAttributeIsSetToNow('uptime_status_last_change_date'));
 
-        $this->artisan('sites:check-uptime');
+        $this->artisan('monitor:check-uptime');
 
         $this->assertTrue($this->monitorAttributeIsSetToNow('uptime_status_last_change_date'));
     }
@@ -82,7 +82,7 @@ class SupportsUptimeCheckTest extends TestCase
 
             foreach (range(1, 10) as $index) {
                 $this->progressMinutes(10);
-                $this->artisan('sites:check-uptime');
+                $this->artisan('monitor:check-uptime');
 
                 $this->assertTrue($this->monitorAttributeIsSetToNow('uptime_last_check_date'));
             }

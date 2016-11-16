@@ -14,7 +14,7 @@ class CheckUptimeCommandTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
 
-        Artisan::call('sites:check-uptime');
+        Artisan::call('monitor:check-uptime');
 
         $monitor = $monitor->fresh();
 
@@ -30,7 +30,7 @@ class CheckUptimeCommandTest extends TestCase
             'url' => 'https://google.com',
         ]);
 
-        Artisan::call('sites:check-uptime', ['--url' => $monitor1->url]);
+        Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url]);
 
         $monitor1 = $monitor1->fresh();
         $monitor2 = $monitor2->fresh();
@@ -55,7 +55,7 @@ class CheckUptimeCommandTest extends TestCase
             'url' => 'https://bing.com',
         ]);
 
-        Artisan::call('sites:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);
+        Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);
 
         $monitor1 = $monitor1->fresh();
         $monitor2 = $monitor2->fresh();

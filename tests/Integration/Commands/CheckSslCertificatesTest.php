@@ -14,7 +14,7 @@ class CheckSslCertificatesTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
 
-        Artisan::call('sites:check-ssl');
+        Artisan::call('monitor:check-ssl');
 
         $monitor = $monitor->fresh();
 
@@ -31,7 +31,7 @@ class CheckSslCertificatesTest extends TestCase
             'check_ssl_certificate' => true,
         ]);
 
-        Artisan::call('sites:check-uptime', ['--url' => $monitor1->url]);
+        Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url]);
 
         $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor1->url}");
         $this->dontSeeInConsoleOutput("Checking ssl-certificate of {$monitor2->url}");
@@ -49,7 +49,7 @@ class CheckSslCertificatesTest extends TestCase
             'check_ssl_certificate' => true,
         ]);
 
-        Artisan::call('sites:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);
+        Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);
 
         $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor1->url}");
         $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor2->url}");
