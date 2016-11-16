@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
 use Spatie\UptimeMonitor\Events\InvalidSslCertificateFound;
-use Spatie\UptimeMonitor\Events\MonitorRecovered as SiteRestoredEvent;
+use Spatie\UptimeMonitor\Events\MonitorRecovered as MonitorRecoveredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
@@ -12,8 +12,8 @@ use Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorHealthy;
 use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Events\MonitorHealthy as SiteUpEvent;
-use Spatie\UptimeMonitor\Events\MonitorFailed as SiteDownEvent;
+use Spatie\UptimeMonitor\Events\MonitorHealthy as MonitorHealthyEvent;
+use Spatie\UptimeMonitor\Events\MonitorFailed as MonitorFailedEvent;
 use Notification;
 
 class EventHandlerTest extends TestCase
@@ -53,7 +53,7 @@ class EventHandlerTest extends TestCase
                 new Notifiable(),
                 $notificationClass,
                 function ($notification) use ($monitor) {
-                    return $notification->event->site->id == $monitor->id;
+                    return $notification->event->monitor->id == $monitor->id;
                 }
             );
         }
@@ -69,12 +69,12 @@ class EventHandlerTest extends TestCase
     public function eventClassDataProvider(): array
     {
         return [
-            [SiteUpEvent::class, MonitorHealthy::class, ['uptime_status' => UptimeStatus::UP], true],
-            [SiteUpEvent::class, MonitorHealthy::class, ['uptime_status' => UptimeStatus::DOWN], false],
-            [SiteDownEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::DOWN], true],
-            [SiteDownEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::UP], false],
-            [SiteRestoredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::UP], true],
-            [SiteRestoredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::DOWN], false],
+            [MonitorHealthyEvent::class, MonitorHealthy::class, ['uptime_status' => UptimeStatus::UP], true],
+            [MonitorHealthyEvent::class, MonitorHealthy::class, ['uptime_status' => UptimeStatus::DOWN], false],
+            [MonitorFailedEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::DOWN], true],
+            [MonitorFailedEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::UP], false],
+            [MonitorRecoveredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::UP], true],
+            [MonitorRecoveredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::DOWN], false],
         ];
     }
 
@@ -88,7 +88,7 @@ class EventHandlerTest extends TestCase
             new Notifiable(),
             InvalidSslCertificateFoundNotification::class,
             function ($notification) use ($monitor) {
-                return $notification->event->site->id == $monitor->id;
+                return $notification->event->monitor->id == $monitor->id;
             }
         );
     }
@@ -107,7 +107,7 @@ class EventHandlerTest extends TestCase
 
         $monitor = factory(Monitor::class)->create();
 
-        event(new SiteUpEvent($monitor));
+        event(new MonitorHealthyEvent($monitor));
 
 
         Notification::assertSentTo(

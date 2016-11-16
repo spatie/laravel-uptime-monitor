@@ -46,15 +46,15 @@ class UptimeMonitorServiceProvider extends ServiceProvider
 
         $this->app['events']->subscribe(EventHandler::class);
 
-        $this->app->bind('command.sites:check-uptime', CheckUptime::class);
-        $this->app->bind('command.sites:check-ssl', CheckSslCertificates::class);
+        $this->app->bind('command.monitor:check-uptime', CheckUptime::class);
+        $this->app->bind('command.monitor:check-ssl', CheckSslCertificates::class);
         $this->app->bind('command.monitor:create', CreateMonitor::class);
         $this->app->bind('command.monitor:delete', DeleteMonitor::class);
         $this->app->bind('command.monitor:list', ListMonitors::class);
 
         $this->commands([
-            'command.sites:check-uptime',
-            'command.sites:check-ssl',
+            'command.monitor:check-uptime',
+            'command.monitor:check-ssl',
             'command.monitor:create',
             'command.monitor:delete',
             'command.monitor:list',

@@ -7,7 +7,7 @@ use Spatie\UptimeMonitor\MonitorRepository;
 
 class CheckUptime extends BaseCommand
 {
-    protected $signature = 'sites:check-uptime  
+    protected $signature = 'monitor:check-uptime  
                             {--url= : Only check these urls}';
 
     protected $description = 'Check the uptime of all sites';
