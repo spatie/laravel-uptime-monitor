@@ -17,6 +17,13 @@ class MonitorRepository
             ->sortByHost();
     }
 
+    public static function getDisabled(): Collection
+    {
+        $modelClass = static::determineMonitorModel();
+
+        return $modelClass::where('enabled', false)->get();
+    }
+
     public static function getForUptimeCheck(): MonitorCollection
     {
         $monitors = self::query()
@@ -80,6 +87,18 @@ class MonitorRepository
             ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
             ->get()
             ->sortByHost();
+    }
+
+    /**
+     * @param string|\Spatie\Url\Url $url
+     *
+     * @return \Spatie\UptimeMonitor\Models\Monitor
+     */
+    public static function findByUrl($url)
+    {
+        $model = static::determineMonitorModel();
+
+        return $model::where('url', (string)$url)->first();
     }
 
     protected static function query()

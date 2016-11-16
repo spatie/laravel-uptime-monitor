@@ -69,6 +69,30 @@ class Monitor extends Model
         return true;
     }
 
+    /**
+     * @return $this
+     */
+    public function enable()
+    {
+        $this->enabled = true;
+
+        $this->save();
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function disable()
+    {
+        $this->enabled = false;
+
+        $this->save();
+
+        return $this;
+    }
+
     protected static function alreadyExists(Monitor $monitor): bool
     {
         $query = static::where('url', $monitor->url);

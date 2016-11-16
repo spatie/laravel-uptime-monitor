@@ -37,4 +37,22 @@ class MonitorTest extends TestCase
 
         $monitor->save();
     }
+
+    /** @test */
+    public function it_can_disable_and_enable_itself()
+    {
+        $this->assertTrue($this->monitor->enabled);
+
+        $this->monitor->disable();
+
+        $this->monitor = $this->monitor->fresh();
+
+        $this->assertFalse($this->monitor->enabled);
+
+        $this->monitor->enable();
+
+        $this->monitor = $this->monitor->fresh();
+
+        $this->assertTrue($this->monitor->enabled);
+    }
 }

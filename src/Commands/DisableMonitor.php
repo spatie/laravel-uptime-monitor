@@ -6,32 +6,33 @@ use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\Url\Url;
 
-class EnableMonitor extends BaseCommand
+class DisableMonitor extends BaseCommand
 {
-    protected $signature = 'monitor:enable {url}';
+    protected $signature = 'monitor:disable {url}';
 
-    protected $description = 'Enable a monitor';
+    protected $description = 'Disable a monitor';
 
     public function handle()
     {
         foreach(explode(',', $this->argument('url')) as $url) {
-            $this->enableMonitor(trim($url));
+            $this->disableMonitor(trim($url));
         }
     }
 
-    protected function enableMonitor(string $url)
+    protected function disableMonitor(string $url)
     {
         if (! $monitor = MonitorRepository::findByUrl($url)) {
             $this->error("There is no monitor configured for url `{$url}`.");
             return;
         };
 
-        if ($monitor->enabled) {
-            $this->warn("The monitor for url `{$url}` was already enabled.");
+        if (! $monitor->enabled) {
+            $this->warn("The monitor for url `{$url}` was already disabled.");
             return;
         }
 
-        $monitor->enable();
-        $this->info("The monitor for url `{$url}` is now enabled");
+        $monitor->disable();
+
+        $this->info("The monitor for url `{$url}` is now disabled");
     }
 }

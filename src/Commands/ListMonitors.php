@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
+use Spatie\UptimeMonitor\Commands\MonitorLists\DisabledMonitors;
 use Spatie\UptimeMonitor\Commands\MonitorLists\FailedMonitors;
 use Spatie\UptimeMonitor\Commands\MonitorLists\HealthyMonitors;
 use Spatie\UptimeMonitor\Commands\MonitorLists\MonitorsReportingSslProblems;
@@ -24,6 +25,7 @@ class ListMonitors extends BaseCommand
         }
 
         UncheckedMonitors::display();
+        DisabledMonitors::display();
         FailedMonitors::display();
         MonitorsReportingSslProblems::display();
         HealthyMonitors::display();
