@@ -43,7 +43,7 @@ class SslExpiresSoon extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "The certificate for {$this->event->monitor->url} will expire in {$this->ssl_certificate_expiration_date->diffInDays()} days.";
+        return "The certificate for {$this->event->monitor->url} will expire in {$this->event->monitor->ssl_certificate_expiration_date->diffInDays()} days.";
     }
 
     public function setEvent(SoonExpiringSslCertificateFoundEvent $event)
