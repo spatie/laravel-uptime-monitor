@@ -81,7 +81,7 @@ class MonitorRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_all_monitors_with_ssl_problems()
+    public function it_can_get_all_monitors_with_certificate_problems()
     {
         Monitor::create([
             'url' => 'http://site1.com',

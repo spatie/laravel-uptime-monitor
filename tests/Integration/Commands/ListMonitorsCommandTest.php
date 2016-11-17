@@ -58,7 +58,7 @@ class ListMonitorsCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_monitors_that_have_detected_ssl_problems()
+    public function it_can_show_monitors_that_have_certificate_problems()
     {
         $monitor = factory(Monitor::class)->create([
             'certificate_check_enabled' => true,

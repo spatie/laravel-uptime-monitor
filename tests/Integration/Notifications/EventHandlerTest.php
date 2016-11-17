@@ -7,7 +7,7 @@ use Spatie\UptimeMonitor\Events\MonitorRecovered as MonitorRecoveredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
-use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidSslCertificateFoundNotification;
+use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidCertificateFoundNotification;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorSucceeded;
@@ -86,7 +86,7 @@ class EventHandlerTest extends TestCase
 
         Notification::assertSentTo(
             new Notifiable(),
-            InvalidSslCertificateFoundNotification::class,
+            InvalidCertificateFoundNotification::class,
             function ($notification) use ($monitor) {
                 return $notification->event->monitor->id == $monitor->id;
             }
