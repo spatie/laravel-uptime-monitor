@@ -25,7 +25,7 @@ return [
         'location' => '',
 
         /*
-         * To keep reminding you that a site is down down notifications
+         * To keep reminding you that a site is down notifications
          * will be resent every given amount of minutes.
          */
         'resend_down_notification_every_minutes' => 60,
@@ -48,8 +48,8 @@ return [
     'uptime_check' => [
 
         /*
-         * An uptime check will be performed if the last check was performed more that the
-         * given amount of minutes ago. If you change this setting you have to manually
+         * An uptime check will be performed if the last check was performed more than the
+         * given number of minutes ago. If you change this setting you have to manually
          * update the `uptime_check_interval_in_minutes` value of your existing sites.
          *
          * When a site is down we'll check the uptime every time `sites:check-uptime` runs
@@ -66,13 +66,13 @@ return [
 
         /*
          * The uptime check for a site will fail if site does not respond after the
-         * given amount of seconds.
+         * given number of seconds.
          */
         'timeout_per_site' => 10,
 
         /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
-         * the given amount of checks have consecutively failed for a site.
+         * the given number of checks have consecutively failed for a site.
          */
         'fire_monitor_failed_event_after_consecutive_failures' => 2,
 
@@ -87,7 +87,7 @@ return [
         /*
          * The `Spatie\UptimeMonitor\Events\SslExpiresSoon` event will fire
          * when a certificate is found whose expiration date is in
-         * the next amount given days.
+         * the next number of given days.
          */
         'fire_expiring_soon_event_if_certificate_expires_within_days' => 10,
     ],
