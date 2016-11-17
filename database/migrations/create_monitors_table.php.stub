@@ -29,11 +29,11 @@ class CreateMonitorsTable extends Migration
             $table->timestamp('down_event_fired_on_date')->nullable();
             $table->string('uptime_check_method')->default('get');
 
-            $table->boolean('ssl_certificate_check_enabled')->default(false);
-            $table->string('ssl_certificate_status')->default(SslCertificateStatus::NOT_YET_CHECKED);
-            $table->timestamp('ssl_certificate_expiration_date')->nullable();
-            $table->string('ssl_certificate_issuer')->nullable();
-            $table->string('ssl_certificate_failure_reason')->default('');
+            $table->boolean('certificate_check_enabled')->default(false);
+            $table->string('certificate_status')->default(SslCertificateStatus::NOT_YET_CHECKED);
+            $table->timestamp('certificate_expiration_date')->nullable();
+            $table->string('certificate_issuer')->nullable();
+            $table->string('certificate_failure_reason')->default('');
 
             $table->timestamps();
         });

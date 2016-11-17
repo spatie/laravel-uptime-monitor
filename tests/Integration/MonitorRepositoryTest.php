@@ -66,15 +66,15 @@ class MonitorRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_all_monitors_that_need_an_ssl_certificate_check()
+    public function it_can_get_all_monitors_that_need_an_certificate_check()
     {
-        Monitor::create(['url' => 'http://site1.com', 'uptime_check_enabled' => false, 'ssl_certificate_check_enabled' => false]);
+        Monitor::create(['url' => 'http://site1.com', 'uptime_check_enabled' => false, 'certificate_check_enabled' => false]);
 
-        Monitor::create(['url' => 'http://site2.com', 'uptime_check_enabled' => false, 'ssl_certificate_check_enabled' => true]);
+        Monitor::create(['url' => 'http://site2.com', 'uptime_check_enabled' => false, 'certificate_check_enabled' => true]);
 
-        Monitor::create(['url' => 'http://site3.com', 'uptime_check_enabled' => true, 'ssl_certificate_check_enabled' => false]);
+        Monitor::create(['url' => 'http://site3.com', 'uptime_check_enabled' => true, 'certificate_check_enabled' => false]);
 
-        Monitor::create(['url' => 'http://site4.com', 'uptime_check_enabled' => true, 'ssl_certificate_check_enabled' => true]);
+        Monitor::create(['url' => 'http://site4.com', 'uptime_check_enabled' => true, 'certificate_check_enabled' => true]);
 
         $monitors = MonitorRepository::getForSslCheck();
 
@@ -87,36 +87,36 @@ class MonitorRepositoryTest extends TestCase
         Monitor::create([
             'url' => 'http://site1.com',
             'uptime_check_enabled' => false,
-            'ssl_certificate_check_enabled' => false,
-            'ssl_certificate_status' => SslCertificateStatus::INVALID
+            'certificate_check_enabled' => false,
+            'certificate_status' => SslCertificateStatus::INVALID
         ]);
 
         Monitor::create([
             'url' => 'http://site2.com',
             'uptime_check_enabled' => true,
-            'ssl_certificate_check_enabled' => false,
-            'ssl_certificate_status' => SslCertificateStatus::INVALID
+            'certificate_check_enabled' => false,
+            'certificate_status' => SslCertificateStatus::INVALID
         ]);
 
         Monitor::create([
             'url' => 'http://site3.com',
             'uptime_check_enabled' => true,
-            'ssl_certificate_check_enabled' => true,
-            'ssl_certificate_status' => SslCertificateStatus::INVALID
+            'certificate_check_enabled' => true,
+            'certificate_status' => SslCertificateStatus::INVALID
         ]);
 
         Monitor::create([
             'url' => 'http://site4.com',
             'uptime_check_enabled' => true,
-            'ssl_certificate_check_enabled' => true,
-            'ssl_certificate_status' => SslCertificateStatus::VALID
+            'certificate_check_enabled' => true,
+            'certificate_status' => SslCertificateStatus::VALID
         ]);
 
         Monitor::create([
             'url' => 'http://site5.com',
             'uptime_check_enabled' => true,
-            'ssl_certificate_check_enabled' => true,
-            'ssl_certificate_status' => SslCertificateStatus::NOT_YET_CHECKED
+            'certificate_check_enabled' => true,
+            'certificate_status' => SslCertificateStatus::NOT_YET_CHECKED
         ]);
 
         $monitors = MonitorRepository::getWithFailingCertificateCheck();

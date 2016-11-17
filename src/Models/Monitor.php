@@ -23,19 +23,19 @@ class Monitor extends Model
         'uptime_last_check_date',
         'uptime_status_last_change_date',
         'down_event_fired_on_date',
-        'ssl_certificate_expiration_date',
+        'certificate_expiration_date',
     ];
 
     protected $casts = [
         'uptime_check_enabled' => 'boolean',
-        'ssl_certificate_check_enabled' => 'boolean',
+        'certificate_check_enabled' => 'boolean',
     ];
 
     public function scopeEnabled($query)
     {
         return $query
             ->where('uptime_check_enabled', true)
-            ->orWhere('ssl_certificate_check_enabled', true);
+            ->orWhere('certificate_check_enabled', true);
     }
 
     public function getUrlAttribute()
@@ -64,7 +64,7 @@ class Monitor extends Model
             return false;
         }
 
-        if ($this->ssl_certificate_check_enabled && $this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+        if ($this->certificate_check_enabled && $this->certificate_status === SslCertificateStatus::INVALID) {
             return false;
         }
 
@@ -77,7 +77,7 @@ class Monitor extends Model
     public function enable()
     {
         $this->uptime_check_enabled = true;
-        $this->ssl_certificate_check_enabled = true;
+        $this->certificate_check_enabled = true;
 
         $this->save();
 
@@ -90,7 +90,7 @@ class Monitor extends Model
     public function disable()
     {
         $this->uptime_check_enabled = false;
-        $this->ssl_certificate_check_enabled = false;
+        $this->certificate_check_enabled = false;
 
         $this->save();
 

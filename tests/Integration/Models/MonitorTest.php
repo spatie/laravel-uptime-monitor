@@ -18,7 +18,7 @@ class MonitorTest extends TestCase
         $this->monitor = factory(Monitor::class)->create([
             'url' => 'http://mysite.com',
             'uptime_check_enabled' => true,
-            'ssl_certificate_check_enabled' => true,
+            'certificate_check_enabled' => true,
         ]);
     }
 
@@ -50,13 +50,13 @@ class MonitorTest extends TestCase
         $this->monitor = $this->monitor->fresh();
 
         $this->assertFalse($this->monitor->uptime_check_enabled);
-        $this->assertFalse($this->monitor->ssl_certificate_check_enabled);
+        $this->assertFalse($this->monitor->certificate_check_enabled);
 
         $this->monitor->enable();
 
         $this->monitor = $this->monitor->fresh();
 
         $this->assertTrue($this->monitor->uptime_check_enabled);
-        $this->assertTrue($this->monitor->ssl_certificate_check_enabled);
+        $this->assertTrue($this->monitor->certificate_check_enabled);
     }
 }

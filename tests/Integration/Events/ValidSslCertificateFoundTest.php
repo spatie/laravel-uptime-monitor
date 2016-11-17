@@ -22,13 +22,13 @@ class ValidSslCertificateFoundTest extends TestCase
         Event::fake();
 
         $this->monitor = factory(Monitor::class)->create([
-            'ssl_certificate_check_enabled' => true,
+            'certificate_check_enabled' => true,
             'url' => 'https://google.com',
         ]);
     }
 
     /** @test */
-    public function the_valid_ssl_certificate_found_event_will_be_fired_when_a_valid_ssl_certificate_is_found()
+    public function the_valid_certificate_found_event_will_be_fired_when_a_valid_certificate_is_found()
     {
         $this->skipIfNotConnectedToTheInternet();
 

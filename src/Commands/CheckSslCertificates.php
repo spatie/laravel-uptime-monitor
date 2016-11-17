@@ -31,8 +31,8 @@ class CheckSslCertificates extends BaseCommand
 
             $monitor->checkSslCertificate();
 
-            if ($monitor->ssl_certificate_status !== SslCertificateStatus::VALID) {
-                $this->error("Could not download certificate of {$monitor->url} because: {$monitor->ssl_certificate_failure_reason}");
+            if ($monitor->certificate_status !== SslCertificateStatus::VALID) {
+                $this->error("Could not download certificate of {$monitor->url} because: {$monitor->certificate_failure_reason}");
             }
         });
 

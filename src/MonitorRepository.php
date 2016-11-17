@@ -22,7 +22,7 @@ class MonitorRepository
         $modelClass = static::determineMonitorModel();
 
         return $modelClass::where('uptime_check_enabled', false)
-            ->where('ssl_certificate_check_enabled', false)
+            ->where('certificate_check_enabled', false)
             ->get();
     }
 
@@ -41,7 +41,7 @@ class MonitorRepository
     public static function getForSslCheck(): Collection
     {
         return self::query()
-            ->where('ssl_certificate_check_enabled', true)
+            ->where('certificate_check_enabled', true)
             ->get()
             ->sortByHost();
     }
@@ -68,8 +68,8 @@ class MonitorRepository
     public static function getWithFailingCertificateCheck(): Collection
     {
         return self::query()
-            ->where('ssl_certificate_check_enabled', true)
-            ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
+            ->where('certificate_check_enabled', true)
+            ->where('certificate_status', SslCertificateStatus::INVALID)
             ->get()
             ->sortByHost();
     }
@@ -92,8 +92,8 @@ class MonitorRepository
                 ['uptime_status', '=', UptimeStatus::NOT_YET_CHECKED]
             ])
             ->orWhereColumn([
-                ['ssl_certificate_check_enabled', '=', true],
-                ['ssl_certificate_status', '=', SslCertificateStatus::NOT_YET_CHECKED]
+                ['certificate_check_enabled', '=', true],
+                ['certificate_status', '=', SslCertificateStatus::NOT_YET_CHECKED]
             ])
             ->get()
             ->sortByHost();

@@ -28,10 +28,10 @@ class UptimeCheckFailed
 
             $reason = $monitor->chunkedLastFailureReason;
 
-            if ($monitor->ssl_certificate_check_enabled) {
+            if ($monitor->certificate_check_enabled) {
                 $sslCertificateFound = $monitor->sslCertificateStatusAsEmoji;
                 $sslCertificateExpirationDate = $monitor->formattedSslCertificateExpirationDate;
-                $sslCertificateIssuer = $monitor->ssl_certificate_issuer;
+                $sslCertificateIssuer = $monitor->certificate_issuer;
             }
 
             return compact('url', 'reachable', 'offlineSince', 'reason', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');

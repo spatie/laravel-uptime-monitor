@@ -61,8 +61,8 @@ class ListMonitorsCommandTest extends TestCase
     public function it_can_show_monitors_that_have_detected_ssl_problems()
     {
         $monitor = factory(Monitor::class)->create([
-            'ssl_certificate_check_enabled' => true,
-            'ssl_certificate_status' => SslCertificateStatus::INVALID,
+            'certificate_check_enabled' => true,
+            'certificate_status' => SslCertificateStatus::INVALID,
         ]);
 
         Artisan::call('monitor:list');

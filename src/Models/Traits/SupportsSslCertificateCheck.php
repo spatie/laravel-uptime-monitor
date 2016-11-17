@@ -26,12 +26,12 @@ trait SupportsSslCertificateCheck
 
     public function updateWithCertificate(SslCertificate $certificate)
     {
-        $this->ssl_certificate_status = $certificate->isValid($this->url)
+        $this->certificate_status = $certificate->isValid($this->url)
             ? SslCertificateStatus::VALID
             : SslCertificateStatus::INVALID;
 
-        $this->ssl_certificate_expiration_date = $certificate->expirationDate();
-        $this->ssl_certificate_issuer = $certificate->getIssuer();
+        $this->certificate_expiration_date = $certificate->expirationDate();
+        $this->certificate_issuer = $certificate->getIssuer();
         $this->save();
 
         $this->fireEventsForUpdatedMonitorWithCertificate($this, $certificate);
@@ -39,10 +39,10 @@ trait SupportsSslCertificateCheck
 
     public function updateWithCertificateException(Exception $exception)
     {
-        $this->ssl_certificate_status = SslCertificateStatus::INVALID;
-        $this->ssl_certificate_expiration_date = null;
-        $this->ssl_certificate_issuer = '';
-        $this->ssl_certificate_failure_reason = $exception->getMessage();
+        $this->certificate_status = SslCertificateStatus::INVALID;
+        $this->certificate_expiration_date = null;
+        $this->certificate_issuer = '';
+        $this->certificate_failure_reason = $exception->getMessage();
         $this->save();
 
         event(new SslCheckFailed($this, $exception->getMessage()));
@@ -50,7 +50,7 @@ trait SupportsSslCertificateCheck
 
     protected function fireEventsForUpdatedMonitorWithCertificate(Monitor $monitor, SslCertificate $certificate)
     {
-        if ($this->ssl_certificate_status === SslCertificateStatus::VALID) {
+        if ($this->certificate_status === SslCertificateStatus::VALID) {
             event(new SslCheckSucceeded($this, $certificate));
 
             if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.ssl-check.fire_expiring_soon_event_if_certificate_expires_within_days')) {
@@ -60,7 +60,7 @@ trait SupportsSslCertificateCheck
             return;
         }
 
-        if ($this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+        if ($this->certificate_status === SslCertificateStatus::INVALID) {
             $reason = 'Unknown reason';
 
             if ($certificate->appliesToUrl($this->url)) {
