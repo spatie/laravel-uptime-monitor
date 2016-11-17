@@ -25,13 +25,8 @@ class EnableMonitor extends BaseCommand
             return;
         }
 
-        if ($monitor->enabled) {
-            $this->warn("The monitor for url `{$url}` was already enabled.");
-
-            return;
-        }
-
         $monitor->enable();
+
         $this->info("The monitor for url `{$url}` is now enabled");
     }
 }

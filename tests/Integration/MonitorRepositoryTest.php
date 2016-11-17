@@ -60,7 +60,7 @@ class MonitorRepositoryTest extends TestCase
 
         Monitor::create(['url' => 'http://down2.com', 'uptime_status' => UptimeStatus::DOWN]);
 
-        $failingMonitors = MonitorRepository::getFailing();
+        $failingMonitors = MonitorRepository::getWithFailingUptimeCheck();
 
         $this->assertEquals(['http://down1.com', 'http://down2.com'], $this->getMonitorUrls($failingMonitors));
     }
@@ -119,7 +119,7 @@ class MonitorRepositoryTest extends TestCase
             'ssl_certificate_status' => SslCertificateStatus::NOT_YET_CHECKED
         ]);
 
-        $monitors = MonitorRepository::getWithSslProblems();
+        $monitors = MonitorRepository::getWithFailingCertificateCheck();
 
         $this->assertEquals(['http://site3.com'], $this->getMonitorUrls($monitors));
     }

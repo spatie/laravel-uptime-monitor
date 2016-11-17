@@ -58,7 +58,7 @@ class Monitor extends Model
 
     public function isHealthy()
     {
-        if (in_array($this->uptime_status, [UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED])) {
+        if ($this->uptime_check_enabled && in_array($this->uptime_status, [UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED])) {
             return false;
         }
 
@@ -74,7 +74,8 @@ class Monitor extends Model
      */
     public function enable()
     {
-        $this->enabled = true;
+        $this->uptime_check_enabled = true;
+        $this->ssl_certificate_check_enabled = true;
 
         $this->save();
 
@@ -86,7 +87,8 @@ class Monitor extends Model
      */
     public function disable()
     {
-        $this->enabled = false;
+        $this->uptime_check_enabled = false;
+        $this->ssl_certificate_check_enabled = false;
 
         $this->save();
 

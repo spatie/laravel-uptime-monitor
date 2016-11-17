@@ -6,18 +6,18 @@ use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
-class FailedMonitors
+class UptimeCheckFailed
 {
     public static function display()
     {
-        $failingMonitors = MonitorRepository::getFailing();
+        $failingMonitors = MonitorRepository::getWithFailingUptimeCheck();
 
         if (! $failingMonitors->count()) {
             return;
         }
 
-        ConsoleOutput::warn('Monitors that have failed');
-        ConsoleOutput::warn('=========================');
+        ConsoleOutput::warn('Uptime check failed');
+        ConsoleOutput::warn('===================');
 
         $rows = $failingMonitors->map(function (Monitor $monitor) {
             $url = $monitor->url;

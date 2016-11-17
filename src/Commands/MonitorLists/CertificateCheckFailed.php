@@ -6,18 +6,18 @@ use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
-class MonitorsReportingSslProblems
+class CertificateCheckFailed
 {
     public static function display()
     {
-        $monitorsWithSslProblems = MonitorRepository::getWithSslProblems();
+        $monitorsWithSslProblems = MonitorRepository::getWithFailingCertificateCheck();
 
         if (! $monitorsWithSslProblems->count()) {
             return;
         }
 
-        ConsoleOutput::warn('Monitors reporting SSL certificate problems');
-        ConsoleOutput::warn('===========================================');
+        ConsoleOutput::warn('Certificate check failed');
+        ConsoleOutput::warn('========================');
 
         $rows = $monitorsWithSslProblems->map(function (Monitor $monitor) {
             $url = $monitor->url;
