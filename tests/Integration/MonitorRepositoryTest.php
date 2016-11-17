@@ -4,7 +4,6 @@ namespace Spatie\UptimeMonitor\Test\Integration;
 
 use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStwatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;

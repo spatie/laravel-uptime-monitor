@@ -7,7 +7,7 @@ use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class CheckSslCertificatesTest extends TestCase
+class CheckCertificatesTest extends TestCase
 {
     /** @test */
     public function it_has_a_command_to_check_certificates()
