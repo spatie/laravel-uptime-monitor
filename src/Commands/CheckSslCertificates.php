@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\MonitorRepository;
 
 class CheckSslCertificates extends BaseCommand
 {
-    protected $signature = 'monitor:check-ssl
+    protected $signature = 'monitor:check-certificate
                            {--url= : Only check these urls}';
 
 

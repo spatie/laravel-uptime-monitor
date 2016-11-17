@@ -14,7 +14,7 @@ class CheckSslCertificatesTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['certificate_check_enabled' => true]);
 
-        Artisan::call('monitor:check-ssl');
+        Artisan::call('monitor:check-certificate');
 
         $monitor = $monitor->fresh();
 
