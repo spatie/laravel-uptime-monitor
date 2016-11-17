@@ -4,7 +4,7 @@ namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 
@@ -69,7 +69,7 @@ class MonitorRepository
     {
         return self::query()
             ->where('certificate_check_enabled', true)
-            ->where('certificate_status', SslCertificateStatus::INVALID)
+            ->where('certificate_status', CertificateStatus::INVALID)
             ->get()
             ->sortByHost();
     }
@@ -93,7 +93,7 @@ class MonitorRepository
             ])
             ->orWhereColumn([
                 ['certificate_check_enabled', '=', true],
-                ['certificate_status', '=', SslCertificateStatus::NOT_YET_CHECKED]
+                ['certificate_status', '=', CertificateStatus::NOT_YET_CHECKED]
             ])
             ->get()
             ->sortByHost();

@@ -4,7 +4,7 @@ namespace Spatie\UptimeMonitor\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Presenters\MonitorPresenter;
 use Spatie\UptimeMonitor\Models\Traits\SupportsSslCertificateCheck;
@@ -64,7 +64,7 @@ class Monitor extends Model
             return false;
         }
 
-        if ($this->certificate_check_enabled && $this->certificate_status === SslCertificateStatus::INVALID) {
+        if ($this->certificate_check_enabled && $this->certificate_status === CertificateStatus::INVALID) {
             return false;
         }
 

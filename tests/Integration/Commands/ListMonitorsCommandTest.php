@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -62,7 +62,7 @@ class ListMonitorsCommandTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create([
             'certificate_check_enabled' => true,
-            'certificate_status' => SslCertificateStatus::INVALID,
+            'certificate_status' => CertificateStatus::INVALID,
         ]);
 
         Artisan::call('monitor:list');

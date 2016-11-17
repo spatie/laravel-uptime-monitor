@@ -2,7 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
@@ -31,7 +31,7 @@ class CheckCertificates extends BaseCommand
 
             $monitor->checkSslCertificate();
 
-            if ($monitor->certificate_status !== SslCertificateStatus::VALID) {
+            if ($monitor->certificate_status !== CertificateStatus::VALID) {
                 $this->error("Could not download certificate of {$monitor->url} because: {$monitor->certificate_failure_reason}");
             }
         });

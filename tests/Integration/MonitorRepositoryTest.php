@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration;
 
 use Illuminate\Support\Collection;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStwatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
@@ -88,35 +88,35 @@ class MonitorRepositoryTest extends TestCase
             'url' => 'http://site1.com',
             'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
-            'certificate_status' => SslCertificateStatus::INVALID
+            'certificate_status' => CertificateStatus::INVALID
         ]);
 
         Monitor::create([
             'url' => 'http://site2.com',
             'uptime_check_enabled' => true,
             'certificate_check_enabled' => false,
-            'certificate_status' => SslCertificateStatus::INVALID
+            'certificate_status' => CertificateStatus::INVALID
         ]);
 
         Monitor::create([
             'url' => 'http://site3.com',
             'uptime_check_enabled' => true,
             'certificate_check_enabled' => true,
-            'certificate_status' => SslCertificateStatus::INVALID
+            'certificate_status' => CertificateStatus::INVALID
         ]);
 
         Monitor::create([
             'url' => 'http://site4.com',
             'uptime_check_enabled' => true,
             'certificate_check_enabled' => true,
-            'certificate_status' => SslCertificateStatus::VALID
+            'certificate_status' => CertificateStatus::VALID
         ]);
 
         Monitor::create([
             'url' => 'http://site5.com',
             'uptime_check_enabled' => true,
             'certificate_check_enabled' => true,
-            'certificate_status' => SslCertificateStatus::NOT_YET_CHECKED
+            'certificate_status' => CertificateStatus::NOT_YET_CHECKED
         ]);
 
         $monitors = MonitorRepository::getWithFailingCertificateCheck();

@@ -8,7 +8,7 @@ use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Events\CertificateExpiresSoon;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 
 trait SupportsSslCertificateCheck
@@ -27,8 +27,8 @@ trait SupportsSslCertificateCheck
     public function updateWithCertificate(SslCertificate $certificate)
     {
         $this->certificate_status = $certificate->isValid($this->url)
-            ? SslCertificateStatus::VALID
-            : SslCertificateStatus::INVALID;
+            ? CertificateStatus::VALID
+            : CertificateStatus::INVALID;
 
         $this->certificate_expiration_date = $certificate->expirationDate();
         $this->certificate_issuer = $certificate->getIssuer();
@@ -39,7 +39,7 @@ trait SupportsSslCertificateCheck
 
     public function updateWithCertificateException(Exception $exception)
     {
-        $this->certificate_status = SslCertificateStatus::INVALID;
+        $this->certificate_status = CertificateStatus::INVALID;
         $this->certificate_expiration_date = null;
         $this->certificate_issuer = '';
         $this->certificate_failure_reason = $exception->getMessage();
@@ -50,7 +50,7 @@ trait SupportsSslCertificateCheck
 
     protected function fireEventsForUpdatedMonitorWithCertificate(Monitor $monitor, SslCertificate $certificate)
     {
-        if ($this->certificate_status === SslCertificateStatus::VALID) {
+        if ($this->certificate_status === CertificateStatus::VALID) {
             event(new CertificateCheckSucceeded($this, $certificate));
 
             if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.ssl-check.fire_expiring_soon_event_if_certificate_expires_within_days')) {
@@ -60,7 +60,7 @@ trait SupportsSslCertificateCheck
             return;
         }
 
-        if ($this->certificate_status === SslCertificateStatus::INVALID) {
+        if ($this->certificate_status === CertificateStatus::INVALID) {
             $reason = 'Unknown reason';
 
             if ($certificate->appliesToUrl($this->url)) {

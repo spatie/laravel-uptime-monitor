@@ -1,6 +1,6 @@
 <?php
 
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -30,7 +30,7 @@ class CreateMonitorsTable extends Migration
             $table->string('uptime_check_method')->default('get');
 
             $table->boolean('certificate_check_enabled')->default(false);
-            $table->string('certificate_status')->default(SslCertificateStatus::NOT_YET_CHECKED);
+            $table->string('certificate_status')->default(CertificateStatus::NOT_YET_CHECKED);
             $table->timestamp('certificate_expiration_date')->nullable();
             $table->string('certificate_issuer')->nullable();
             $table->string('certificate_failure_reason')->default('');
