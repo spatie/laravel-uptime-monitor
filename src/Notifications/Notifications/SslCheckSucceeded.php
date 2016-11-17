@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded as ValidSslCertificateFoundEvent;
+use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded as ValidCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class SslCheckSucceeded extends BaseNotification
@@ -43,7 +43,7 @@ class SslCheckSucceeded extends BaseNotification
             });
     }
 
-    public function setEvent(ValidSslCertificateFoundEvent $event)
+    public function setEvent(ValidCertificateFoundEvent $event)
     {
         $this->event = $event;
 

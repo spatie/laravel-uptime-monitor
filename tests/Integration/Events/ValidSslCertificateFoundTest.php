@@ -32,7 +32,7 @@ class ValidSslCertificateFoundTest extends TestCase
     {
         $this->skipIfNotConnectedToTheInternet();
 
-        $this->monitor->checkSslCertificate();
+        $this->monitor->checkCertificate();
 
         Event::assertFired(CertificateCheckSucceeded::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;

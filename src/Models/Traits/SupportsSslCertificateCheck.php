@@ -13,7 +13,7 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 trait SupportsSslCertificateCheck
 {
-    public function checkSslCertificate()
+    public function checkCertificate()
     {
         try {
             $certificate = SslCertificate::createForHostName($this->url->getHost());

@@ -34,7 +34,7 @@ abstract class BaseNotification extends Notification
         if ($monitor->certificate_check_enabled) {
             $properties['Ssl certificate status'] = $monitor->certificate_status;
             $properties['Ssl certificate issuer'] = $monitor->certificate_issuer;
-            $properties['Ssl certificate expiration date'] = $monitor->formattedSslCertificateExpirationDate;
+            $properties['Ssl certificate expiration date'] = $monitor->formattedCertificateExpirationDate;
         }
 
         return array_filter($properties);

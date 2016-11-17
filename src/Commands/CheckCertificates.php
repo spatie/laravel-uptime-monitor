@@ -29,7 +29,7 @@ class CheckCertificates extends BaseCommand
         $monitors->each(function (Monitor $monitor) {
             $this->info("Checking ssl-certificate of {$monitor->url}");
 
-            $monitor->checkSslCertificate();
+            $monitor->checkCertificate();
 
             if ($monitor->certificate_status !== CertificateStatus::VALID) {
                 $this->error("Could not download certificate of {$monitor->url} because: {$monitor->certificate_failure_reason}");

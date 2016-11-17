@@ -10,19 +10,19 @@ class CertificateCheckFailed
 {
     public static function display()
     {
-        $monitorsWithSslProblems = MonitorRepository::getWithFailingCertificateCheck();
+        $monitorsWithFailingCertificateChecks = MonitorRepository::getWithFailingCertificateCheck();
 
-        if (! $monitorsWithSslProblems->count()) {
+        if (! $monitorsWithFailingCertificateChecks->count()) {
             return;
         }
 
         ConsoleOutput::warn('Certificate check failed');
         ConsoleOutput::warn('========================');
 
-        $rows = $monitorsWithSslProblems->map(function (Monitor $monitor) {
+        $rows = $monitorsWithFailingCertificateChecks->map(function (Monitor $monitor) {
             $url = $monitor->url;
 
-            $reason = $monitor->chunkedLastSslFailureReason;
+            $reason = $monitor->chunkedLastCertificateCheckFailureReason;
 
             return compact('url', 'reason');
         });

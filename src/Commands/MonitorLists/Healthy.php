@@ -27,15 +27,15 @@ class Healthy
             $onlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
 
             if ($monitor->certificate_check_enabled) {
-                $sslCertificateFound = $monitor->sslCertificateStatusAsEmoji;
-                $sslCertificateExpirationDate = $monitor->formattedSslCertificateExpirationDate;
-                $sslCertificateIssuer = $monitor->certificate_issuer;
+                $certificateFound = $monitor->CertificateStatusAsEmoji;
+                $certificateExpirationDate = $monitor->formattedCertificateExpirationDate;
+                $certificateIssuer = $monitor->certificate_issuer;
             }
 
-            return compact('url', 'reachable', 'onlineSince', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+            return compact('url', 'reachable', 'onlineSince', 'certificateFound', 'certificateExpirationDate', 'certificateIssuer');
         });
 
-        $titles = ['URL', 'Uptime check', 'Online since', 'SSL Certificate check', 'SSL Expiration date', 'SSL Issuer'];
+        $titles = ['URL', 'Uptime check', 'Online since', 'Certificate Certificate check', 'Certificate Expiration date', 'Certificate Issuer'];
 
         ConsoleOutput::table($titles, $rows);
         ConsoleOutput::line('');

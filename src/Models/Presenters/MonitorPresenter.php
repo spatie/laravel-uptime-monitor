@@ -21,7 +21,7 @@ trait MonitorPresenter
         return '';
     }
 
-    public function getSslCertificateStatusAsEmojiAttribute(): string
+    public function getCertificateStatusAsEmojiAttribute(): string
     {
         if ($this->certificate_status === CertificateStatus::VALID) {
             return Emoji::ok();
@@ -39,7 +39,7 @@ trait MonitorPresenter
         return $this->formatDate('uptime_status_last_change_date');
     }
 
-    public function getFormattedSslCertificateExpirationDateAttribute(): string
+    public function getformattedCertificateExpirationDateAttribute(): string
     {
         return $this->formatDate('certificate_expiration_date');
     }
@@ -53,7 +53,7 @@ trait MonitorPresenter
         return chunk_split($this->uptime_failure_reason, 30, "\n");
     }
 
-    public function getChunkedLastSslFailureReasonAttribute(): string
+    public function getchunkedLastCertificateCheckFailureReasonAttribute(): string
     {
         if ($this->certificate_failure_reason == '') {
             return '';

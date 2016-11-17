@@ -24,7 +24,7 @@ class InvalidSslCertificateFoundTest extends TestCase
     /** @test */
     public function the_invalid_certificate_found_event_will_be_fired_when_an_invalid_certificate_is_found()
     {
-        $this->monitor->checkSslCertificate();
+        $this->monitor->checkCertificate();
 
         Event::assertFired(CertificateCheckFailed::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
