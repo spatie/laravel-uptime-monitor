@@ -12,7 +12,7 @@ This code is not yet stable. Brave souls may try to use, but be awere there migh
 [![StyleCI](https://styleci.io/repos/67774357/shield?branch=master)](https://styleci.io/repos/67774357)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-uptime-monitor.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-uptime-monitor)
 
-Laravel-uptime-monitor is a powerful, easy to configure uptime monitor. It can notify you when your site is down (and when it goes back up). You can also be notified a few days before an SSL certificate of one of your sites will expire. Under the hood the package leverages Laravel 5.3's notifications, so it's easy to use Slack, Telegram or any notification provider that has your preference.
+Laravel-uptime-monitor is a powerful, easy to configure uptime monitor. It will notify you when your site is down (and when it comes back up). You can also be notified a few days before an SSL certificate on one of your sites expires. Under the hood, the package leverages Laravel 5.3's notifications, so it's easy to use Slack, Telegram or your preferred notification provider.
 
 You'll find extensive documentation on https://docs.spatie.be/laravel-uptime-monitor/v1. It includes detailed info on how to install and use the package.
 
