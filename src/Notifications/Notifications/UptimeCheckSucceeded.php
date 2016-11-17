@@ -5,13 +5,13 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\MonitorFailed as MonitorFailedEvent;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded as MonitorSucceededEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class MonitorFailed extends BaseNotification
+class UptimeCheckSucceeded extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\MonitorFailed */
+    /** @var \Spatie\UptimeMonitor\Events\UptimeCheckSucceeded */
     public $event;
 
     /**
@@ -23,9 +23,9 @@ class MonitorFailed extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->error()
-            ->subject("The uptime check for monitor {$this->event->monitor->url} failed.")
-            ->line("The uptime check for monitor {$this->event->monitor->url} failed.");
+            ->success()
+            ->subject("The uptime check for monitor {$this->event->monitor->url} succeeded.")
+            ->line("The uptime check for monitor {$this->event->monitor->url} succeeded.");
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -37,28 +37,19 @@ class MonitorFailed extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->error()
-            ->content("The uptime check for monitor {$this->event->monitor->url} failed.")
+            ->success()
+            ->content("The uptime check for monitor {$this->event->monitor->url} succeeded.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function getMonitorProperties($extraProperties = []): array
-    {
-        $extraProperties = [
-            'Failing since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
-        ];
-
-        return parent::getMonitorProperties($extraProperties);
-    }
-
     public function isStillRelevant(): bool
     {
-        return $this->event->monitor->uptime_status == UptimeStatus::DOWN;
+        return $this->event->monitor->uptime_status != UptimeStatus::DOWN;
     }
 
-    public function setEvent(MonitorFailedEvent $event)
+    public function setEvent(MonitorSucceededEvent $event)
     {
         $this->event = $event;
 
