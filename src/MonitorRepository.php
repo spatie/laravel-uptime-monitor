@@ -89,11 +89,11 @@ class MonitorRepository
         return self::query()
             ->whereColumn([
                 ['uptime_check_enabled', '=', true],
-                ['uptime_status', '=', UptimeStatus::NOT_YET_CHECKED]
+                ['uptime_status', '=', UptimeStatus::NOT_YET_CHECKED],
             ])
             ->orWhereColumn([
                 ['certificate_check_enabled', '=', true],
-                ['certificate_status', '=', CertificateStatus::NOT_YET_CHECKED]
+                ['certificate_status', '=', CertificateStatus::NOT_YET_CHECKED],
             ])
             ->get()
             ->sortByHost();
