@@ -1,6 +1,6 @@
 # DO NOT USE (yet)
 
-This code is not yet stable. Brave souls may try to use, but be awere there might be bugs (and breaking changes until version 1.0.0 is tagged).
+This code is not yet stable. Brave souls may try to use, but be aware there might be bugs (and breaking changes until version 1.0.0 is tagged).
 
 # A powerful, easy to configure uptime monitor
 
@@ -123,7 +123,7 @@ return [
 ## Documentation
 You'll find the documentation on [https://docs.spatie.be/laravel-uptime-monitor/v1](https://docs.spatie.be/laravel-uptime-monitor/v1). It includes detailed info on how to install and use the package.
 
-Find yourself stuck using the package? Found a bug? Do you have general questions or suggestions for improving the media library? Feel free to [create an issue on GitHub](https://github.com/spatie/laravel-uptime-monitor/issues), we'll try to address it as soon as possible.
+Find yourself stuck using the package? Found a bug? Do you have general questions or suggestions for improving the uptime monitor? Feel free to [create an issue on GitHub](https://github.com/spatie/laravel-uptime-monitor/issues), we'll try to address it as soon as possible.
 
 ## Postcardware
 
@@ -139,13 +139,15 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-To run the tests you'll have to start the included node based server first
+To run the tests you'll have to start the included node based server first in a seperate terminal window.
 
-``` bash
+```bash
 cd tests/server
 ./start_server.sh
+```
 
-cd ../..
+With the server running, you can start testing.
+```bash
 vendor/bin/phpunit
 ```
 
