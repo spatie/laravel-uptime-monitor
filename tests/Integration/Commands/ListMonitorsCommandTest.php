@@ -77,7 +77,7 @@ class ListMonitorsCommandTest extends TestCase
     public function it_can_show_disabled_monitors()
     {
         $monitor = factory(Monitor::class)->create([
-            'enabled' => false,
+            'uptime_check_enabled' => false,
         ]);
 
         Artisan::call('monitor:list');
