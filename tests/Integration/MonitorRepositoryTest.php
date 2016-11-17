@@ -63,6 +63,22 @@ class MonitorRepositoryTest extends TestCase
         $this->assertEquals(['http://down1.com', 'http://down2.com'], $this->getMonitorUrls($failingMonitors));
     }
 
+    /** @test */
+    public function it_can_get_all_monitors_that_need_an_ssl_certificate_check()
+    {
+        Monitor::create(['url' => 'http://site1.com', 'enabled' => false, 'check_ssl_certificate' => false]);
+
+        Monitor::create(['url' => 'http://site2.com', 'enabled' => false, 'check_ssl_certificate' => true]);
+
+        Monitor::create(['url' => 'http://site3.com', 'enabled' => true, 'check_ssl_certificate' => false]);
+
+        Monitor::create(['url' => 'http://site4.com', 'enabled' => true, 'check_ssl_certificate' => true]);
+
+        $monitors = MonitorRepository::getForSslCheck();
+
+        $this->assertEquals(['http://site4.com'], $this->getMonitorUrls($monitors));
+    }
+
     protected function getMonitorUrls(Collection $monitors)
     {
         return $monitors
