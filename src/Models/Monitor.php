@@ -40,7 +40,7 @@ class Monitor extends Model
 
     public function getUrlAttribute()
     {
-        if (!isset($this->attributes['url'])) {
+        if (! isset($this->attributes['url'])) {
             return;
         }
 
@@ -108,6 +108,6 @@ class Monitor extends Model
             $query->where('id', '<>', $monitor->id);
         }
 
-        return (bool)$query->first();
+        return (bool) $query->first();
     }
 }
