@@ -1,6 +1,6 @@
 # DO NOT USE (yet)
 
-This code is not yet stable. Brave souls may try to use, but be awere there might be bugs (and breaking changes until version 1.0.0 is tagged).
+This code is not yet stable. Brave souls may try to use, but be aware there might be bugs (and breaking changes until version 1.0.0 is tagged).
 
 # A powerful, easy to configure uptime monitor
 
@@ -123,7 +123,7 @@ return [
 ## Documentation
 You'll find the documentation on [https://docs.spatie.be/laravel-uptime-monitor/v1](https://docs.spatie.be/laravel-uptime-monitor/v1). It includes detailed info on how to install and use the package.
 
-Find yourself stuck using the package? Found a bug? Do you have general questions or suggestions for improving the media library? Feel free to [create an issue on GitHub](https://github.com/spatie/laravel-uptime-monitor/issues), we'll try to address it as soon as possible.
+Find yourself stuck using the package? Found a bug? Do you have general questions or suggestions for improving the uptime monitor? Feel free to [create an issue on GitHub](https://github.com/spatie/laravel-uptime-monitor/issues), we'll try to address it as soon as possible.
 
 ## Postcardware
 
