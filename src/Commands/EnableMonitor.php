@@ -27,6 +27,6 @@ class EnableMonitor extends BaseCommand
 
         $monitor->enable();
 
-        $this->info("The monitor for url `{$url}` is now enabled");
+        $this->info("The checks for url `{$url}` are now enabled.");
     }
 }

@@ -43,7 +43,7 @@ class MonitorTest extends TestCase
     }
 
     /** @test */
-    public function it_can_disable_and_enable_itself()
+    public function it_can_disable_and_enable_itself_for_an_http_url()
     {
         $this->monitor->disable();
 
@@ -55,8 +55,10 @@ class MonitorTest extends TestCase
         $this->monitor->enable();
 
         $this->monitor = $this->monitor->fresh();
-
+        
         $this->assertTrue($this->monitor->uptime_check_enabled);
-        $this->assertTrue($this->monitor->certificate_check_enabled);
+
+        //it will not enable the certifcate check for a non-https site.
+        $this->assertFalse($this->monitor->certificate_check_enabled);
     }
 }

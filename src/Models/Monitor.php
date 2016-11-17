@@ -40,7 +40,7 @@ class Monitor extends Model
 
     public function getUrlAttribute()
     {
-        if (! isset($this->attributes['url'])) {
+        if (!isset($this->attributes['url'])) {
             return;
         }
 
@@ -77,7 +77,10 @@ class Monitor extends Model
     public function enable()
     {
         $this->uptime_check_enabled = true;
-        $this->certificate_check_enabled = true;
+
+        if ($this->url->getScheme() === 'https') {
+            $this->certificate_check_enabled = true;
+        }
 
         $this->save();
 
@@ -105,6 +108,6 @@ class Monitor extends Model
             $query->where('id', '<>', $monitor->id);
         }
 
-        return (bool) $query->first();
+        return (bool)$query->first();
     }
 }

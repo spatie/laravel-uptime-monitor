@@ -27,6 +27,6 @@ class DisableMonitor extends BaseCommand
 
         $monitor->disable();
 
-        $this->info("The monitor for url `{$url}` is now disabled");
+        $this->info("The checks for url `{$url}` are now disabled.");
     }
 }
