@@ -30,7 +30,7 @@ class FailedMonitors
             $reason = $monitor->chunkedLastFailureReason;
 
             if ($monitor->check_ssl_certificate) {
-                $sslCertificateFound = Emoji::ok();
+                $sslCertificateFound = $monitor->sslCertificateStatusAsEmoji;
                 $sslCertificateExpirationDate = $monitor->formattedSslCertificateExpirationDate;
                 $sslCertificateIssuer = $monitor->ssl_certificate_issuer;
             }

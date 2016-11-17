@@ -3,13 +3,35 @@
 namespace Spatie\UptimeMonitor\Models\Presenters;
 
 use Spatie\UptimeMonitor\Helpers\Emoji;
+use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 trait MonitorPresenter
 {
     public function getReachableAsEmojiAttribute(): string
     {
-        return ($this->uptime_status === UptimeStatus::UP) ? Emoji::ok() : Emoji::notOk();
+        if ($this->uptime_status === UptimeStatus::UP) {
+            return Emoji::ok();
+        }
+
+        if ($this->uptime_status === UptimeStatus::DOWN) {
+            return Emoji::notOk();
+        }
+
+        return '';
+    }
+
+    public function getSslCertificateStatusAsEmojiAttribute(): string
+    {
+        if ($this->ssl_certificate_status === SslCertificateStatus::VALID) {
+            return Emoji::ok();
+        }
+
+        if ($this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+            return Emoji::notOk();
+        }
+
+        return '';
     }
 
     public function getFormattedLastUpdatedStatusChangeDateAttribute(): string
@@ -43,7 +65,7 @@ trait MonitorPresenter
     protected function formatDate(string $attributeName): string
     {
         if (! $this->$attributeName) {
-            return '-';
+            return '';
         }
 
         return $this->$attributeName->diffForHumans();
