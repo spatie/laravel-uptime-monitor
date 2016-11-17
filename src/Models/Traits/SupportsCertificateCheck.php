@@ -53,7 +53,7 @@ trait SupportsCertificateCheck
         if ($this->certificate_status === CertificateStatus::VALID) {
             event(new CertificateCheckSucceeded($this, $certificate));
 
-            if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.ssl-check.fire_expiring_soon_event_if_certificate_expires_within_days')) {
+            if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.certificate_check.fire_expiring_soon_event_if_certificate_expires_within_days')) {
                 event(new CertificateExpiresSoon($monitor, $certificate));
             }
 

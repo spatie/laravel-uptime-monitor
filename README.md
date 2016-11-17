@@ -101,7 +101,7 @@ return [
         'user_agent' => 'spatie/laravel-uptime-monitor uptime checker',
     ],
 
-    'ssl-check' => [
+    'certificate_check' => [
 
         /*
          * The `Spatie\UptimeMonitor\Events\SslExpiresSoon` event will fire
