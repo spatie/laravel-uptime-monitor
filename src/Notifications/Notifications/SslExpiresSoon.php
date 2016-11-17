@@ -22,7 +22,6 @@ class SslExpiresSoon extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->error()
             ->subject($this->getMessageText())
             ->line($this->getMessageText());
 
@@ -36,7 +35,6 @@ class SslExpiresSoon extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->error()
             ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
