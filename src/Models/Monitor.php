@@ -33,7 +33,9 @@ class Monitor extends Model
 
     public function scopeEnabled($query)
     {
-        return $query->where('enabled', true);
+        return $query
+            ->where('uptime_check_enabled', true)
+            ->orWhere('ssl_certificate_check_enabled', true);
     }
 
     public function getUrlAttribute()

@@ -12,7 +12,8 @@ class EnableMonitorCommandTest extends TestCase
     public function it_can_enable_a_disabled_monitor()
     {
         $monitor = factory(Monitor::class)->create([
-            'enabled' => false,
+            'uptime_check_enabled' => false,
+            'ssl_certificate_check_enabled' => false,
             'url' => 'http://mysite.com',
         ]);
 
@@ -20,7 +21,10 @@ class EnableMonitorCommandTest extends TestCase
 
         $this->artisan('monitor:enable', ['url' => 'http://mysite.com']);
 
-        $this->assertTrue($monitor->fresh()->enabled);
+        $monitor = $monitor->fresh();
+
+        $this->assertTrue($monitor->uptime_check_enabled);
+        $this->assertTrue($monitor->ssl_certificate_check_enabled);
     }
 
     /** @test */
@@ -32,28 +36,17 @@ class EnableMonitorCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_displays_a_message_if_the_monitor_was_already_enabled()
-    {
-        factory(Monitor::class)->create([
-            'enabled' => true,
-            'url' => 'http://mysite.com',
-        ]);
-
-        $this->artisan('monitor:enable', ['url' => 'http://mysite.com']);
-
-        $this->seeInConsoleOutput('already enabled');
-    }
-
-    /** @test */
     public function it_can_enable_multiple_urls_at_once()
     {
         $monitor1 = factory(Monitor::class)->create([
-            'enabled' => false,
+            'uptime_check_enabled' => false,
+            'ssl_certificate_check_enabled' => false,
             'url' => 'http://mysite.com',
         ]);
 
         $monitor2 = factory(Monitor::class)->create([
-            'enabled' => false,
+            'uptime_check_enabled' => false,
+            'ssl_certificate_check_enabled' => false,
             'url' => 'http://mysite2.com',
         ]);
 
@@ -61,5 +54,13 @@ class EnableMonitorCommandTest extends TestCase
 
         $this->assertTrue($monitor1->fresh()->enabled);
         $this->assertTrue($monitor2->fresh()->enabled);
+
+        $monitor1 = $monitor1->fresh();
+        $monitor2 = $monitor2->fresh();
+
+        $this->assertTrue($monitor1->uptime_check_enabled);
+        $this->assertTrue($monitor1->ssl_certificate_check_enabled);
+        $this->assertTrue($monitor2->uptime_check_enabled);
+        $this->assertTrue($monitor2->ssl_certificate_check_enabled);
     }
 }

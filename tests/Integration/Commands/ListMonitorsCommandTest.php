@@ -26,7 +26,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors that have not been checked yet',
+            'Not yet checked',
             $monitor->url,
         ]);
     }
@@ -52,7 +52,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors that have failed',
+            'Uptime check failed',
             $monitor->url,
         ]);
     }
@@ -68,7 +68,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors reporting SSL certificate problems',
+            'Certificate check failed',
             $monitor->url,
         ]);
     }
@@ -83,7 +83,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors that have been disabled',
+            'Disabled monitors',
             $monitor->url,
         ]);
     }

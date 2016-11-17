@@ -86,7 +86,6 @@ class MonitorRepository
 
     public static function getUnchecked(): Collection
     {
-
         return self::query()
             ->whereColumn([
                 ['uptime_check_enabled', '=', true],
