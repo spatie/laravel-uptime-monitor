@@ -7,7 +7,7 @@ use Spatie\UptimeMonitor\Events\MonitorRecovered as MonitorRecoveredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
-use Spatie\UptimeMonitor\Notifications\Notifications\SslCheckSucceeded as InvalidSslCertificateFoundNotification;
+use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidSslCertificateFoundNotification;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered;
 use Spatie\UptimeMonitor\Notifications\Notifications\MonitorSucceeded;

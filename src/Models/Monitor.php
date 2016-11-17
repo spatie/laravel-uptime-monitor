@@ -7,14 +7,14 @@ use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Presenters\MonitorPresenter;
-use Spatie\UptimeMonitor\Models\Traits\SupportsSslCertificateCheck;
+use Spatie\UptimeMonitor\Models\Traits\SupportsCertificateCheck;
 use Spatie\UptimeMonitor\Models\Traits\SupportsUptimeCheck;
 use Spatie\Url\Url;
 
 class Monitor extends Model
 {
     use SupportsUptimeCheck,
-        SupportsSslCertificateCheck,
+        SupportsCertificateCheck,
         MonitorPresenter;
 
     protected $guarded = [];

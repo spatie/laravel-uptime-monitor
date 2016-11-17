@@ -20,7 +20,7 @@ class CheckSslCertificatesTest extends TestCase
 
         $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
 
-        $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor->url}");
+        $this->seeInConsoleOutput("Checking certificate of {$monitor->url}");
     }
 
     public function it_can_check_the_certificate_for_a_specific_monitor()
@@ -33,8 +33,8 @@ class CheckSslCertificatesTest extends TestCase
 
         Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url]);
 
-        $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor1->url}");
-        $this->dontSeeInConsoleOutput("Checking ssl-certificate of {$monitor2->url}");
+        $this->seeInConsoleOutput("Checking certificate of {$monitor1->url}");
+        $this->dontSeeInConsoleOutput("Checking certificate of {$monitor2->url}");
     }
 
     public function it_can_check_the_certificates_for_a_specific_set_of_monitors()
@@ -51,8 +51,8 @@ class CheckSslCertificatesTest extends TestCase
 
         Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);
 
-        $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor1->url}");
-        $this->seeInConsoleOutput("Checking ssl-certificate of {$monitor2->url}");
-        $this->dontSeeInConsoleOutput("Checking ssl-certificate of {$monitor3->url}");
+        $this->seeInConsoleOutput("Checking certificate of {$monitor1->url}");
+        $this->seeInConsoleOutput("Checking certificate of {$monitor2->url}");
+        $this->dontSeeInConsoleOutput("Checking certificate of {$monitor3->url}");
     }
 }

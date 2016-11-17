@@ -5,10 +5,10 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded as ValidCertificateFoundEvent;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed as InValidCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SslCheckSucceeded extends BaseNotification
+class CertificateCheckFailed extends BaseNotification
 {
     /** @var \Spatie\UptimeMonitor\Events\CertificateCheckSucceeded */
     public $event;
@@ -22,9 +22,9 @@ class SslCheckSucceeded extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->success()
-            ->subject("The ssl certificate check for {$this->event->monitor->url} succeeded.")
-            ->line("The ssl certificate check for {$this->event->monitor->url} succeeded.");
+            ->error()
+            ->subject("The ssl certificate check for {$this->event->monitor->url} failed.")
+            ->line("The ssl certificate check for {$this->event->monitor->url} failed.");
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -36,14 +36,21 @@ class SslCheckSucceeded extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->success()
-            ->content("The ssl certificate check for {$this->event->monitor->url} succeeded.")
+            ->error()
+            ->content("The ssl certificate check for {$this->event->monitor->url} failed.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function setEvent(ValidCertificateFoundEvent $event)
+    public function getMonitorProperties($properties = []): array
+    {
+        $extraProperties = ['Failure reason' => $this->event->monitor->certificate_failure_reason];
+
+        return parent::getMonitorProperties($extraProperties);
+    }
+
+    public function setEvent(InValidCertificateFoundEvent $event)
     {
         $this->event = $event;
 

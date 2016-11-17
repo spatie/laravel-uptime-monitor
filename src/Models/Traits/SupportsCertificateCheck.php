@@ -11,7 +11,7 @@ use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 
-trait SupportsSslCertificateCheck
+trait SupportsCertificateCheck
 {
     public function checkCertificate()
     {

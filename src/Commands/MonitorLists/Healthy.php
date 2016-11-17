@@ -27,7 +27,7 @@ class Healthy
             $onlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
 
             if ($monitor->certificate_check_enabled) {
-                $certificateFound = $monitor->CertificateStatusAsEmoji;
+                $certificateFound = $monitor->certificateStatusAsEmoji;
                 $certificateExpirationDate = $monitor->formattedCertificateExpirationDate;
                 $certificateIssuer = $monitor->certificate_issuer;
             }

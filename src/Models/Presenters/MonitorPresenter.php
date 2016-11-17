@@ -21,7 +21,7 @@ trait MonitorPresenter
         return '';
     }
 
-    public function getCertificateStatusAsEmojiAttribute(): string
+    public function getcertificateStatusAsEmojiAttribute(): string
     {
         if ($this->certificate_status === CertificateStatus::VALID) {
             return Emoji::ok();

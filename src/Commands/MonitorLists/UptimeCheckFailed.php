@@ -29,15 +29,15 @@ class UptimeCheckFailed
             $reason = $monitor->chunkedLastFailureReason;
 
             if ($monitor->certificate_check_enabled) {
-                $sslCertificateFound = $monitor->CertificateStatusAsEmoji;
-                $sslCertificateExpirationDate = $monitor->formattedCertificateExpirationDate;
-                $sslCertificateIssuer = $monitor->certificate_issuer;
+                $certificateFound = $monitor->certificateStatusAsEmoji;
+                $certificateExpirationDate = $monitor->formattedCertificateExpirationDate;
+                $certificateIssuer = $monitor->certificate_issuer;
             }
 
-            return compact('url', 'reachable', 'offlineSince', 'reason', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+            return compact('url', 'reachable', 'offlineSince', 'reason', 'certificateFound', 'certificateExpirationDate', 'certificateIssuer');
         });
 
-        $titles = ['URL', 'Reachable', 'Offline since', 'Reason', 'SSL Certificate', 'SSL Expiration date', 'SSL Issuer'];
+        $titles = ['URL', 'Reachable', 'Offline since', 'Reason', 'Certificate', 'Certificate expiration date', 'Certificate issuer'];
 
         ConsoleOutput::table($titles, $rows);
         ConsoleOutput::line('');
