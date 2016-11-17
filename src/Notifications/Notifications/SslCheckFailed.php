@@ -26,8 +26,8 @@ class SslCheckFailed extends BaseNotification
             ->subject("The ssl certificate check for {$this->event->monitor->url} failed.")
             ->line("The ssl certificate check for {$this->event->monitor->url} failed.");
 
-        foreach($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name . ': ' . $value);
+        foreach ($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name.': '.$value);
         }
 
         return $mailMessage;

@@ -27,8 +27,8 @@ class MonitorRecovered extends BaseNotification
             ->subject("{$this->event->monitor->url} has recovered.")
             ->line("{$this->event->monitor->url} has recovered.");
 
-        foreach($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name . ': ' . $value);
+        foreach ($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name.': '.$value);
         }
 
         return $mailMessage;

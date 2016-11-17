@@ -26,8 +26,8 @@ class SslExpiresSoon extends BaseNotification
             ->subject($this->getMessageText())
             ->line($this->getMessageText());
 
-        foreach($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name . ': ' . $value);
+        foreach ($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name.': '.$value);
         }
 
         return $mailMessage;
