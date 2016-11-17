@@ -23,8 +23,12 @@ class SslExpiresSoon extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->error()
-            ->subject("The certificate for {$this->event->monitor->url} will expire soon.")
-            ->line("The certificate for {$this->event->monitor->url} will expire in {$this->ssl_certificate_expiration_date->diffInDays()} days");
+            ->subject($this->getMessageText())
+            ->line($this->getMessageText());
+
+        foreach($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name . ': ' . $value);
+        }
 
         return $mailMessage;
     }
@@ -33,10 +37,15 @@ class SslExpiresSoon extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content("The certificate for {$this->event->monitor->url} will expire in {$this->event->monitor->ssl_certificate_expiration_date->diffInDays()} days")
+            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
+    }
+
+    protected function getMessageText(): string
+    {
+        return "The certificate for {$this->event->monitor->url} will expire in {$this->ssl_certificate_expiration_date->diffInDays()} days.";
     }
 
     public function setEvent(SoonExpiringSslCertificateFoundEvent $event)

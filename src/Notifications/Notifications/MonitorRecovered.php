@@ -24,8 +24,12 @@ class MonitorRecovered extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("Site {$this->event->monitor->url} has been restored.")
-            ->line('Site has been restored');
+            ->subject("{$this->event->monitor->url} has recovered.")
+            ->line("{$this->event->monitor->url} has recovered.");
+
+        foreach($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name . ': ' . $value);
+        }
 
         return $mailMessage;
     }
@@ -34,7 +38,7 @@ class MonitorRecovered extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("Site {$this->event->monitor->url} has been restored")
+            ->content("{$this->event->monitor->url} has recovered.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
@@ -43,7 +47,7 @@ class MonitorRecovered extends BaseNotification
     public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'online since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
+            'Online since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
         ];
 
         return parent::getMonitorProperties($extraProperties);

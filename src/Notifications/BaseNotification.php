@@ -21,20 +21,20 @@ abstract class BaseNotification extends Notification
     {
         $monitor = $this->event->monitor;
 
-        $properties['location'] = config('laravel-uptime-monitor.notifications.location');
+        $properties['Location'] = config('laravel-uptime-monitor.notifications.location');
 
-        $properties['url'] = (string) $monitor->url;
+        $properties['Url'] = (string) $monitor->url;
 
         if (! empty($monitor->look_for_string)) {
-            $properties['look for string'] = $monitor->look_for_string;
+            $properties['Look for string'] = $monitor->look_for_string;
         }
 
         $properties = array_merge($properties, $extraProperties);
 
         if ($monitor->check_ssl_certificate) {
-            $properties['ssl certificate valid'] = $monitor->ssl_certificate_status;
-            $properties['ssl certificate issuer'] = $monitor->ssl_certificate_issuer;
-            $properties['ssl certificate expiration date'] = $monitor->formattedSslCertificateExpirationDate;
+            $properties['Ssl certificate valid'] = $monitor->ssl_certificate_status;
+            $properties['Ssl certificate issuer'] = $monitor->ssl_certificate_issuer;
+            $properties['Ssl certificate expiration date'] = $monitor->formattedSslCertificateExpirationDate;
         }
 
         return array_filter($properties);

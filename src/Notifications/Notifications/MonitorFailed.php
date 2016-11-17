@@ -27,6 +27,10 @@ class MonitorFailed extends BaseNotification
             ->subject("The uptime check for monitor {$this->event->monitor->url} failed.")
             ->line("The uptime check for monitor {$this->event->monitor->url} failed.");
 
+        foreach($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name . ': ' . $value);
+        }
+
         return $mailMessage;
     }
 
@@ -43,7 +47,7 @@ class MonitorFailed extends BaseNotification
     public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'failing since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
+            'Failing since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
         ];
 
         return parent::getMonitorProperties($extraProperties);

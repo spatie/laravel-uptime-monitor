@@ -23,8 +23,12 @@ class SslCheckFailed extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->error()
-            ->subject("Found an invalid certificate for {$this->event->monitor->url}.")
-            ->line('Found an invalid certificate');
+            ->subject("The ssl certificate check for {$this->event->monitor->url} failed.")
+            ->line("The ssl certificate check for {$this->event->monitor->url} failed.");
+
+        foreach($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name . ': ' . $value);
+        }
 
         return $mailMessage;
     }
@@ -33,7 +37,7 @@ class SslCheckFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content("Found an invalid ssl certificate for {$this->event->monitor->url}")
+            ->content("The ssl certificate check for {$this->event->monitor->url} failed.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
@@ -41,7 +45,7 @@ class SslCheckFailed extends BaseNotification
 
     public function getMonitorProperties($properties = []): array
     {
-        $extraProperties = ['failure reason' => $this->event->monitor->ssl_certificate_failure_reason];
+        $extraProperties = ['Failure reason' => $this->event->monitor->ssl_certificate_failure_reason];
 
         return parent::getMonitorProperties($extraProperties);
     }
