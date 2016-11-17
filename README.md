@@ -146,7 +146,7 @@ cd tests/server
 ./start_server.sh
 ```
 
-With the server running, you can start testing
+With the server running, you can start testing.
 ```bash
 vendor/bin/phpunit
 ```
