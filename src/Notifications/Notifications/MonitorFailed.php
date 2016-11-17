@@ -27,8 +27,8 @@ class MonitorFailed extends BaseNotification
             ->subject("The uptime check for monitor {$this->event->monitor->url} failed.")
             ->line("The uptime check for monitor {$this->event->monitor->url} failed.");
 
-        foreach($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name . ': ' . $value);
+        foreach ($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name.': '.$value);
         }
 
         return $mailMessage;

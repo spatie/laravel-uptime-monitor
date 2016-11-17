@@ -26,8 +26,8 @@ class SslCheckSucceeded extends BaseNotification
             ->subject("The ssl certificate check for {$this->event->monitor->url} succeeded.")
             ->line("The ssl certificate check for {$this->event->monitor->url} succeeded.");
 
-        foreach($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name . ': ' . $value);
+        foreach ($this->getMonitorProperties() as $name => $value) {
+            $mailMessage->line($name.': '.$value);
         }
 
         return $mailMessage;
