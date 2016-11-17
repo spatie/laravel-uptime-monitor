@@ -29,7 +29,7 @@ class CreateMonitor extends BaseCommand
             'url' => trim($url, '/'),
             'look_for_string' => $lookForString ?? '',
             'uptime_check_method' => isset($lookForString) ? 'get' : 'head',
-            'check_ssl_certificate' => $url->getScheme() === 'https',
+            'ssl_certificate_check_enabled' => $url->getScheme() === 'https',
             'uptime_check_interval_in_minutes' => config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes'),
         ]);
 

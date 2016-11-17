@@ -10,9 +10,9 @@ use Spatie\UptimeMonitor\Test\TestCase;
 class CheckSslCertificatesTest extends TestCase
 {
     /** @test */
-    public function it_has_a_command_to_check_ssl_certificates()
+    public function it_has_a_command_to_ssl_certificate_check_enableds()
     {
-        $monitor = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
+        $monitor = factory(Monitor::class)->create(['ssl_certificate_check_enabled' => true]);
 
         Artisan::call('monitor:check-ssl');
 
@@ -25,10 +25,10 @@ class CheckSslCertificatesTest extends TestCase
 
     public function it_can_check_the_ssl_certificate_for_a_specific_monitor()
     {
-        $monitor1 = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
+        $monitor1 = factory(Monitor::class)->create(['ssl_certificate_check_enabled' => true]);
         $monitor2 = factory(Monitor::class)->create([
             'url' => 'https://google.com',
-            'check_ssl_certificate' => true,
+            'ssl_certificate_check_enabled' => true,
         ]);
 
         Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url]);
@@ -39,14 +39,14 @@ class CheckSslCertificatesTest extends TestCase
 
     public function it_can_check_the_ssl_certificates_for_a_specific_set_of_monitors()
     {
-        $monitor1 = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
+        $monitor1 = factory(Monitor::class)->create(['ssl_certificate_check_enabled' => true]);
         $monitor2 = factory(Monitor::class)->create([
             'url' => 'https://google.com',
-            'check_ssl_certificate' => true,
+            'ssl_certificate_check_enabled' => true,
         ]);
         $monitor3 = factory(Monitor::class)->create([
             'url' => 'https://bing.com',
-            'check_ssl_certificate' => true,
+            'ssl_certificate_check_enabled' => true,
         ]);
 
         Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);

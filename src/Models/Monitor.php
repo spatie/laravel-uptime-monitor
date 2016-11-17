@@ -28,7 +28,7 @@ class Monitor extends Model
 
     protected $casts = [
         'enabled' => 'boolean',
-        'check_ssl_certificate' => 'boolean',
+        'ssl_certificate_check_enabled' => 'boolean',
     ];
 
     public function scopeEnabled($query)
@@ -62,7 +62,7 @@ class Monitor extends Model
             return false;
         }
 
-        if ($this->check_ssl_certificate && $this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+        if ($this->ssl_certificate_check_enabled && $this->ssl_certificate_status === SslCertificateStatus::INVALID) {
             return false;
         }
 

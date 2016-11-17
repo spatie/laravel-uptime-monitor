@@ -22,7 +22,7 @@ class ValidSslCertificateFoundTest extends TestCase
         Event::fake();
 
         $this->monitor = factory(Monitor::class)->create([
-            'check_ssl_certificate' => true,
+            'ssl_certificate_check_enabled' => true,
             'url' => 'https://google.com',
         ]);
     }

@@ -18,7 +18,7 @@ class InvalidSslCertificateFoundTest extends TestCase
 
         Event::fake();
 
-        $this->monitor = factory(Monitor::class)->create(['check_ssl_certificate' => true]);
+        $this->monitor = factory(Monitor::class)->create(['ssl_certificate_check_enabled' => true]);
     }
 
     /** @test */

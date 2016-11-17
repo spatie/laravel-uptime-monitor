@@ -38,7 +38,7 @@ class MonitorCreateCommandTest extends TestCase
         $monitor = Monitor::where('url', 'https://mysite.com')->first();
 
         $this->assertSame($monitor->uptime_status, UptimeStatus::NOT_YET_CHECKED);
-        $this->assertTrue($monitor->check_ssl_certificate);
+        $this->assertTrue($monitor->ssl_certificate_check_enabled);
     }
 
     /** @test */
@@ -55,7 +55,7 @@ class MonitorCreateCommandTest extends TestCase
         $monitor = Monitor::where('url', 'http://mysite.com')->first();
 
         $this->assertSame($monitor->uptime_status, UptimeStatus::NOT_YET_CHECKED);
-        $this->assertFalse($monitor->check_ssl_certificate);
+        $this->assertFalse($monitor->ssl_certificate_check_enabled);
 
         $this->bringTestServerUp();
         $this->bringTestServerDown();

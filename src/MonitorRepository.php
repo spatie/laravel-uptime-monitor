@@ -39,7 +39,7 @@ class MonitorRepository
     public static function getForSslCheck(): Collection
     {
         return self::query()
-            ->where('check_ssl_certificate', true)
+            ->where('ssl_certificate_check_enabled', true)
             ->get()
             ->sortByHost();
     }
@@ -65,7 +65,7 @@ class MonitorRepository
     public static function getWithSslProblems(): Collection
     {
         return self::query()
-            ->where('check_ssl_certificate', true)
+            ->where('ssl_certificate_check_enabled', true)
             ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
             ->get()
             ->sortByHost();
