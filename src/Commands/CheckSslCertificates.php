@@ -12,7 +12,7 @@ class CheckSslCertificates extends BaseCommand
                            {--url= : Only check these urls}';
 
 
-    protected $description = 'Check the ssl certificates of all sites';
+    protected $description = 'Check the certificates of all sites';
 
     public function handle()
     {
