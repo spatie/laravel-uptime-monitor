@@ -31,7 +31,7 @@ class HealthyMonitors
                 $sslCertificateExpirationDate = $monitor->formattedSslCertificateExpirationDate;
                 $sslCertificateIssuer = $monitor->ssl_certificate_issuer;
             }
-            
+
             return compact('url', 'reachable', 'onlineSince', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
         });
 
