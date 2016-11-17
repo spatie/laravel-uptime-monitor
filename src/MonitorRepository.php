@@ -38,7 +38,7 @@ class MonitorRepository
         return new MonitorCollection($monitors);
     }
 
-    public static function getForSslCheck(): Collection
+    public static function getForCertificateCheck(): Collection
     {
         return self::query()
             ->where('certificate_check_enabled', true)

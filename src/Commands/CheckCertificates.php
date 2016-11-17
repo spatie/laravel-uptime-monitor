@@ -6,7 +6,7 @@ use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
-class CheckSslCertificates extends BaseCommand
+class CheckCertificates extends BaseCommand
 {
     protected $signature = 'monitor:check-certificate
                            {--url= : Only check these urls}';
@@ -16,7 +16,7 @@ class CheckSslCertificates extends BaseCommand
 
     public function handle()
     {
-        $monitors = MonitorRepository::getForSslCheck();
+        $monitors = MonitorRepository::getForCertificateCheck();
 
         if ($url = $this->option('url')) {
             $monitors = $monitors->filter(function (Monitor $monitor) use ($url) {

@@ -76,7 +76,7 @@ class MonitorRepositoryTest extends TestCase
 
         Monitor::create(['url' => 'http://site4.com', 'uptime_check_enabled' => true, 'certificate_check_enabled' => true]);
 
-        $monitors = MonitorRepository::getForSslCheck();
+        $monitors = MonitorRepository::getForCertificateCheck();
 
         $this->assertEquals(['http://site2.com', 'http://site4.com'], $this->getMonitorUrls($monitors));
     }

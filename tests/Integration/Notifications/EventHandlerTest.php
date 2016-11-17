@@ -2,7 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
-use Spatie\UptimeMonitor\Events\SslCheckFailed;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Events\MonitorRecovered as MonitorRecoveredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
@@ -82,7 +82,7 @@ class EventHandlerTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create();
 
-        event(new SslCheckFailed($monitor, 'fail reason'));
+        event(new CertificateCheckFailed($monitor, 'fail reason'));
 
         Notification::assertSentTo(
             new Notifiable(),

@@ -5,12 +5,12 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SslExpiresSoon as SoonExpiringSslCertificateFoundEvent;
+use Spatie\UptimeMonitor\Events\CertificateExpiresSoon as SoonExpiringSslCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class SslExpiresSoon extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SslExpiresSoon */
+    /** @var \Spatie\UptimeMonitor\Events\CertificateExpiresSoon */
     public $event;
 
     /**

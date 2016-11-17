@@ -5,9 +5,9 @@ namespace Spatie\UptimeMonitor\Models\Traits;
 use Exception;
 use Spatie\SslCertificate\Exceptions\CouldNotDownloadCertificate;
 use Spatie\SslCertificate\SslCertificate;
-use Spatie\UptimeMonitor\Events\SslCheckFailed;
-use Spatie\UptimeMonitor\Events\SslExpiresSoon;
-use Spatie\UptimeMonitor\Events\SslCheckSucceeded;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
+use Spatie\UptimeMonitor\Events\CertificateExpiresSoon;
+use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 
@@ -45,16 +45,16 @@ trait SupportsSslCertificateCheck
         $this->certificate_failure_reason = $exception->getMessage();
         $this->save();
 
-        event(new SslCheckFailed($this, $exception->getMessage()));
+        event(new CertificateCheckFailed($this, $exception->getMessage()));
     }
 
     protected function fireEventsForUpdatedMonitorWithCertificate(Monitor $monitor, SslCertificate $certificate)
     {
         if ($this->certificate_status === SslCertificateStatus::VALID) {
-            event(new SslCheckSucceeded($this, $certificate));
+            event(new CertificateCheckSucceeded($this, $certificate));
 
             if ($certificate->expirationDate()->diffInDays() <= config('laravel-uptime-monitor.ssl-check.fire_expiring_soon_event_if_certificate_expires_within_days')) {
-                event(new SslExpiresSoon($monitor, $certificate));
+                event(new CertificateExpiresSoon($monitor, $certificate));
             }
 
             return;
@@ -71,7 +71,7 @@ trait SupportsSslCertificateCheck
                 $reason = 'The certificate is expired';
             }
 
-            event(new SslCheckFailed($this, $reason, $certificate));
+            event(new CertificateCheckFailed($this, $reason, $certificate));
         }
     }
 }
