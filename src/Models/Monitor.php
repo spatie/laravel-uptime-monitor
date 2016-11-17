@@ -27,7 +27,7 @@ class Monitor extends Model
     ];
 
     protected $casts = [
-        'enabled' => 'boolean',
+        'uptime_check_enabled' => 'boolean',
         'ssl_certificate_check_enabled' => 'boolean',
     ];
 
