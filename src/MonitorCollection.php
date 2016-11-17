@@ -59,7 +59,7 @@ class MonitorCollection extends Collection
 
     /**
      * In order to make use of Guzzle promises we have to make sure the
-     * keys of the collection are in consecutive order without gaps.
+     * keys of the collection are in a consecutive order without gaps.
      */
     protected function resetItemKeys()
     {
