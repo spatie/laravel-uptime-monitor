@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Models\Presenters;
 
 use Spatie\UptimeMonitor\Helpers\Emoji;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 trait MonitorPresenter
@@ -21,13 +21,13 @@ trait MonitorPresenter
         return '';
     }
 
-    public function getSslCertificateStatusAsEmojiAttribute(): string
+    public function getcertificateStatusAsEmojiAttribute(): string
     {
-        if ($this->ssl_certificate_status === SslCertificateStatus::VALID) {
+        if ($this->certificate_status === CertificateStatus::VALID) {
             return Emoji::ok();
         }
 
-        if ($this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+        if ($this->certificate_status === CertificateStatus::INVALID) {
             return Emoji::notOk();
         }
 
@@ -39,9 +39,9 @@ trait MonitorPresenter
         return $this->formatDate('uptime_status_last_change_date');
     }
 
-    public function getFormattedSslCertificateExpirationDateAttribute(): string
+    public function getformattedCertificateExpirationDateAttribute(): string
     {
-        return $this->formatDate('ssl_certificate_expiration_date');
+        return $this->formatDate('certificate_expiration_date');
     }
 
     public function getChunkedLastFailureReasonAttribute(): string
@@ -53,13 +53,13 @@ trait MonitorPresenter
         return chunk_split($this->uptime_failure_reason, 30, "\n");
     }
 
-    public function getChunkedLastSslFailureReasonAttribute(): string
+    public function getchunkedLastCertificateCheckFailureReasonAttribute(): string
     {
-        if ($this->ssl_certificate_failure_reason == '') {
+        if ($this->certificate_failure_reason == '') {
             return '';
         }
 
-        return chunk_split($this->ssl_certificate_failure_reason, 60, "\n");
+        return chunk_split($this->certificate_failure_reason, 60, "\n");
     }
 
     protected function formatDate(string $attributeName): string

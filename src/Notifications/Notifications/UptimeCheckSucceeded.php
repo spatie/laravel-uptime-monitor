@@ -5,12 +5,13 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SslCheckFailed as InvalidSslCertificateFoundEvent;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded as MonitorSucceededEvent;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SslCheckFailed extends BaseNotification
+class UptimeCheckSucceeded extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SslCheckSucceeded */
+    /** @var \Spatie\UptimeMonitor\Events\UptimeCheckSucceeded */
     public $event;
 
     /**
@@ -22,9 +23,9 @@ class SslCheckFailed extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->error()
-            ->subject("The ssl certificate check for {$this->event->monitor->url} failed.")
-            ->line("The ssl certificate check for {$this->event->monitor->url} failed.");
+            ->success()
+            ->subject("The uptime check for {$this->event->monitor->url} succeeded.")
+            ->line("The uptime check for {$this->event->monitor->url} succeeded.");
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -36,21 +37,19 @@ class SslCheckFailed extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->error()
-            ->content("The ssl certificate check for {$this->event->monitor->url} failed.")
+            ->success()
+            ->content("The uptime check for {$this->event->monitor->url} succeeded.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function getMonitorProperties($properties = []): array
+    public function isStillRelevant(): bool
     {
-        $extraProperties = ['Failure reason' => $this->event->monitor->ssl_certificate_failure_reason];
-
-        return parent::getMonitorProperties($extraProperties);
+        return $this->event->monitor->uptime_status != UptimeStatus::DOWN;
     }
 
-    public function setEvent(InvalidSslCertificateFoundEvent $event)
+    public function setEvent(MonitorSucceededEvent $event)
     {
         $this->event = $event;
 

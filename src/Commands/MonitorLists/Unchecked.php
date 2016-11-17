@@ -6,20 +6,20 @@ use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
-class DisabledMonitors
+class Unchecked
 {
     public static function display()
     {
-        $disabledMonitors = MonitorRepository::getDisabled();
+        $uncheckedMonitors = MonitorRepository::getUnchecked();
 
-        if (! $disabledMonitors->count()) {
+        if (! $uncheckedMonitors->count()) {
             return;
         }
 
-        ConsoleOutput::warn('Monitors that have been disabled');
-        ConsoleOutput::warn('================================');
+        ConsoleOutput::warn('Not yet checked');
+        ConsoleOutput::warn('===============');
 
-        $rows = $disabledMonitors->map(function (Monitor $monitor) {
+        $rows = $uncheckedMonitors->map(function (Monitor $monitor) {
             $url = $monitor->url;
 
             return compact('url');

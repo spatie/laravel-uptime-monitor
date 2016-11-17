@@ -5,13 +5,12 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\MonitorRecovered as MonitorRecoveredEvent;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded as ValidCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class MonitorRecovered extends BaseNotification
+class CertificateCheckSucceeded extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\MonitorRecovered */
+    /** @var \Spatie\UptimeMonitor\Events\CertificateCheckSucceeded */
     public $event;
 
     /**
@@ -24,8 +23,8 @@ class MonitorRecovered extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("{$this->event->monitor->url} has recovered.")
-            ->line("{$this->event->monitor->url} has recovered.");
+            ->subject("The certificate check for {$this->event->monitor->url} succeeded.")
+            ->line("The certificate check for {$this->event->monitor->url} succeeded.");
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -38,27 +37,13 @@ class MonitorRecovered extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("{$this->event->monitor->url} has recovered.")
+            ->content("The certificate check for {$this->event->monitor->url} succeeded.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    public function getMonitorProperties($extraProperties = []): array
-    {
-        $extraProperties = [
-            'Online since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
-        ];
-
-        return parent::getMonitorProperties($extraProperties);
-    }
-
-    public function isStillRelevant(): bool
-    {
-        return $this->event->monitor->uptime_status == UptimeStatus::UP;
-    }
-
-    public function setEvent(MonitorRecoveredEvent $event)
+    public function setEvent(ValidCertificateFoundEvent $event)
     {
         $this->event = $event;
 

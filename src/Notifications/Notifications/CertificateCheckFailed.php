@@ -5,12 +5,12 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Spatie\UptimeMonitor\Events\SslExpiresSoon as SoonExpiringSslCertificateFoundEvent;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed as InValidCertificateFoundEvent;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
-class SslExpiresSoon extends BaseNotification
+class CertificateCheckFailed extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\SslExpiresSoon */
+    /** @var \Spatie\UptimeMonitor\Events\CertificateCheckSucceeded */
     public $event;
 
     /**
@@ -22,8 +22,9 @@ class SslExpiresSoon extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->subject($this->getMessageText())
-            ->line($this->getMessageText());
+            ->error()
+            ->subject("The certificate check for {$this->event->monitor->url} failed.")
+            ->line("The certificate check for {$this->event->monitor->url} failed.");
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -35,18 +36,21 @@ class SslExpiresSoon extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->content($this->getMessageText())
+            ->error()
+            ->content("The certificate check for {$this->event->monitor->url} failed.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
     }
 
-    protected function getMessageText(): string
+    public function getMonitorProperties($properties = []): array
     {
-        return "The certificate for {$this->event->monitor->url} will expire in {$this->event->monitor->ssl_certificate_expiration_date->diffInDays()} days.";
+        $extraProperties = ['Failure reason' => $this->event->monitor->certificate_failure_reason];
+
+        return parent::getMonitorProperties($extraProperties);
     }
 
-    public function setEvent(SoonExpiringSslCertificateFoundEvent $event)
+    public function setEvent(InValidCertificateFoundEvent $event)
     {
         $this->event = $event;
 

@@ -3,12 +3,13 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Spatie\UptimeMonitor\Events\MonitorFailed;
+use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
 use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class MonitorFailedTest extends TestCase
+class UptimeCheckFailedTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
@@ -35,11 +36,11 @@ class MonitorFailedTest extends TestCase
             $monitors->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(MonitorFailed::class);
+                Event::assertNotFired(UptimeCheckFailed::class);
             }
         }
 
-        Event::assertFired(MonitorFailed::class, function ($event) {
+        Event::assertFired(UptimeCheckFailed::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
         });
     }
@@ -57,17 +58,17 @@ class MonitorFailedTest extends TestCase
             $monitors->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(MonitorFailed::class);
+                Event::assertNotFired(UptimeCheckFailed::class);
             }
         }
 
-        Event::assertFired(MonitorFailed::class);
+        Event::assertFired(UptimeCheckFailed::class);
 
         $this->resetEventAssertions();
 
         $monitors->checkUptime();
 
-        Event::assertNotFired(MonitorFailed::class);
+        Event::assertNotFired(UptimeCheckFailed::class);
 
         $this->resetEventAssertions();
 
@@ -75,7 +76,7 @@ class MonitorFailedTest extends TestCase
 
         $monitors->checkUptime();
 
-        Event::assertFired(MonitorFailed::class);
+        Event::assertFired(UptimeCheckFailed::class);
     }
 
     /** @test */
@@ -90,6 +91,6 @@ class MonitorFailedTest extends TestCase
 
         MonitorRepository::getForUptimeCheck()->checkUptime();
 
-        Event::assertFired(MonitorFailed::class);
+        Event::assertFired(UptimeCheckFailed::class);
     }
 }

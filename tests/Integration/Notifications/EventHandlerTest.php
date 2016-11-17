@@ -2,18 +2,18 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
-use Spatie\UptimeMonitor\Events\SslCheckFailed;
-use Spatie\UptimeMonitor\Events\MonitorRecovered as MonitorRecoveredEvent;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
+use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as UptimeCheckRecoveredEvent;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
-use Spatie\UptimeMonitor\Notifications\Notifications\SslCheckSucceeded as InvalidSslCertificateFoundNotification;
-use Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed;
-use Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered;
-use Spatie\UptimeMonitor\Notifications\Notifications\MonitorSucceeded;
+use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidCertificateFoundNotification;
+use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered;
+use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed;
+use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Events\MonitorSucceeded as MonitorSucceededEvent;
-use Spatie\UptimeMonitor\Events\MonitorFailed as MonitorFailedEvent;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded as UptimeCheckSucceededEvent;
+use Spatie\UptimeMonitor\Events\UptimeCheckFailed as UptimeCheckFailedEvent;
 use Notification;
 
 class EventHandlerTest extends TestCase
@@ -40,7 +40,7 @@ class EventHandlerTest extends TestCase
         $shouldSendNotification
     ) {
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.'.MonitorSucceeded::class,
+            'laravel-uptime-monitor.notifications.notifications.'.UptimeCheckSucceeded::class,
             ['slack']
         );
 
@@ -69,24 +69,24 @@ class EventHandlerTest extends TestCase
     public function eventClassDataProvider(): array
     {
         return [
-            [MonitorSucceededEvent::class, MonitorSucceeded::class, ['uptime_status' => UptimeStatus::UP], true],
-            [MonitorSucceededEvent::class, MonitorSucceeded::class, ['uptime_status' => UptimeStatus::DOWN], false],
-            [MonitorFailedEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::DOWN], true],
-            [MonitorFailedEvent::class, MonitorFailed::class, ['uptime_status' => UptimeStatus::UP], false],
-            [MonitorRecoveredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::UP], true],
-            [MonitorRecoveredEvent::class, MonitorRecovered::class, ['uptime_status' => UptimeStatus::DOWN], false],
+            [UptimeCheckSucceededEvent::class, UptimeCheckSucceeded::class, ['uptime_status' => UptimeStatus::UP], true],
+            [UptimeCheckSucceededEvent::class, UptimeCheckSucceeded::class, ['uptime_status' => UptimeStatus::DOWN], false],
+            [UptimeCheckFailedEvent::class, UptimeCheckFailed::class, ['uptime_status' => UptimeStatus::DOWN], true],
+            [UptimeCheckFailedEvent::class, UptimeCheckFailed::class, ['uptime_status' => UptimeStatus::UP], false],
+            [UptimeCheckRecoveredEvent::class, UptimeCheckRecovered::class, ['uptime_status' => UptimeStatus::UP], true],
+            [UptimeCheckRecoveredEvent::class, UptimeCheckRecovered::class, ['uptime_status' => UptimeStatus::DOWN], false],
         ];
     }
 
-    public function it_send_a_notification_when_the_invalid_ssl_certificate_event_is_fired()
+    public function it_send_a_notification_when_the_invalid_certificate_event_is_fired()
     {
         $monitor = factory(Monitor::class)->create();
 
-        event(new SslCheckFailed($monitor, 'fail reason'));
+        event(new CertificateCheckFailed($monitor, 'fail reason'));
 
         Notification::assertSentTo(
             new Notifiable(),
-            InvalidSslCertificateFoundNotification::class,
+            InvalidCertificateFoundNotification::class,
             function ($notification) use ($monitor) {
                 return $notification->event->monitor->id == $monitor->id;
             }
@@ -101,18 +101,18 @@ class EventHandlerTest extends TestCase
     public function it_send_notifications_to_the_channels_configured_in_the_config_file(array $configuredChannels)
     {
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.'.MonitorSucceeded::class,
+            'laravel-uptime-monitor.notifications.notifications.'.UptimeCheckSucceeded::class,
             $configuredChannels
         );
 
         $monitor = factory(Monitor::class)->create();
 
-        event(new MonitorSucceededEvent($monitor));
+        event(new UptimeCheckSucceededEvent($monitor));
 
 
         Notification::assertSentTo(
             new Notifiable(),
-            MonitorSucceeded::class,
+            UptimeCheckSucceeded::class,
             function ($notification, $usedChannels) use ($configuredChannels) {
                 return $usedChannels == $configuredChannels;
             }

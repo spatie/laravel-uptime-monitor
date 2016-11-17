@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -26,7 +26,7 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors that have not been checked yet',
+            'Not yet checked',
             $monitor->url,
         ]);
     }
@@ -52,23 +52,23 @@ class ListMonitorsCommandTest extends TestCase
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors that have failed',
+            'Uptime check failed',
             $monitor->url,
         ]);
     }
 
     /** @test */
-    public function it_can_show_monitors_that_have_detected_ssl_problems()
+    public function it_can_show_monitors_that_have_certificate_problems()
     {
         $monitor = factory(Monitor::class)->create([
-            'ssl_certificate_check_enabled' => true,
-            'ssl_certificate_status' => SslCertificateStatus::INVALID,
+            'certificate_check_enabled' => true,
+            'certificate_status' => CertificateStatus::INVALID,
         ]);
 
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors reporting SSL certificate problems',
+            'Certificate check failed',
             $monitor->url,
         ]);
     }
@@ -77,13 +77,13 @@ class ListMonitorsCommandTest extends TestCase
     public function it_can_show_disabled_monitors()
     {
         $monitor = factory(Monitor::class)->create([
-            'enabled' => false,
+            'uptime_check_enabled' => false,
         ]);
 
         Artisan::call('monitor:list');
 
         $this->seeInConsoleOutput([
-            'Monitors that have been disabled',
+            'Disabled monitors',
             $monitor->url,
         ]);
     }

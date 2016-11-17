@@ -2,10 +2,10 @@
 
 namespace Spatie\UptimeMonitor\Models\Traits;
 
-use Spatie\UptimeMonitor\Events\MonitorFailed;
+use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\MonitorRecovered;
-use Spatie\UptimeMonitor\Events\MonitorSucceeded;
+use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
@@ -28,7 +28,7 @@ trait SupportsUptimeCheck
 
     public function shouldCheckUptime() : bool
     {
-        if (! $this->enabled) {
+        if (! $this->uptime_check_enabled) {
             return false;
         }
 
@@ -50,18 +50,18 @@ trait SupportsUptimeCheck
     public function uptimeRequestSucceeded($responseHtml)
     {
         if (! str_contains($responseHtml, $this->look_for_string)) {
-            $this->uptimeTestFailed("String `{$this->look_for_string}` was not found on the response.");
+            $this->uptimeCheckFailed("String `{$this->look_for_string}` was not found on the response.");
         }
 
-        $this->uptimeTestSucceeded();
+        $this->uptimeCheckSucceeded();
     }
 
     public function uptimeRequestFailed(string $reason)
     {
-        $this->uptimeTestFailed($reason);
+        $this->uptimeCheckFailed($reason);
     }
 
-    public function uptimeTestSucceeded()
+    public function uptimeCheckSucceeded()
     {
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_failure_reason = '';
@@ -73,12 +73,12 @@ trait SupportsUptimeCheck
         $this->down_event_fired_on_date = null;
         $this->save();
 
-        $eventClass = ($wasFailing ? MonitorRecovered::class : MonitorSucceeded::class);
+        $eventClass = ($wasFailing ? UptimeCheckRecovered::class : UptimeCheckSucceeded::class);
 
         event(new $eventClass($this));
     }
 
-    public function uptimeTestFailed(string $reason)
+    public function uptimeCheckFailed(string $reason)
     {
         $this->uptime_status = UptimeStatus::DOWN;
         $this->uptime_check_times_failed_in_a_row++;
@@ -90,7 +90,7 @@ trait SupportsUptimeCheck
             $this->down_event_fired_on_date = Carbon::now();
             $this->save();
 
-            event(new MonitorFailed($this));
+            event(new UptimeCheckFailed($this));
         }
     }
 

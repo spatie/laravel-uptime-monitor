@@ -9,13 +9,13 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorSucceeded::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded::class => [],
 
-            \Spatie\UptimeMonitor\Notifications\Notifications\SslCheckFailed::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SslExpiresSoon::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SslCheckSucceeded::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckFailed::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateExpiresSoon::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded::class => [],
         ],
 
         /*

@@ -4,17 +4,17 @@ namespace Spatie\UptimeMonitor\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Presenters\MonitorPresenter;
-use Spatie\UptimeMonitor\Models\Traits\SupportsSslCertificateCheck;
+use Spatie\UptimeMonitor\Models\Traits\SupportsCertificateCheck;
 use Spatie\UptimeMonitor\Models\Traits\SupportsUptimeCheck;
 use Spatie\Url\Url;
 
 class Monitor extends Model
 {
     use SupportsUptimeCheck,
-        SupportsSslCertificateCheck,
+        SupportsCertificateCheck,
         MonitorPresenter;
 
     protected $guarded = [];
@@ -23,17 +23,19 @@ class Monitor extends Model
         'uptime_last_check_date',
         'uptime_status_last_change_date',
         'down_event_fired_on_date',
-        'ssl_certificate_expiration_date',
+        'certificate_expiration_date',
     ];
 
     protected $casts = [
-        'enabled' => 'boolean',
-        'ssl_certificate_check_enabled' => 'boolean',
+        'uptime_check_enabled' => 'boolean',
+        'certificate_check_enabled' => 'boolean',
     ];
 
     public function scopeEnabled($query)
     {
-        return $query->where('enabled', true);
+        return $query
+            ->where('uptime_check_enabled', true)
+            ->orWhere('certificate_check_enabled', true);
     }
 
     public function getUrlAttribute()
@@ -58,11 +60,11 @@ class Monitor extends Model
 
     public function isHealthy()
     {
-        if (in_array($this->uptime_status, [UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED])) {
+        if ($this->uptime_check_enabled && in_array($this->uptime_status, [UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED])) {
             return false;
         }
 
-        if ($this->ssl_certificate_check_enabled && $this->ssl_certificate_status === SslCertificateStatus::INVALID) {
+        if ($this->certificate_check_enabled && $this->certificate_status === CertificateStatus::INVALID) {
             return false;
         }
 
@@ -74,7 +76,8 @@ class Monitor extends Model
      */
     public function enable()
     {
-        $this->enabled = true;
+        $this->uptime_check_enabled = true;
+        $this->certificate_check_enabled = true;
 
         $this->save();
 
@@ -86,7 +89,8 @@ class Monitor extends Model
      */
     public function disable()
     {
-        $this->enabled = false;
+        $this->uptime_check_enabled = false;
+        $this->certificate_check_enabled = false;
 
         $this->save();
 

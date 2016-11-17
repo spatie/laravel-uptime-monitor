@@ -15,7 +15,11 @@ class MonitorTest extends TestCase
     {
         parent::setUp();
 
-        $this->monitor = factory(Monitor::class)->create(['url' => 'http://mysite.com']);
+        $this->monitor = factory(Monitor::class)->create([
+            'url' => 'http://mysite.com',
+            'uptime_check_enabled' => true,
+            'certificate_check_enabled' => true,
+        ]);
     }
 
     /** @test */
@@ -41,18 +45,18 @@ class MonitorTest extends TestCase
     /** @test */
     public function it_can_disable_and_enable_itself()
     {
-        $this->assertTrue($this->monitor->enabled);
-
         $this->monitor->disable();
 
         $this->monitor = $this->monitor->fresh();
 
-        $this->assertFalse($this->monitor->enabled);
+        $this->assertFalse($this->monitor->uptime_check_enabled);
+        $this->assertFalse($this->monitor->certificate_check_enabled);
 
         $this->monitor->enable();
 
         $this->monitor = $this->monitor->fresh();
 
-        $this->assertTrue($this->monitor->enabled);
+        $this->assertTrue($this->monitor->uptime_check_enabled);
+        $this->assertTrue($this->monitor->certificate_check_enabled);
     }
 }

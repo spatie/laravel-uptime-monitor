@@ -4,7 +4,7 @@ namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
-use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 
@@ -21,7 +21,9 @@ class MonitorRepository
     {
         $modelClass = static::determineMonitorModel();
 
-        return $modelClass::where('enabled', false)->get();
+        return $modelClass::where('uptime_check_enabled', false)
+            ->where('certificate_check_enabled', false)
+            ->get();
     }
 
     public static function getForUptimeCheck(): MonitorCollection
@@ -36,10 +38,10 @@ class MonitorRepository
         return new MonitorCollection($monitors);
     }
 
-    public static function getForSslCheck(): Collection
+    public static function getForCertificateCheck(): Collection
     {
         return self::query()
-            ->where('ssl_certificate_check_enabled', true)
+            ->where('certificate_check_enabled', true)
             ->get()
             ->sortByHost();
     }
@@ -54,19 +56,20 @@ class MonitorRepository
         ->sortByHost();
     }
 
-    public static function getFailing(): Collection
+    public static function getWithFailingUptimeCheck(): Collection
     {
         return self::query()
+            ->where('uptime_check_enabled', true)
             ->where('uptime_status', UptimeStatus::DOWN)
             ->get()
             ->sortByHost();
     }
 
-    public static function getWithSslProblems(): Collection
+    public static function getWithFailingCertificateCheck(): Collection
     {
         return self::query()
-            ->where('ssl_certificate_check_enabled', true)
-            ->where('ssl_certificate_status', SslCertificateStatus::INVALID)
+            ->where('certificate_check_enabled', true)
+            ->where('certificate_status', CertificateStatus::INVALID)
             ->get()
             ->sortByHost();
     }
@@ -84,7 +87,14 @@ class MonitorRepository
     public static function getUnchecked(): Collection
     {
         return self::query()
-            ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED)
+            ->whereColumn([
+                ['uptime_check_enabled', '=', true],
+                ['uptime_status', '=', UptimeStatus::NOT_YET_CHECKED]
+            ])
+            ->orWhereColumn([
+                ['certificate_check_enabled', '=', true],
+                ['certificate_status', '=', CertificateStatus::NOT_YET_CHECKED]
+            ])
             ->get()
             ->sortByHost();
     }

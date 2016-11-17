@@ -25,12 +25,6 @@ class DisableMonitor extends BaseCommand
             return;
         }
 
-        if (! $monitor->enabled) {
-            $this->warn("The monitor for url `{$url}` was already disabled.");
-
-            return;
-        }
-
         $monitor->disable();
 
         $this->info("The monitor for url `{$url}` is now disabled");

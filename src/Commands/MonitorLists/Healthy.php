@@ -6,7 +6,7 @@ use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
-class HealthyMonitors
+class Healthy
 {
     public static function display()
     {
@@ -26,16 +26,16 @@ class HealthyMonitors
 
             $onlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
 
-            if ($monitor->ssl_certificate_check_enabled) {
-                $sslCertificateFound = $monitor->sslCertificateStatusAsEmoji;
-                $sslCertificateExpirationDate = $monitor->formattedSslCertificateExpirationDate;
-                $sslCertificateIssuer = $monitor->ssl_certificate_issuer;
+            if ($monitor->certificate_check_enabled) {
+                $certificateFound = $monitor->certificateStatusAsEmoji;
+                $certificateExpirationDate = $monitor->formattedCertificateExpirationDate;
+                $certificateIssuer = $monitor->certificate_issuer;
             }
 
-            return compact('url', 'reachable', 'onlineSince', 'sslCertificateFound', 'sslCertificateExpirationDate', 'sslCertificateIssuer');
+            return compact('url', 'reachable', 'onlineSince', 'certificateFound', 'certificateExpirationDate', 'certificateIssuer');
         });
 
-        $titles = ['URL', 'Reachable', 'Online since', 'SSL Certifcate', 'SSL Expiration date', 'SSL Issuer'];
+        $titles = ['URL', 'Uptime check', 'Online since', 'Certificate Certificate check', 'Certificate Expiration date', 'Certificate Issuer'];
 
         ConsoleOutput::table($titles, $rows);
         ConsoleOutput::line('');

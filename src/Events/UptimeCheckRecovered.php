@@ -5,7 +5,7 @@ namespace Spatie\UptimeMonitor\Events;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\UptimeMonitor\Models\Monitor;
 
-class MonitorSucceeded implements ShouldQueue
+class UptimeCheckRecovered implements ShouldQueue
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     public $monitor;

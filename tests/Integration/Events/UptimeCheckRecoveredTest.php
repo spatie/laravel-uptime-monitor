@@ -2,13 +2,13 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Spatie\UptimeMonitor\Events\MonitorRecovered;
+use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
 use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class MonitorRecoveredTest extends TestCase
+class UptimeCheckRecoveredTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
@@ -39,11 +39,11 @@ class MonitorRecoveredTest extends TestCase
 
         $this->server->up();
 
-        Event::assertNotFired(MonitorRecovered::class);
+        Event::assertNotFired(UptimeCheckRecovered::class);
 
         $monitors->checkUptime();
 
-        Event::assertFired(MonitorRecovered::class, function ($event) {
+        Event::assertFired(UptimeCheckRecovered::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
         });
     }

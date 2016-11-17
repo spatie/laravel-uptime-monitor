@@ -49,7 +49,7 @@ class SupportsUptimeCheckTest extends TestCase
     /** @test */
     public function it_will_determine_that_a_monitor_that_is_not_enabled_must_never_be_checked()
     {
-        $this->monitor->enabled = false;
+        $this->monitor->uptime_check_enabled = false;
         $this->monitor->save();
 
         foreach (range(1, 10) as $index) {
