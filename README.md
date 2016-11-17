@@ -44,7 +44,7 @@ return [
         'location' => '',
 
         /*
-         * To keep reminding you that a site is down down notifications
+         * To keep reminding you that a site is down notifications
          * will be resent every given amount of minutes.
          */
         'resend_down_notification_every_minutes' => 60,
@@ -67,8 +67,8 @@ return [
     'uptime_check' => [
 
         /*
-         * An uptime check will be performed if the last check was performed more that the
-         * given amount of minutes ago. If you change this setting you have to manually
+         * An uptime check will be performed if the last check was performed more than the
+         * given number of minutes ago. If you change this setting you have to manually
          * update the `uptime_check_interval_in_minutes` value of your existing sites.
          *
          * When a site is down we'll check the uptime every time `sites:check-uptime` runs
