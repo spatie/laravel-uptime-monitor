@@ -78,7 +78,7 @@ class MonitorRepositoryTest extends TestCase
 
         $monitors = MonitorRepository::getForSslCheck();
 
-        $this->assertEquals(['http://site4.com'], $this->getMonitorUrls($monitors));
+        $this->assertEquals(['http://site2.com', 'http://site4.com'], $this->getMonitorUrls($monitors));
     }
 
     /** @test */
