@@ -3,6 +3,8 @@
 namespace Spatie\UptimeMonitor\Test\Integration;
 
 use Illuminate\Support\Collection;
+use Spatie\UptimeMonitor\Models\Enums\SslCertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\SslCertificateStwatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
@@ -77,6 +79,49 @@ class MonitorRepositoryTest extends TestCase
         $monitors = MonitorRepository::getForSslCheck();
 
         $this->assertEquals(['http://site4.com'], $this->getMonitorUrls($monitors));
+    }
+
+    /** @test */
+    public function it_can_get_all_monitors_with_ssl_problems()
+    {
+        Monitor::create([
+            'url' => 'http://site1.com',
+            'enabled' => false,
+            'check_ssl_certificate' => false,
+            'ssl_certificate_status' => SslCertificateStatus::INVALID
+        ]);
+
+        Monitor::create([
+            'url' => 'http://site2.com',
+            'enabled' => true,
+            'check_ssl_certificate' => false,
+            'ssl_certificate_status' => SslCertificateStatus::INVALID
+        ]);
+
+        Monitor::create([
+            'url' => 'http://site3.com',
+            'enabled' => true,
+            'check_ssl_certificate' => true,
+            'ssl_certificate_status' => SslCertificateStatus::INVALID
+        ]);
+
+        Monitor::create([
+            'url' => 'http://site4.com',
+            'enabled' => true,
+            'check_ssl_certificate' => true,
+            'ssl_certificate_status' => SslCertificateStatus::VALID
+        ]);
+
+        Monitor::create([
+            'url' => 'http://site5.com',
+            'enabled' => true,
+            'check_ssl_certificate' => true,
+            'ssl_certificate_status' => SslCertificateStatus::NOT_YET_CHECKED
+        ]);
+
+        $monitors = MonitorRepository::getWithSslProblems();
+
+        $this->assertEquals(['http://site3.com'], $this->getMonitorUrls($monitors));
     }
 
     protected function getMonitorUrls(Collection $monitors)
