@@ -23,8 +23,8 @@ class CertificateCheckSucceeded extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("The ssl certificate check for {$this->event->monitor->url} succeeded.")
-            ->line("The ssl certificate check for {$this->event->monitor->url} succeeded.");
+            ->subject("The certificate check for {$this->event->monitor->url} succeeded.")
+            ->line("The certificate check for {$this->event->monitor->url} succeeded.");
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -37,7 +37,7 @@ class CertificateCheckSucceeded extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("The ssl certificate check for {$this->event->monitor->url} succeeded.")
+            ->content("The certificate check for {$this->event->monitor->url} succeeded.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
