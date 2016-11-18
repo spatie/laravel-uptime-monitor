@@ -24,7 +24,7 @@ class CheckCertificates extends BaseCommand
             });
         }
 
-        $this->comment('Start checking the certificates of '.count($monitors).' sites...');
+        $this->comment('Start checking the certificates of '.count($monitors).' monitors...');
 
         $monitors->each(function (Monitor $monitor) {
             $this->info("Checking certificate of {$monitor->url}");

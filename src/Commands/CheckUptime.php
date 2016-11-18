@@ -22,7 +22,7 @@ class CheckUptime extends BaseCommand
             });
         }
 
-        $this->comment('Start checking the uptime of '.count($monitors).' sites...');
+        $this->comment('Start checking the uptime of '.count($monitors).' monitors...');
 
         $monitors->checkUptime();
 
