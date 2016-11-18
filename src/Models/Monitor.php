@@ -22,7 +22,7 @@ class Monitor extends Model
     protected $dates = [
         'uptime_last_check_date',
         'uptime_status_last_change_date',
-        'down_event_fired_on_date',
+        'uptime_check_failed_event_fired_on_date',
         'certificate_expiration_date',
     ];
 
