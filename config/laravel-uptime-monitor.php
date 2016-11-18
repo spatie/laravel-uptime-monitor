@@ -19,14 +19,14 @@ return [
         ],
 
         /*
-         * The location from where you are running this Laravel application. This location will be mentioned
-         * in all notifications that will be sent.
+         * The location from where you are running this Laravel application. This location will be 
+         * mentioned in all notifications that will be sent.
          */
         'location' => '',
 
         /*
-         * To keep reminding you that a site is down notifications
-         * will be resent every given amount of minutes.
+         * To keep reminding you that a site is down, notifications
+         * will be resent every given number of minutes.
          */
         'resend_down_notification_every_minutes' => 60,
 
@@ -94,7 +94,7 @@ return [
 
     /*
      * To add or modify behaviour to the Site model you can specify your
-     * own model here. They only requirement is that it should extend
+     * own model here. The only requirement is that it should extend
      * `Spatie\UptimeMonitor\Test\Models\Site`.
      */
      'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
