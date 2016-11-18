@@ -110,7 +110,7 @@ class MonitorRepository
     {
         $model = static::determineMonitorModel();
 
-        return $model::where('url', (string)$url)->first();
+        return $model::where('url', (string) $url)->first();
     }
 
     protected static function query()
@@ -124,7 +124,7 @@ class MonitorRepository
     {
         $monitorModel = config('laravel-uptime-monitor.monitor_model') ?? Monitor::class;
 
-        if (!is_a($monitorModel, Monitor::class, true)) {
+        if (! is_a($monitorModel, Monitor::class, true)) {
             throw InvalidConfiguration::modelIsNotValid($monitorModel);
         }
 
