@@ -24,8 +24,8 @@ class UptimeCheckRecovered extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("{$this->event->monitor->url} has recovered.")
-            ->line("{$this->event->monitor->url} has recovered.");
+            ->subject("The uptime check for {$this->event->monitor->url} has recovered.")
+            ->line("The uptime check for {$this->event->monitor->url} has recovered.");
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -38,7 +38,7 @@ class UptimeCheckRecovered extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content("{$this->event->monitor->url} has recovered.")
+            ->content("The uptime check for {$this->event->monitor->url} has recovered.")
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
