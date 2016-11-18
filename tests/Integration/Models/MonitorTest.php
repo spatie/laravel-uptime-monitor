@@ -58,7 +58,7 @@ class MonitorTest extends TestCase
 
         $this->assertTrue($this->monitor->uptime_check_enabled);
 
-        //it will not enable the certifcate check for a non-https site.
+        //it will not enable the certificate check for a non-https site.
         $this->assertFalse($this->monitor->certificate_check_enabled);
     }
 }
