@@ -35,7 +35,7 @@ class Healthy
             return compact('url', 'reachable', 'onlineSince', 'certificateFound', 'certificateExpirationDate', 'certificateIssuer');
         });
 
-        $titles = ['URL', 'Uptime check', 'Online since', 'Certificate Certificate check', 'Certificate Expiration date', 'Certificate Issuer'];
+        $titles = ['URL', 'Uptime check', 'Online since', 'Certificate check', 'Certificate Expiration date', 'Certificate Issuer'];
 
         ConsoleOutput::table($titles, $rows);
         ConsoleOutput::line('');
