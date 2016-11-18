@@ -28,24 +28,24 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorFailed::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorRecovered::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\MonitorSucceeded::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded::class => [],
 
-            \Spatie\UptimeMonitor\Notifications\Notifications\SslCheckFailed::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SslExpiresSoon::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\SslCheckSucceeded::class => [],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckFailed::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateExpiresSoon::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded::class => [],
         ],
 
         /*
-         * The location from where you are running this Laravel application. This location will be mentioned
-         * in all notifications that will be sent.
+         * The location from where you are running this Laravel application. This location will be 
+         * mentioned in all notifications that will be sent.
          */
         'location' => '',
 
         /*
-         * To keep reminding you that a site is down notifications
-         * will be resent every given amount of minutes.
+         * To keep reminding you that a site is down, notifications
+         * will be resent every given number of minutes.
          */
         'resend_uptime_check_failed_notification_every_minutes' => 60,
 
@@ -85,13 +85,13 @@ return [
 
         /*
          * The uptime check for a site will fail if site does not respond after the
-         * given amount of seconds.
+         * given number of seconds.
          */
         'timeout_per_site' => 10,
 
         /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
-         * the given amount of checks have consecutively failed for a site.
+         * the given number of checks have consecutively failed for a site.
          */
         'fire_monitor_failed_event_after_consecutive_failures' => 2,
 
@@ -106,14 +106,14 @@ return [
         /*
          * The `Spatie\UptimeMonitor\Events\SslExpiresSoon` event will fire
          * when a certificate is found whose expiration date is in
-         * the next amount given days.
+         * the next number of given days.
          */
         'fire_expiring_soon_event_if_certificate_expires_within_days' => 10,
     ],
 
     /*
      * To add or modify behaviour to the Site model you can specify your
-     * own model here. They only requirement is that it should extend
+     * own model here. The only requirement is that it should extend
      * `Spatie\UptimeMonitor\Test\Models\Site`.
      */
      'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
@@ -139,7 +139,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-To run the tests you'll have to start the included node based server first in a seperate terminal window.
+To run the tests you'll have to start the included node based server first in a separate terminal window.
 
 ```bash
 cd tests/server
