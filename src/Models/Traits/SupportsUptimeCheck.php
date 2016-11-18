@@ -64,7 +64,7 @@ trait SupportsUptimeCheck
     public function uptimeCheckSucceeded()
     {
         $this->uptime_status = UptimeStatus::UP;
-        $this->uptime_failure_reason = '';
+        $this->uptime_check_failure_reason = '';
 
         $wasFailing = ! is_null($this->down_event_fired_on_date);
 
@@ -83,7 +83,7 @@ trait SupportsUptimeCheck
         $this->uptime_status = UptimeStatus::DOWN;
         $this->uptime_check_times_failed_in_a_row++;
         $this->uptime_last_check_date = Carbon::now();
-        $this->uptime_failure_reason = $reason;
+        $this->uptime_check_failure_reason = $reason;
         $this->save();
 
         if ($this->shouldFireDownEvent()) {

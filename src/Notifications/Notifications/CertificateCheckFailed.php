@@ -45,7 +45,7 @@ class CertificateCheckFailed extends BaseNotification
 
     public function getMonitorProperties($properties = []): array
     {
-        $extraProperties = ['Failure reason' => $this->event->monitor->certificate_failure_reason];
+        $extraProperties = ['Failure reason' => $this->event->monitor->certificate_check_failure_reason];
 
         return parent::getMonitorProperties($extraProperties);
     }

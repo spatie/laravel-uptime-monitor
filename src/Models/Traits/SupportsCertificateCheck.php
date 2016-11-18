@@ -42,7 +42,7 @@ trait SupportsCertificateCheck
         $this->certificate_status = CertificateStatus::INVALID;
         $this->certificate_expiration_date = null;
         $this->certificate_issuer = '';
-        $this->certificate_failure_reason = $exception->getMessage();
+        $this->certificate_check_failure_reason = $exception->getMessage();
         $this->save();
 
         event(new CertificateCheckFailed($this, $exception->getMessage()));

@@ -46,20 +46,20 @@ trait MonitorPresenter
 
     public function getChunkedLastFailureReasonAttribute(): string
     {
-        if ($this->uptime_failure_reason == '') {
+        if ($this->uptime_check_failure_reason == '') {
             return '';
         }
 
-        return chunk_split($this->uptime_failure_reason, 30, "\n");
+        return chunk_split($this->uptime_check_failure_reason, 30, "\n");
     }
 
     public function getchunkedLastCertificateCheckFailureReasonAttribute(): string
     {
-        if ($this->certificate_failure_reason == '') {
+        if ($this->certificate_check_failure_reason == '') {
             return '';
         }
 
-        return chunk_split($this->certificate_failure_reason, 60, "\n");
+        return chunk_split($this->certificate_check_failure_reason, 60, "\n");
     }
 
     protected function formatDate(string $attributeName): string
