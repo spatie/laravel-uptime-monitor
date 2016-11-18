@@ -71,7 +71,7 @@ class UptimeCheckFailedTest extends TestCase
 
         $this->resetEventAssertions();
 
-        $this->progressMinutes(config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes'));
+        $this->progressMinutes(config('laravel-uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes'));
 
         $monitors->checkUptime();
 

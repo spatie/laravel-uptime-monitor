@@ -104,11 +104,11 @@ trait SupportsUptimeCheck
             return false;
         }
 
-        if (config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes') === 0) {
+        if (config('laravel-uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes') === 0) {
             return false;
         }
 
-        if ($this->uptime_check_failed_event_fired_on_date->diffInMinutes() >= config('laravel-uptime-monitor.notifications.resend_down_notification_every_minutes')) {
+        if ($this->uptime_check_failed_event_fired_on_date->diffInMinutes() >= config('laravel-uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes')) {
             return true;
         }
 

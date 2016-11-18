@@ -47,7 +47,7 @@ return [
          * To keep reminding you that a site is down notifications
          * will be resent every given amount of minutes.
          */
-        'resend_down_notification_every_minutes' => 60,
+        'resend_uptime_check_failed_notification_every_minutes' => 60,
 
         'mail' => [
             'to' => 'your@email.com',
