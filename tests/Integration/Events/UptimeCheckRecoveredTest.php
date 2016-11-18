@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
+use Carbon\Carbon;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
@@ -34,17 +35,26 @@ class UptimeCheckRecoveredTest extends TestCase
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $monitors->checkUptime();
         }
-
         $this->monitor = $this->monitor->fresh();
 
+        $downTimeLengthInMinutes = 10;
+        $this->progressMinutes($downTimeLengthInMinutes);
         $this->server->up();
 
         Event::assertNotFired(UptimeCheckRecovered::class);
 
         $monitors->checkUptime();
 
-        Event::assertFired(UptimeCheckRecovered::class, function ($event) {
-            return $event->monitor->id === $this->monitor->id;
+        Event::assertFired(UptimeCheckRecovered::class, function ($event) use ($downTimeLengthInMinutes) {
+            if ($event->monitor->id !== $this->monitor->id) {
+                return false;
+            };
+
+            if ($event->uptimeCheckStartedFailingOnDate->toDayDateTimeString() !== Carbon::now()->subMinutes($downTimeLengthInMinutes)->toDayDateTimeString()) {
+                return false;
+            }
+
+            return true;
         });
     }
 }

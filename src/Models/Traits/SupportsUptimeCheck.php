@@ -67,6 +67,7 @@ trait SupportsUptimeCheck
         $this->uptime_check_failure_reason = '';
 
         $wasFailing = !is_null($this->uptime_check_failed_event_fired_on_date);
+        $lastStatusChangeDate = $this->uptime_status_last_change_date ? clone $this->uptime_status_last_change_date : null;
 
         $this->uptime_check_times_failed_in_a_row = 0;
         $this->uptime_last_check_date = Carbon::now();
@@ -74,7 +75,7 @@ trait SupportsUptimeCheck
         $this->save();
 
         if ($wasFailing) {
-            $this->fireRecoveredEvent();
+            event(new UptimeCheckRecovered($this, $lastStatusChangeDate));
             return;
         }
 
@@ -95,16 +96,6 @@ trait SupportsUptimeCheck
 
             event(new UptimeCheckFailed($this));
         }
-    }
-
-    protected function fireRecoveredEvent()
-    {
-        if ($this->uptime_status_last_change_date) {
-
-            $uptimeCheckStartedFailingOnDate = clone $this->uptime_status_last_change_date;
-        }
-
-        event(new UptimeCheckRecovered($this, $uptimeCheckStartedFailingOnDate));
     }
 
     protected function shouldFireUptimeCheckFailedEvent(): bool

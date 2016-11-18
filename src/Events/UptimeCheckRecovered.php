@@ -14,7 +14,7 @@ class UptimeCheckRecovered implements ShouldQueue
     /**
      * @var \Spatie\UptimeMonitor\Events\Carbon
      */
-    protected $uptimeCheckStartedFailingOnDate;
+    public $uptimeCheckStartedFailingOnDate;
 
     public function __construct(Monitor $monitor, Carbon $uptimeCheckStartedFailingOnDate = null)
     {
