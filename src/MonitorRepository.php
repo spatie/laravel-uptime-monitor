@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
@@ -53,7 +54,7 @@ class MonitorRepository
             ->filter(function (Monitor $monitor) {
                 return $monitor->isHealthy();
             })
-        ->sortByHost();
+            ->sortByHost();
     }
 
     public static function getWithFailingUptimeCheck(): Collection
@@ -86,17 +87,18 @@ class MonitorRepository
 
     public static function getUnchecked(): Collection
     {
-        return self::query()
-            ->whereColumn([
-                ['uptime_check_enabled', '=', true],
-                ['uptime_status', '=', UptimeStatus::NOT_YET_CHECKED],
-            ])
-            ->orWhereColumn([
-                ['certificate_check_enabled', '=', true],
-                ['certificate_status', '=', CertificateStatus::NOT_YET_CHECKED],
-            ])
-            ->get()
-            ->sortByHost();
+        $modelClass = static::determineMonitorModel();
+
+        return $modelClass::where(function (Builder $query) {
+            $query
+                ->where('uptime_check_enabled', true)
+                ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
+        })->orWhere(function (Builder $query) {
+            $query
+                ->where('uptime_check_enabled', true)
+                ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
+        })->get()
+        ->sortByHost();
     }
 
     /**
@@ -108,7 +110,7 @@ class MonitorRepository
     {
         $model = static::determineMonitorModel();
 
-        return $model::where('url', (string) $url)->first();
+        return $model::where('url', (string)$url)->first();
     }
 
     protected static function query()
@@ -122,7 +124,7 @@ class MonitorRepository
     {
         $monitorModel = config('laravel-uptime-monitor.monitor_model') ?? Monitor::class;
 
-        if (! is_a($monitorModel, Monitor::class, true)) {
+        if (!is_a($monitorModel, Monitor::class, true)) {
             throw InvalidConfiguration::modelIsNotValid($monitorModel);
         }
 
