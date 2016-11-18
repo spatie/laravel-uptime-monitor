@@ -28,7 +28,7 @@ trait SupportsUptimeCheck
 
     public function shouldCheckUptime() : bool
     {
-        if (! $this->uptime_check_enabled) {
+        if (!$this->uptime_check_enabled) {
             return false;
         }
 
@@ -49,7 +49,7 @@ trait SupportsUptimeCheck
 
     public function uptimeRequestSucceeded($responseHtml)
     {
-        if (! str_contains($responseHtml, $this->look_for_string)) {
+        if (!str_contains($responseHtml, $this->look_for_string)) {
             $this->uptimeCheckFailed("String `{$this->look_for_string}` was not found on the response.");
         }
 
@@ -66,16 +66,19 @@ trait SupportsUptimeCheck
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_check_failure_reason = '';
 
-        $wasFailing = ! is_null($this->uptime_check_failed_event_fired_on_date);
+        $wasFailing = !is_null($this->uptime_check_failed_event_fired_on_date);
 
         $this->uptime_check_times_failed_in_a_row = 0;
         $this->uptime_last_check_date = Carbon::now();
         $this->uptime_check_failed_event_fired_on_date = null;
         $this->save();
 
-        $eventClass = ($wasFailing ? UptimeCheckRecovered::class : UptimeCheckSucceeded::class);
+        if ($wasFailing) {
+            $this->fireRecoveredEvent();
+            return;
+        }
 
-        event(new $eventClass($this));
+        event(new UptimeCheckSucceeded($this));
     }
 
     public function uptimeCheckFailed(string $reason)
@@ -86,7 +89,7 @@ trait SupportsUptimeCheck
         $this->uptime_check_failure_reason = $reason;
         $this->save();
 
-        if ($this->shouldFireDownEvent()) {
+        if ($this->shouldFireUptimeCheckFailedEvent()) {
             $this->uptime_check_failed_event_fired_on_date = Carbon::now();
             $this->save();
 
@@ -94,7 +97,17 @@ trait SupportsUptimeCheck
         }
     }
 
-    protected function shouldFireDownEvent(): bool
+    protected function fireRecoveredEvent()
+    {
+        if ($this->uptime_status_last_change_date) {
+
+            $uptimeCheckStartedFailingOnDate = clone $this->uptime_status_last_change_date;
+        }
+
+        event(new UptimeCheckRecovered($this, $uptimeCheckStartedFailingOnDate));
+    }
+
+    protected function shouldFireUptimeCheckFailedEvent(): bool
     {
         if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures')) {
             return true;
