@@ -48,7 +48,7 @@ class UptimeCheckRecovered extends BaseNotification
     {
         $extraProperties = [
             'Back online since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
-            'Offline period length' => $this->event
+            'Offline period length' => $this->event,
         ];
 
         if ($failureStartDate = $this->event->uptimeCheckStartedFailingOnDate) {

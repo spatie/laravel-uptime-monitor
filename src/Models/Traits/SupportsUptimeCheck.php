@@ -28,7 +28,7 @@ trait SupportsUptimeCheck
 
     public function shouldCheckUptime() : bool
     {
-        if (!$this->uptime_check_enabled) {
+        if (! $this->uptime_check_enabled) {
             return false;
         }
 
@@ -49,7 +49,7 @@ trait SupportsUptimeCheck
 
     public function uptimeRequestSucceeded($responseHtml)
     {
-        if (!str_contains($responseHtml, $this->look_for_string)) {
+        if (! str_contains($responseHtml, $this->look_for_string)) {
             $this->uptimeCheckFailed("String `{$this->look_for_string}` was not found on the response.");
         }
 
@@ -66,7 +66,7 @@ trait SupportsUptimeCheck
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_check_failure_reason = '';
 
-        $wasFailing = !is_null($this->uptime_check_failed_event_fired_on_date);
+        $wasFailing = ! is_null($this->uptime_check_failed_event_fired_on_date);
         $lastStatusChangeDate = $this->uptime_status_last_change_date ? clone $this->uptime_status_last_change_date : null;
 
         $this->uptime_check_times_failed_in_a_row = 0;
@@ -76,6 +76,7 @@ trait SupportsUptimeCheck
 
         if ($wasFailing) {
             event(new UptimeCheckRecovered($this, $lastStatusChangeDate));
+
             return;
         }
 
