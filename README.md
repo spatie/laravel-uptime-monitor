@@ -62,6 +62,11 @@ return [
          * notifiable will use the variables specified in this config file.
          */
         'notifiable' => \Spatie\UptimeMonitor\Notifications\Notifiable::class,
+        
+        /**
+         * The date format used in notifications.
+         */
+        'date_format' => 'd/m/Y',
     ],
 
     'uptime_check' => [

@@ -18,11 +18,6 @@ return [
             \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded::class => [],
         ],
 
-        /**
-         * The date format used in notifications.
-         */
-        'date_format' => 'd/m/Y',
-
         /*
          * The location from where you are running this Laravel application. This location will be
          * mentioned in all notifications that will be sent.
@@ -48,6 +43,11 @@ return [
          * notifiable will use the variables specified in this config file.
          */
         'notifiable' => \Spatie\UptimeMonitor\Notifications\Notifiable::class,
+
+        /**
+         * The date format used in notifications.
+         */
+        'date_format' => 'd/m/Y',
     ],
 
     'uptime_check' => [
