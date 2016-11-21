@@ -46,7 +46,7 @@ class UptimeCheckFailed extends BaseNotification
 
     public function getMonitorProperties($extraProperties = []): array
     {
-        $since = "Since {$this->event->monitor->formattedLastUpdatedStatusChangeDate('H:i')}";
+        $since = "Since {$this->event->downtimePeriod->startDateTime->format('H:i')}";
         $date = $this->event->monitor->formattedLastUpdatedStatusChangeDate();
 
         $extraProperties = [
