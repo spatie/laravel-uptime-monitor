@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 trait MonitorPresenter
 {
-    public function getReachableAsEmojiAttribute(): string
+    public function getUptimeStatusAsEmojiAttribute(): string
     {
         if ($this->uptime_status === UptimeStatus::UP) {
             return Emoji::ok();
@@ -21,7 +21,7 @@ trait MonitorPresenter
         return '';
     }
 
-    public function getcertificateStatusAsEmojiAttribute(): string
+    public function getCertificateStatusAsEmojiAttribute(): string
     {
         if ($this->certificate_status === CertificateStatus::VALID) {
             return Emoji::ok();
@@ -39,7 +39,7 @@ trait MonitorPresenter
         return $this->formatDate('uptime_status_last_change_date');
     }
 
-    public function getformattedCertificateExpirationDateAttribute(): string
+    public function getFormattedCertificateExpirationDateAttribute(): string
     {
         return $this->formatDate('certificate_expiration_date');
     }
@@ -53,7 +53,7 @@ trait MonitorPresenter
         return chunk_split($this->uptime_check_failure_reason, 30, "\n");
     }
 
-    public function getchunkedLastCertificateCheckFailureReasonAttribute(): string
+    public function getChunkedLastCertificateCheckFailureReasonAttribute(): string
     {
         if ($this->certificate_check_failure_reason == '') {
             return '';

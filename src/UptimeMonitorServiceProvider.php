@@ -11,7 +11,6 @@ use Spatie\UptimeMonitor\Commands\DeleteMonitor;
 use Spatie\UptimeMonitor\Commands\DisableMonitor;
 use Spatie\UptimeMonitor\Commands\EnableMonitor;
 use Spatie\UptimeMonitor\Commands\ListMonitors;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class UptimeMonitorServiceProvider extends ServiceProvider
@@ -30,7 +29,6 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         }
 
         if (! class_exists('CreateSitesTable')) {
-            // Publish the migration
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
@@ -65,11 +63,5 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             'command.monitor:disable',
             'command.monitor:list',
         ]);
-
-        Collection::macro('sortByHost', function () {
-            return $this->sortBy(function (Monitor $monitor) {
-                return $monitor->url->getHost();
-            });
-        });
     }
 }

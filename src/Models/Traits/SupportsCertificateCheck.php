@@ -61,7 +61,7 @@ trait SupportsCertificateCheck
         }
 
         if ($this->certificate_status === CertificateStatus::INVALID) {
-            $reason = 'Unknown reason';
+            $reason = 'Unknown';
 
             if ($certificate->appliesToUrl($this->url)) {
                 $reason = "Certificate does not apply to {$this->url} but only to these domains: ".implode(',', $certificate->getAdditionalDomains());
