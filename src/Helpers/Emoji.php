@@ -13,4 +13,9 @@ class Emoji
     {
         return "\u{274C}";
     }
+
+    public static function rightWardsArrow(): string
+    {
+        return "\u{27A1}";
+    }
 }

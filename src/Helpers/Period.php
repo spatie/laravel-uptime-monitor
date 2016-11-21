@@ -31,5 +31,15 @@ class Period
         return $interval->format('%hh %im');
     }
 
+    public function toText(): string
+    {
+        $configuredDateFormat = config('laravel-uptime-monitor.notifications.date_format');
 
+        return
+            $this->startDateTime->format('H:i') . " "
+            . ($this->startDateTime->isToday() ? "" : "on {$this->startDateTime->format($configuredDateFormat)} ")
+            . Emoji::rightWardsArrow() . " "
+            . $this->endDateTime->format('H:i')
+            . ($this->endDateTime->isToday() ? '' : " on {$this->endDateTime->format($configuredDateFormat)}");
+    }
 }
