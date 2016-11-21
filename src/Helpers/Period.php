@@ -8,10 +8,10 @@ use Spatie\UptimeMonitor\Exceptions\InvalidPeriod;
 class Period
 {
     /** @var \Carbon\Carbon */
-    protected $startDateTime;
+    public $startDateTime;
 
     /** @var \Carbon\Carbon */
-    protected $endDateTime;
+    public $endDateTime;
 
     public function __construct(Carbon $startDateTime, Carbon $endDateTime)
     {

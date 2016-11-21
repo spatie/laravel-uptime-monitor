@@ -47,12 +47,12 @@ class UptimeCheckRecoveredTest extends TestCase
 
         $monitors->checkUptime();
 
-        Event::assertFired(UptimeCheckRecovered::class, function ($event) use ($downTimeLengthInMinutes) {
+        Event::assertFired(UptimeCheckRecovered::class, function (UptimeCheckRecovered $event) use ($downTimeLengthInMinutes) {
             if ($event->monitor->id !== $this->monitor->id) {
                 return false;
             }
 
-            if ($event->uptimeCheckStartedFailingOnDate->toDayDateTimeString() !== Carbon::now()->subMinutes($downTimeLengthInMinutes)->toDayDateTimeString()) {
+            if ($event->downtimePeriod->startDateTime->toDayDateTimeString() !== Carbon::now()->subMinutes($downTimeLengthInMinutes)->toDayDateTimeString()) {
                 return false;
             }
 

@@ -2,8 +2,8 @@
 
 namespace Spatie\UptimeMonitor\Events;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Models\Monitor;
 
 class UptimeCheckRecovered implements ShouldQueue
@@ -12,14 +12,14 @@ class UptimeCheckRecovered implements ShouldQueue
     public $monitor;
 
     /**
-     * @var \Spatie\UptimeMonitor\Events\Carbon
+     * @var \Spatie\UptimeMonitor\Helpers\Period
      */
-    public $uptimeCheckStartedFailingOnDate;
+    public $downtimePeriod;
 
-    public function __construct(Monitor $monitor, Carbon $uptimeCheckStartedFailingOnDate = null)
+    public function __construct(Monitor $monitor, Period $downtimePeriod)
     {
         $this->monitor = $monitor;
 
-        $this->uptimeCheckStartedFailingOnDate = $uptimeCheckStartedFailingOnDate;
+        $this->downtimePeriod = $downtimePeriod;
     }
 }

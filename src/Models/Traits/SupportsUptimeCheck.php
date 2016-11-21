@@ -6,6 +6,7 @@ use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Carbon\Carbon;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
+use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
@@ -82,7 +83,9 @@ trait SupportsUptimeCheck
         $this->save();
 
         if ($wasFailing) {
-            event(new UptimeCheckRecovered($this, $lastStatusChangeDate));
+            $downtimePeriod = new Period($lastStatusChangeDate, $this->uptime_last_check_date);
+
+            event(new UptimeCheckRecovered($this, $downtimePeriod));
 
             return;
         }
