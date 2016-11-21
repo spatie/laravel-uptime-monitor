@@ -13,9 +13,9 @@ use Spatie\Url\Url;
 
 class Monitor extends Model
 {
-    use SupportsUptimeCheck,
-        SupportsCertificateCheck,
-        MonitorPresenter;
+    use SupportsUptimeCheck;
+    use SupportsCertificateCheck;
+    use MonitorPresenter;
 
     protected $guarded = [];
 
@@ -38,10 +38,13 @@ class Monitor extends Model
             ->orWhere('certificate_check_enabled', true);
     }
 
+    /**
+     * @return \Spatie\Url\Url|null
+     */
     public function getUrlAttribute()
     {
         if (! isset($this->attributes['url'])) {
-            return;
+            return null;
         }
 
         return Url::fromString($this->attributes['url']);

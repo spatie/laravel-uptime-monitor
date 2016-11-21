@@ -13,18 +13,20 @@ class MonitorRepository
 {
     public static function getEnabled(): Collection
     {
-        return self::query()
-            ->get()
-            ->sortByHost();
+        $monitors = self::query()->get();
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getDisabled(): Collection
     {
         $modelClass = static::determineMonitorModel();
 
-        return $modelClass::where('uptime_check_enabled', false)
+        $monitors = $modelClass::where('uptime_check_enabled', false)
             ->where('certificate_check_enabled', false)
             ->get();
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getForUptimeCheck(): MonitorCollection
@@ -33,72 +35,80 @@ class MonitorRepository
             ->get()
             ->filter(function (Monitor $monitor) {
                 return $monitor->shouldCheckUptime();
-            })
-            ->sortByHost();
+            });
 
-        return new MonitorCollection($monitors);
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getForCertificateCheck(): Collection
     {
-        return self::query()
+        $monitors = self::query()
             ->where('certificate_check_enabled', true)
-            ->get()
-            ->sortByHost();
+            ->get();
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getHealthy(): Collection
     {
-        return self::query()
+        $monitors = self::query()
             ->get()
             ->filter(function (Monitor $monitor) {
                 return $monitor->isHealthy();
-            })
-            ->sortByHost();
+            });
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getWithFailingUptimeCheck(): Collection
     {
-        return self::query()
+        $monitors = self::query()
             ->where('uptime_check_enabled', true)
             ->where('uptime_status', UptimeStatus::DOWN)
-            ->get()
-            ->sortByHost();
+            ->get();
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getWithFailingCertificateCheck(): Collection
     {
-        return self::query()
+        $monitors = self::query()
             ->where('certificate_check_enabled', true)
             ->where('certificate_status', CertificateStatus::INVALID)
-            ->get()
-            ->sortByHost();
+            ->get();
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getUnhealthy(): Collection
     {
-        return self::query()
+        $monitors = self::query()
             ->get()
             ->reject(function (Monitor $monitor) {
                 return $monitor->isHealthy();
-            })
-            ->sortByHost();
+            });
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     public static function getUnchecked(): Collection
     {
         $modelClass = static::determineMonitorModel();
 
-        return $modelClass::where(function (Builder $query) {
-            $query
-                ->where('uptime_check_enabled', true)
-                ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
-        })->orWhere(function (Builder $query) {
-            $query
-                ->where('uptime_check_enabled', true)
-                ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
-        })->get()
-        ->sortByHost();
+        $monitors = $modelClass
+            ::where(function (Builder $query) {
+                $query
+                    ->where('uptime_check_enabled', true)
+                    ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
+            })
+            ->orWhere(function (Builder $query) {
+                $query
+                    ->where('uptime_check_enabled', true)
+                    ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
+            })
+            ->get();
+
+        return MonitorCollection::make($monitors)->sortByHost();
     }
 
     /**

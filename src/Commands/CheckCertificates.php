@@ -11,7 +11,6 @@ class CheckCertificates extends BaseCommand
     protected $signature = 'monitor:check-certificate
                            {--url= : Only check these urls}';
 
-
     protected $description = 'Check the certificates of all sites';
 
     public function handle()
