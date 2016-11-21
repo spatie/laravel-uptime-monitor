@@ -2,8 +2,10 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
+use Carbon\Carbon;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as UptimeCheckRecoveredEvent;
+use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
@@ -46,7 +48,13 @@ class EventHandlerTest extends TestCase
 
         $monitor = factory(Monitor::class)->create($monitorAttributes);
 
-        event(new $eventClass($monitor));
+        if ($eventClass === UptimeCheckRecoveredEvent::class) {
+            event(new $eventClass($monitor, new Period(Carbon::now(), Carbon::now())));
+        }
+        else {
+            event(new $eventClass($monitor));
+        }
+
 
         if ($shouldSendNotification) {
             Notification::assertSentTo(

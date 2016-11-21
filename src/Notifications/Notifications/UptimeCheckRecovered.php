@@ -47,13 +47,8 @@ class UptimeCheckRecovered extends BaseNotification
     public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            'Back online since' => $this->event->monitor->formattedLastUpdatedStatusChangeDate,
-            'Offline period length' => $this->event,
+            $this->event->downtimePeriod->duration() => $this->event->downtimePeriod->toText()
         ];
-
-        if ($failureStartDate = $this->event->uptimeCheckStartedFailingOnDate) {
-            $extraProperties['Offline period length'] = $failureStartDate->diffForHumans();
-        }
 
         return parent::getMonitorProperties($extraProperties);
     }
