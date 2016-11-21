@@ -50,6 +50,6 @@ class CertificateExpiresSoon extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "{$this->event->monitor->url} has a certificate that will expire in {$this->event->monitor->certificate_expiration_date->diffInDays()} days{$this->getLocationDescription()}.";
+        return "{$this->event->monitor->url} has a certificate that will expire soon{$this->getLocationDescription()}.";
     }
 }

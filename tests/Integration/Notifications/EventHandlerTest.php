@@ -48,13 +48,15 @@ class EventHandlerTest extends TestCase
 
         $monitor = factory(Monitor::class)->create($monitorAttributes);
 
-        if ($eventClass === UptimeCheckRecoveredEvent::class) {
+        if (in_array($eventClass, [
+            UptimeCheckFailedEvent::class,
+            UptimeCheckRecoveredEvent::class,
+        ])) {
             event(new $eventClass($monitor, new Period(Carbon::now(), Carbon::now())));
         }
         else {
             event(new $eventClass($monitor));
         }
-
 
         if ($shouldSendNotification) {
             Notification::assertSentTo(

@@ -105,7 +105,11 @@ trait SupportsUptimeCheck
             $this->uptime_check_failed_event_fired_on_date = Carbon::now();
             $this->save();
 
-            event(new UptimeCheckFailed($this));
+            $updatedMonitor = $this->fresh();
+
+            $downtimePeriod = new Period($updatedMonitor->uptime_status_last_change_date, $this->uptime_last_check_date);
+
+            event(new UptimeCheckFailed($this, $downtimePeriod));
         }
     }
 
