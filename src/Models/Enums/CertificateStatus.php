@@ -2,9 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Models\Enums;
 
-use MyCLabs\Enum\Enum;
-
-class CertificateStatus extends Enum
+class CertificateStatus
 {
     const NOT_YET_CHECKED = 'not yet checked';
     const VALID = 'valid';

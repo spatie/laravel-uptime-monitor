@@ -36,7 +36,7 @@ class SupportsUptimeCheckTest extends TestCase
     /** @test */
     public function it_will_determine_that_a_failing_monitor_must_always_be_checked()
     {
-        $this->monitor->uptime_status = UptimeStatus::DOWN();
+        $this->monitor->uptime_status = UptimeStatus::DOWN;
         $this->monitor->save();
 
         foreach (range(1, 10) as $index) {

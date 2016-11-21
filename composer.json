@@ -22,7 +22,6 @@
         "illuminate/database": "^5.3.16",
         "illuminate/queue": "^5.3.16",
         "illuminate/support": "^5.3.16",
-        "myclabs/php-enum": "^1.4",
         "spatie/ssl-certificate": "^1.0.0",
         "spatie/url": "^1.0.1"
     },
