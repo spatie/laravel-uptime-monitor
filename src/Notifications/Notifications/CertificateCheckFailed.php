@@ -23,8 +23,8 @@ class CertificateCheckFailed extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->error()
-            ->subject("The certificate check for {$this->event->monitor->url} failed.")
-            ->line("The certificate check for {$this->event->monitor->url} failed.");
+            ->subject($this->getMessageText())
+            ->line($this->getMessageText());
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -37,7 +37,7 @@ class CertificateCheckFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content("The certificate check for {$this->event->monitor->url} failed.")
+            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
@@ -56,4 +56,10 @@ class CertificateCheckFailed extends BaseNotification
 
         return $this;
     }
+
+    public function getMessageText(): string
+    {
+        return "{$this->event->monitor->url} hasn't got a valid certificate{$this->getLocationDescription()}.";
+    }
+
 }

@@ -23,8 +23,8 @@ class CertificateCheckSucceeded extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->success()
-            ->subject("The certificate check for {$this->event->monitor->url} succeeded.")
-            ->line("The certificate check for {$this->event->monitor->url} succeeded.");
+            ->subject($this->getMessageText())
+            ->line($this->getMessageText());
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -48,5 +48,10 @@ class CertificateCheckSucceeded extends BaseNotification
         $this->event = $event;
 
         return $this;
+    }
+
+    public function getMessageText(): string
+    {
+        return "{$this->event->monitor->url} has a valid certificate{$this->getLocationDescription()}.";
     }
 }

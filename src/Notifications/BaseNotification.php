@@ -40,6 +40,17 @@ abstract class BaseNotification extends Notification
         return array_filter($properties);
     }
 
+    public function getLocationDescription(): string
+    {
+        $configuredLocation = config('laravel-uptime-monitor.notifications.location');
+
+        if ($configuredLocation == '') {
+            return '';
+        }
+
+        return " (says {$configuredLocation})";
+    }
+
     public function isStillRelevant(): bool
     {
         return true;

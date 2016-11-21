@@ -24,8 +24,8 @@ class UptimeCheckFailed extends BaseNotification
     {
         $mailMessage = (new MailMessage)
             ->error()
-            ->subject("The uptime check for {$this->event->monitor->url} failed.")
-            ->line("The uptime check for {$this->event->monitor->url} failed.");
+            ->subject($this->getMessageText())
+            ->line($this->getMessageText());
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
@@ -38,7 +38,7 @@ class UptimeCheckFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content("The uptime check for {$this->event->monitor->url} failed.")
+            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
@@ -63,5 +63,10 @@ class UptimeCheckFailed extends BaseNotification
         $this->event = $event;
 
         return $this;
+    }
+
+    protected function getMessageText(): string
+    {
+        return "{$this->event->monitor->url} seem down{$this->getLocationDescription()}.";
     }
 }
