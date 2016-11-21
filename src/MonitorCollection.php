@@ -47,7 +47,7 @@ class MonitorCollection extends Collection
         ]))->promise()->wait();
     }
 
-    protected function getPromises() : Generator
+    protected function getPromises(): Generator
     {
         $client = new Client([
             'headers' => [
