@@ -34,14 +34,14 @@ trait MonitorPresenter
         return '';
     }
 
-    public function getFormattedLastUpdatedStatusChangeDateAttribute(): string
+    public function formattedLastUpdatedStatusChangeDate(string $format = ''): string
     {
-        return $this->formatDate('uptime_status_last_change_date');
+        return $this->formatDate('uptime_status_last_change_date', $format);
     }
 
-    public function getFormattedCertificateExpirationDateAttribute(): string
+    public function formattedCertificateExpirationDate(string $format = ''): string
     {
-        return $this->formatDate('certificate_expiration_date');
+        return $this->formatDate('certificate_expiration_date', $format);
     }
 
     public function getChunkedLastFailureReasonAttribute(): string
@@ -62,12 +62,20 @@ trait MonitorPresenter
         return chunk_split($this->certificate_check_failure_reason, 60, "\n");
     }
 
-    protected function formatDate(string $attributeName): string
+    protected function formatDate(string $attributeName, string $format = ''): string
     {
         if (! $this->$attributeName) {
             return '';
         }
 
-        return $this->$attributeName->diffForHumans();
+        if ($format === 'forHumans') {
+            return $this->$attributeName->diffForHumans();
+        }
+
+        if ($format === '') {
+            $format = config('laravel-uptime-monitor.notifications.date_format');
+        }
+
+        return $this->$attributeName->format($format);
     }
 }

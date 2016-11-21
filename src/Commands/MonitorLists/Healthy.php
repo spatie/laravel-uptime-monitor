@@ -24,11 +24,11 @@ class Healthy
 
             $reachable = $monitor->uptimeStatusAsEmoji;
 
-            $onlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
+            $onlineSince = $monitor->formattedLastUpdatedStatusChangeDate('forHumans');
 
             if ($monitor->certificate_check_enabled) {
                 $certificateFound = $monitor->certificateStatusAsEmoji;
-                $certificateExpirationDate = $monitor->formattedCertificateExpirationDate;
+                $certificateExpirationDate = $monitor->formattedCertificateExpirationDate('forHumans');
                 $certificateIssuer = $monitor->certificate_issuer;
             }
 

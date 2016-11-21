@@ -24,13 +24,13 @@ class UptimeCheckFailed
 
             $reachable = $monitor->uptimeStatusAsEmoji;
 
-            $offlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
+            $offlineSince = $monitor->formattedLastUpdatedStatusChangeDate('forHumans');
 
             $reason = $monitor->chunkedLastFailureReason;
 
             if ($monitor->certificate_check_enabled) {
                 $certificateFound = $monitor->certificateStatusAsEmoji;
-                $certificateExpirationDate = $monitor->formattedCertificateExpirationDate;
+                $certificateExpirationDate = $monitor->formattedCertificateExpirationDate('forHumans');
                 $certificateIssuer = $monitor->certificate_issuer;
             }
 

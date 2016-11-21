@@ -3,38 +3,33 @@
 namespace Spatie\UptimeMonitor\Notifications;
 
 use Illuminate\Notifications\Notification;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 
 abstract class BaseNotification extends Notification
 {
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)
     {
-        return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
+        return config('laravel-uptime-monitor.notifications.notifications.' . static::class);
     }
 
     public function getMonitorProperties($extraProperties = []): array
     {
         $monitor = $this->event->monitor;
 
-        $properties['Location'] = config('laravel-uptime-monitor.notifications.location');
+        $properties = array_merge([], $extraProperties);
 
-        $properties['Url'] = (string) $monitor->url;
+        if ($monitor->certificate_check_enabled && $monitor->certificate_status === CertificateStatus::VALID) {
 
-        if (! empty($monitor->look_for_string)) {
-            $properties['Look for string'] = $monitor->look_for_string;
-        }
+            $certificateTitle = "{Certificate expires in} $monitor->formattedCertificateExpirationDate('forHumans')";
+            $certificateIssuer = $monitor->certificate_issuer;
 
-        $properties = array_merge($properties, $extraProperties);
-
-        if ($monitor->certificate_check_enabled) {
-            $properties['Certificate status'] = $monitor->certificate_status;
-            $properties['Certificate issuer'] = $monitor->certificate_issuer;
-            $properties['Certificate expiration date'] = $monitor->formattedCertificateExpirationDate;
+            $properties[$certificateTitle] = $certificateIssuer;
         }
 
         return array_filter($properties);
