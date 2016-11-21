@@ -35,6 +35,7 @@ class UptimeCheckRecoveredTest extends TestCase
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $monitors->checkUptime();
         }
+
         $this->monitor = $this->monitor->fresh();
 
         $downTimeLengthInMinutes = 10;

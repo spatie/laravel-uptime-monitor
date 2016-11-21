@@ -45,7 +45,7 @@ class UptimeCheckFailedTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_faied_event_again_if_a_monitor_keeps_failing_after_the_configured_amount_of_minutes()
+    public function it_will_fire_the_failed_event_again_if_a_monitor_keeps_failing_after_the_configured_amount_of_minutes()
     {
         $this->server->down();
 
