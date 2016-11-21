@@ -22,7 +22,7 @@ class Healthy
         $rows = $healthyMonitor->map(function (Monitor $monitor) {
             $url = $monitor->url;
 
-            $reachable = $monitor->reachableAsEmoji;
+            $reachable = $monitor->uptimeStatusAsEmoji;
 
             $onlineSince = $monitor->formattedLastUpdatedStatusChangeDate;
 
