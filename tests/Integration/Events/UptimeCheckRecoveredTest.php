@@ -40,6 +40,7 @@ class UptimeCheckRecoveredTest extends TestCase
 
         $downTimeLengthInMinutes = 10;
         $this->progressMinutes($downTimeLengthInMinutes);
+
         $this->server->up();
 
         Event::assertNotFired(UptimeCheckRecovered::class);
