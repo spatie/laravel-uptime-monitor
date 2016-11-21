@@ -62,11 +62,19 @@ class SupportsUptimeCheckTest extends TestCase
     /** @test */
     public function it_will_set_uptime_status_last_change_date_when_the_status_changes()
     {
+        $this->progressMinutes(5);
+
+        $this->server->down();
+
+        $this->artisan('monitor:check-uptime');
+
         $this->assertTrue($this->monitorAttributeIsSetToNow('uptime_status_last_change_date'));
 
         $this->progressMinutes(5);
 
         $this->assertFalse($this->monitorAttributeIsSetToNow('uptime_status_last_change_date'));
+
+        $this->server->up();
 
         $this->artisan('monitor:check-uptime');
 

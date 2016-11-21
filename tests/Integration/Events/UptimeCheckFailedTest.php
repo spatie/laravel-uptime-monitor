@@ -3,6 +3,8 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
+use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
 use Spatie\UptimeMonitor\MonitorRepository;
@@ -91,5 +93,9 @@ class UptimeCheckFailedTest extends TestCase
         MonitorRepository::getForUptimeCheck()->checkUptime();
 
         Event::assertFired(UptimeCheckFailed::class);
+
+        Event::assertNotFired(UptimeCheckSucceeded::class);
+
+        Event::assertNotFired(UptimeCheckRecovered::class);
     }
 }

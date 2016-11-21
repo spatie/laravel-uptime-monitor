@@ -49,11 +49,18 @@ trait SupportsUptimeCheck
 
     public function uptimeRequestSucceeded($responseHtml)
     {
-        if (! str_contains($responseHtml, $this->look_for_string)) {
+        if ($this->shouldLookForStringOnResponse() && ! str_contains((string)$responseHtml, $this->look_for_string)) {
             $this->uptimeCheckFailed("String `{$this->look_for_string}` was not found on the response.");
+
+            return;
         }
 
         $this->uptimeCheckSucceeded();
+    }
+
+    protected function shouldLookForStringOnResponse(): bool
+    {
+        return ! empty($this->look_for_string);
     }
 
     public function uptimeRequestFailed(string $reason)

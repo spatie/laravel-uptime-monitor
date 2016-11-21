@@ -18,13 +18,13 @@ trait SupportsCertificateCheck
         try {
             $certificate = SslCertificate::createForHostName($this->url->getHost());
 
-            $this->updateWithCertificate($certificate);
+            $this->setCertificate($certificate);
         } catch (CouldNotDownloadCertificate $exception) {
-            $this->updateWithCertificateException($exception);
+            $this->setCertificateException($exception);
         }
     }
 
-    public function updateWithCertificate(SslCertificate $certificate)
+    public function setCertificate(SslCertificate $certificate)
     {
         $this->certificate_status = $certificate->isValid($this->url)
             ? CertificateStatus::VALID
@@ -37,7 +37,7 @@ trait SupportsCertificateCheck
         $this->fireEventsForUpdatedMonitorWithCertificate($this, $certificate);
     }
 
-    public function updateWithCertificateException(Exception $exception)
+    public function setCertificateException(Exception $exception)
     {
         $this->certificate_status = CertificateStatus::INVALID;
         $this->certificate_expiration_date = null;
