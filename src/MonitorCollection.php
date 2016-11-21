@@ -13,6 +13,16 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 class MonitorCollection extends Collection
 {
+    /**
+     * @return static
+     */
+    public function sortByHost()
+    {
+        return $this->sortBy(function (Monitor $monitor) {
+            return $monitor->url->getHost();
+        });
+    }
+
     public function checkUptime()
     {
         $this->resetItemKeys();
