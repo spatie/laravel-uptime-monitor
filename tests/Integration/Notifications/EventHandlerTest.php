@@ -53,8 +53,7 @@ class EventHandlerTest extends TestCase
             UptimeCheckRecoveredEvent::class,
         ])) {
             event(new $eventClass($monitor, new Period(Carbon::now(), Carbon::now())));
-        }
-        else {
+        } else {
             event(new $eventClass($monitor));
         }
 

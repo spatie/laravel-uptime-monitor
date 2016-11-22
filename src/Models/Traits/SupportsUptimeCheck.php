@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Helpers\Period;
-use Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\LookForStringChecker;
 use Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
