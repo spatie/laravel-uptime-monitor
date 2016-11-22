@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Spatie\UptimeMonitor\Commands\CheckCertificates;
 use Spatie\UptimeMonitor\Commands\CheckUptime;

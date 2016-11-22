@@ -47,7 +47,7 @@ class UptimeCheckRecovered extends BaseNotification
     public function getMonitorProperties($extraProperties = []): array
     {
         $extraProperties = [
-            "Downtime: {$this->event->downtimePeriod->duration()}" => $this->event->downtimePeriod->toText()
+            "Downtime: {$this->event->downtimePeriod->duration()}" => $this->event->downtimePeriod->toText(),
         ];
 
         return parent::getMonitorProperties($extraProperties);

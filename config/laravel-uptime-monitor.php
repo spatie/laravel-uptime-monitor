@@ -44,7 +44,7 @@ return [
          */
         'notifiable' => \Spatie\UptimeMonitor\Notifications\Notifiable::class,
 
-        /**
+        /*
          * The date format used in notifications.
          */
         'date_format' => 'd/m/Y',

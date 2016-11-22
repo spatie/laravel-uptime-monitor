@@ -36,10 +36,10 @@ class Period
         $configuredDateFormat = config('laravel-uptime-monitor.notifications.date_format');
 
         return
-            $this->startDateTime->format('H:i') . " "
-            . ($this->startDateTime->isToday() ? "" : "on {$this->startDateTime->format($configuredDateFormat)} ")
-            . Emoji::rightwardsArrow() . " "
-            . $this->endDateTime->format('H:i')
-            . ($this->endDateTime->isToday() ? '' : " on {$this->endDateTime->format($configuredDateFormat)}");
+            $this->startDateTime->format('H:i').' '
+            .($this->startDateTime->isToday() ? '' : "on {$this->startDateTime->format($configuredDateFormat)} ")
+            .Emoji::rightwardsArrow().' '
+            .$this->endDateTime->format('H:i')
+            .($this->endDateTime->isToday() ? '' : " on {$this->endDateTime->format($configuredDateFormat)}");
     }
 }
