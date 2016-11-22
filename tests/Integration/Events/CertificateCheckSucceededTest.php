@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
 use Spatie\UptimeMonitor\Test\TestCase;
 
-class ValidCertificateFoundTest extends TestCase
+class CertificateCheckSucceededTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
