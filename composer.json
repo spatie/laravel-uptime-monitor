@@ -22,7 +22,7 @@
         "illuminate/database": "^5.3.16",
         "illuminate/queue": "^5.3.16",
         "illuminate/support": "^5.3.16",
-        "spatie/ssl-certificate": "^1.0.0",
+        "spatie/ssl-certificate": "^1.0.2",
         "spatie/url": "^1.0.1"
     },
     "require-dev": {
