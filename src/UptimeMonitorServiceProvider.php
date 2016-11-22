@@ -11,6 +11,7 @@ use Spatie\UptimeMonitor\Commands\DeleteMonitor;
 use Spatie\UptimeMonitor\Commands\DisableMonitor;
 use Spatie\UptimeMonitor\Commands\EnableMonitor;
 use Spatie\UptimeMonitor\Commands\ListMonitors;
+use Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker;
 use Spatie\UptimeMonitor\Notifications\EventHandler;
 
 class UptimeMonitorServiceProvider extends ServiceProvider
@@ -53,6 +54,11 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         $this->app->bind('command.monitor:enable', EnableMonitor::class);
         $this->app->bind('command.monitor:disable', DisableMonitor::class);
         $this->app->bind('command.monitor:list', ListMonitors::class);
+
+        $this->app->bind(
+            UptimeResponseChecker::class,
+            config('laravel-uptime-monitor.uptime_check.response_checker')
+        );
 
         $this->commands([
             'command.monitor:check-uptime',

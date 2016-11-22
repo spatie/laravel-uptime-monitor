@@ -9,6 +9,7 @@ use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\LookForStringChecker;
+use Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
@@ -52,7 +53,7 @@ trait SupportsUptimeCheck
 
     public function uptimeRequestSucceeded(ResponseInterface $response)
     {
-        $uptimeResponseChecker = new LookForStringChecker();
+        $uptimeResponseChecker = app(UptimeResponseChecker::class);
 
         if (! $uptimeResponseChecker->isValidResponse($response, $this)) {
             $this->uptimeCheckFailed($uptimeResponseChecker->getFailureReason($response, $this));
@@ -61,11 +62,6 @@ trait SupportsUptimeCheck
         }
 
         $this->uptimeCheckSucceeded();
-    }
-
-    protected function shouldLookForStringOnResponse(): bool
-    {
-        return ! empty($this->look_for_string);
     }
 
     public function uptimeRequestFailed(string $reason)
