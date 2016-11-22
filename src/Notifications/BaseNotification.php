@@ -26,7 +26,7 @@ abstract class BaseNotification extends Notification
 
         if ($monitor->certificate_check_enabled && $monitor->certificate_status === CertificateStatus::VALID) {
 
-            $certificateTitle = "{Certificate expires in} $monitor->formattedCertificateExpirationDate('forHumans')";
+            $certificateTitle = "Certificate expires in {$monitor->formattedCertificateExpirationDate('forHumans')}";
             $certificateIssuer = $monitor->certificate_issuer;
 
             $properties[$certificateTitle] = $certificateIssuer;
