@@ -1,7 +1,3 @@
-# DO NOT USE (yet)
-
-This code is not yet stable. Brave souls may try to use, but be aware there might be bugs (and breaking changes until version 1.0.0 is tagged).
-
 # A powerful, easy to configure uptime monitor
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-uptime-monitor.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-uptime-monitor)
@@ -70,7 +66,14 @@ return [
     ],
 
     'uptime_check' => [
-
+        /*
+         * When the uptime check could reach the url of a monitor it will pass the response to this class
+         * If this class determines the response is valid, the uptime check will be regarded as succeeded.
+         *
+         * You can use any implementation of Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker here.
+         */
+        'response_checker' => Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\LookForStringChecker::class,
+            
         /*
          * An uptime check will be performed if the last check was performed more than the
          * given number of minutes ago. If you change this setting you have to manually

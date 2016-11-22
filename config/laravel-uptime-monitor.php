@@ -60,7 +60,6 @@ return [
          */
         'response_checker' => Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\LookForStringChecker::class,
 
-
         /*
          * An uptime check will be performed if the last check was performed more than the
          * given number of minutes ago. If you change this setting you have to manually
