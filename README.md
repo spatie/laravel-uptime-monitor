@@ -120,9 +120,9 @@ return [
     ],
 
     /*
-     * To add or modify behaviour to the Site model you can specify your
+     * To add or modify behaviour to the Monitor model you can specify your
      * own model here. The only requirement is that it should extend
-     * `Spatie\UptimeMonitor\Test\Models\Site`.
+     * `Spatie\UptimeMonitor\Test\Models\Monitor`.
      */
      'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
 ];
