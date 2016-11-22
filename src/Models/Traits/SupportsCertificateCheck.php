@@ -71,6 +71,9 @@ trait SupportsCertificateCheck
                 $reason = 'The certificate is expired';
             }
 
+            $this->certificate_check_failure_reason = $reason;
+            $this->save();
+
             event(new CertificateCheckFailed($this, $reason, $certificate));
         }
     }
