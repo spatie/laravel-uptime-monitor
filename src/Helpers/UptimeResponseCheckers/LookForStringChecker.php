@@ -9,8 +9,6 @@ class LookForStringChecker implements UptimeResponseChecker
 {
     public function isValidResponse(ResponseInterface $response, Monitor $monitor): bool
     {
-        return false;
-
         if (empty($monitor->look_for_string)) {
             return true;
         }
