@@ -51,7 +51,7 @@ class UptimeCheckFailed extends BaseNotification
 
         $extraProperties = [
             $since => $date,
-            "Failure reason" => $this->event->monitor->uptime_check_failure_reason,
+            'Failure reason' => $this->event->monitor->uptime_check_failure_reason,
         ];
 
         return parent::getMonitorProperties($extraProperties);

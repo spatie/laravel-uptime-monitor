@@ -44,7 +44,7 @@ class Monitor extends Model
     public function getUrlAttribute()
     {
         if (! isset($this->attributes['url'])) {
-            return null;
+            return;
         }
 
         return Url::fromString($this->attributes['url']);

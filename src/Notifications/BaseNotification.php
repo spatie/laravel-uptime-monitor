@@ -15,7 +15,7 @@ abstract class BaseNotification extends Notification
      */
     public function via($notifiable)
     {
-        return config('laravel-uptime-monitor.notifications.notifications.' . static::class);
+        return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
     }
 
     public function getMonitorProperties($extraProperties = []): array
@@ -25,7 +25,6 @@ abstract class BaseNotification extends Notification
         $properties = array_merge([], $extraProperties);
 
         if ($monitor->certificate_check_enabled && $monitor->certificate_status === CertificateStatus::VALID) {
-
             $certificateTitle = "Certificate expires in {$monitor->formattedCertificateExpirationDate('forHumans')}";
             $certificateIssuer = $monitor->certificate_issuer;
 

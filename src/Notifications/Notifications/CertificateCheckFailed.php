@@ -61,5 +61,4 @@ class CertificateCheckFailed extends BaseNotification
     {
         return "{$this->event->monitor->url} hasn't got a valid certificate{$this->getLocationDescription()}.";
     }
-
 }
