@@ -2,11 +2,13 @@
 
 namespace Spatie\UptimeMonitor\Models\Traits;
 
+use Psr\Http\Message\ResponseInterface;
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Carbon\Carbon;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Helpers\Period;
+use Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\LookForStringChecker;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
@@ -48,10 +50,12 @@ trait SupportsUptimeCheck
         return $this->uptime_last_check_date->diffInMinutes() >= $this->uptime_check_interval_in_minutes;
     }
 
-    public function uptimeRequestSucceeded($responseHtml)
+    public function uptimeRequestSucceeded(ResponseInterface $response)
     {
-        if ($this->shouldLookForStringOnResponse() && ! str_contains((string)$responseHtml, $this->look_for_string)) {
-            $this->uptimeCheckFailed("String `{$this->look_for_string}` was not found on the response.");
+        $uptimeResponseChecker = new LookForStringChecker();
+
+        if (! $uptimeResponseChecker->isValidResponse($response, $this)) {
+            $this->uptimeCheckFailed($uptimeResponseChecker->getFailureReason($response, $this));
 
             return;
         }

@@ -34,7 +34,7 @@ class MonitorCollection extends Collection
 
                 ConsoleOutput::info("Could reach {$monitor->url}");
 
-                $monitor->uptimeRequestSucceeded($response->getBody());
+                $monitor->uptimeRequestSucceeded($response);
             },
 
             'rejected' => function (RequestException $exception, $index) {

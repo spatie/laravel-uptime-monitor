@@ -25,6 +25,14 @@ return [
         'location' => '',
 
         /*
+         * When the uptime check could reach the url of a monitor it will pass the response to this class
+         * If this class determines the response is valid, the uptime check will be regarded as succeeded.
+         *
+         * You can use any implementation of Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker here
+         */
+        'uptimeResponseChecker' => Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\LookForStringChecker::class,
+
+        /*
          * To keep reminding you that a site is down, notifications
          * will be resent every given number of minutes.
          */
