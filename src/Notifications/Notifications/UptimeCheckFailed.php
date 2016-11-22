@@ -71,6 +71,6 @@ class UptimeCheckFailed extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "{$this->event->monitor->url} seem down{$this->getLocationDescription()}.";
+        return "{$this->event->monitor->url} seems down{$this->getLocationDescription()}.";
     }
 }
