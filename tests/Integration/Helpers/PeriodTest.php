@@ -59,9 +59,9 @@ class PeriodTest extends TestCase
         Carbon::setTestNow(Carbon::create(2016, 1, 1, 00, 00, 00));
 
         return [
-            [Carbon::now(), Carbon::now()->addMinutes(10), '00:00 ' . Emoji::rightWardsArrow() . ' 00:10'],
-            [Carbon::now()->subMinutes(10), Carbon::now(), '23:50 on 31/12/2015 ' . Emoji::rightWardsArrow() . ' 00:00'],
-            [Carbon::now()->subHour(1), Carbon::now()->subMinutes(10), '23:00 on 31/12/2015 ' . Emoji::rightWardsArrow() . ' 23:50 on 31/12/2015'],
+            [Carbon::now(), Carbon::now()->addMinutes(10), '00:00 ' . Emoji::rightwardsArrow() . ' 00:10'],
+            [Carbon::now()->subMinutes(10), Carbon::now(), '23:50 on 31/12/2015 ' . Emoji::rightwardsArrow() . ' 00:00'],
+            [Carbon::now()->subHour(1), Carbon::now()->subMinutes(10), '23:00 on 31/12/2015 ' . Emoji::rightwardsArrow() . ' 23:50 on 31/12/2015'],
         ];
     }
 }

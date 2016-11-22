@@ -56,7 +56,7 @@ return [
          * When the uptime check could reach the url of a monitor it will pass the response to this class
          * If this class determines the response is valid, the uptime check will be regarded as succeeded.
          *
-         * You can use any implementation of Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker here
+         * You can use any implementation of Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker here.
          */
         'response_checker' => Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\LookForStringChecker::class,
 

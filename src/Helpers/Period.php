@@ -38,7 +38,7 @@ class Period
         return
             $this->startDateTime->format('H:i') . " "
             . ($this->startDateTime->isToday() ? "" : "on {$this->startDateTime->format($configuredDateFormat)} ")
-            . Emoji::rightWardsArrow() . " "
+            . Emoji::rightwardsArrow() . " "
             . $this->endDateTime->format('H:i')
             . ($this->endDateTime->isToday() ? '' : " on {$this->endDateTime->format($configuredDateFormat)}");
     }
