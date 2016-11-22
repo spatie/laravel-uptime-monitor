@@ -40,7 +40,7 @@ class MonitorCollection extends Collection
             'rejected' => function (RequestException $exception, $index) {
                 $monitor = $this->getMonitorAtIndex($index);
 
-                ConsoleOutput::error("Could not reach {$monitor->url} error: `{$message}`");
+                ConsoleOutput::error("Could not reach {$monitor->url} error: `{$exception->getMessage()}`");
 
                 $monitor->uptimeRequestFailed($exception->getMessage());
             },
