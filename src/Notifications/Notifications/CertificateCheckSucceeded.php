@@ -38,6 +38,7 @@ class CertificateCheckSucceeded extends BaseNotification
         return (new SlackMessage)
             ->success()
             ->content("The certificate check for {$this->event->monitor->url} succeeded.")
+            ->attachment($this->get)
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
             });
