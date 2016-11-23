@@ -35,6 +35,7 @@ class CertificateExpiresSoon extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
+            ->warning()
             ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
