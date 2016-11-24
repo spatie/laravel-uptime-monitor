@@ -47,7 +47,9 @@ class MonitorControllerTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['url' => 'http://getFromID.com']);
         $this->json('GET', route('monitor.show', ['monitor' => $monitor->id]))
-            ->seeJson($monitor->toArray());
+            // Little Hack, Return Model as String to get the same json that should come from the Request
+            // than json_decode it to get the json as array
+            ->seeJson(json_decode((string)$monitor, true));
     }
 
     /** @test */
