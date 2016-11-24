@@ -47,7 +47,7 @@ class MonitorControllerTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['url' => 'http://getFromID.com']);
         $this->json('GET', route('monitor.show', ['monitor' => $monitor->id]))
-            ->seeJsonStructure($monitor->toArray());
+            ->seeJson($monitor->toArray());
     }
 
     /** @test */
@@ -73,7 +73,7 @@ class MonitorControllerTest extends TestCase
                     'certificate_status',
                     'certificate_expiration_date',
                     'certificate_issuer',
-                    'certifcate_check_failure_reason',
+                    'certificate_check_failure_reason',
                     'created_at',
                     'updated_at'
                 ]
