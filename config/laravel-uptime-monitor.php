@@ -65,7 +65,7 @@ return [
          * given number of minutes ago. If you change this setting you have to manually
          * update the `uptime_check_interval_in_minutes` value of your existing sites.
          *
-         * When a site is down we'll check the uptime every time `sites:check-uptime` runs
+         * When a site is down we'll check the uptime every time `monitor:check-uptime` runs
          * regardless of this setting.
          */
         'run_interval_in_minutes' => 5,
