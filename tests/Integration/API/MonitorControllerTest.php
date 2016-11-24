@@ -21,7 +21,7 @@ class MonitorControllerTest extends TestCase
     /** @test */
     public function test_monitor_destroy_api_call()
     {
-        $monitor = factory(Monitor::class)->create();
+        $monitor = factory(Monitor::class)->create(['url' => 'http://destroy.com']);
         $this->assertEquals(1, Monitor::where('url', $monitor->url)->count());
         $this->json('DELETE', route('monitor.destroy', ['monitor' => $monitor->id]))
             ->seeJson([
@@ -33,7 +33,7 @@ class MonitorControllerTest extends TestCase
     /** @test */
     public function test_monitor_update_api_call()
     {
-        $monitor = factory(Monitor::class)->create();
+        $monitor = factory(Monitor::class)->create(['url' => 'http://notupdated.com']);
         $this->json('PUT', route('monitor.update', ['monitor' => $monitor->id]), ['url' => 'http://updated.com'])
             ->seeJson([
                 'updated' => true,
@@ -45,15 +45,15 @@ class MonitorControllerTest extends TestCase
     /** @test */
     public function test_monitor_get_from_id_api_call()
     {
-        $monitor = factory(Monitor::class)->create();
+        $monitor = factory(Monitor::class)->create(['url' => 'http://getFromID.com']);
         $this->json('GET', route('monitor.show', ['monitor' => $monitor->id]))
-            ->seeJsonStructure($monitor);
+            ->seeJsonStructure($monitor->toArray());
     }
 
     /** @test */
     public function test_monitor_get_all_api_call()
     {
-        factory(Monitor::class, 10)->create();
+        factory(Monitor::class)->create(['url' => 'https://justOneWithSSL.com']);
         $this->json('GET', route('monitor.index'))
             ->seeJsonStructure([
                 '*' => [
