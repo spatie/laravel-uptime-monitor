@@ -35,7 +35,7 @@ class MonitorController extends Controller
             'certificate_check_enabled' => $url->getScheme() === 'https',
             'uptime_check_interval_in_minutes' => config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes'),
         ]);
-        return response()->setStatusCode(201);
+        return response('created',201);
     }
 
     /**
@@ -62,7 +62,8 @@ class MonitorController extends Controller
 
         $monitor = Monitor::findOrFail($id);
         $look_for_string = ($request->has('look_for_string')) ? $request->get('look_for_string') : $monitor->look_for_string;
-        return $monitor->update(['url' => $request->get('url'), 'look_for_string' => $look_for_string]);
+        $monitor->update(['url' => $request->get('url'), 'look_for_string' => $look_for_string]);
+        return response('updated',200);
     }
 
     /**
@@ -74,6 +75,7 @@ class MonitorController extends Controller
     public function destroy($id)
     {
         $monitor = Monitor::findOrFail($id);
-        return $monitor->delete();
+        $monitor->delete();
+        return response('deleted',200);
     }
 }
