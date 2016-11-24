@@ -66,11 +66,13 @@ class MonitorControllerTest extends TestCase
                 'certificate_issuer',
                 'certificate_check_failure_reason',
                 'created_at',
-                'updated_at');
+                'updated_at'
+            ]);
     }
 
     /** @test */
-    public function test_monitor_get_all_api_call()
+    public
+    function test_monitor_get_all_api_call()
     {
         factory(Monitor::class)->create(['url' => 'https://justOneWithSSL.com']);
         $this->json('GET', route('monitor.index'))
