@@ -47,9 +47,26 @@ class MonitorControllerTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create(['url' => 'http://getFromID.com']);
         $this->json('GET', route('monitor.show', ['monitor' => $monitor->id]))
-            // Little Hack, Return Model as String to get the same json that should come from the Request
-            // than json_decode it to get the json as array
-            ->seeJson(json_decode((string)$monitor, true));
+            ->seeJsonStructure([
+                'id',
+                'url',
+                'uptime_check_enabled',
+                'look_for_string',
+                'uptime_check_interval_in_minutes',
+                'uptime_status',
+                'uptime_check_failure_reason',
+                'uptime_check_times_failed_in_a_row',
+                'uptime_status_last_change_date',
+                'uptime_last_check_date',
+                'uptime_check_failed_event_fired_on_date',
+                'uptime_check_method',
+                'certificate_check_enabled',
+                'certificate_status',
+                'certificate_expiration_date',
+                'certificate_issuer',
+                'certificate_check_failure_reason',
+                'created_at',
+                'updated_at');
     }
 
     /** @test */
