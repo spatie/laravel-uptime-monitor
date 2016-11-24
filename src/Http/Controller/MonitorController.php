@@ -1,13 +1,16 @@
 <?php
 namespace Spatie\UptimeMonitor\Http\Controller;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\Url\Url;
 
 class MonitorController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      *
