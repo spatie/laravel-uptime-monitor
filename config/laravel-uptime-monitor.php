@@ -118,7 +118,7 @@ return [
     'restAPI' => [
         'enable' => true,
         'routePrefix' => 'api',
-        'middleware' => ['auth'],
+        'middleware' => ['api'],
         'controller' => \Spatie\UptimeMonitor\Http\Controller\MonitorController::class,
         'validationRules' => [
             'url' => 'required|url',

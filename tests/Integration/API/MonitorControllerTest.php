@@ -19,7 +19,7 @@ class MonitorControllerTest extends TestCase
     }
 
     /** @test */
-    public function test_monitor_delete_api_call()
+    public function test_monitor_destroy_api_call()
     {
         $monitor = factory(Monitor::class)->create();
         $this->json('DELETE', route('monitor.destroy', ['monitor' => $monitor->id]))
@@ -34,7 +34,7 @@ class MonitorControllerTest extends TestCase
     public function test_monitor_update_api_call()
     {
         $monitor = factory(Monitor::class)->create();
-        $this->json('PUT', route('monitor.save', ['monitor' => $monitor->id], ['url' => 'http://updated.com']))
+        $this->json('PUT', route('monitor.update', ['monitor' => $monitor->id], ['url' => 'http://updated.com']))
             ->seeJson([
                 'updated' => true,
             ])->seeInDatabase('monitors', [
