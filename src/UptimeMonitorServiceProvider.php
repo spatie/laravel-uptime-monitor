@@ -26,12 +26,10 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/laravel-uptime-monitor.php' => config_path('laravel-uptime-monitor.php'),
             ], 'config');
-        } else {
-            if (config('laravel-uptime-monitor.restAPI.enable')) {
-                $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
-            }
         }
-
+        if (config('laravel-uptime-monitor.restAPI.enable')) {
+            $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        }
         if (!class_exists('CreateSitesTable')) {
             $timestamp = date('Y_m_d_His', time());
 
