@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Http\Controller;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\Url\Url;
 
 class MonitorController extends Controller
 {
@@ -27,7 +28,7 @@ class MonitorController extends Controller
     {
         $this->validate($request, config('laravel-uptime-monitor.restAPI.validationRules'));
         $url = Url::fromString($request->get('url'));
-        $monitor = Monitor::create([
+        Monitor::create([
             'url' => trim($url, '/'),
             'look_for_string' => $request->get('look_for_string') ?? '',
             'uptime_check_method' => $request->has('look_for_string') ? 'get' : 'head',
