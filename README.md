@@ -128,6 +128,10 @@ return [
 ];
 ```
 
+## API
+
+Currently this package does not offer an API, if you need that take a look at [this package](https://github.com/LKDevelopment/laravel-uptime-monitor-api).
+
 ## Documentation
 You'll find the documentation on [https://docs.spatie.be/laravel-uptime-monitor/v1](https://docs.spatie.be/laravel-uptime-monitor/v1). It includes detailed info on how to install and use the package.
 
