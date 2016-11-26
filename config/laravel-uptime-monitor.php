@@ -63,7 +63,7 @@ return [
         /*
          * An uptime check will be performed if the last check was performed more than the
          * given number of minutes ago. If you change this setting you have to manually
-         * update the `uptime_check_interval_in_minutes` value of your existing sites.
+         * update the `uptime_check_interval_in_minutes` value of your existing monitors.
          *
          * When an uptime check fails we'll check the uptime for that montitor every time `monitor:check-uptime`
          * runs regardless of this setting.
@@ -71,21 +71,21 @@ return [
         'run_interval_in_minutes' => 5,
 
         /*
-         * To speed up the uptime checking process uptime monitor can check multiple sites
-         * concurrently. Set this to a lower value if you're getting weird errors
+         * To speed up the uptime checking process the package can perform the uptime check of several
+         * monitors concurrently. Set this to a lower value if you're getting weird errors
          * running the uptime check.
          */
         'concurrent_checks' => 10,
 
         /*
-         * The uptime check for a site will fail if site does not respond after the
+         * The uptime check for a monitor will fail if url does not respond after the
          * given number of seconds.
          */
         'timeout_per_site' => 10,
 
         /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
-         * the given number of checks have consecutively failed for a site.
+         * the given number of uptime checks have consecutively failed for a monitor.
          */
         'fire_monitor_failed_event_after_consecutive_failures' => 2,
 
