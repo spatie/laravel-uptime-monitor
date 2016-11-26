@@ -40,7 +40,7 @@ return [
         'location' => '',
 
         /*
-         * To keep reminding you that a site is down, notifications
+         * To keep reminding you that an uptime check failed, notifications
          * will be resent every given number of minutes.
          */
         'resend_uptime_check_failed_notification_every_minutes' => 60,
@@ -77,29 +77,29 @@ return [
         /*
          * An uptime check will be performed if the last check was performed more than the
          * given number of minutes ago. If you change this setting you have to manually
-         * update the `uptime_check_interval_in_minutes` value of your existing sites.
+         * update the `uptime_check_interval_in_minutes` value of your existing monitors.
          *
-         * When a site is down we'll check the uptime every time `sites:check-uptime` runs
+         * When an the uptime check failed we'll check the uptime every time `monitor:check-uptime` runs
          * regardless of this setting.
          */
         'run_interval_in_minutes' => 5,
 
         /*
-         * To speed up the uptime checking process uptime monitor can check multiple sites
-         * concurrently. Set this to a lower value if you're getting weird errors
+         * To speed up the uptime checking process uptime monitor can perform the uptime check of several
+         * monitors concurrently. Set this to a lower value if you're getting weird errors
          * running the uptime check.
          */
         'concurrent_checks' => 10,
 
         /*
-         * The uptime check for a site will fail if site does not respond after the
+         * The uptime check will fail if the configured url does not respond after the
          * given number of seconds.
          */
         'timeout_per_site' => 10,
 
         /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
-         * the given number of checks have consecutively failed for a site.
+         * the given number of uptime checks have consecutively failed for a monitor.
          */
         'fire_monitor_failed_event_after_consecutive_failures' => 2,
 
