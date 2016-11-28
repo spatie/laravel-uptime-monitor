@@ -82,6 +82,11 @@ return [
          * given number of seconds.
          */
         'timeout_per_site' => 10,
+        /*
+         * The uptime check for a monitor will fail if server does not respond after the
+         * given number of seconds.
+         */
+        'timeout_per_connection' => 2,
 
         /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after

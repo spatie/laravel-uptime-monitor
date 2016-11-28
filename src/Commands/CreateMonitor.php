@@ -15,11 +15,11 @@ class CreateMonitor extends BaseCommand
     {
         $url = Url::fromString($this->argument('url'));
 
-        if (! in_array($url->getScheme(), ['http', 'https'])) {
+       /* if (! in_array($url->getScheme(), ['http', 'https'])) {
             $this->error('The given url did not start with `http://` or `https://`.');
 
             return;
-        }
+        } */
 
         if ($this->confirm('Should we look for a specific string on the response?')) {
             $lookForString = $this->ask('Which string?');
