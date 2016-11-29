@@ -28,18 +28,18 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         CheckerRepository::get()->addChecker('mysql', new DatabaseChecker());
         CheckerRepository::get()->addChecker('smtp', new SMTPChecker());
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../config/laravel-uptime-monitor.php' => config_path('laravel-uptime-monitor.php'),
+                __DIR__.'/../config/laravel-uptime-monitor.php' => config_path('laravel-uptime-monitor.php'),
             ], 'config');
         }
 
-        if (!class_exists('CreateSitesTable')) {
+        if (! class_exists('CreateSitesTable')) {
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_monitors_table.php.stub' => database_path('migrations/' . $timestamp . '_create_monitors_table.php'),
+                __DIR__.'/../database/migrations/create_monitors_table.php.stub' => database_path('migrations/'.$timestamp.'_create_monitors_table.php'),
             ], 'migrations');
         }
     }
@@ -49,7 +49,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-uptime-monitor.php', 'laravel-uptime-monitor');
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-uptime-monitor.php', 'laravel-uptime-monitor');
 
         $this->app['events']->subscribe(EventHandler::class);
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Spatie\UptimeMonitor\Checker;
 
 use Illuminate\Support\Collection;
@@ -8,7 +9,7 @@ use Spatie\UptimeMonitor\Exceptions\InvalidArgument;
  * Created by PhpStorm.
  * User: lukaskammerling
  * Date: 28.11.16
- * Time: 10:28
+ * Time: 10:28.
  */
 class CheckerRepository
 {
@@ -29,10 +30,10 @@ class CheckerRepository
      */
     public function addChecker($protocol, Checker $checker)
     {
-        if (!array_key_exists($protocol, $this->protocolsToChecker)) {
+        if (! array_key_exists($protocol, $this->protocolsToChecker)) {
             $this->protocolsToChecker[$protocol] = null;
         }
-        if (!empty($this->protocolsToChecker[$protocol])) {
+        if (! empty($this->protocolsToChecker[$protocol])) {
             throw InvalidArgument::checkerAlreadyRegisterd($protocol);
         }
         $this->protocolsToChecker[$protocol] = $checker;
@@ -51,6 +52,7 @@ class CheckerRepository
                 throw InvalidArgument::unknowProtocol($protocol);
             }
         }
+
         return $this->protocolsToChecker;
     }
 
@@ -59,9 +61,10 @@ class CheckerRepository
      */
     public static function get()
     {
-        if (!self::$self instanceof CheckerRepository) {
-            self::$self = new CheckerRepository();
+        if (! self::$self instanceof self) {
+            self::$self = new self();
         }
+
         return self::$self;
     }
 }

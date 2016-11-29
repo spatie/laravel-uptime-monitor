@@ -1,12 +1,11 @@
 <?php
-namespace Spatie\UptimeMonitor\Checker;
 
+namespace Spatie\UptimeMonitor\Checker;
 
 use Spatie\UptimeMonitor\MonitorCollection;
 
 /**
- * Class Checker
- * @package Spatie\UptimeMonitor\Checker
+ * Class Checker.
  */
 abstract class Checker
 {

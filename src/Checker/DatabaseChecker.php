@@ -1,6 +1,6 @@
 <?php
-namespace Spatie\UptimeMonitor\Checker;
 
+namespace Spatie\UptimeMonitor\Checker;
 
 use GuzzleHttp\Promise\EachPromise;
 use GuzzleHttp\Promise\Promise;
@@ -10,9 +10,8 @@ use Spatie\UptimeMonitor\MonitorCollection;
 
 class DatabaseChecker extends Checker
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function check(MonitorCollection $monitors)
     {
@@ -53,9 +52,9 @@ class DatabaseChecker extends Checker
                     'prefix' => '',
                     'strict' => true,
                     'engine' => null,
-                    'options' => array(
+                    'options' => [
                         \PDO::ATTR_TIMEOUT => config('laravel-uptime-monitor.uptime_check.timeout_per_connection'),
-                    ),
+                    ],
                 ]);
                 try {
                     \DB::connection($monitor->id)->reconnect();
@@ -67,10 +66,8 @@ class DatabaseChecker extends Checker
                         $monitor->uptimeRequestSucceeded(new Response(200, [], "Could reach {$monitor->url}"));
                     }
                 }
-
             });
             yield $promise;
         }
-
     }
 }

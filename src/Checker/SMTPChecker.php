@@ -1,6 +1,6 @@
 <?php
-namespace Spatie\UptimeMonitor\Checker;
 
+namespace Spatie\UptimeMonitor\Checker;
 
 use GuzzleHttp\Promise\EachPromise;
 use GuzzleHttp\Promise\Promise;
@@ -10,9 +10,8 @@ use Spatie\UptimeMonitor\MonitorCollection;
 
 class SMTPChecker extends Checker
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function check(MonitorCollection $monitors)
     {
@@ -53,6 +52,5 @@ class SMTPChecker extends Checker
             });
             yield $promise;
         }
-
     }
 }
