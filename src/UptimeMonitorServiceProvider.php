@@ -3,6 +3,10 @@
 namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\ServiceProvider;
+use Spatie\UptimeMonitor\Checker\CheckerRepository;
+use Spatie\UptimeMonitor\Checker\DatabaseChecker;
+use Spatie\UptimeMonitor\Checker\HTTPChecker;
+use Spatie\UptimeMonitor\Checker\SMTPChecker;
 use Spatie\UptimeMonitor\Commands\CheckCertificates;
 use Spatie\UptimeMonitor\Commands\CheckUptime;
 use Spatie\UptimeMonitor\Commands\CreateMonitor;
@@ -20,6 +24,9 @@ class UptimeMonitorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        CheckerRepository::get()->addChecker('http*', new HTTPChecker());
+        CheckerRepository::get()->addChecker('mysql', new DatabaseChecker());
+        CheckerRepository::get()->addChecker('smtp', new SMTPChecker());
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
