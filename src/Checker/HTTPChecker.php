@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lukaskammerling
- * Date: 28.11.16
- * Time: 10:57
- */
-
 namespace Spatie\UptimeMonitor\Checker;
 
 
@@ -31,11 +24,9 @@ class HTTPChecker extends Checker
 
                 $monitor->uptimeRequestSucceeded($response);
             },
-
             'rejected' => function (RequestException $exception, $index) {
                 $monitor = $this->monitors->getMonitorAtIndex($index);
                 ConsoleOutput::error("Could not reach {$monitor->url} error: `{$exception->getMessage()}`");
-
                 $monitor->uptimeRequestFailed($exception->getMessage());
             },
         ]))->promise()->wait();
