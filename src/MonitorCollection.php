@@ -23,13 +23,14 @@ class MonitorCollection extends Collection
     {
         $this->resetItemKeys();
         foreach (CheckerRepository::get()->getChecker() as $protocol => $checker) {
-            /**
+            /*
              * @var $checker Checker
              */
             $checker->check($this->filter(function ($value) use ($protocol) {
-                if (!ends_with($protocol, '*')) {
-                    $protocol = $protocol . '*';
+                if (! ends_with($protocol, '*')) {
+                    $protocol = $protocol.'*';
                 }
+
                 return str_is($protocol, $value->url->getScheme());
             }));
         }

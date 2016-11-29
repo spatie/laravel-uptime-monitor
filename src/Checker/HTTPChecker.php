@@ -1,6 +1,6 @@
 <?php
-namespace Spatie\UptimeMonitor\Checker;
 
+namespace Spatie\UptimeMonitor\Checker;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -51,6 +51,4 @@ class HTTPChecker extends Checker
             yield $promise;
         }
     }
-
-
 }
