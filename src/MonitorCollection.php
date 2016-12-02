@@ -49,14 +49,17 @@ class MonitorCollection extends Collection
 
     protected function getPromises(): Generator
     {
+        // client headers
+        $headers = array_merge([
+            'User-Agent' => config('laravel-uptime-monitor.uptime_check.user_agent'),
+        ], config('laravel-uptime-monitor.uptime_check.headers'));
+        
         $client = new Client([
-            'headers' => [
-                'User-Agent' => config('laravel-uptime-monitor.uptime_check.user_agent'),
-            ],
+            'headers' => $headers,
         ]);
 
         foreach ($this->items as $monitor) {
-            ConsoleOutput::info("checking {$monitor->url}");
+            ConsoleOutput::info("Checking {$monitor->url}");
             $promise = $client->requestAsync(
                 $monitor->uptime_check_method,
                 $monitor->url,
