@@ -53,7 +53,7 @@ class MonitorCollection extends Collection
         $headers = array_merge([
             'User-Agent' => config('laravel-uptime-monitor.uptime_check.user_agent'),
         ], config('laravel-uptime-monitor.uptime_check.headers'));
-        
+
         $client = new Client([
             'headers' => $headers,
         ]);
