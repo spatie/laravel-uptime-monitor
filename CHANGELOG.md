@@ -1,6 +1,10 @@
 # Changelog
 
-All Notable changes to `laravel-uptime-monitor` will be documented in this file
+All notable changes to `laravel-uptime-monitor` will be documented in this file
+
+## 1.1.0 - 2016-12-03
+
+- added `additional_headers` to config
 
 ## 1.0.2 - 2016-11-24
 
