@@ -50,9 +50,10 @@ class MonitorCollection extends Collection
     protected function getPromises(): Generator
     {
         // client headers
-        $headers = array_merge([
-            'User-Agent' => config('laravel-uptime-monitor.uptime_check.user_agent'),
-        ], config('laravel-uptime-monitor.uptime_check.headers'));
+        $headers = array_merge(
+            ['User-Agent' => config('laravel-uptime-monitor.uptime_check.user_agent')],
+            config('laravel-uptime-monitor.uptime_check.additional_headers') ?? []
+        );
 
         $client = new Client([
             'headers' => $headers,

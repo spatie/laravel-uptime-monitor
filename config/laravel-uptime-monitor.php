@@ -97,7 +97,7 @@ return [
         /*
          * When reaching out to the sites these headers will be added.
          */
-        'headers' => [],
+        'additional_headers' => [],
     ],
 
     'certificate_check' => [
