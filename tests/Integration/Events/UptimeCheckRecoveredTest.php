@@ -2,12 +2,12 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
-use Spatie\UptimeMonitor\MonitorRepository;
+use Carbon\Carbon;
 use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\MonitorRepository;
+use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 
 class UptimeCheckRecoveredTest extends TestCase
 {

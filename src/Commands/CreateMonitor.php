@@ -2,8 +2,8 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\Url\Url;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 class CreateMonitor extends BaseCommand
 {

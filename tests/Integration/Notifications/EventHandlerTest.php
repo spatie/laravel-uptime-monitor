@@ -2,21 +2,21 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
+use Notification;
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
-use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as UptimeCheckRecoveredEvent;
+use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\UptimeMonitor\Helpers\Period;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Notifications\Notifiable;
-use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidCertificateFoundNotification;
-use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed;
+use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded as UptimeCheckSucceededEvent;
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed as UptimeCheckFailedEvent;
-use Notification;
+use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as UptimeCheckRecoveredEvent;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded as UptimeCheckSucceededEvent;
+use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidCertificateFoundNotification;
 
 class EventHandlerTest extends TestCase
 {
@@ -117,7 +117,6 @@ class EventHandlerTest extends TestCase
         $monitor = factory(Monitor::class)->create();
 
         event(new UptimeCheckSucceededEvent($monitor));
-
 
         Notification::assertSentTo(
             new Notifiable(),
