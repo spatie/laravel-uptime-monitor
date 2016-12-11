@@ -12,6 +12,8 @@ Laravel-uptime-monitor is a powerful, easy to configure uptime monitor. It will 
 
 You'll find extensive documentation on https://docs.spatie.be/laravel-uptime-monitor/v1. It includes detailed info on how to install and use the package.
 
+If you're not familiar with Laravel, but still want to use our uptime monitor, take a look at the [uptime-monitor-app](https://github.com/spatie/uptime-monitor-app) repo which contains a stand alone version of this package.
+
 Reading the config file of this package is a good way to quickly get a feel of what `laravel-uptime-monitor` can do. Here's the content of the config file:
 
 ```php
