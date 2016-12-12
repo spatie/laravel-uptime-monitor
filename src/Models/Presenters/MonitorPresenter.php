@@ -3,8 +3,8 @@
 namespace Spatie\UptimeMonitor\Models\Presenters;
 
 use Spatie\UptimeMonitor\Helpers\Emoji;
-use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 
 trait MonitorPresenter
 {

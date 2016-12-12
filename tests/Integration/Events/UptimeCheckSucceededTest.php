@@ -2,11 +2,11 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
-use Spatie\UptimeMonitor\MonitorRepository;
 use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\MonitorRepository;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 
 class UptimeCheckSucceededTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace Spatie\UptimeMonitor\Exceptions;
 
-use Carbon\Carbon;
 use Exception;
+use Carbon\Carbon;
 
 class InvalidPeriod extends Exception
 {

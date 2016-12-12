@@ -2,9 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Models;
 
-use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
 
 class MonitorTest extends TestCase
 {

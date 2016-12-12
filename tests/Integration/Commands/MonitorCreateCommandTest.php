@@ -4,9 +4,9 @@ namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
 use Mockery as m;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 class MonitorCreateCommandTest extends TestCase
 {

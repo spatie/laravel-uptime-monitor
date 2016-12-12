@@ -4,12 +4,12 @@ namespace Spatie\UptimeMonitor;
 
 use Generator;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
+use GuzzleHttp\Promise\EachPromise;
 use Psr\Http\Message\ResponseInterface;
-use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Monitor;
+use GuzzleHttp\Exception\RequestException;
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 
 class MonitorCollection extends Collection
 {
