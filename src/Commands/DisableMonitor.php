@@ -8,7 +8,7 @@ class DisableMonitor extends BaseCommand
 {
     protected $signature = 'monitor:disable {url}';
 
-    protected $description = 'Disable monitors';
+    protected $description = 'Disable a monitor';
 
     public function handle()
     {

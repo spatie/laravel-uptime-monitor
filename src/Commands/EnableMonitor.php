@@ -8,7 +8,7 @@ class EnableMonitor extends BaseCommand
 {
     protected $signature = 'monitor:enable {url}';
 
-    protected $description = 'Enable a monitors';
+    protected $description = 'Enable a monitor';
 
     public function handle()
     {
