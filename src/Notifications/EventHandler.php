@@ -4,10 +4,10 @@ namespace Spatie\UptimeMonitor\Notifications;
 
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
-use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
+use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
-use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Events\CertificateExpiresSoon;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 

@@ -1,7 +1,7 @@
 <?php
 
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 $factory->define(Monitor::class, function (Faker\Generator $faker) {
     return [
