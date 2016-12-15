@@ -3,10 +3,10 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Helpers;
 
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Exceptions\InvalidPeriod;
 use Spatie\UptimeMonitor\Helpers\Emoji;
-use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Helpers\Period;
+use Spatie\UptimeMonitor\Exceptions\InvalidPeriod;
 
 class PeriodTest extends TestCase
 {

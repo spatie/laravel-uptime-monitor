@@ -2,10 +2,10 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
 use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 
 class CertificateCheckFailedTest extends TestCase
 {

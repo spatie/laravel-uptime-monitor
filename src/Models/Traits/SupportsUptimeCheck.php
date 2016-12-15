@@ -2,15 +2,15 @@
 
 namespace Spatie\UptimeMonitor\Models\Traits;
 
-use Psr\Http\Message\ResponseInterface;
-use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Carbon\Carbon;
+use Psr\Http\Message\ResponseInterface;
+use Spatie\UptimeMonitor\Helpers\Period;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
-use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Helpers\UptimeResponseCheckers\UptimeResponseChecker;
-use Spatie\UptimeMonitor\Models\Monitor;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 
 trait SupportsUptimeCheck
 {

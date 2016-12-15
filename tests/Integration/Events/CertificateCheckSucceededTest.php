@@ -2,11 +2,11 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Carbon\Carbon;
-use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Event;
+use Carbon\Carbon;
 use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 
 class CertificateCheckSucceededTest extends TestCase
 {

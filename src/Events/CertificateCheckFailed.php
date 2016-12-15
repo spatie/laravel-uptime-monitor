@@ -2,9 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Events;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\SslCertificate\SslCertificate;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CertificateCheckFailed implements ShouldQueue
 {
