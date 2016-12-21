@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Notifications;
 
 use Illuminate\Notifications\Notification;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 abstract class BaseNotification extends Notification
 {
@@ -16,6 +17,11 @@ abstract class BaseNotification extends Notification
     public function via($notifiable)
     {
         return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
+    }
+
+    public function getMonitor(): Monitor
+    {
+        return $this->event->monitor;
     }
 
     public function getMonitorProperties($extraProperties = []): array
@@ -42,7 +48,7 @@ abstract class BaseNotification extends Notification
             return '';
         }
 
-        return " (says {$configuredLocation})";
+        return "Monitor {$configuredLocation})";
     }
 
     public function isStillRelevant(): bool
