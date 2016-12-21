@@ -37,9 +37,11 @@ class CertificateCheckFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getMonitorProperties());
+                $attachment
+                    ->title($this->getMessageText())
+                    ->content($this->getMonitor()->certificate_check_failure_reason)
+                    ->footer($this->getMonitor()->certificate_issuer);
             });
     }
 
@@ -59,6 +61,6 @@ class CertificateCheckFailed extends BaseNotification
 
     public function getMessageText(): string
     {
-        return "{$this->event->monitor->url} hasn't got a valid certificate{$this->getLocationDescription()}.";
+        return "SSL Certificate for {$this->getMonitor()->url} is invalid";
     }
 }

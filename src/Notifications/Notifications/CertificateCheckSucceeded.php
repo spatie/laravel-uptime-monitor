@@ -36,10 +36,11 @@ class CertificateCheckSucceeded extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->success()
-            ->content("The certificate check for {$this->event->monitor->url} succeeded.")
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getMonitorProperties());
+                $attachment
+                    ->title($this->getMessageText())
+                    ->content("Expires in {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
+                    ->footer($this->getMonitor()->certificate_issuer);
             });
     }
 
@@ -52,6 +53,6 @@ class CertificateCheckSucceeded extends BaseNotification
 
     public function getMessageText(): string
     {
-        return "{$this->event->monitor->url} has a valid certificate{$this->getLocationDescription()}.";
+        return "SSL certificate for {$this->event->monitor->url} is valid";
     }
 }

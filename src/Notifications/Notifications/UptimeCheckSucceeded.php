@@ -38,6 +38,15 @@ class UptimeCheckSucceeded extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
+            ->attachment(function (SlackAttachment $attachment) {
+                $attachment
+                    ->title($this->getMessageText())
+                    ->footer($this->getLocationDescription())
+                    ->timestamp($this->getMonitor()->uptime_status_last_change_date);
+            });
+
+        return (new SlackMessage)
+            ->success()
             ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment->fields($this->getMonitorProperties());
@@ -58,6 +67,6 @@ class UptimeCheckSucceeded extends BaseNotification
 
     public function getMessageText(): string
     {
-        return "{$this->event->monitor->url} is up{$this->getLocationDescription()}.";
+        return "{$this->event->monitor->url} is up";
     }
 }

@@ -26,7 +26,7 @@ abstract class BaseNotification extends Notification
 
     public function getMonitorProperties($extraProperties = []): array
     {
-        $monitor = $this->event->monitor;
+        $monitor = $this->getMonitor();
 
         $properties = array_merge([], $extraProperties);
 
@@ -48,7 +48,7 @@ abstract class BaseNotification extends Notification
             return '';
         }
 
-        return "Monitor {$configuredLocation})";
+        return "Monitor {$configuredLocation}";
     }
 
     public function isStillRelevant(): bool

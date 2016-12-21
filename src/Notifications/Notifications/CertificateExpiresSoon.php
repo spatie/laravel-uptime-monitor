@@ -36,9 +36,11 @@ class CertificateExpiresSoon extends BaseNotification
     {
         return (new SlackMessage)
             ->warning()
-            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getMonitorProperties());
+                $attachment
+                    ->title($this->getMessageText())
+                    ->content("Expires in {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
+                    ->footer($this->getMonitor()->certificate_issuer);
             });
     }
 

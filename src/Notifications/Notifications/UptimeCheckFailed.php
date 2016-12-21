@@ -38,10 +38,10 @@ class UptimeCheckFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title($this->getMessageText())
+                    ->content($this->getMonitor()->uptime_check_failure_reason)
                     ->footer($this->getLocationDescription())
                     ->timestamp($this->getMonitor()->uptime_status_last_change_date);
             });
@@ -74,6 +74,6 @@ class UptimeCheckFailed extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "{$this->event->monitor->url} seems down.";
+        return "{$this->event->monitor->url} seems down";
     }
 }
