@@ -42,7 +42,7 @@ class CertificateExpiresSoon extends BaseNotification
                     ->title($this->getMessageText())
                     ->content("Expires in {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
                     ->footer($this->getMonitor()->certificate_issuer)
-                    ->timestamp(Carbon::now());;
+                    ->timestamp(Carbon::now());
             });
     }
 
