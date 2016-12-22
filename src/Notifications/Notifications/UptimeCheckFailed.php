@@ -29,7 +29,7 @@ class UptimeCheckFailed extends BaseNotification
             ->line($this->getMessageText());
 
         foreach ($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name . ': ' . $value);
+            $mailMessage->line($name.': '.$value);
         }
 
         return $mailMessage;
