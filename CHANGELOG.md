@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 1.2.1 - 2016-12-22
+
+- fix typos in notifications
+
 ## 1.2.0 - 2016-12-22
 
 - improve notifications
