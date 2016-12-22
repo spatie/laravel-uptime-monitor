@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
@@ -41,7 +42,8 @@ class CertificateCheckFailed extends BaseNotification
                 $attachment
                     ->title($this->getMessageText())
                     ->content($this->getMonitor()->certificate_check_failure_reason)
-                    ->footer($this->getMonitor()->certificate_issuer);
+                    ->footer($this->getMonitor()->certificate_issuer)
+                    ->timestamp(Carbon::now());
             });
     }
 

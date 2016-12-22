@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
@@ -40,7 +41,7 @@ class CertificateCheckSucceeded extends BaseNotification
                 $attachment
                     ->title($this->getMessageText())
                     ->content("Expires in {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
-                    ->footer($this->getMonitor()->certificate_issuer);
+                    ->timestamp(Carbon::now());
             });
     }
 

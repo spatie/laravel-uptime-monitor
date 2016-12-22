@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
@@ -43,7 +44,7 @@ class UptimeCheckFailed extends BaseNotification
                     ->title($this->getMessageText())
                     ->content($this->getMonitor()->uptime_check_failure_reason)
                     ->footer($this->getLocationDescription())
-                    ->timestamp($this->getMonitor()->uptime_status_last_change_date);
+                    ->timestamp(Carbon::now());
             });
     }
 

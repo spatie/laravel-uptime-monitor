@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
@@ -42,14 +43,7 @@ class UptimeCheckSucceeded extends BaseNotification
                 $attachment
                     ->title($this->getMessageText())
                     ->footer($this->getLocationDescription())
-                    ->timestamp($this->getMonitor()->uptime_status_last_change_date);
-            });
-
-        return (new SlackMessage)
-            ->success()
-            ->content($this->getMessageText())
-            ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getMonitorProperties());
+                    ->timestamp(Carbon::now());
             });
     }
 
