@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 1.2.0 - 2016-12-22
+
+- improve notifications
+
 ## 1.1.2 - 2016-12-19
 
 - fix `CertificateCheckSucceeded` notification
