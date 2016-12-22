@@ -23,6 +23,7 @@ class CertificateExpiresSoon extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
+            ->warning()
             ->subject($this->getMessageText())
             ->line($this->getMessageText());
 
@@ -55,6 +56,6 @@ class CertificateExpiresSoon extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "{$this->event->monitor->url} has a certificate that will expire soon";
+        return "SSL certificate for {$this->event->monitor->url} expires soon";
     }
 }

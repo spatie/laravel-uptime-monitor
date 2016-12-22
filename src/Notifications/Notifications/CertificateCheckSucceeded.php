@@ -23,7 +23,6 @@ class CertificateCheckSucceeded extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->success()
             ->subject($this->getMessageText())
             ->line($this->getMessageText());
 

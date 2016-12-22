@@ -24,7 +24,6 @@ class UptimeCheckSucceeded extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->success()
             ->subject($this->getMessageText())
             ->line($this->getMessageText());
 
@@ -38,7 +37,6 @@ class UptimeCheckSucceeded extends BaseNotification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->success()
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title($this->getMessageText())
