@@ -28,11 +28,15 @@ class Period
     {
         $interval = $this->startDateTime->diff($this->endDateTime);
 
-        if($interval->format('%h') === '0') {
+        if(! $this->startDateTime->diffInHours($this->endDateTime)) {
             return $interval->format('%im');
         };
 
-        return $interval->format('%hh %im');
+        if(! $this->startDateTime->diffInDays($this->endDateTime)) {
+            return $interval->format('%hh %im');
+        };
+
+        return $interval->format('%dd %hh %im');
     }
 
     public function toText(): string
