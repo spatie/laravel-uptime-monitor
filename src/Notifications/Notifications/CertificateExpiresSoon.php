@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
@@ -36,9 +37,12 @@ class CertificateExpiresSoon extends BaseNotification
     {
         return (new SlackMessage)
             ->warning()
-            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getMonitorProperties());
+                $attachment
+                    ->title($this->getMessageText())
+                    ->content("Expires {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
+                    ->footer($this->getMonitor()->certificate_issuer)
+                    ->timestamp(Carbon::now());
             });
     }
 
@@ -51,6 +55,6 @@ class CertificateExpiresSoon extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "{$this->event->monitor->url} has a certificate that will expire soon{$this->getLocationDescription()}.";
+        return "{$this->event->monitor->url} has a certificate that will expire soon";
     }
 }

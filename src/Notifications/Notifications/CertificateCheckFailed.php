@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
@@ -37,9 +38,12 @@ class CertificateCheckFailed extends BaseNotification
     {
         return (new SlackMessage)
             ->error()
-            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getMonitorProperties());
+                $attachment
+                    ->title($this->getMessageText())
+                    ->content($this->getMonitor()->certificate_check_failure_reason)
+                    ->footer($this->getMonitor()->certificate_issuer)
+                    ->timestamp(Carbon::now());
             });
     }
 
@@ -59,6 +63,6 @@ class CertificateCheckFailed extends BaseNotification
 
     public function getMessageText(): string
     {
-        return "{$this->event->monitor->url} hasn't got a valid certificate{$this->getLocationDescription()}.";
+        return "SSL Certificate for {$this->getMonitor()->url} is invalid";
     }
 }

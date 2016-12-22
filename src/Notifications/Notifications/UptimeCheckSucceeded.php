@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
@@ -38,9 +39,11 @@ class UptimeCheckSucceeded extends BaseNotification
     {
         return (new SlackMessage)
             ->success()
-            ->content($this->getMessageText())
             ->attachment(function (SlackAttachment $attachment) {
-                $attachment->fields($this->getMonitorProperties());
+                $attachment
+                    ->title($this->getMessageText())
+                    ->footer($this->getLocationDescription())
+                    ->timestamp(Carbon::now());
             });
     }
 
@@ -58,6 +61,6 @@ class UptimeCheckSucceeded extends BaseNotification
 
     public function getMessageText(): string
     {
-        return "{$this->event->monitor->url} is up{$this->getLocationDescription()}.";
+        return "{$this->event->monitor->url} is up";
     }
 }
