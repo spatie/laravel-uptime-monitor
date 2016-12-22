@@ -68,7 +68,7 @@ trait SupportsCertificateCheck
             }
 
             if ($certificate->isExpired()) {
-                $reason = 'The certificate is expired';
+                $reason = 'The certificate has expired';
             }
 
             $this->certificate_check_failure_reason = $reason;
