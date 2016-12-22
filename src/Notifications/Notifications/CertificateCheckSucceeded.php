@@ -40,7 +40,8 @@ class CertificateCheckSucceeded extends BaseNotification
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title($this->getMessageText())
-                    ->content("Expires in {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
+                    ->content("Expires {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
+                    ->footer($this->getMonitor()->certificate_issuer)
                     ->timestamp(Carbon::now());
             });
     }

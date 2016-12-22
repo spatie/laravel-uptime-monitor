@@ -40,9 +40,9 @@ class CertificateExpiresSoon extends BaseNotification
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title($this->getMessageText())
-                    ->content("Expires in {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
+                    ->content("Expires {$this->getMonitor()->formattedCertificateExpirationDate('forHumans')}")
                     ->footer($this->getMonitor()->certificate_issuer)
-                    ->timestamp(Carbon::now());;
+                    ->timestamp(Carbon::now());
             });
     }
 
@@ -55,6 +55,6 @@ class CertificateExpiresSoon extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "{$this->event->monitor->url} has a certificate that will expire soon{$this->getLocationDescription()}.";
+        return "{$this->event->monitor->url} has a certificate that will expire soon";
     }
 }
