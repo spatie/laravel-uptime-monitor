@@ -28,9 +28,9 @@ class Period
     {
         $interval = $this->startDateTime->diff($this->endDateTime);
 
-        if($interval->format('%h') === '0') {
+        if ($interval->format('%h') === '0') {
             return $interval->format('%im');
-        };
+        }
 
         return $interval->format('%hh %im');
     }
