@@ -18,12 +18,12 @@
     "require": {
         "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2",
-        "illuminate/console": "^5.3.28",
-        "illuminate/database": "^5.3.28",
-        "illuminate/events": "^5.3.28",
+        "illuminate/console": "^5.3.29",
+        "illuminate/database": "^5.3.29",
+        "illuminate/events": "^5.3.29",
         "illuminate/notifications": "^5.3.29",
-        "illuminate/queue": "^5.3.28",
-        "illuminate/support": "^5.3.28",
+        "illuminate/queue": "^5.3.29",
+        "illuminate/support": "^5.3.29",
         "spatie/ssl-certificate": "^1.0.2",
         "spatie/url": "^1.0.1"
     },
