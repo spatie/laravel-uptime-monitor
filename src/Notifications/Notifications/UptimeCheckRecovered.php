@@ -42,6 +42,7 @@ class UptimeCheckRecovered extends BaseNotification
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title($this->getMessageText())
+                    ->fallback($this->getMessageText())
                     ->footer($this->getLocationDescription())
                     ->timestamp(Carbon::now());
             });

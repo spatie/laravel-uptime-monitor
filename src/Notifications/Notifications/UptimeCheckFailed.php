@@ -43,6 +43,7 @@ class UptimeCheckFailed extends BaseNotification
                 $attachment
                     ->title($this->getMessageText())
                     ->content($this->getMonitor()->uptime_check_failure_reason)
+                    ->fallback($this->getMessageText())
                     ->footer($this->getLocationDescription())
                     ->timestamp(Carbon::now());
             });
