@@ -116,4 +116,18 @@ return [
      * `Spatie\UptimeMonitor\Models\Monitor`.
      */
     'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
+
+    /**
+     * Change the behaviour of the Restful API
+     */
+    'restAPI' => [
+        'enable' => true,
+        'routePrefix' => 'api',
+        'middleware' => ['api'],
+        'controller' => \Spatie\UptimeMonitor\Http\Controller\MonitorController::class,
+        'validationRules' => [
+            'url' => 'required|url',
+            'look_for_string' => 'string'
+        ]
+    ]
 ];
