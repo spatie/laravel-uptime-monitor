@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 1.2.3 - 2017-01-14
+
+- fixed bug where migration could be published multiple times
+
 ## 1.2.2 - 2017-01-06
 
 - set fallback text for Slack notifications

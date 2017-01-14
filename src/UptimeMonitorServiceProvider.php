@@ -28,7 +28,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             ], 'config');
         }
 
-        if (! class_exists('CreateSitesTable')) {
+        if (! class_exists('CreateMonitorsTable')) {
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
