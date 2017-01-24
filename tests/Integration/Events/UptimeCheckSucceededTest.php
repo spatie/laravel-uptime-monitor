@@ -26,7 +26,7 @@ class UptimeCheckSucceededTest extends TestCase
     {
         MonitorRepository::getForUptimeCheck()->checkUptime();
 
-        Event::assertFired(UptimeCheckSucceeded::class, function ($event) {
+        Event::assertDispatched(UptimeCheckSucceeded::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
         });
     }
@@ -41,6 +41,6 @@ class UptimeCheckSucceededTest extends TestCase
 
         MonitorRepository::getForUptimeCheck()->checkUptime();
 
-        Event::assertFired(UptimeCheckSucceeded::class);
+        Event::assertDispatched(UptimeCheckSucceeded::class);
     }
 }

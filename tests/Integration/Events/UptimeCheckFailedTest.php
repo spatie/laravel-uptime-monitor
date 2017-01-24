@@ -37,11 +37,11 @@ class UptimeCheckFailedTest extends TestCase
             $monitors->checkUptime();
 
             if ($index < $consecutiveFailsNeeded) {
-                Event::assertNotFired(UptimeCheckFailed::class);
+                Event::assertNotDispatched(UptimeCheckFailed::class);
             }
         }
 
-        Event::assertFired(UptimeCheckFailed::class, function ($event) {
+        Event::assertDispatched(UptimeCheckFailed::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
         });
     }
@@ -92,10 +92,10 @@ class UptimeCheckFailedTest extends TestCase
 
         MonitorRepository::getForUptimeCheck()->checkUptime();
 
-        Event::assertFired(UptimeCheckFailed::class);
+        Event::assertDispatched(UptimeCheckFailed::class);
 
-        Event::assertNotFired(UptimeCheckSucceeded::class);
+        Event::assertNotDispatched(UptimeCheckSucceeded::class);
 
-        Event::assertNotFired(UptimeCheckRecovered::class);
+        Event::assertNotDispatched(UptimeCheckRecovered::class);
     }
 }

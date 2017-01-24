@@ -34,7 +34,7 @@ class CertificateCheckSucceededTest extends TestCase
 
         $this->monitor->checkCertificate();
 
-        Event::assertFired(CertificateCheckSucceeded::class, function ($event) {
+        Event::assertDispatched(CertificateCheckSucceeded::class, function ($event) {
             return $event->monitor->id === $this->monitor->id;
         });
     }

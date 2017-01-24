@@ -43,11 +43,11 @@ class UptimeCheckRecoveredTest extends TestCase
 
         $this->server->up();
 
-        Event::assertNotFired(UptimeCheckRecovered::class);
+        Event::assertNotDispatched(UptimeCheckRecovered::class);
 
         $monitors->checkUptime();
 
-        Event::assertFired(UptimeCheckRecovered::class, function (UptimeCheckRecovered $event) use ($downTimeLengthInMinutes) {
+        Event::assertDispatched(UptimeCheckRecovered::class, function (UptimeCheckRecovered $event) use ($downTimeLengthInMinutes) {
             if ($event->monitor->id !== $this->monitor->id) {
                 return false;
             }
