@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 2.0.0 - 2017-01-24
+
+- add support for L5.4
+- drop support for L5.3
+
 ## 1.2.3 - 2017-01-14
 
 - fixed bug where migration could be published multiple times
