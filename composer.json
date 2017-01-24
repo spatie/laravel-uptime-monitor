@@ -18,12 +18,12 @@
     "require": {
         "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2",
-        "illuminate/console": "~5.4.0@dev",
-        "illuminate/database": "~5.4.0@dev",
-        "illuminate/events": "~5.4.0@dev",
-        "illuminate/notifications": "~5.4.0@dev",
-        "illuminate/queue": "~5.4.0@dev",
-        "illuminate/support": "~5.4.0@dev",
+        "illuminate/console": "~5.4.0",
+        "illuminate/database": "~5.4.0",
+        "illuminate/events": "~5.4.0",
+        "illuminate/notifications": "~5.4.0",
+        "illuminate/queue": "~5.4.0",
+        "illuminate/support": "~5.4.0",
         "spatie/ssl-certificate": "^1.0.2",
         "spatie/url": "^1.0.1"
     },
@@ -31,7 +31,6 @@
         "mockery/mockery": "0.9.5",
         "orchestra/testbench": "~3.4.0@dev",
         "orchestra/database": "~3.4.0@dev",
-        "laravel/framework": "~5.4.0@dev",
         "phpunit/phpunit": "^5.5"
     },
     "autoload": {
