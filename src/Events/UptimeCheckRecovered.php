@@ -11,9 +11,7 @@ class UptimeCheckRecovered implements ShouldQueue
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     public $monitor;
 
-    /**
-     * @var \Spatie\UptimeMonitor\Helpers\Period
-     */
+    /** @var \Spatie\UptimeMonitor\Helpers\Period */
     public $downtimePeriod;
 
     public function __construct(Monitor $monitor, Period $downtimePeriod)
