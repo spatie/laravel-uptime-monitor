@@ -31,11 +31,8 @@ class MonitorRepository
 
     public static function getForUptimeCheck(): MonitorCollection
     {
-        $monitors = self::query()
-            ->get()
-            ->filter(function (Monitor $monitor) {
-                return $monitor->shouldCheckUptime();
-            });
+
+        $monitors = self::query()->get()->filter->shouldCheckUptime();
 
         return MonitorCollection::make($monitors)->sortByHost();
     }
@@ -51,11 +48,7 @@ class MonitorRepository
 
     public static function getHealthy(): Collection
     {
-        $monitors = self::query()
-            ->get()
-            ->filter(function (Monitor $monitor) {
-                return $monitor->isHealthy();
-            });
+        $monitors = self::query()->get()->filter->isHealthy();
 
         return MonitorCollection::make($monitors)->sortByHost();
     }
@@ -82,11 +75,7 @@ class MonitorRepository
 
     public static function getUnhealthy(): Collection
     {
-        $monitors = self::query()
-            ->get()
-            ->reject(function (Monitor $monitor) {
-                return $monitor->isHealthy();
-            });
+        $monitors = self::query()->get()->reject->isHealthy();
 
         return MonitorCollection::make($monitors)->sortByHost();
     }
