@@ -31,7 +31,6 @@ class MonitorRepository
 
     public static function getForUptimeCheck(): MonitorCollection
     {
-
         $monitors = self::query()->get()->filter->shouldCheckUptime();
 
         return MonitorCollection::make($monitors)->sortByHost();
