@@ -47,7 +47,7 @@ trait SupportsUptimeCheck
             return true;
         }
 
-        return $this->uptime_last_check_date->diffInMinutes() >= $this->uptime_check_interval_in_minutes;
+        return $this->uptime_last_check_date->diffInMinutes() >= config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes');
     }
 
     public function uptimeRequestSucceeded(ResponseInterface $response)
