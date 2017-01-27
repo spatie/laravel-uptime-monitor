@@ -28,7 +28,7 @@ class CreateMonitor extends BaseCommand
 
         $monitor = Monitor::create([
             'url' => trim($url, '/'),
-            'look_for_string' => $lookForString ?? null,
+            'look_for_string' => $lookForString ?? '',
             'uptime_check_method' => isset($lookForString) ? 'get' : 'head',
             'certificate_check_enabled' => $url->getScheme() === 'https',
         ]);
