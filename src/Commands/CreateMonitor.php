@@ -28,10 +28,9 @@ class CreateMonitor extends BaseCommand
 
         $monitor = Monitor::create([
             'url' => trim($url, '/'),
-            'look_for_string' => $lookForString ?? '',
+            'look_for_string' => $lookForString ?? null,
             'uptime_check_method' => isset($lookForString) ? 'get' : 'head',
             'certificate_check_enabled' => $url->getScheme() === 'https',
-            'uptime_check_interval_in_minutes' => config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes'),
         ]);
 
         $this->warn("{$monitor->url} will be monitored!");
