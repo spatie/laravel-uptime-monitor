@@ -65,7 +65,7 @@ return [
          * given number of minutes ago. If you change this setting you have to manually
          * update the `uptime_check_interval_in_minutes` value of your existing monitors.
          *
-         * When an uptime check fails we'll check the uptime for that montitor every time `monitor:check-uptime`
+         * When an uptime check fails we'll check the uptime for that monitor every time `monitor:check-uptime`
          * runs regardless of this setting.
          */
         'run_interval_in_minutes' => 5,
@@ -78,7 +78,7 @@ return [
         'concurrent_checks' => 10,
 
         /*
-         * The uptime check for a monitor will fail if url does not respond after the
+         * The uptime check for a monitor will fail if the url does not respond after the
          * given number of seconds.
          */
         'timeout_per_site' => 10,
