@@ -17,7 +17,7 @@ class CreateMonitor extends BaseCommand
 
         if (! in_array($url->getScheme(), ['http', 'https'])) {
 
-            if ($scheme = $this->choice('What protocol do we need?', [1 => 'http', 2 => 'https'], 2)) {
+            if ($scheme = $this->choice("Which protocol needs to be used for checking `{$url}`?", [1 => 'https', 2 => 'http'], 1)) {
                 $url = $url->withScheme($scheme);
             }
         }

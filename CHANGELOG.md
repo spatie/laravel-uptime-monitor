@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 2.0.1 - 2017-01-27
+
+- ask for protocol when creating a monitor
+
 ## 2.0.0 - 2017-01-24
 
 - add support for L5.4
