@@ -92,7 +92,7 @@ return [
         /*
          * When reaching out to sites this user agent will be used.
          */
-        'user_agent' => 'spatie/laravel-uptime-monitor uptime checker',
+        'user_agent' => 'spatie/uptime-monitor uptime checker',
 
         /*
          * When reaching out to the sites these headers will be added.

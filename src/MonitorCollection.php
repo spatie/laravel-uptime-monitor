@@ -28,7 +28,7 @@ class MonitorCollection extends Collection
         $this->resetItemKeys();
 
         (new EachPromise($this->getPromises(), [
-            'concurrency' => config('laravel-uptime-monitor.uptime_check.concurrent_checks'),
+            'concurrency' => config('uptime-monitor.uptime_check.concurrent_checks'),
             'fulfilled' => function (ResponseInterface $response, $index) {
                 $monitor = $this->getMonitorAtIndex($index);
 
@@ -51,8 +51,8 @@ class MonitorCollection extends Collection
     {
         // client headers
         $headers = array_merge(
-            ['User-Agent' => config('laravel-uptime-monitor.uptime_check.user_agent')],
-            config('laravel-uptime-monitor.uptime_check.additional_headers') ?? []
+            ['User-Agent' => config('uptime-monitor.uptime_check.user_agent')],
+            config('uptime-monitor.uptime_check.additional_headers') ?? []
         );
 
         $client = new Client([
@@ -64,7 +64,7 @@ class MonitorCollection extends Collection
             $promise = $client->requestAsync(
                 $monitor->uptime_check_method,
                 $monitor->url,
-                ['connect_timeout' => config('laravel-uptime-monitor.uptime_check.timeout_per_site')]
+                ['connect_timeout' => config('uptime-monitor.uptime_check.timeout_per_site')]
             );
 
             yield $promise;

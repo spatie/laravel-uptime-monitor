@@ -17,7 +17,7 @@ class ConfigurationTest extends TestCase
             public $table = 'monitors';
         };
 
-        $this->app['config']->set('laravel-uptime-monitor.monitor_model', get_class($customModel));
+        $this->app['config']->set('uptime-monitor.monitor_model', get_class($customModel));
 
         $this->assertInstanceOf(get_class($customModel), MonitorRepository::getEnabled()->first());
     }
@@ -28,7 +28,7 @@ class ConfigurationTest extends TestCase
         $customModel = new class {
         };
 
-        $this->app['config']->set('laravel-uptime-monitor.monitor_model', get_class($customModel));
+        $this->app['config']->set('uptime-monitor.monitor_model', get_class($customModel));
 
         $this->expectException(InvalidConfiguration::class);
 

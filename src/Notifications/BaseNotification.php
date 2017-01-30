@@ -16,7 +16,7 @@ abstract class BaseNotification extends Notification
      */
     public function via($notifiable)
     {
-        return config('laravel-uptime-monitor.notifications.notifications.'.static::class);
+        return config('uptime-monitor.notifications.notifications.'.static::class);
     }
 
     public function getMonitor(): Monitor
@@ -42,7 +42,7 @@ abstract class BaseNotification extends Notification
 
     public function getLocationDescription(): string
     {
-        $configuredLocation = config('laravel-uptime-monitor.notifications.location');
+        $configuredLocation = config('uptime-monitor.notifications.location');
 
         if ($configuredLocation == '') {
             return '';

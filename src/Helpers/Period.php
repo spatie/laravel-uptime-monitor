@@ -41,7 +41,7 @@ class Period
 
     public function toText(): string
     {
-        $configuredDateFormat = config('laravel-uptime-monitor.notifications.date_format');
+        $configuredDateFormat = config('uptime-monitor.notifications.date_format');
 
         return
             $this->startDateTime->format('H:i').' '
