@@ -23,7 +23,7 @@ class CertificateExpiresSoon extends BaseNotification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->warning()
+            ->error()
             ->subject($this->getMessageText())
             ->line($this->getMessageText());
 
