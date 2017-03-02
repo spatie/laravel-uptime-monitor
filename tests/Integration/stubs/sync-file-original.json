@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://www.https-example2.com",
+    "uptime_check_enabled": true,
+    "certificate_check_enabled": true
+  },
+  {
+    "url": "http://www.http-example2.com",
+    "uptime_check_enabled": false,
+    "certificate_check_enabled": false
+  }
+]

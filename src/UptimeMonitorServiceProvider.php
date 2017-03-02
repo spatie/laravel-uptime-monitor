@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\ServiceProvider;
+use Spatie\UptimeMonitor\Commands\SyncFile;
 use Spatie\UptimeMonitor\Commands\CheckUptime;
 use Spatie\UptimeMonitor\Commands\ListMonitors;
 use Spatie\UptimeMonitor\Commands\CreateMonitor;
@@ -48,6 +49,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
 
         $this->app->bind('command.monitor:check-uptime', CheckUptime::class);
         $this->app->bind('command.monitor:check-certificate', CheckCertificates::class);
+        $this->app->bind('command.monitor:sync-file', SyncFile::class);
         $this->app->bind('command.monitor:create', CreateMonitor::class);
         $this->app->bind('command.monitor:delete', DeleteMonitor::class);
         $this->app->bind('command.monitor:enable', EnableMonitor::class);
@@ -62,6 +64,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         $this->commands([
             'command.monitor:check-uptime',
             'command.monitor:check-certificate',
+            'command.monitor:sync-file',
             'command.monitor:create',
             'command.monitor:delete',
             'command.monitor:enable',
