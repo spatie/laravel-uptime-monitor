@@ -26,7 +26,8 @@ class UptimeCheckRecovered extends BaseNotification
         $mailMessage = (new MailMessage)
             ->success()
             ->subject($this->getMessageText())
-            ->line($this->getMessageText());
+            ->line($this->getMessageText())
+            ->line($this->getLocationDescription());
 
         foreach ($this->getMonitorProperties() as $name => $value) {
             $mailMessage->line($name.': '.$value);
