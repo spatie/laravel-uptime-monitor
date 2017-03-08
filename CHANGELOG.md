@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 2.0.2 - 2017-03-08
+
+- added monitor location to mail notifications
+
 ## 2.0.1 - 2017-01-27
 
 - ask for protocol when creating a monitor
