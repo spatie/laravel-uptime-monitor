@@ -51,6 +51,52 @@ class MonitorRepositoryTest extends TestCase
     }
 
     /** @test */
+    function it_can_get_all_unchecked_monitors()
+    {
+        Monitor::create(['url' => 'http://down1.com', 'uptime_status' => UptimeStatus::DOWN]);
+
+        Monitor::create(['url' => 'http://up.com', 'uptime_status' => UptimeStatus::UP]);
+
+        Monitor::create([
+            'url' => 'http://checked.com',
+            'uptime_status' => UptimeStatus::UP,
+            'certificate_status' => CertificateStatus::VALID
+        ]);
+
+        Monitor::create([
+            'url' => 'http://unchecked1.com',
+            'uptime_status' => UptimeStatus::UP,
+            'certificate_check_enabled' => true,
+            'certificate_status' => CertificateStatus::NOT_YET_CHECKED
+        ]);
+
+        Monitor::create([
+            'url' => 'http://unchecked2.com',
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'certificate_check_enabled' => true,
+            'certificate_status' => CertificateStatus::NOT_YET_CHECKED
+        ]);
+
+        Monitor::create([
+            'url' => 'http://disabled1.com',
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'uptime_check_enabled' => false,
+            'certificate_status' => CertificateStatus::NOT_YET_CHECKED
+        ]);
+
+        Monitor::create([
+            'url' => 'http://enabled.com',
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'uptime_check_enabled' => false,
+            'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
+            'certificate_check_enabled' => true,
+        ]);
+
+        $uncheckedMonitors = MonitorRepository::getUnchecked();
+        $this->assertEquals(['http://enabled.com', 'http://unchecked1.com', 'http://unchecked2.com'], $this->getMonitorUrls($uncheckedMonitors));
+    }
+
+    /** @test */
     public function it_can_get_all_monitors_that_are_failing()
     {
         Monitor::create(['url' => 'http://down1.com', 'uptime_status' => UptimeStatus::DOWN]);
