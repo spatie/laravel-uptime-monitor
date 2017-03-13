@@ -91,8 +91,8 @@ class MonitorRepository
             })
             ->orWhere(function (Builder $query) {
                 $query
-                    ->where('uptime_check_enabled', true)
-                    ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
+                    ->where('certificate_check_enabled', true)
+                    ->where('certificate_status', CertificateStatus::NOT_YET_CHECKED);
             })
             ->get();
 
