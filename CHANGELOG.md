@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 2.1.0 - 2017-03-13
+
+- add `sync` command
+
 ## 2.0.3 - 2017-03-13
 
 - fixed bug in getting unchecked monitors
