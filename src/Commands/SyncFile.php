@@ -28,13 +28,11 @@ class SyncFile extends BaseCommand
 
     protected function validateMonitors($monitorsInFile)
     {
-        $monitorsInFile
-            ->filter(function ($monitorAttributes) {
-                return empty(preg_match('/^http:\/\/|^https:\/\//', $monitorAttributes['url']));
-            })
-            ->first(function ($invalidMonitorAttributes) {
-                throw new CannotSaveMonitor("URL `{$invalidMonitorAttributes['url']}` is invalid (is the URL scheme included?)");
-            });
+        $monitorsInFile->each(function ($monitorAttributes) {
+            if (! starts_with($monitorAttributes['url'], ['https://', 'http://'])) {
+                throw new CannotSaveMonitor("URL `{$monitorAttributes['url']}` is invalid (is the URL scheme included?)");
+            }
+        });
     }
 
     protected function createOrUpdateMonitorsFromFile($monitorsInFile)
