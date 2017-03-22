@@ -11,11 +11,11 @@ trait MonitorPresenter
     public function getUptimeStatusAsEmojiAttribute(): string
     {
         if ($this->uptime_status === UptimeStatus::UP) {
-            return Emoji::ok();
+            return "✅";
         }
 
         if ($this->uptime_status === UptimeStatus::DOWN) {
-            return Emoji::notOk();
+            return "❌";
         }
 
         return '';
@@ -24,11 +24,11 @@ trait MonitorPresenter
     public function getCertificateStatusAsEmojiAttribute(): string
     {
         if ($this->certificate_status === CertificateStatus::VALID) {
-            return Emoji::ok();
+            return "✅";
         }
 
         if ($this->certificate_status === CertificateStatus::INVALID) {
-            return Emoji::notOk();
+            return "❌";
         }
 
         return '';
