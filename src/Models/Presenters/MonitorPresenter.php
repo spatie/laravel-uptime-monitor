@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Models\Presenters;
 
-use Spatie\UptimeMonitor\Helpers\Emoji;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 
@@ -11,11 +10,11 @@ trait MonitorPresenter
     public function getUptimeStatusAsEmojiAttribute(): string
     {
         if ($this->uptime_status === UptimeStatus::UP) {
-            return "✅";
+            return '✅';
         }
 
         if ($this->uptime_status === UptimeStatus::DOWN) {
-            return "❌";
+            return '❌';
         }
 
         return '';
@@ -24,11 +23,11 @@ trait MonitorPresenter
     public function getCertificateStatusAsEmojiAttribute(): string
     {
         if ($this->certificate_status === CertificateStatus::VALID) {
-            return "✅";
+            return '✅';
         }
 
         if ($this->certificate_status === CertificateStatus::INVALID) {
-            return "❌";
+            return '❌';
         }
 
         return '';
