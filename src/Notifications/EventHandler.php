@@ -40,7 +40,7 @@ class EventHandler
 
     protected function determineNotifiable()
     {
-        $notifiableClass = $this->config->get('laravel-uptime-monitor.notifications.notifiable');
+        $notifiableClass = $this->config->get('uptime-monitor.notifications.notifiable');
 
         return app($notifiableClass);
     }
@@ -49,7 +49,7 @@ class EventHandler
     {
         $eventName = class_basename($event);
 
-        $notificationClass = collect($this->config->get('laravel-uptime-monitor.notifications.notifications'))
+        $notificationClass = collect($this->config->get('uptime-monitor.notifications.notifications'))
             ->filter(function (array $notificationChannels) {
                 return count($notificationChannels);
             })

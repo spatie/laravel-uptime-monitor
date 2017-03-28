@@ -42,7 +42,7 @@ class EventHandlerTest extends TestCase
         $shouldSendNotification
     ) {
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.'.UptimeCheckSucceeded::class,
+            'uptime-monitor.notifications.notifications.'.UptimeCheckSucceeded::class,
             ['slack']
         );
 
@@ -110,7 +110,7 @@ class EventHandlerTest extends TestCase
     public function it_send_notifications_to_the_channels_configured_in_the_config_file(array $configuredChannels)
     {
         $this->app['config']->set(
-            'laravel-uptime-monitor.notifications.notifications.'.UptimeCheckSucceeded::class,
+            'uptime-monitor.notifications.notifications.'.UptimeCheckSucceeded::class,
             $configuredChannels
         );
 
