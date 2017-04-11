@@ -31,7 +31,7 @@ return [
         'resend_uptime_check_failed_notification_every_minutes' => 60,
 
         'mail' => [
-            'to' => 'your@email.com',
+            'to' => ['your@email.com'],
         ],
 
         'slack' => [
