@@ -116,4 +116,10 @@ return [
      * `Spatie\UptimeMonitor\Models\Monitor`.
      */
     'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
+
+    /*
+     * The delay in ms for retrying connection to a website.
+     * Decrease this value to speed up the verification process.
+     */
+    'backoff_delay' => 200,
 ];
