@@ -84,10 +84,19 @@ return [
         'timeout_per_site' => 10,
 
         /*
+         * Because networks can be a bit unreliable the package can make three attempts
+         * to connect to a server in one uptime check. You can specify the time in
+         * milliseconds between each attempt.
+         */
+        'retry_connection_after_milliseconds' => 100,
+
+        /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
          * the given number of uptime checks have consecutively failed for a monitor.
          */
         'fire_monitor_failed_event_after_consecutive_failures' => 2,
+
+
 
         /*
          * When reaching out to sites this user agent will be used.
@@ -116,10 +125,4 @@ return [
      * `Spatie\UptimeMonitor\Models\Monitor`.
      */
     'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
-
-    /*
-     * The delay in ms for retrying connection to a website.
-     * Decrease this value to speed up the verification process.
-     */
-    'backoff_delay' => 200,
 ];

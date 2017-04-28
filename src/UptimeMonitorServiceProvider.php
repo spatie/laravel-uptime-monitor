@@ -57,9 +57,6 @@ class UptimeMonitorServiceProvider extends ServiceProvider
         $this->app->bind('command.monitor:enable', EnableMonitor::class);
         $this->app->bind('command.monitor:disable', DisableMonitor::class);
         $this->app->bind('command.monitor:list', ListMonitors::class);
-        $this->app->singleton('http.client', function (Container $app) {
-            return GuzzleFactory::make([], config('laravel-uptime-monitor.backoff_delay', 200));
-        });
 
         $this->app->bind(
             UptimeResponseChecker::class,

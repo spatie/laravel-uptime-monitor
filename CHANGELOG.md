@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 2.2.0 - 2017-03-13
+
+- add `retry_connection_after_milliseconds` to config file
+
 ## 2.1.0 - 2017-03-13
 
 - add `sync` command
