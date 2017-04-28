@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor;
 
 use Generator;
-use GrahamCampbell\GuzzleFactory\GuzzleFactory;
+use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 use GuzzleHttp\Promise\EachPromise;
 use Psr\Http\Message\ResponseInterface;
@@ -55,16 +55,17 @@ class MonitorCollection extends Collection
             config('laravel-uptime-monitor.uptime_check.additional_headers') ?? []
         );
 
-        $client = GuzzleFactory::make([
-            'headers' => $headers,
-        ], config('laravel-uptime-monitor.backoff_delay', 200));
+        $client = app()->make('http.client');
 
         foreach ($this->items as $monitor) {
             ConsoleOutput::info("Checking {$monitor->url}");
             $promise = $client->requestAsync(
                 $monitor->uptime_check_method,
                 $monitor->url,
-                ['connect_timeout' => config('laravel-uptime-monitor.uptime_check.timeout_per_site')]
+                [
+                    'connect_timeout' => config('laravel-uptime-monitor.uptime_check.timeout_per_site'),
+                    'headers' => $headers,
+                ]
             );
 
             yield $promise;
