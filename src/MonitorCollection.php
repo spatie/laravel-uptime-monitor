@@ -55,16 +55,17 @@ class MonitorCollection extends Collection
             config('laravel-uptime-monitor.uptime_check.additional_headers') ?? []
         );
 
-        $client = new Client([
-            'headers' => $headers,
-        ]);
+        $client = app()->make('http.client');
 
         foreach ($this->items as $monitor) {
             ConsoleOutput::info("Checking {$monitor->url}");
             $promise = $client->requestAsync(
                 $monitor->uptime_check_method,
                 $monitor->url,
-                ['connect_timeout' => config('laravel-uptime-monitor.uptime_check.timeout_per_site')]
+                [
+                    'connect_timeout' => config('laravel-uptime-monitor.uptime_check.timeout_per_site'),
+                    'headers' => $headers,
+                ]
             );
 
             yield $promise;
