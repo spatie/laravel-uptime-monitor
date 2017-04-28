@@ -2,8 +2,6 @@
 
 namespace Spatie\UptimeMonitor;
 
-use GrahamCampbell\GuzzleFactory\GuzzleFactory;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Spatie\UptimeMonitor\Commands\SyncFile;
 use Spatie\UptimeMonitor\Commands\CheckUptime;

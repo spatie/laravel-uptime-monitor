@@ -96,8 +96,6 @@ return [
          */
         'fire_monitor_failed_event_after_consecutive_failures' => 2,
 
-
-
         /*
          * When reaching out to sites this user agent will be used.
          */
