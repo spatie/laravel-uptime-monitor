@@ -14,16 +14,6 @@ use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 
 class MonitorCollection extends Collection
 {
-    /**
-     * @return static
-     */
-    public function sortByHost()
-    {
-        return $this->sortBy(function (Monitor $monitor) {
-            return $monitor->url->getHost();
-        });
-    }
-
     public function checkUptime()
     {
         $this->resetItemKeys();
@@ -88,5 +78,15 @@ class MonitorCollection extends Collection
     protected function getMonitorAtIndex(int $index): Monitor
     {
         return $this->items[$index];
+    }
+
+    /**
+     * @return static
+     */
+    public function sortByHost()
+    {
+        return $this->sortBy(function (Monitor $monitor) {
+            return $monitor->url->getHost();
+        });
     }
 }
