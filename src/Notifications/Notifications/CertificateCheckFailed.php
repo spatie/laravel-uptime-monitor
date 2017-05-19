@@ -11,7 +11,7 @@ use Spatie\UptimeMonitor\Events\CertificateCheckFailed as InValidCertificateFoun
 
 class CertificateCheckFailed extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\CertificateCheckSucceeded */
+    /** @var \Spatie\UptimeMonitor\Events\CertificateCheckFailed */
     public $event;
 
     /**
