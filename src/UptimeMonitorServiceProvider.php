@@ -4,7 +4,9 @@ namespace Spatie\UptimeMonitor;
 
 use Illuminate\Support\ServiceProvider;
 use Spatie\UptimeMonitor\Commands\SyncFile;
+use Illuminate\Contracts\Container\Container;
 use Spatie\UptimeMonitor\Commands\CheckUptime;
+use GrahamCampbell\GuzzleFactory\GuzzleFactory;
 use Spatie\UptimeMonitor\Commands\ListMonitors;
 use Spatie\UptimeMonitor\Commands\CreateMonitor;
 use Spatie\UptimeMonitor\Commands\DeleteMonitor;
