@@ -2,13 +2,13 @@
 
 use Illuminate\Http\Request;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Laravel\Lumen\Application(
-    realpath(__DIR__ . '/../')
+    realpath(__DIR__.'/../')
 );
 
-$storagePath = __DIR__ . '/../storage/server-status-code.txt';
+$storagePath = __DIR__.'/../storage/server-status-code.txt';
 
 $app->get('/', function () use ($storagePath) {
     if (! file_exists($storagePath)) {
@@ -26,7 +26,7 @@ $app->post('/setServerResponse', function (Request $request) use ($storagePath) 
     file_put_contents($storagePath, $response);
 });
 
-$app->get('booted', function() {
+$app->get('booted', function () {
     return 'app has booted';
 });
 
