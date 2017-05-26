@@ -8,7 +8,7 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-$storagePath = __DIR__.'/../storage/server-status-code.txt';
+$storagePath = __DIR__.'/../storage/server-status-code.json';
 
 $app->get('/', function () use ($storagePath) {
     if (! file_exists($storagePath)) {
