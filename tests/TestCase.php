@@ -5,6 +5,7 @@ namespace Spatie\UptimeMonitor\Test;
 use Event;
 use Artisan;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 
@@ -15,7 +16,7 @@ abstract class TestCase extends Orchestra
 
     public function setUp()
     {
-        $this->server = new Server();
+        $this->server = new Server(new Client());
 
         Carbon::setTestNow(Carbon::create(2016, 1, 1, 00, 00, 00));
 
