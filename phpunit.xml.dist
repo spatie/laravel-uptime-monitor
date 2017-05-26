@@ -12,8 +12,12 @@
     <testsuites>
         <testsuite name="Spatie Test Suite">
             <directory>tests</directory>
+            <exclude>./tests/server</exclude>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="TEST_SERVER_PORT" value="9000"/>
+    </php>
     <filter>
         <whitelist>
             <directory suffix=".php">src/</directory>
