@@ -22,7 +22,7 @@ return [
          * The location from where you are running this Laravel application. This location will be
          * mentioned in all notifications that will be sent.
          */
-        'location' => '',
+        'location' => env('APP_URL'),
 
         /*
          * To keep reminding you that a site is down, notifications
