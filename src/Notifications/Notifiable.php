@@ -13,7 +13,7 @@ class Notifiable
      */
     public function routeNotificationForMail()
     {
-        return config('laravel-uptime-monitor.notifications.mail.to');
+        return config('uptime-monitor.notifications.mail.to');
     }
 
     /**
@@ -21,7 +21,7 @@ class Notifiable
      */
     public function routeNotificationForSlack()
     {
-        return config('laravel-uptime-monitor.notifications.slack.webhook_url');
+        return config('uptime-monitor.notifications.slack.webhook_url');
     }
 
     public function getKey(): string

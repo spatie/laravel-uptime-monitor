@@ -12,7 +12,6 @@ use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 
 class MonitorRepositoryTest extends TestCase
 {
-    /** @test */
     public function setUp()
     {
         parent::setUp();

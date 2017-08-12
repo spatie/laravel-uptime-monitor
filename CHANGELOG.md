@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 3.0.0 - 2017-xx-xx
+
+- add support for Laravel 5.5, drop support for Laravel 5.4
+- renamed config file from `laravel-uptime-monitor` to `uptime-monitor`
+
 ## 2.2.0 - 2017-03-13
 
 - add `retry_connection_after_milliseconds` to config file

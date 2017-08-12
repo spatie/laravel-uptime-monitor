@@ -25,7 +25,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
             $this->publishes([
-                __DIR__.'/../config/laravel-uptime-monitor.php' => config_path('laravel-uptime-monitor.php'),
+                __DIR__.'/../config/uptime-monitor.php' => config_path('uptime-monitor.php'),
             ], 'config');
         }
 
@@ -43,7 +43,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-uptime-monitor.php', 'laravel-uptime-monitor');
+        $this->mergeConfigFrom(__DIR__.'/../config/uptime-monitor.php', 'uptime-monitor');
 
         $this->app['events']->subscribe(EventHandler::class);
 
@@ -58,7 +58,7 @@ class UptimeMonitorServiceProvider extends ServiceProvider
 
         $this->app->bind(
             UptimeResponseChecker::class,
-            config('laravel-uptime-monitor.uptime_check.response_checker')
+            config('uptime-monitor.uptime_check.response_checker')
         );
 
         $this->commands([

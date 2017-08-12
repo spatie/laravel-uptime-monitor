@@ -24,7 +24,7 @@ class SupportsUptimeCheckTest extends TestCase
     {
         $this->assertFalse($this->monitor->shouldCheckUptime());
 
-        $this->progressMinutes(config('laravel-uptime-monitor.uptime_check.run_interval_in_minutes') - 1);
+        $this->progressMinutes(config('uptime-monitor.uptime_check.run_interval_in_minutes') - 1);
 
         $this->assertFalse($this->monitor->shouldCheckUptime());
 

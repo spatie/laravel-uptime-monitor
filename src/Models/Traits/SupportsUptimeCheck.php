@@ -114,7 +114,7 @@ trait SupportsUptimeCheck
 
     protected function shouldFireUptimeCheckFailedEvent(): bool
     {
-        if ($this->uptime_check_times_failed_in_a_row === config('laravel-uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures')) {
+        if ($this->uptime_check_times_failed_in_a_row === config('uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures')) {
             return true;
         }
 
@@ -122,11 +122,11 @@ trait SupportsUptimeCheck
             return false;
         }
 
-        if (config('laravel-uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes') === 0) {
+        if (config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes') === 0) {
             return false;
         }
 
-        if ($this->uptime_check_failed_event_fired_on_date->diffInMinutes() >= config('laravel-uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes')) {
+        if ($this->uptime_check_failed_event_fired_on_date->diffInMinutes() >= config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes')) {
             return true;
         }
 
