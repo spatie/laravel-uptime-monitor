@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
-## 3.0.0 - 2017-xx-xx
+## 3.0.0 - 2017-08-31
 
 - add support for Laravel 5.5, drop support for Laravel 5.4
 - renamed config file from `laravel-uptime-monitor` to `uptime-monitor`
