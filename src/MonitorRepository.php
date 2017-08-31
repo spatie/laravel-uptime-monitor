@@ -120,7 +120,7 @@ class MonitorRepository
 
     protected static function determineMonitorModel(): string
     {
-        $monitorModel = config('laravel-uptime-monitor.monitor_model') ?? Monitor::class;
+        $monitorModel = config('uptime-monitor.monitor_model') ?? Monitor::class;
 
         if (! is_a($monitorModel, Monitor::class, true)) {
             throw InvalidConfiguration::modelIsNotValid($monitorModel);

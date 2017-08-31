@@ -31,7 +31,7 @@ class UptimeCheckFailedTest extends TestCase
 
         $monitors = MonitorRepository::getForUptimeCheck();
 
-        $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures');
+        $consecutiveFailsNeeded = config('uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures');
 
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $monitors->checkUptime();
@@ -53,7 +53,7 @@ class UptimeCheckFailedTest extends TestCase
 
         $monitors = MonitorRepository::getForUptimeCheck();
 
-        $consecutiveFailsNeeded = config('laravel-uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures');
+        $consecutiveFailsNeeded = config('uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures');
 
         foreach (range(1, $consecutiveFailsNeeded) as $index) {
             $monitors->checkUptime();
@@ -73,7 +73,7 @@ class UptimeCheckFailedTest extends TestCase
 
         $this->resetEventAssertions();
 
-        $this->progressMinutes(config('laravel-uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes'));
+        $this->progressMinutes(config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes'));
 
         $monitors->checkUptime();
 
@@ -88,7 +88,7 @@ class UptimeCheckFailedTest extends TestCase
         $this->monitor->look_for_string = 'Another page';
         $this->monitor->save();
 
-        $this->app['config']->set('laravel-uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures', 1);
+        $this->app['config']->set('uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures', 1);
 
         MonitorRepository::getForUptimeCheck()->checkUptime();
 

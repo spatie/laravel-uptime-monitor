@@ -19,19 +19,19 @@
         "php": "^7.0",
         "graham-campbell/guzzle-factory": "^2.1",
         "guzzlehttp/guzzle": "^6.2",
-        "illuminate/console": "~5.4.0",
-        "illuminate/database": "~5.4.0",
-        "illuminate/events": "~5.4.0",
-        "illuminate/notifications": "~5.4.0",
-        "illuminate/queue": "~5.4.0",
-        "illuminate/support": "~5.4.0",
-        "spatie/ssl-certificate": "^1.0.2",
+        "illuminate/console": "5.5.x-dev",
+        "illuminate/database": "5.5.x-dev",
+        "illuminate/events": "5.5.x-dev",
+        "illuminate/notifications": "5.5.x-dev",
+        "illuminate/queue": "5.5.x-dev",
+        "illuminate/support": "5.5.x-dev",
+        "spatie/ssl-certificate": "^1.5.0",
         "spatie/url": "^1.0.1"
     },
     "require-dev": {
         "mockery/mockery": "0.9.5",
-        "orchestra/testbench": "~3.4.6",
-        "phpunit/phpunit": "^5.7"
+        "orchestra/testbench": "3.5.x-dev",
+        "phpunit/phpunit": "^6.3"
     },
     "autoload": {
         "psr-4": {
@@ -55,5 +55,7 @@
                 "Spatie\\UptimeMonitor\\UptimeMonitorServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

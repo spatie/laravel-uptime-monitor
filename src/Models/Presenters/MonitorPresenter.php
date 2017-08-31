@@ -72,7 +72,7 @@ trait MonitorPresenter
         }
 
         if ($format === '') {
-            $format = config('laravel-uptime-monitor.notifications.date_format');
+            $format = config('uptime-monitor.notifications.date_format');
         }
 
         return $this->$attributeName->format($format);
