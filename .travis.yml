@@ -10,6 +10,9 @@ php:
 node_js:
   - "6"
 
+allow_failures:
+  - 7.2
+
 env:
   matrix:
     - COMPOSER_FLAGS="--prefer-lowest"
