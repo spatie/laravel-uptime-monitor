@@ -5,9 +5,13 @@ language: php
 php:
   - 7.0
   - 7.1
+  - 7.2
 
 node_js:
   - "6"
+
+allow_failures:
+  - 7.2
 
 env:
   matrix:
