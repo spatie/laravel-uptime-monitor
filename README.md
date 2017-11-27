@@ -149,14 +149,8 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-To run the tests you'll have to start the included node based server first in a separate terminal window.
+To run the tests, issue this command:
 
-```bash
-cd tests/server
-./start_server.sh
-```
-
-With the server running, you can start testing.
 ```bash
 vendor/bin/phpunit
 ```
