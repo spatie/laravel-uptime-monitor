@@ -53,12 +53,16 @@ class MonitorCollection extends Collection
 
         foreach ($this->items as $monitor) {
             ConsoleOutput::info("Checking {$monitor->url}");
+
             $promise = $client->requestAsync(
                 $monitor->uptime_check_method,
                 $monitor->url,
                 [
                     'connect_timeout' => config('uptime-monitor.uptime_check.timeout_per_site'),
-                    'headers' => $headers,
+                    'headers' => array_merge($headers, [
+                        'Content-Type' => $monitor->uptime_check_payload_content_type,
+                    ]),
+                    'body' => $monitor->uptime_check_payload,
                 ]
             );
 
