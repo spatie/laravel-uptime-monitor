@@ -73,7 +73,7 @@ class CheckUptimeCommandTest extends TestCase
             'url' => sprintf('http://localhost:%s/testPost', env('TEST_SERVER_PORT')),
             'uptime_check_method' => 'post',
             'uptime_check_payload' => json_encode(['foo' => 'bar']),
-            'uptime_check_payload_content_type' => 'application/json',
+            'uptime_check_additional_headers' => ['Content-Type' => 'application/json'],
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED
         ]);
 
