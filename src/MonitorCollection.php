@@ -51,11 +51,11 @@ class MonitorCollection extends Collection
             $promise = $client->requestAsync(
                 $monitor->uptime_check_method,
                 $monitor->url,
-                [
+                array_filter([
                     'connect_timeout' => config('uptime-monitor.uptime_check.timeout_per_site'),
                     'headers' => $this->promiseHeaders($monitor),
                     'body' => $monitor->uptime_check_payload,
-                ]
+                ])
             );
 
             yield $promise;
