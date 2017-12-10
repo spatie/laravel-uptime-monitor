@@ -31,7 +31,8 @@ class Monitor extends Model
         'certificate_check_enabled' => 'boolean',
     ];
 
-    public function getUptimeCheckAdditionalHeadersAttribute($additionalHeaders) {
+    public function getUptimeCheckAdditionalHeadersAttribute($additionalHeaders)
+    {
         return $additionalHeaders
             ? json_decode($additionalHeaders, true)
             : [];

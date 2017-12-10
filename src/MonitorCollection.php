@@ -3,7 +3,6 @@
 namespace Spatie\UptimeMonitor;
 
 use Generator;
-use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 use GuzzleHttp\Promise\EachPromise;
 use Psr\Http\Message\ResponseInterface;

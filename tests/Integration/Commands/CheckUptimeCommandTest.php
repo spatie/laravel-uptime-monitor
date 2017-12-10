@@ -74,7 +74,7 @@ class CheckUptimeCommandTest extends TestCase
             'uptime_check_method' => 'post',
             'uptime_check_payload' => json_encode(['foo' => 'bar']),
             'uptime_check_additional_headers' => ['Content-Type' => 'application/json'],
-            'uptime_status' => UptimeStatus::NOT_YET_CHECKED
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
         ]);
 
         Artisan::call('monitor:check-uptime');
