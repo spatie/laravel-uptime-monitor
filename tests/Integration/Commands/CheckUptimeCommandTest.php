@@ -65,4 +65,22 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(UptimeStatus::UP, $monitor2->uptime_status);
         $this->assertEquals(UptimeStatus::NOT_YET_CHECKED, $monitor3->uptime_status);
     }
+
+    /** @test */
+    public function it_can_post_a_payload()
+    {
+        $monitor = factory(Monitor::class)->create([
+            'url' => sprintf('http://localhost:%s/testPost', env('TEST_SERVER_PORT')),
+            'uptime_check_method' => 'post',
+            'uptime_check_payload' => json_encode(['foo' => 'bar']),
+            'uptime_check_additional_headers' => ['Content-Type' => 'application/json'],
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+        ]);
+
+        Artisan::call('monitor:check-uptime');
+
+        $monitor = $monitor->fresh();
+
+        $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
+    }
 }

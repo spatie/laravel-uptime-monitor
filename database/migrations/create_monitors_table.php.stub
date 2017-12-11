@@ -28,6 +28,8 @@ class CreateMonitorsTable extends Migration
             $table->timestamp('uptime_last_check_date')->nullable();
             $table->timestamp('uptime_check_failed_event_fired_on_date')->nullable();
             $table->string('uptime_check_method')->default('get');
+            $table->text('uptime_check_payload')->nullable();
+            $table->text('uptime_check_additional_headers')->nullable();
 
             $table->boolean('certificate_check_enabled')->default(false);
             $table->string('certificate_status')->default(CertificateStatus::NOT_YET_CHECKED);

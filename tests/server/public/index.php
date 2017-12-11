@@ -26,6 +26,14 @@ $app->post('/setServerResponse', function (Request $request) use ($storagePath) 
     file_put_contents($storagePath, $response);
 });
 
+$app->post('/testPost', function (Request $request) {
+    if ($request->get('foo') !== 'bar' && $request->header('Content-Type') !== 'application/json') {
+        return response(null, 500);
+    }
+
+    return response(null, 200);
+});
+
 $app->get('booted', function () {
     return 'app has booted';
 });
