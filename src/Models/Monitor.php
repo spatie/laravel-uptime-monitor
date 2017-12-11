@@ -115,7 +115,7 @@ class Monitor extends Model
         return $this;
     }
 
-    protected static function alreadyExists(Monitor $monitor): bool
+    protected static function alreadyExists(self $monitor): bool
     {
         $query = static::where('url', $monitor->url);
 
