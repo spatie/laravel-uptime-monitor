@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 3.1.0 - 2017-12-11
+
+- add ability to send payload to verify uptime
+
 ## 3.0.0 - 2017-08-31
 
 - add support for Laravel 5.5, drop support for Laravel 5.4
