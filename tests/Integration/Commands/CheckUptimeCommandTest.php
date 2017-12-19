@@ -6,6 +6,7 @@ use Artisan;
 use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Test\Integration\Helpers\ResponseCheckerFailureFake;
 
 class CheckUptimeCommandTest extends TestCase
 {
@@ -82,5 +83,21 @@ class CheckUptimeCommandTest extends TestCase
         $monitor = $monitor->fresh();
 
         $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
+    }
+
+    /** @test */
+    public function it_can_use_a_custom_response_checker()
+    {
+        $monitor = factory(Monitor::class)->create([
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'uptime_check_response_checker' => ResponseCheckerFailureFake::class,
+        ]);
+
+        Artisan::call('monitor:check-uptime');
+
+        $monitor = $monitor->fresh();
+
+        $this->assertEquals(UptimeStatus::DOWN, $monitor->uptime_status);
+        $this->assertEquals(ResponseCheckerFailureFake::FAILURE_REASON, $monitor->uptime_check_failure_reason);
     }
 }
