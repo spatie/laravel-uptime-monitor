@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 3.2.0 - 2017-12-20
+
+- add ability for monitors to have their own response checkers
+
 ## 3.1.0 - 2017-12-11
 
 - add ability to send payload to verify uptime
