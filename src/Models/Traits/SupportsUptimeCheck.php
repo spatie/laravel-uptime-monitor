@@ -52,7 +52,9 @@ trait SupportsUptimeCheck
 
     public function uptimeRequestSucceeded(ResponseInterface $response)
     {
-        $uptimeResponseChecker = app(UptimeResponseChecker::class);
+        $uptimeResponseChecker = $this->uptime_check_response_checker
+            ? app($this->uptime_check_response_checker)
+            : app(UptimeResponseChecker::class);
 
         if (! $uptimeResponseChecker->isValidResponse($response, $this)) {
             $this->uptimeCheckFailed($uptimeResponseChecker->getFailureReason($response, $this));
