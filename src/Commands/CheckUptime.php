@@ -15,7 +15,7 @@ class CheckUptime extends BaseCommand
 
     public function handle()
     {
-        $monitors = $this->options('force') ? MonitorRepository::getEnabled() : MonitorRepository::getForUptimeCheck();
+        $monitors = $this->option('force') ? MonitorRepository::getEnabled() : MonitorRepository::getForUptimeCheck();
 
         if ($url = $this->option('url')) {
             $monitors = $monitors->filter(function (Monitor $monitor) use ($url) {
