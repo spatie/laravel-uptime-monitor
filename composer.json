@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^7.0",
-        "graham-campbell/guzzle-factory": "^2.1",
+        "graham-campbell/guzzle-factory": "^3.0",
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/console": "~5.5.0|~5.6.0",
         "illuminate/database": "~5.5.0|~5.6.0",
