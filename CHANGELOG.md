@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 3.3.1 - 2018-08-27
+
+- add support for Laravel 5.7
+
 ## 3.3.0 - 2018-03-13
 
 - add option to force run all monitors
