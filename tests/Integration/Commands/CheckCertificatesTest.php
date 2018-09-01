@@ -23,6 +23,7 @@ class CheckCertificatesTest extends TestCase
         $this->seeInConsoleOutput("Checking certificate of {$monitor->url}");
     }
 
+    /** @test */
     public function it_can_check_the_certificate_for_a_specific_monitor()
     {
         $monitor1 = factory(Monitor::class)->create(['certificate_check_enabled' => true]);
@@ -31,15 +32,18 @@ class CheckCertificatesTest extends TestCase
             'certificate_check_enabled' => true,
         ]);
 
-        Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url]);
+        Artisan::call('monitor:check-certificate', ['--url' => $monitor1->url]);
 
-        $this->seeInConsoleOutput("Checking certificate of {$monitor1->url}");
-        $this->dontSeeInConsoleOutput("Checking certificate of {$monitor2->url}");
+        $output = Artisan::output();
+
+        $this->assertContains("Checking certificate of {$monitor1->url}", $output);
+        $this->assertNotContains("Checking certificate of {$monitor2->url}", $output);
     }
 
+    /** @test */
     public function it_can_check_the_certificates_for_a_specific_set_of_monitors()
     {
-        $monitor1 = factory(Monitor::class)->create(['certificate_check_enabled' => true]);
+        $monitor1 = factory(Monitor::class)->create(['certificate_check_enabled' => false]);
         $monitor2 = factory(Monitor::class)->create([
             'url' => 'https://google.com',
             'certificate_check_enabled' => true,
@@ -49,10 +53,13 @@ class CheckCertificatesTest extends TestCase
             'certificate_check_enabled' => true,
         ]);
 
-        Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);
+        Artisan::call('monitor:check-certificate', ['--url' => $monitor2->url.','.$monitor3->url]);
 
-        $this->seeInConsoleOutput("Checking certificate of {$monitor1->url}");
-        $this->seeInConsoleOutput("Checking certificate of {$monitor2->url}");
-        $this->dontSeeInConsoleOutput("Checking certificate of {$monitor3->url}");
+        $output = Artisan::output();
+
+        $this->assertNotContains("Checking certificate of {$monitor1->url}", $output);
+        $this->assertContains("Checking certificate of {$monitor2->url}", $output);
+        $this->assertContains("Checking certificate of {$monitor3->url}", $output);
+        
     }
 }
