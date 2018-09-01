@@ -60,6 +60,5 @@ class CheckCertificatesTest extends TestCase
         $this->assertNotContains("Checking certificate of {$monitor1->url}", $output);
         $this->assertContains("Checking certificate of {$monitor2->url}", $output);
         $this->assertContains("Checking certificate of {$monitor3->url}", $output);
-        
     }
 }
