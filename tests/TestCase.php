@@ -86,6 +86,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
+     * @param string $output
      * @param string|array $searchStrings
      */
     protected function seeInConsoleOutput($output, $searchStrings)
@@ -100,6 +101,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
+     * @param string $output
      * @param string|array $searchStrings
      */
     protected function dontSeeInConsoleOutput($output, $searchStrings)
