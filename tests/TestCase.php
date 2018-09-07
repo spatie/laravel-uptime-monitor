@@ -79,17 +79,20 @@ abstract class TestCase extends Orchestra
     {
         $this->server->down();
     }
+    
+    public function getArtisanOutput()
+    {
+        return Artisan::output();
+    }
 
     /**
      * @param string|array $searchStrings
      */
-    protected function seeInConsoleOutput($searchStrings)
+    protected function seeInConsoleOutput($output, $searchStrings)
     {
         if (! is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
-
-        $output = Artisan::output();
 
         foreach ($searchStrings as $searchString) {
             $this->assertContains((string) $searchString, $output);
@@ -99,13 +102,11 @@ abstract class TestCase extends Orchestra
     /**
      * @param string|array $searchStrings
      */
-    protected function dontSeeInConsoleOutput($searchStrings)
+    protected function dontSeeInConsoleOutput($output, $searchStrings)
     {
         if (! is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
-
-        $output = Artisan::output();
 
         foreach ($searchStrings as $searchString) {
             $this->assertNotContains((string) $searchString, $output);

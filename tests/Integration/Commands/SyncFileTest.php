@@ -27,7 +27,7 @@ class SyncFileTest extends TestCase
     {
         Artisan::call('monitor:sync-file', ['path' => $this->stubsDirectory.'sync-file-original.json']);
 
-        $this->seeInConsoleOutput('Synced 2 monitor(s) to database');
+        $this->seeInConsoleOutput($this->getArtisanOutput(), 'Synced 2 monitor(s) to database');
 
         $importMonitor1 = Monitor::where('url', 'https://www.https-example2.com')->first();
         $importMonitor2 = Monitor::where('url', 'http://www.http-example2.com')->first();
@@ -53,7 +53,7 @@ class SyncFileTest extends TestCase
     {
         Artisan::call('monitor:sync-file', ['path' => $this->stubsDirectory.'sync-file-update.json']);
 
-        $this->seeInConsoleOutput('Synced 1 monitor(s) to database');
+        $this->seeInConsoleOutput($this->getArtisanOutput(), 'Synced 1 monitor(s) to database');
 
         $updatedMonitor = Monitor::where('url', 'https://www.example.com')->first();
 
@@ -71,7 +71,7 @@ class SyncFileTest extends TestCase
 
         $deletedMonitor = Monitor::where('url', 'https://www.example.com')->first();
 
-        $this->seeInConsoleOutput('Deleted monitor for `https://www.example.com`');
+        $this->seeInConsoleOutput($this->getArtisanOutput(), 'Deleted monitor for `https://www.example.com`');
 
         $this->assertEmpty($deletedMonitor);
     }
