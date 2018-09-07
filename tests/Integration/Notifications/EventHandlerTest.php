@@ -16,7 +16,7 @@ use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed as UptimeCheckFailedEvent;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as UptimeCheckRecoveredEvent;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded as UptimeCheckSucceededEvent;
-use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidCertificateFoundNotification;
+use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckFailed as InvalidCertificateFoundNotification;
 
 class EventHandlerTest extends TestCase
 {
@@ -87,9 +87,17 @@ class EventHandlerTest extends TestCase
         ];
     }
 
+    /**
+     * @test
+     */
     public function it_send_a_notification_when_the_invalid_certificate_event_is_fired()
     {
         $monitor = factory(Monitor::class)->create();
+        
+        $this->app['config']->set(
+            'uptime-monitor.notifications.notifications.'.UptimeCheckSucceeded::class,
+            ['slack']
+        );
 
         event(new CertificateCheckFailed($monitor, 'fail reason'));
 
