@@ -14,7 +14,7 @@ class ListMonitorsCommandTest extends TestCase
     {
         Artisan::call('monitor:list');
 
-        $output = $this->getArtisanOutput();
+        $output = Artisan::output();
 
         $this->seeInConsoleOutput($output, 'There are no monitors created or enabled');
         $this->dontSeeInConsoleOutput($output, 'Healthy monitors');
@@ -27,7 +27,7 @@ class ListMonitorsCommandTest extends TestCase
 
         Artisan::call('monitor:list');
 
-        $this->seeInConsoleOutput($this->getArtisanOutput(), [
+        $this->seeInConsoleOutput(Artisan::output(), [
             'Not yet checked',
             $monitor->url,
         ]);
@@ -40,7 +40,7 @@ class ListMonitorsCommandTest extends TestCase
 
         Artisan::call('monitor:list');
 
-        $this->seeInConsoleOutput($this->getArtisanOutput(), [
+        $this->seeInConsoleOutput(Artisan::output(), [
             'Healthy monitors',
             $monitor->url,
         ]);
@@ -53,7 +53,7 @@ class ListMonitorsCommandTest extends TestCase
 
         Artisan::call('monitor:list');
 
-        $this->seeInConsoleOutput($this->getArtisanOutput(), [
+        $this->seeInConsoleOutput(Artisan::output(), [
             'Uptime check failed',
             $monitor->url,
         ]);
@@ -69,7 +69,7 @@ class ListMonitorsCommandTest extends TestCase
 
         Artisan::call('monitor:list');
 
-        $this->seeInConsoleOutput($this->getArtisanOutput(), [
+        $this->seeInConsoleOutput(Artisan::output(), [
             'Certificate check failed',
             $monitor->url,
         ]);
@@ -84,7 +84,7 @@ class ListMonitorsCommandTest extends TestCase
 
         Artisan::call('monitor:list');
 
-        $this->seeInConsoleOutput($this->getArtisanOutput(), [
+        $this->seeInConsoleOutput(Artisan::output(), [
             'Disabled monitors',
             $monitor->url,
         ]);

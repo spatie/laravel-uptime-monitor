@@ -79,11 +79,6 @@ abstract class TestCase extends Orchestra
     {
         $this->server->down();
     }
-    
-    public function getArtisanOutput()
-    {
-        return Artisan::output();
-    }
 
     /**
      * @param string $output

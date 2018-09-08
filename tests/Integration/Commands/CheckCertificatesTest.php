@@ -20,7 +20,7 @@ class CheckCertificatesTest extends TestCase
 
         $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
 
-        $this->seeInConsoleOutput($this->getArtisanOutput(), "Checking certificate of {$monitor->url}");
+        $this->seeInConsoleOutput(Artisan::output(), "Checking certificate of {$monitor->url}");
     }
 
     /** @test */

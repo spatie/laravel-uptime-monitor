@@ -27,7 +27,7 @@ class DisableMonitorCommandTest extends TestCase
     {
         $this->artisan('monitor:disable', ['url' => 'http://mysite.com']);
 
-        $this->seeInConsoleOutput($this->getArtisanOutput(), 'There is no monitor configured for url');
+        $this->seeInConsoleOutput(Artisan::output(), 'There is no monitor configured for url');
     }
 
     /** @test */
