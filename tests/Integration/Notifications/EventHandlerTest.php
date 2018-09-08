@@ -87,9 +87,7 @@ class EventHandlerTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_send_a_notification_when_the_invalid_certificate_event_is_fired()
     {
         $monitor = factory(Monitor::class)->create();
