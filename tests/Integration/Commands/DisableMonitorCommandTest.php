@@ -26,7 +26,7 @@ class DisableMonitorCommandTest extends TestCase
     /** @test */
     public function it_displays_a_message_if_the_monitor_is_not_found()
     {
-        $this->artisan('monitor:disable', ['url' => 'http://mysite.com']);
+        Artisan::call('monitor:disable', ['url' => 'http://mysite.com']);
 
         $this->assertContains('There is no monitor configured for url', Artisan::output());
     }

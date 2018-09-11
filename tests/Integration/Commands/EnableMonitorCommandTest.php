@@ -69,7 +69,7 @@ class EnableMonitorCommandTest extends TestCase
             'url' => 'http://mysite2.com',
         ]);
 
-        $this->artisan('monitor:enable', ['url' => 'https://mysite.com, http://mysite2.com']);
+        Artisan::call('monitor:enable', ['url' => 'https://mysite.com, http://mysite2.com']);
 
         $this->assertTrue($monitor1->fresh()->uptime_check_enabled);
         $this->assertTrue($monitor2->fresh()->uptime_check_enabled);
