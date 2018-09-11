@@ -51,7 +51,7 @@ class EnableMonitorCommandTest extends TestCase
     {
         $this->artisan('monitor:enable', ['url' => 'https://mysite.com']);
 
-        $this->seeInConsoleOutput(Artisan::output(), 'There is no monitor configured for url');
+        $this->assertContains('There is no monitor configured for url', Artisan::output());
     }
 
     /** @test */
