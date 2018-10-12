@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
+use Artisan;
 use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\UptimeMonitor\Models\Monitor;
 
@@ -25,7 +26,7 @@ class DisableMonitorCommandTest extends TestCase
     /** @test */
     public function it_displays_a_message_if_the_monitor_is_not_found()
     {
-        $this->artisan('monitor:disable', ['url' => 'http://mysite.com']);
+        Artisan::call('monitor:disable', ['url' => 'https://mysite.com']);
 
         $this->seeInConsoleOutput('There is no monitor configured for url');
     }
