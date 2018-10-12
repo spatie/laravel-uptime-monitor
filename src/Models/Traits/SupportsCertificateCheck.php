@@ -19,7 +19,7 @@ trait SupportsCertificateCheck
             $certificate = SslCertificate::createForHostName($this->url->getHost());
 
             $this->setCertificate($certificate);
-        } catch (CouldNotDownloadCertificate $exception) {
+        } catch (Exception $exception) {
             $this->setCertificateException($exception);
         }
     }
