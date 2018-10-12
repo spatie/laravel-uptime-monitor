@@ -9,7 +9,6 @@ use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Events\CertificateExpiresSoon;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
-use Spatie\SslCertificate\Exceptions\CouldNotDownloadCertificate;
 
 trait SupportsCertificateCheck
 {
