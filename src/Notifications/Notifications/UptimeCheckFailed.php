@@ -57,7 +57,7 @@ class UptimeCheckFailed extends BaseNotification
 
         $extraProperties = [
             $since => $date,
-            'Failure reason' => $this->event->monitor->uptime_check_failure_reason,
+            'Failure reason' => $this->getMonitor()->uptime_check_failure_reason,
         ];
 
         return parent::getMonitorProperties($extraProperties);
@@ -65,7 +65,7 @@ class UptimeCheckFailed extends BaseNotification
 
     public function isStillRelevant(): bool
     {
-        return $this->event->monitor->uptime_status == UptimeStatus::DOWN;
+        return $this->getMonitor()->uptime_status == UptimeStatus::DOWN;
     }
 
     public function setEvent(MonitorFailedEvent $event)
@@ -77,6 +77,6 @@ class UptimeCheckFailed extends BaseNotification
 
     protected function getMessageText(): string
     {
-        return "{$this->event->monitor->url} seems down";
+        return "{$this->getMonitor()->url} seems down";
     }
 }

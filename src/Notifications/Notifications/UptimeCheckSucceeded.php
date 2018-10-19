@@ -49,7 +49,7 @@ class UptimeCheckSucceeded extends BaseNotification
 
     public function isStillRelevant(): bool
     {
-        return $this->event->monitor->uptime_status != UptimeStatus::DOWN;
+        return $this->getMonitor()->uptime_status != UptimeStatus::DOWN;
     }
 
     public function setEvent(MonitorSucceededEvent $event)
@@ -61,6 +61,6 @@ class UptimeCheckSucceeded extends BaseNotification
 
     public function getMessageText(): string
     {
-        return "{$this->event->monitor->url} is up";
+        return "{$this->getMonitor()->url} is up";
     }
 }
