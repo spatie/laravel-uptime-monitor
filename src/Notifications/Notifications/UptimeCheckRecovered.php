@@ -60,7 +60,7 @@ class UptimeCheckRecovered extends BaseNotification
 
     public function isStillRelevant(): bool
     {
-        return $this->event->monitor->uptime_status == UptimeStatus::UP;
+        return $this->getMonitor()->uptime_status == UptimeStatus::UP;
     }
 
     public function setEvent(MonitorRecoveredEvent $event)
@@ -72,6 +72,6 @@ class UptimeCheckRecovered extends BaseNotification
 
     public function getMessageText(): string
     {
-        return "{$this->event->monitor->url} has recovered after {$this->event->downtimePeriod->duration()}";
+        return "{$this->getMonitor()->url} has recovered after {$this->event->downtimePeriod->duration()}";
     }
 }
