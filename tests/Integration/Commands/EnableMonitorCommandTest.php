@@ -49,7 +49,7 @@ class EnableMonitorCommandTest extends TestCase
     /** @test */
     public function it_displays_a_message_if_the_monitor_is_not_found()
     {
-        $this->artisan('monitor:enable', ['url' => 'https://mysite.com']);
+        Artisan::call('monitor:enable', ['url' => 'https://mysite.com']);
 
         $this->assertContains('There is no monitor configured for url', Artisan::output());
     }
