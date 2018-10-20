@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 3.3.3 - 2018-10-20
+
+- fix for PHP 7.3
+
 ## 3.3.2 - 2018-10-18
 
 - fix for checking SSL
