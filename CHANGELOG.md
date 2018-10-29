@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 3.3.4 - 2018-10-30
+
+- fix if statement to be if not certificate applies to url
+
 ## 3.3.3 - 2018-10-20
 
 - fix for PHP 7.3
