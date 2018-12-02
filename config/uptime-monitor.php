@@ -105,6 +105,12 @@ return [
          * When reaching out to the sites these headers will be added.
          */
         'additional_headers' => [],
+
+        /*
+         * Options passed to Guzzle allowing you to customize how requests are
+         * made.
+         */
+        'guzzle_options' => [],
     ],
 
     'certificate_check' => [
