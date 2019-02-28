@@ -14,7 +14,7 @@ class UptimeCheckRecoveredTest extends TestCase
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

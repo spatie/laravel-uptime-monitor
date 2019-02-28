@@ -32,13 +32,13 @@ class PeriodTest extends TestCase
     public function periodDataProvider(): array
     {
         return [
-          ['10', '10m'],
-          ['59', '59m'],
-          ['60', '1h 0m'],
-          ['61', '1h 1m'],
-          ['100', '1h 40m'],
-          ['1000', '16h 40m'],
-          ['1440', '1d 0h 0m'],
+          [10, '10m'],
+          [59, '59m'],
+          [60, '1h 0m'],
+          [61, '1h 1m'],
+          [100, '1h 40m'],
+          [1000, '16h 40m'],
+          [1440, '1d 0h 0m'],
         ];
     }
 

@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## Unreleased
+### Changed
+* Dropped support for Laravel 5.7
+* Added support for Laravel 5.8, PHPUnit 8
+* PHPUnit minimum version is now 7.5
+
 ## 3.3.4 - 2018-10-30
 
 - fix if statement to be if not certificate applies to url

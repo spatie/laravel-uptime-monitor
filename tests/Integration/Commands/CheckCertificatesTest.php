@@ -36,8 +36,8 @@ class CheckCertificatesTest extends TestCase
 
         $output = Artisan::output();
 
-        $this->assertContains("Checking certificate of {$monitor1->url}", $output);
-        $this->assertNotContains("Checking certificate of {$monitor2->url}", $output);
+        $this->assertStringContainsString("Checking certificate of {$monitor1->url}", $output);
+        $this->assertStringNotContainsString("Checking certificate of {$monitor2->url}", $output);
     }
 
     /** @test */
@@ -57,8 +57,8 @@ class CheckCertificatesTest extends TestCase
 
         $output = Artisan::output();
 
-        $this->assertNotContains("Checking certificate of {$monitor1->url}", $output);
-        $this->assertContains("Checking certificate of {$monitor2->url}", $output);
-        $this->assertContains("Checking certificate of {$monitor3->url}", $output);
+        $this->assertStringNotContainsString("Checking certificate of {$monitor1->url}", $output);
+        $this->assertStringContainsString("Checking certificate of {$monitor2->url}", $output);
+        $this->assertStringContainsString("Checking certificate of {$monitor3->url}", $output);
     }
 }
