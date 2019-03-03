@@ -8,13 +8,14 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
+use Illuminate\Notifications\SlackChannelServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
     /** @var \Spatie\UptimeMonitor\Test\Server */
     protected $server;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->server = new Server(new Client());
 
@@ -33,6 +34,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            SlackChannelServiceProvider::class,
             UptimeMonitorServiceProvider::class,
         ];
     }
@@ -92,7 +94,7 @@ abstract class TestCase extends Orchestra
         $output = Artisan::output();
 
         foreach ($searchStrings as $searchString) {
-            $this->assertContains((string) $searchString, $output);
+            $this->assertStringContainsString((string) $searchString, $output);
         }
     }
 
@@ -108,7 +110,7 @@ abstract class TestCase extends Orchestra
         $output = Artisan::output();
 
         foreach ($searchStrings as $searchString) {
-            $this->assertNotContains((string) $searchString, $output);
+            $this->assertStringNotContainsString((string) $searchString, $output);
         }
     }
 

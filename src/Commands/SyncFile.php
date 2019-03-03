@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
+use Illuminate\Support\Str;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
 
@@ -29,7 +30,7 @@ class SyncFile extends BaseCommand
     protected function validateMonitors($monitorsInFile)
     {
         $monitorsInFile->each(function ($monitorAttributes) {
-            if (! starts_with($monitorAttributes['url'], ['https://', 'http://'])) {
+            if (! Str::startsWith($monitorAttributes['url'], ['https://', 'http://'])) {
                 throw new CannotSaveMonitor("URL `{$monitorAttributes['url']}` is invalid (is the URL scheme included?)");
             }
         });

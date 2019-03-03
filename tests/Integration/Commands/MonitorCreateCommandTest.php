@@ -13,7 +13,7 @@ class MonitorCreateCommandTest extends TestCase
     /** @var \Spatie\UptimeMonitor\Commands\CreateMonitor|m\Mock */
     protected $command;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -30,7 +30,7 @@ class MonitorCreateCommandTest extends TestCase
         $this->command
             ->shouldReceive('confirm')
             ->once()
-            ->with('/Should we look for a specific string on the response/')
+            ->with('Should we look for a specific string on the response?')
             ->andReturn('');
 
         Artisan::call('monitor:create', ['url' => 'https://mysite.com']);
@@ -47,7 +47,7 @@ class MonitorCreateCommandTest extends TestCase
         $this->command
             ->shouldReceive('confirm')
             ->once()
-            ->with('/Should we look for a specific string on the response/')
+            ->with('Should we look for a specific string on the response?')
             ->andReturn('');
 
         Artisan::call('monitor:create', ['url' => 'http://mysite.com']);
