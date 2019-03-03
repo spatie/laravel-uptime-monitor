@@ -3,6 +3,8 @@
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
 ## Unreleased
+
+## 3.4.0 - 2019-03-03
 ### Changed
 * Dropped support for Laravel 5.7
 * Added support for Laravel 5.8, PHPUnit 8
