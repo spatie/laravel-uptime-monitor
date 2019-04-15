@@ -3,8 +3,10 @@
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
 ## Unreleased
+
+## 3.4.1 - 2019-04-15
 ### Fixed
-- Fixed issue with migrations stub
+- Fixed issue with migrations stub ([#171](https://github.com/spatie/laravel-uptime-monitor/pull/171))
 
 ## 3.4.0 - 2019-03-03
 ### Changed
