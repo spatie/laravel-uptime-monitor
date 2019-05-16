@@ -63,9 +63,9 @@ class MonitorTest extends TestCase
     }
 
     /** @test */
-    function raw_url_is_appended_during_serialization()
+    public function raw_url_is_appended_during_serialization()
     {
-       $this->assertEquals(
+        $this->assertEquals(
             'http://mysite.com',
             $this->monitor->toArray()['raw_url']
         );
