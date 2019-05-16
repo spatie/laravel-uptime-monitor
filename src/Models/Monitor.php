@@ -19,6 +19,8 @@ class Monitor extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['raw_url'];
+
     protected $dates = [
         'uptime_last_check_date',
         'uptime_status_last_change_date',
@@ -60,6 +62,14 @@ class Monitor extends Model
         }
 
         return Url::fromString($this->attributes['url']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawUrlAttribute()
+    {
+        return (string) $this->url;
     }
 
     public static function boot()
