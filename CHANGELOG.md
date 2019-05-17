@@ -4,6 +4,10 @@ All notable changes to `laravel-uptime-monitor` will be documented in this file
 
 ## Unreleased
 
+## 3.5.0 - 2019-05-17
+### Added
+- Add `raw_url` attribute to serialization [#175](https://github.com/spatie/laravel-uptime-monitor/pull/175)
+
 ## 3.4.1 - 2019-04-15
 ### Fixed
 - Fixed issue with migrations stub ([#171](https://github.com/spatie/laravel-uptime-monitor/pull/171))
