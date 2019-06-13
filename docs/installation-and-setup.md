@@ -5,7 +5,7 @@ weight: 6
 
 ## Basic installation
 
-This package is meant to be installed into an existing Laravel application. If you're not familiar with Laravel head over to [the official documentation](https://laravel.com/docs) to learn how to set up and use this amazing framework. If you have no interest in learning Laravel, but still want to use our uptime monitor, take a look at the [uptime-monitor-app](https://github.com/spatie/uptime-monitor-app) repo which contains a stand alone version of this package.
+This package is meant to be installed into an existing Laravel application. If you're not familiar with Laravel head over to [the official documentation](laravel.com/docs) to learn how to set up and use this amazing framework. If you have no interest in learning Laravel, but still want to use our uptime monitor, take a look at the [uptime-monitor-app](https://github.com/spatie/uptime-monitor-app) repo which contains a stand alone version of this package.
   
 Standing in the directory of an existing Laravel application you can install the package via composer:
 

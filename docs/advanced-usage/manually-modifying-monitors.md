@@ -9,7 +9,6 @@ All configured monitors are stored in the `monitors` table in the database. The 
  - `monitor:delete` deletes a row
  - `monitor:enable` and `monitor:disable` change the value of the `enabled` field
  - `monitor:list` lists all rows
- - `monitor:sync-file` syncs monitors from a json file (see [syncing monitors from a file](https://docs.spatie.be/laravel-uptime-monitor/v2/advanced-usage/syncing-monitors-from-a-file))
  
 You can also manually manipulate the table rows instead. Here's a description of the fields you can manipulate:
  
