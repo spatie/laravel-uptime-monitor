@@ -76,7 +76,7 @@ class Monitor extends Model
     {
         parent::boot();
 
-        static::saving(function (Monitor $monitor) {
+        static::saving(function (self $monitor) {
             if (static::alreadyExists($monitor)) {
                 throw CannotSaveMonitor::alreadyExists($monitor);
             }
