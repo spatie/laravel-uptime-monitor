@@ -1,0 +1,7 @@
+[
+  {
+    "url": "www.example.com",
+    "uptime_check_enabled": true,
+    "certificate_check_enabled": false
+  }
+]
