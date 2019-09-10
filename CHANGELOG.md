@@ -4,7 +4,7 @@ All notable changes to `laravel-uptime-monitor` will be documented in this file
 
 ## Unreleased
 
-## 4.0.0 - 2019-09-04
+## 2.6.9 - 2019-09-10
 ### Added
 - Compatibility with Laravel 6.0 [#188](https://github.com/spatie/laravel-uptime-monitor/pull/188)
 
