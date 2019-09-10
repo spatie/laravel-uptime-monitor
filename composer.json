@@ -19,14 +19,14 @@
         "php": "^7.2",
         "graham-campbell/guzzle-factory": "^3.0",
         "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "~5.8.0",
+        "laravel/framework": "~5.8.0|^6.0",
         "laravel/slack-notification-channel": "^2.0",
         "spatie/ssl-certificate": "^1.5.0",
         "spatie/url": "^1.0.1"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
-        "orchestra/testbench": "~3.8.0",
+        "orchestra/testbench": "~3.8.0|^4.0",
         "phpunit/phpunit": "^7.5|^8.0"
     },
     "autoload": {
