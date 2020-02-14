@@ -4,27 +4,23 @@ All notable changes to `laravel-uptime-monitor` will be documented in this file
 
 ## Unreleased
 
-## 2.7.0 - 2020-02-14
+## 3.7.0 - 2020-02-14
 
 - allow configuration of guzzle client options (#181)
 
-## 2.6.9 - 2019-09-10
-### Added
-- Compatibility with Laravel 6.0 [#188](https://github.com/spatie/laravel-uptime-monitor/pull/188)
-
 ## 3.5.0 - 2019-05-17
-### Added
+
 - Add `raw_url` attribute to serialization [#175](https://github.com/spatie/laravel-uptime-monitor/pull/175)
 
 ## 3.4.1 - 2019-04-15
-### Fixed
+
 - Fixed issue with migrations stub ([#171](https://github.com/spatie/laravel-uptime-monitor/pull/171))
 
 ## 3.4.0 - 2019-03-03
-### Changed
-* Dropped support for Laravel 5.7
-* Added support for Laravel 5.8, PHPUnit 8
-* PHPUnit minimum version is now 7.5
+
+- Dropped support for Laravel 5.7
+- Added support for Laravel 5.8, PHPUnit 8
+- PHPUnit minimum version is now 7.5
 
 ## 3.3.4 - 2018-10-30
 
