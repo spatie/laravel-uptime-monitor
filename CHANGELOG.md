@@ -4,6 +4,10 @@ All notable changes to `laravel-uptime-monitor` will be documented in this file
 
 ## Unreleased
 
+## 2.7.0 - 2020-02-14
+
+- allow configuration of guzzle client options (#181)
+
 ## 2.6.9 - 2019-09-10
 ### Added
 - Compatibility with Laravel 6.0 [#188](https://github.com/spatie/laravel-uptime-monitor/pull/188)
