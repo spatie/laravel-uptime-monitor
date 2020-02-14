@@ -3,8 +3,8 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
-use Spatie\UptimeMonitor\Test\TestCase;
 use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class EnableMonitorCommandTest extends TestCase
 {

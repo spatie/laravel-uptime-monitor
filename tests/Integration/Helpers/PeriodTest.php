@@ -3,9 +3,9 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Helpers;
 
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Exceptions\InvalidPeriod;
+use Spatie\UptimeMonitor\Helpers\Period;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class PeriodTest extends TestCase
 {
@@ -32,13 +32,13 @@ class PeriodTest extends TestCase
     public function periodDataProvider(): array
     {
         return [
-          [10, '10m'],
-          [59, '59m'],
-          [60, '1h 0m'],
-          [61, '1h 1m'],
-          [100, '1h 40m'],
-          [1000, '16h 40m'],
-          [1440, '1d 0h 0m'],
+            [10, '10m'],
+            [59, '59m'],
+            [60, '1h 0m'],
+            [61, '1h 1m'],
+            [100, '1h 40m'],
+            [1000, '16h 40m'],
+            [1440, '1d 0h 0m'],
         ];
     }
 

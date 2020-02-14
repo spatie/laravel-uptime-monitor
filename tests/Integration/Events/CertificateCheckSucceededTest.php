@@ -2,18 +2,18 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Event;
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Models\Monitor;
+use Event;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class CertificateCheckSucceededTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

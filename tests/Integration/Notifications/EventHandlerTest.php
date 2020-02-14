@@ -2,28 +2,28 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
-use Notification;
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Helpers\Period;
-use Spatie\UptimeMonitor\Models\Monitor;
-use Spatie\UptimeMonitor\Notifications\Notifiable;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Notification;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
-use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed;
-use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered;
-use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed as UptimeCheckFailedEvent;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as UptimeCheckRecoveredEvent;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded as UptimeCheckSucceededEvent;
+use Spatie\UptimeMonitor\Helpers\Period;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Notifications\Notifiable;
 use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as InvalidCertificateFoundNotification;
+use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed;
+use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered;
+use Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class EventHandlerTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

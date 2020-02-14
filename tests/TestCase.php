@@ -2,20 +2,20 @@
 
 namespace Spatie\UptimeMonitor\Test;
 
-use Event;
 use Artisan;
 use Carbon\Carbon;
+use Event;
 use GuzzleHttp\Client;
+use Illuminate\Notifications\SlackChannelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
-use Illuminate\Notifications\SlackChannelServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
     /** @var \Spatie\UptimeMonitor\Test\Server */
     protected $server;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->server = new Server(new Client());
 

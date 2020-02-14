@@ -2,9 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Notifications;
 
-use Spatie\UptimeMonitor\Models\Monitor;
 use Illuminate\Notifications\Notification;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 abstract class BaseNotification extends Notification
 {

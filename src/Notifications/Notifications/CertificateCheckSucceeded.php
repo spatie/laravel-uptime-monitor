@@ -4,10 +4,10 @@ namespace Spatie\UptimeMonitor\Notifications\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
-use Spatie\UptimeMonitor\Notifications\BaseNotification;
+use Illuminate\Notifications\Messages\SlackMessage;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded as ValidCertificateFoundEvent;
+use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class CertificateCheckSucceeded extends BaseNotification
 {

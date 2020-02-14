@@ -4,16 +4,16 @@ namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
 use Mockery as m;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class MonitorCreateCommandTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Commands\CreateMonitor|m\Mock */
     protected $command;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

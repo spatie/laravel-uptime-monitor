@@ -3,16 +3,16 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Models\Traits;
 
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class SupportsUptimeCheckTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

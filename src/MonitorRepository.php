@@ -2,12 +2,12 @@
 
 namespace Spatie\UptimeMonitor;
 
-use Illuminate\Support\Collection;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Illuminate\Database\Eloquent\Builder;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
+use Illuminate\Support\Collection;
 use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 class MonitorRepository
 {
