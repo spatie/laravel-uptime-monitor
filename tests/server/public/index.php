@@ -17,6 +17,10 @@ $app->get('/', function () use ($storagePath) {
 
     $response = json_decode(file_get_contents($storagePath), true);
 
+    if ($response['statusCode'] == 301) {
+        return redirect(url('/notfound'), 301);
+    }
+
     return response($response['body'], $response['statusCode']);
 });
 

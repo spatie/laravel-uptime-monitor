@@ -91,6 +91,14 @@ return [
         'retry_connection_after_milliseconds' => 100,
 
         /*
+         * If you want to change the default Guzzle client behaviour, you can do so by
+         * passing custom options that will be used when making requests.
+         */
+        'guzzle_options' => [
+            // 'allow_redirects' => false,
+        ],
+
+        /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
          * the given number of uptime checks have consecutively failed for a monitor.
          */

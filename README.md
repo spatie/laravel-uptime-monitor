@@ -41,13 +41,13 @@ return [
         'location' => '',
 
         /*
-         * To keep reminding you that an uptime check failed, notifications
+         * To keep reminding you that a site is down, notifications
          * will be resent every given number of minutes.
          */
         'resend_uptime_check_failed_notification_every_minutes' => 60,
 
         'mail' => [
-            'to' => 'your@email.com',
+            'to' => ['your@email.com'],
         ],
 
         'slack' => [
@@ -67,6 +67,7 @@ return [
     ],
 
     'uptime_check' => [
+
         /*
          * When the uptime check could reach the url of a monitor it will pass the response to this class
          * If this class determines the response is valid, the uptime check will be regarded as succeeded.
@@ -80,23 +81,38 @@ return [
          * given number of minutes ago. If you change this setting you have to manually
          * update the `uptime_check_interval_in_minutes` value of your existing monitors.
          *
-         * When an the uptime check failed we'll check the uptime every time `monitor:check-uptime` runs
-         * regardless of this setting.
+         * When an uptime check fails we'll check the uptime for that monitor every time `monitor:check-uptime`
+         * runs regardless of this setting.
          */
         'run_interval_in_minutes' => 5,
 
         /*
-         * To speed up the uptime checking process uptime monitor can perform the uptime check of several
+         * To speed up the uptime checking process the package can perform the uptime check of several
          * monitors concurrently. Set this to a lower value if you're getting weird errors
          * running the uptime check.
          */
         'concurrent_checks' => 10,
 
         /*
-         * The uptime check will fail if the configured url does not respond after the
+         * The uptime check for a monitor will fail if the url does not respond after the
          * given number of seconds.
          */
         'timeout_per_site' => 10,
+
+        /*
+         * Because networks can be a bit unreliable the package can make three attempts
+         * to connect to a server in one uptime check. You can specify the time in
+         * milliseconds between each attempt.
+         */
+        'retry_connection_after_milliseconds' => 100,
+
+        /*
+         * If you want to change the default Guzzle client behaviour, you can do so by
+         * passing custom options that will be used when making requests.
+         */
+        'guzzle_options' => [
+            // 'allow_redirects' => false,
+        ],
 
         /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
@@ -112,7 +128,7 @@ return [
         /*
          * When reaching out to the sites these headers will be added.
          */
-        'additional_headers' => []
+        'additional_headers' => [],
     ],
 
     'certificate_check' => [
@@ -130,7 +146,7 @@ return [
      * own model here. The only requirement is that it should extend
      * `Spatie\UptimeMonitor\Models\Monitor`.
      */
-     'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
+    'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
 ];
 ```
 

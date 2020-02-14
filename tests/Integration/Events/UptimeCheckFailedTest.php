@@ -98,4 +98,27 @@ class UptimeCheckFailedTest extends TestCase
 
         Event::assertNotDispatched(UptimeCheckRecovered::class);
     }
+
+    /** @test */
+    public function the_uptime_checker_will_fail_without_configured_guzzle_options()
+    {
+        $this->server->up();
+        $this->server->setResponseBody('', 301);
+
+        $monitors = MonitorRepository::getForUptimeCheck();
+
+        $consecutiveFailsNeeded = config('uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures');
+
+        foreach (range(1, $consecutiveFailsNeeded) as $index) {
+            $monitors->checkUptime();
+
+            if ($index < $consecutiveFailsNeeded) {
+                Event::assertNotDispatched(UptimeCheckFailed::class);
+            }
+        }
+
+        Event::assertDispatched(UptimeCheckFailed::class, function ($event) {
+            return $event->monitor->id === $this->monitor->id;
+        });
+    }
 }

@@ -6,6 +6,8 @@ use GuzzleHttp\Client;
 
 class Server
 {
+    const ENV_SERVER_PORT = 'TEST_SERVER_PORT';
+
     /** @var \GuzzleHttp\Client */
     protected $client;
 
@@ -40,6 +42,10 @@ class Server
 
     public static function boot()
     {
+        if (empty(getenv(self::ENV_SERVER_PORT))) {
+            throw new \InvalidArgumentException(sprintf('`%s` environment variable is not set', self::ENV_SERVER_PORT));
+        }
+
         if (! file_exists(__DIR__.'/server/vendor')) {
             exec('cd "'.__DIR__.'/server"; composer install');
         }
@@ -60,7 +66,7 @@ class Server
 
     public static function getServerUrl(string $endPoint = ''): string
     {
-        return 'localhost:'.getenv('TEST_SERVER_PORT').'/'.$endPoint;
+        return sprintf('localhost:%s/%s', getenv('TEST_SERVER_PORT'), $endPoint);
     }
 
     public static function serverHasBooted(): bool

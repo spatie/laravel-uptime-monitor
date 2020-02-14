@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Event;
+use Illuminate\Support\Facades\Config;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
@@ -42,5 +43,25 @@ class UptimeCheckSucceededTest extends TestCase
         MonitorRepository::getForUptimeCheck()->checkUptime();
 
         Event::assertDispatched(UptimeCheckSucceeded::class);
+    }
+
+    /** @test */
+    public function the_uptime_checker_will_succeed_with_configured_guzzle_options()
+    {
+        $this->server->up();
+        $this->server->setResponseBody('', 301);
+
+        Config::set('uptime-monitor.uptime_check.guzzle_options', [
+            'allow_redirects' => false,
+        ]);
+
+        $monitors = MonitorRepository::getForUptimeCheck();
+        $monitors->checkUptime();
+
+        Config::set('uptime-monitor.uptime_check.guzzle_options', []);
+
+        Event::assertDispatched(UptimeCheckSucceeded::class, function ($event) {
+            return $event->monitor->id === $this->monitor->id;
+        });
     }
 }
