@@ -2,16 +2,16 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Models;
 
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class MonitorTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

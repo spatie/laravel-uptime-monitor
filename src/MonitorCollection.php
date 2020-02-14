@@ -3,13 +3,13 @@
 namespace Spatie\UptimeMonitor;
 
 use Generator;
-use Illuminate\Support\Collection;
-use GuzzleHttp\Promise\EachPromise;
-use Psr\Http\Message\ResponseInterface;
-use Spatie\UptimeMonitor\Models\Monitor;
-use GuzzleHttp\Exception\RequestException;
 use GrahamCampbell\GuzzleFactory\GuzzleFactory;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Promise\EachPromise;
+use Illuminate\Support\Collection;
+use Psr\Http\Message\ResponseInterface;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 class MonitorCollection extends Collection
 {

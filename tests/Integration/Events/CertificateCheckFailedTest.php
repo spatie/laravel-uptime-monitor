@@ -3,16 +3,16 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Event;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class CertificateCheckFailedTest extends TestCase
 {
     /** @var \Spatie\UptimeMonitor\Models\Monitor */
     protected $monitor;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -3,8 +3,8 @@
 namespace Spatie\UptimeMonitor\Commands;
 
 use Illuminate\Support\Str;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 class SyncFile extends BaseCommand
 {

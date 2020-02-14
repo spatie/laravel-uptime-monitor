@@ -2,12 +2,12 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
-use Spatie\UptimeMonitor\MonitorRepository;
-use Spatie\UptimeMonitor\Commands\MonitorLists\Healthy;
+use Spatie\UptimeMonitor\Commands\MonitorLists\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Commands\MonitorLists\Disabled;
+use Spatie\UptimeMonitor\Commands\MonitorLists\Healthy;
 use Spatie\UptimeMonitor\Commands\MonitorLists\Unchecked;
 use Spatie\UptimeMonitor\Commands\MonitorLists\UptimeCheckFailed;
-use Spatie\UptimeMonitor\Commands\MonitorLists\CertificateCheckFailed;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 class ListMonitors extends BaseCommand
 {

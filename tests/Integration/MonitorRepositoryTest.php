@@ -2,17 +2,17 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration;
 
-use Spatie\Url\Url;
 use Illuminate\Support\Collection;
-use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
-use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
+use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\Url\Url;
 
 class MonitorRepositoryTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }
