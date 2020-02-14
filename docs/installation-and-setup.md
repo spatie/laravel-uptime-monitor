@@ -24,6 +24,8 @@ php artisan vendor:publish --provider="Spatie\UptimeMonitor\UptimeMonitorService
 The default contents of the configuration looks like this:
 
 ```php
+<?php
+
 return [
 
     /*
@@ -55,7 +57,7 @@ return [
         'resend_uptime_check_failed_notification_every_minutes' => 60,
 
         'mail' => [
-            'to' => 'your@email.com',
+            'to' => ['your@email.com'],
         ],
 
         'slack' => [
@@ -89,7 +91,7 @@ return [
          * given number of minutes ago. If you change this setting you have to manually
          * update the `uptime_check_interval_in_minutes` value of your existing monitors.
          *
-         * When an uptime check fails we'll check the uptime for that montitor every time `monitor:check-uptime`
+         * When an uptime check fails we'll check the uptime for that monitor every time `monitor:check-uptime`
          * runs regardless of this setting.
          */
         'run_interval_in_minutes' => 5,
@@ -102,10 +104,25 @@ return [
         'concurrent_checks' => 10,
 
         /*
-         * The uptime check for a monitor will fail if url does not respond after the
+         * The uptime check for a monitor will fail if the url does not respond after the
          * given number of seconds.
          */
         'timeout_per_site' => 10,
+
+        /*
+         * Because networks can be a bit unreliable the package can make three attempts
+         * to connect to a server in one uptime check. You can specify the time in
+         * milliseconds between each attempt.
+         */
+        'retry_connection_after_milliseconds' => 100,
+
+        /*
+         * If you want to change the default Guzzle client behaviour, you can do so by
+         * passing custom options that will be used when making requests.
+         */
+        'guzzle_options' => [
+            // 'allow_redirects' => false,
+        ],
 
         /*
          * Fire `Spatie\UptimeMonitor\Events\MonitorFailed` event only after
@@ -117,11 +134,11 @@ return [
          * When reaching out to sites this user agent will be used.
          */
         'user_agent' => 'spatie/laravel-uptime-monitor uptime checker',
-        
+
         /*
          * When reaching out to the sites these headers will be added.
          */
-        'additional_headers' => [],        
+        'additional_headers' => [],
     ],
 
     'certificate_check' => [
