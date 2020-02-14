@@ -21,13 +21,13 @@ Read the [high level overview section](https://docs.spatie.be/laravel-uptime-mon
 
 Instead of using the `monitor:create` command you may also manually create a row in the `monitors` table. Here's [a description of all the fields in that table](https://docs.spatie.be/laravel-uptime-monitor/v3/advanced-usage/manually-modifying-monitors).
  
- ## Removing a monitor
+## Removing a monitor
  
- You can remove a monitor by running `monitor:delete`. Here's how to delete the monitor for `https://laravel.com`:
+You can remove a monitor by running `monitor:delete`. Here's how to delete the monitor for `https://laravel.com`:
  
- ```php
- php artisan monitor:delete https://laravel.com
- ```
+```php
+php artisan monitor:delete https://laravel.com
+```
  
 This will remove the monitor for laravel.com from the database. Want to delete multiple monitors at once? Just pass all the urls as comma-separated list.
 
