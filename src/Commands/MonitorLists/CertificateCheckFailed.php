@@ -2,9 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Commands\MonitorLists;
 
+use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
-use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 
 class CertificateCheckFailed
 {

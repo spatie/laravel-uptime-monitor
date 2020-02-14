@@ -4,16 +4,16 @@ namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Event;
 use Illuminate\Support\Facades\Config;
-use Spatie\UptimeMonitor\Test\TestCase;
+use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
-use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class UptimeCheckSucceededTest extends TestCase
 {
     protected $monitor;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

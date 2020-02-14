@@ -2,9 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Events;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Models\Monitor;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UptimeCheckRecovered implements ShouldQueue
 {

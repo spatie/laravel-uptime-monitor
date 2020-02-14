@@ -3,12 +3,12 @@
 namespace Spatie\UptimeMonitor\Models\Traits;
 
 use Exception;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
+use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 use Spatie\UptimeMonitor\Events\CertificateExpiresSoon;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
-use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 trait SupportsCertificateCheck
 {

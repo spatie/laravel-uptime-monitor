@@ -1,8 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Monitor;
 
 $factory->define(Monitor::class, function (Faker\Generator $faker) {
     return [

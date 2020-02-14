@@ -2,9 +2,9 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
-use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 
 class CheckCertificates extends BaseCommand
 {

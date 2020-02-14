@@ -3,15 +3,15 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
-use Spatie\UptimeMonitor\Test\TestCase;
-use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
+use Spatie\UptimeMonitor\Models\Monitor;
+use Spatie\UptimeMonitor\Test\TestCase;
 
 class SyncFileTest extends TestCase
 {
     protected $stubsDirectory = __DIR__.'/../stubs/';
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
