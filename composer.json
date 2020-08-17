@@ -17,8 +17,8 @@
     ],
     "require": {
         "php": "^7.2",
-        "graham-campbell/guzzle-factory": "^3.0",
-        "guzzlehttp/guzzle": "^6.3",
+        "graham-campbell/guzzle-factory": "^3.0|^4.0",
+        "guzzlehttp/guzzle": "^6.3|^7.0",
         "laravel/framework": "~5.8.0|^6.0|^7.0",
         "laravel/slack-notification-channel": "^2.0",
         "spatie/ssl-certificate": "^1.5.0",
