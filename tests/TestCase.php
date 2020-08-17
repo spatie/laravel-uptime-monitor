@@ -4,9 +4,9 @@ namespace Spatie\UptimeMonitor\Test;
 
 use Artisan;
 use Carbon\Carbon;
-use Event;
 use GuzzleHttp\Client;
 use Illuminate\Notifications\SlackChannelServiceProvider;
+use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 

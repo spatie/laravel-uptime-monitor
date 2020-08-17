@@ -2,8 +2,8 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Event;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;

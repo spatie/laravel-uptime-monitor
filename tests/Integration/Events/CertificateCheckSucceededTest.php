@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Carbon\Carbon;
-use Event;
+use Illuminate\Support\Facades\Event;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
