@@ -18,7 +18,7 @@ class CheckCertificatesTest extends TestCase
 
         $monitor = $monitor->fresh();
 
-        $this->assertEquals(CertificateStatus::INVALID,$monitor->certificate_status);
+        $this->assertEquals(CertificateStatus::INVALID, $monitor->certificate_status);
 
         $this->seeInConsoleOutput("Checking certificate of {$monitor->url}");
     }
