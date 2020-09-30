@@ -2,7 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
-use Event;
+use Illuminate\Support\Facades\Event;
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
