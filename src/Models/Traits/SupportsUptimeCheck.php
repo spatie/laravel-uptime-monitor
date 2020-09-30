@@ -14,7 +14,7 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 trait SupportsUptimeCheck
 {
-    public static function bootSupportsUptimeCheck()
+    public static function bootSupportsUptimeCheck(): void
     {
         static::saving(function (Monitor $monitor) {
             if (is_null($monitor->uptime_status_last_change_date)) {
@@ -50,7 +50,7 @@ trait SupportsUptimeCheck
         return $this->uptime_last_check_date->diffInMinutes() >= $this->uptime_check_interval_in_minutes;
     }
 
-    public function uptimeRequestSucceeded(ResponseInterface $response)
+    public function uptimeRequestSucceeded(ResponseInterface $response): void
     {
         $uptimeResponseChecker = $this->uptime_check_response_checker
             ? app($this->uptime_check_response_checker)
@@ -65,12 +65,12 @@ trait SupportsUptimeCheck
         $this->uptimeCheckSucceeded();
     }
 
-    public function uptimeRequestFailed(string $reason)
+    public function uptimeRequestFailed(string $reason): void
     {
         $this->uptimeCheckFailed($reason);
     }
 
-    public function uptimeCheckSucceeded()
+    public function uptimeCheckSucceeded(): void
     {
         $this->uptime_status = UptimeStatus::UP;
         $this->uptime_check_failure_reason = '';
@@ -94,7 +94,7 @@ trait SupportsUptimeCheck
         event(new UptimeCheckSucceeded($this));
     }
 
-    public function uptimeCheckFailed(string $reason)
+    public function uptimeCheckFailed(string $reason): void
     {
         $this->uptime_status = UptimeStatus::DOWN;
         $this->uptime_check_times_failed_in_a_row++;

@@ -6,8 +6,7 @@ use Illuminate\Console\Command;
 
 class ConsoleOutput
 {
-    /** @var \Illuminate\Console\Command */
-    public static $runningCommand;
+    public static Command $runningCommand;
 
     public function setOutput(Command $runningCommand)
     {

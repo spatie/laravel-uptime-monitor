@@ -12,8 +12,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class UptimeCheckSucceeded extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\UptimeCheckSucceeded */
-    public $event;
+    public MonitorSucceededEvent $event;
 
     /**
      * Get the mail representation of the notification.
@@ -52,7 +51,7 @@ class UptimeCheckSucceeded extends BaseNotification
         return $this->getMonitor()->uptime_status != UptimeStatus::DOWN;
     }
 
-    public function setEvent(MonitorSucceededEvent $event)
+    public function setEvent(MonitorSucceededEvent $event): self
     {
         $this->event = $event;
 

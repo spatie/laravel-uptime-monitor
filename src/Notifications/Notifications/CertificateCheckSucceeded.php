@@ -11,8 +11,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class CertificateCheckSucceeded extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\CertificateCheckSucceeded */
-    public $event;
+    public ValidCertificateFoundEvent $event;
 
     /**
      * Get the mail representation of the notification.
@@ -46,7 +45,7 @@ class CertificateCheckSucceeded extends BaseNotification
             });
     }
 
-    public function setEvent(ValidCertificateFoundEvent $event)
+    public function setEvent(ValidCertificateFoundEvent $event): self
     {
         $this->event = $event;
 
