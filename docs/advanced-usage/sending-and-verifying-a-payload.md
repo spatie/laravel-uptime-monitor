@@ -3,9 +3,9 @@ title: Sending and verifying a payload
 weight: 8
 ---
 
-There are cases in which you would like to send a payload and verify the response to determine if is services is up and active for example, if you need to detrerming if a down stream service is connected and functioning correctly.
+There are cases in which you would like to send a payload and verify the response to determine if its services are up and active for example, if you need to determine if a down stream service is connected and functioning correctly.
 
-To achieve this you will need to manually update a few fields in the database and optionally create a custom response checker specifically for that monitor to verify the response from the uptime monitor request.
+To achieve this, you will need to manually update a few fields in the database and optionally create a custom response checker specifically for that monitor to verify the response from the uptime monitor request.
 
 In this example, you will need to set the following fields in the database:
 
