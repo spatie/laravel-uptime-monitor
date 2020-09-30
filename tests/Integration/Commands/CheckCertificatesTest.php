@@ -3,7 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
-use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
+use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
@@ -18,7 +18,7 @@ class CheckCertificatesTest extends TestCase
 
         $monitor = $monitor->fresh();
 
-        $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
+        $this->assertEquals(CertificateStatus::INVALID, $monitor->certificate_status);
 
         $this->seeInConsoleOutput("Checking certificate of {$monitor->url}");
     }
