@@ -13,7 +13,7 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 class MonitorCollection extends Collection
 {
-    public function checkUptime()
+    public function checkUptime(): void
     {
         $this->resetItemKeys();
 
@@ -61,7 +61,7 @@ class MonitorCollection extends Collection
         }
     }
 
-    private function promiseHeaders(Monitor $monitor)
+    private function promiseHeaders(Monitor $monitor): array
     {
         return collect([])
             ->merge(['User-Agent' => config('uptime-monitor.uptime_check.user_agent')])
@@ -74,7 +74,7 @@ class MonitorCollection extends Collection
      * In order to make use of Guzzle promises we have to make sure the
      * keys of the collection are in a consecutive order without gaps.
      */
-    protected function resetItemKeys()
+    protected function resetItemKeys(): void
     {
         $this->items = $this->values()->all();
     }
@@ -84,10 +84,7 @@ class MonitorCollection extends Collection
         return $this->items[$index];
     }
 
-    /**
-     * @return static
-     */
-    public function sortByHost()
+    public function sortByHost(): self
     {
         return $this->sortBy(function (Monitor $monitor) {
             return $monitor->url->getHost();

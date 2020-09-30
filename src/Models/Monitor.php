@@ -33,14 +33,14 @@ class Monitor extends Model
         'certificate_check_enabled' => 'boolean',
     ];
 
-    public function getUptimeCheckAdditionalHeadersAttribute($additionalHeaders)
+    public function getUptimeCheckAdditionalHeadersAttribute($additionalHeaders): array
     {
         return $additionalHeaders
             ? json_decode($additionalHeaders, true)
             : [];
     }
 
-    public function setUptimeCheckAdditionalHeadersAttribute(array $additionalHeaders)
+    public function setUptimeCheckAdditionalHeadersAttribute(array $additionalHeaders): void
     {
         $this->attributes['uptime_check_additional_headers'] = json_encode($additionalHeaders);
     }
@@ -52,30 +52,22 @@ class Monitor extends Model
             ->orWhere('certificate_check_enabled', true);
     }
 
-    /**
-     * @return \Spatie\Url\Url|null
-     */
-    public function getUrlAttribute()
+    public function getUrlAttribute(): ?Url
     {
         if (! isset($this->attributes['url'])) {
-            return;
+            return null;
         }
 
         return Url::fromString($this->attributes['url']);
     }
 
-    /**
-     * @return string
-     */
-    public function getRawUrlAttribute()
+    public function getRawUrlAttribute(): string
     {
         return (string) $this->url;
     }
 
-    public static function boot()
+    public static function booted()
     {
-        parent::boot();
-
         static::saving(function (self $monitor) {
             if (static::alreadyExists($monitor)) {
                 throw CannotSaveMonitor::alreadyExists($monitor);
@@ -83,7 +75,7 @@ class Monitor extends Model
         });
     }
 
-    public function isHealthy()
+    public function isHealthy(): bool
     {
         if ($this->uptime_check_enabled && in_array($this->uptime_status, [UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED])) {
             return false;
@@ -96,10 +88,7 @@ class Monitor extends Model
         return true;
     }
 
-    /**
-     * @return $this
-     */
-    public function enable()
+    public function enable(): self
     {
         $this->uptime_check_enabled = true;
 
@@ -112,10 +101,7 @@ class Monitor extends Model
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function disable()
+    public function disable(): self
     {
         $this->uptime_check_enabled = false;
         $this->certificate_check_enabled = false;

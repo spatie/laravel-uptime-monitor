@@ -11,8 +11,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class CertificateExpiresSoon extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\CertificateExpiresSoon */
-    public $event;
+    public SoonExpiringSslCertificateFoundEvent $event;
 
     /**
      * Get the mail representation of the notification.

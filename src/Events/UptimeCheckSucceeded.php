@@ -7,8 +7,7 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 class UptimeCheckSucceeded implements ShouldQueue
 {
-    /** @var \Spatie\UptimeMonitor\Models\Monitor */
-    public $monitor;
+    public Monitor $monitor;
 
     public function __construct(Monitor $monitor)
     {

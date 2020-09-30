@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.0.0 - 2020-10-01
+
+- typehint all the things
+- drop anything below Laravel 8 / PHP 7.4
+
 ## 3.9.0 - 2020-10-01
 
 - add support for Laravel 8

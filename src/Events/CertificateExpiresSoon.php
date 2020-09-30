@@ -8,11 +8,9 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 class CertificateExpiresSoon implements ShouldQueue
 {
-    /** @var \Spatie\UptimeMonitor\Models\Monitor */
-    public $monitor;
+    public Monitor $monitor;
 
-    /** @var \Spatie\SslCertificate\SslCertificate */
-    public $certificate;
+    public SslCertificate $certificate;
 
     public function __construct(Monitor $monitor, SslCertificate $certificate)
     {

@@ -12,7 +12,7 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 trait SupportsCertificateCheck
 {
-    public function checkCertificate()
+    public function checkCertificate(): void
     {
         try {
             $certificate = SslCertificate::createForHostName($this->url->getHost());
@@ -23,7 +23,7 @@ trait SupportsCertificateCheck
         }
     }
 
-    public function setCertificate(SslCertificate $certificate)
+    public function setCertificate(SslCertificate $certificate): void
     {
         $this->certificate_status = $certificate->isValid($this->url)
             ? CertificateStatus::VALID
@@ -36,7 +36,7 @@ trait SupportsCertificateCheck
         $this->fireEventsForUpdatedMonitorWithCertificate($this, $certificate);
     }
 
-    public function setCertificateException(Exception $exception)
+    public function setCertificateException(Exception $exception): void
     {
         $this->certificate_status = CertificateStatus::INVALID;
         $this->certificate_expiration_date = null;
@@ -47,7 +47,7 @@ trait SupportsCertificateCheck
         event(new CertificateCheckFailed($this, $exception->getMessage()));
     }
 
-    protected function fireEventsForUpdatedMonitorWithCertificate(Monitor $monitor, SslCertificate $certificate)
+    protected function fireEventsForUpdatedMonitorWithCertificate(Monitor $monitor, SslCertificate $certificate): void
     {
         if ($this->certificate_status === CertificateStatus::VALID) {
             event(new CertificateCheckSucceeded($this, $certificate));

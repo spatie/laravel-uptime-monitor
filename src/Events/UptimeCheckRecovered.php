@@ -8,11 +8,9 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 class UptimeCheckRecovered implements ShouldQueue
 {
-    /** @var \Spatie\UptimeMonitor\Models\Monitor */
-    public $monitor;
+    public Monitor $monitor;
 
-    /** @var \Spatie\UptimeMonitor\Helpers\Period */
-    public $downtimePeriod;
+    public Period $downtimePeriod;
 
     public function __construct(Monitor $monitor, Period $downtimePeriod)
     {

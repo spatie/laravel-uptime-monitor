@@ -11,8 +11,7 @@ use Spatie\UptimeMonitor\Notifications\BaseNotification;
 
 class CertificateCheckFailed extends BaseNotification
 {
-    /** @var \Spatie\UptimeMonitor\Events\CertificateCheckFailed */
-    public $event;
+    public InValidCertificateFoundEvent $event;
 
     /**
      * Get the mail representation of the notification.
@@ -55,7 +54,7 @@ class CertificateCheckFailed extends BaseNotification
         return parent::getMonitorProperties($extraProperties);
     }
 
-    public function setEvent(InValidCertificateFoundEvent $event)
+    public function setEvent(InValidCertificateFoundEvent $event): self
     {
         $this->event = $event;
 
