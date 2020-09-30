@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 3.9.0 - 2020-10-01
+
+- add support for Laravel 8
+
 ## 3.8.1 - 2020-10-01
 
 - general cleanup
