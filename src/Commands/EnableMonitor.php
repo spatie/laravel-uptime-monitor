@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Commands;
 
+use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
 class EnableMonitor extends BaseCommand
@@ -12,14 +13,24 @@ class EnableMonitor extends BaseCommand
 
     public function handle()
     {
-        foreach (explode(',', $this->argument('url')) as $url) {
+        $urls = null;
+
+        if ($this->argument('url') == 'all') {
+            $urls = Monitor::get()->pluck('url');
+        }
+
+        if (is_null($urls)) {
+            $urls = explode(',', $this->argument('url'));
+        }
+
+        foreach ($urls as $url) {
             $this->enableMonitor(trim($url));
         }
     }
 
     protected function enableMonitor(string $url)
     {
-        if (! $monitor = MonitorRepository::findByUrl($url)) {
+        if (!$monitor = MonitorRepository::findByUrl($url)) {
             $this->error("There is no monitor configured for url `{$url}`.");
 
             return;
