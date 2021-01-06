@@ -66,7 +66,7 @@ class Server
 
     public static function getServerUrl(string $endPoint = ''): string
     {
-        return sprintf('localhost:%s/%s', getenv('TEST_SERVER_PORT'), $endPoint);
+        return rtrim(sprintf('localhost:%s/%s', getenv('TEST_SERVER_PORT'), $endPoint), '/');
     }
 
     public static function serverHasBooted(): bool
