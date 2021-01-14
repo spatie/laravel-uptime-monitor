@@ -4,7 +4,7 @@ namespace Spatie\UptimeMonitor;
 
 use Generator;
 use GrahamCampbell\GuzzleFactory\GuzzleFactory;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
@@ -27,7 +27,7 @@ class MonitorCollection extends Collection
                 $monitor->uptimeRequestSucceeded($response);
             },
 
-            'rejected' => function (RequestException $exception, $index) {
+            'rejected' => function (TransferException $exception, $index) {
                 $monitor = $this->getMonitorAtIndex($index);
 
                 ConsoleOutput::error("Could not reach {$monitor->url} error: `{$exception->getMessage()}`");
