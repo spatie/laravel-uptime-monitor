@@ -10,7 +10,7 @@ $app = new Laravel\Lumen\Application(
 
 $storagePath = __DIR__.'/../storage/server-status-code.json';
 
-$app->get('/', function () use ($storagePath) {
+$app->router->get('/', function () use ($storagePath) {
     if (! file_exists($storagePath)) {
         return response('Site is up', 200);
     }
@@ -24,13 +24,13 @@ $app->get('/', function () use ($storagePath) {
     return response($response['body'], $response['statusCode']);
 });
 
-$app->post('/setServerResponse', function (Request $request) use ($storagePath) {
+$app->router->post('/setServerResponse', function (Request $request) use ($storagePath) {
     $response = json_encode($request->all(), true);
 
     file_put_contents($storagePath, $response);
 });
 
-$app->post('/testPost', function (Request $request) {
+$app->router->post('/testPost', function (Request $request) {
     if ($request->get('foo') !== 'bar' && $request->header('Content-Type') !== 'application/json') {
         return response(null, 500);
     }
@@ -38,7 +38,7 @@ $app->post('/testPost', function (Request $request) {
     return response(null, 200);
 });
 
-$app->get('booted', function () {
+$app->router->get('booted', function () {
     return 'app has booted';
 });
 
