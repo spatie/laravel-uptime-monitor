@@ -2,10 +2,12 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
-## 4.0.0 - 2020-10-01
+## 4.0.0 - 2021-01-14
 
 - typehint all the things
 - drop anything below Laravel 8 / PHP 7.4
+- add support for PHP 8
+- use CarbonInterface instead of Carbon
 
 ## 3.9.0 - 2020-10-01
 
