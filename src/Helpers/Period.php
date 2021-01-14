@@ -2,15 +2,14 @@
 
 namespace Spatie\UptimeMonitor\Helpers;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Spatie\UptimeMonitor\Exceptions\InvalidPeriod;
 
 class Period
 {
-    public Carbon $startDateTime;
+    public CarbonInterface $startDateTime;
 
-    public Carbon $endDateTime;
+    public CarbonInterface $endDateTime;
 
     public function __construct(CarbonInterface $startDateTime, CarbonInterface $endDateTime)
     {
