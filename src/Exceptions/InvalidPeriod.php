@@ -2,7 +2,6 @@
 
 namespace Spatie\UptimeMonitor\Exceptions;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Exception;
 
