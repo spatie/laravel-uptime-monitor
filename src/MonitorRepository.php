@@ -83,8 +83,7 @@ class MonitorRepository
     {
         $modelClass = static::determineMonitorModel();
 
-        $monitors = $modelClass
-            ::where(function (Builder $query) {
+        $monitors = $modelClass::where(function (Builder $query) {
                 $query
                     ->where('uptime_check_enabled', true)
                     ->where('uptime_status', UptimeStatus::NOT_YET_CHECKED);
@@ -100,8 +99,7 @@ class MonitorRepository
     }
 
     /**
-     * @param string|\Spatie\Url\Url $url
-     *
+     * @param  string|\Spatie\Url\Url  $url
      * @return \Spatie\UptimeMonitor\Models\Monitor
      */
     public static function findByUrl($url)
