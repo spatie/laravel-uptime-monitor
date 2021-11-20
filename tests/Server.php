@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class Server
 {
-    const ENV_SERVER_PORT = 'TEST_SERVER_PORT';
+    public const ENV_SERVER_PORT = 'TEST_SERVER_PORT';
 
     /** @var \GuzzleHttp\Client */
     protected $client;

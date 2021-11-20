@@ -4,7 +4,7 @@ namespace Spatie\UptimeMonitor\Models\Enums;
 
 class CertificateStatus
 {
-    const NOT_YET_CHECKED = 'not yet checked';
-    const VALID = 'valid';
-    const INVALID = 'invalid';
+    public const NOT_YET_CHECKED = 'not yet checked';
+    public const VALID = 'valid';
+    public const INVALID = 'invalid';
 }

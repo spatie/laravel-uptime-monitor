@@ -22,7 +22,7 @@ class UptimeCheckRecovered extends BaseNotification
      */
     public function toMail($notifiable)
     {
-        $mailMessage = (new MailMessage)
+        $mailMessage = (new MailMessage())
             ->success()
             ->subject($this->getMessageText())
             ->line($this->getMessageText())
@@ -37,7 +37,7 @@ class UptimeCheckRecovered extends BaseNotification
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage)
+        return (new SlackMessage())
             ->success()
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
