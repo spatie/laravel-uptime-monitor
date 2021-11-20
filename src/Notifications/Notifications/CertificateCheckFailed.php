@@ -21,7 +21,7 @@ class CertificateCheckFailed extends BaseNotification
      */
     public function toMail($notifiable)
     {
-        $mailMessage = (new MailMessage)
+        $mailMessage = (new MailMessage())
             ->error()
             ->subject($this->getMessageText())
             ->line($this->getMessageText());
@@ -35,7 +35,7 @@ class CertificateCheckFailed extends BaseNotification
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage)
+        return (new SlackMessage())
             ->error()
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment

@@ -8,7 +8,7 @@ use Spatie\UptimeMonitor\Models\Monitor;
 
 class ResponseCheckerFailureFake implements UptimeResponseChecker
 {
-    const FAILURE_REASON = 'FAKE_CHECK';
+    public const FAILURE_REASON = 'FAKE_CHECK';
 
     public function isValidResponse(ResponseInterface $response, Monitor $monitor): bool
     {

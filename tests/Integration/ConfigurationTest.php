@@ -13,7 +13,7 @@ class ConfigurationTest extends TestCase
     {
         factory(Monitor::class)->create();
 
-        $customModel = new class extends Monitor {
+        $customModel = new class() extends Monitor {
             public $table = 'monitors';
         };
 
@@ -25,7 +25,7 @@ class ConfigurationTest extends TestCase
     /** @test */
     public function when_an_invalid_monitor_model_is_specified_an_exception_will_be_thrown()
     {
-        $customModel = new class {
+        $customModel = new class() {
         };
 
         $this->app['config']->set('uptime-monitor.monitor_model', get_class($customModel));
