@@ -27,8 +27,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
-     *
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -40,7 +39,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
     protected function getEnvironmentSetUp($app)
     {
@@ -83,7 +82,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param string|array $searchStrings
+     * @param  string|array  $searchStrings
      */
     protected function seeInConsoleOutput($searchStrings)
     {
@@ -99,7 +98,7 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param string|array $searchStrings
+     * @param  string|array  $searchStrings
      */
     protected function dontSeeInConsoleOutput($searchStrings)
     {
