@@ -56,7 +56,7 @@ class UptimeCheckFailed extends BaseNotification
         $date = $this->event->monitor->formattedLastUpdatedStatusChangeDate();
 
         $extraProperties = [
-            $since => $date,
+            $since           => $date,
             'Failure reason' => $this->getMonitor()->uptime_check_failure_reason,
         ];
 
