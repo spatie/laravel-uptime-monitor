@@ -16,8 +16,8 @@ class MonitorTest extends TestCase
         parent::setUp();
 
         $this->monitor = factory(Monitor::class)->create([
-            'url'                       => 'http://mysite.com',
-            'uptime_check_enabled'      => true,
+            'url' => 'http://mysite.com',
+            'uptime_check_enabled' => true,
             'certificate_check_enabled' => true,
         ]);
     }
