@@ -35,7 +35,7 @@ class Server
         $this->client->post(static::getServerUrl('setServerResponse'), [
             'form_params' => [
                 'statusCode' => $statusCode,
-                'body' => $text,
+                'body'       => $text,
             ],
         ]);
     }
@@ -46,7 +46,7 @@ class Server
             throw new \InvalidArgumentException(sprintf('`%s` environment variable is not set', self::ENV_SERVER_PORT));
         }
 
-        if (! file_exists(__DIR__.'/server/vendor')) {
+        if (!file_exists(__DIR__.'/server/vendor')) {
             exec('cd "'.__DIR__.'/server"; composer install');
         }
 
@@ -55,7 +55,7 @@ class Server
         }
 
         $pid = exec('php -S '.static::getServerUrl().' -t ./tests/server/public > /dev/null 2>&1 & echo $!');
-        while (! static::serverHasBooted()) {
+        while (!static::serverHasBooted()) {
             usleep(1000);
         }
 
