@@ -15,7 +15,7 @@ class ConsoleOutput
 
     public static function __callStatic(string $method, $arguments)
     {
-        if (!static::$runningCommand) {
+        if (! static::$runningCommand) {
             return;
         }
 

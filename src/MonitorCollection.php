@@ -19,7 +19,7 @@ class MonitorCollection extends Collection
 
         (new EachPromise($this->getPromises(), [
             'concurrency' => config('uptime-monitor.uptime_check.concurrent_checks'),
-            'fulfilled'   => function (ResponseInterface $response, $index) {
+            'fulfilled' => function (ResponseInterface $response, $index) {
                 $monitor = $this->getMonitorAtIndex($index);
 
                 ConsoleOutput::info("Could reach {$monitor->url}");
@@ -52,8 +52,8 @@ class MonitorCollection extends Collection
                 $monitor->url,
                 array_filter([
                     'connect_timeout' => config('uptime-monitor.uptime_check.timeout_per_site'),
-                    'headers'         => $this->promiseHeaders($monitor),
-                    'body'            => $monitor->uptime_check_payload,
+                    'headers' => $this->promiseHeaders($monitor),
+                    'body' => $monitor->uptime_check_payload,
                 ])
             );
 
