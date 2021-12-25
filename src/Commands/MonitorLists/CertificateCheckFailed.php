@@ -12,7 +12,7 @@ class CertificateCheckFailed
     {
         $monitorsWithFailingCertificateChecks = MonitorRepository::getWithFailingCertificateCheck();
 
-        if (! $monitorsWithFailingCertificateChecks->count()) {
+        if (!$monitorsWithFailingCertificateChecks->count()) {
             return;
         }
 
