@@ -30,7 +30,7 @@ class SyncFile extends BaseCommand
     protected function validateMonitors($monitorsInFile)
     {
         $monitorsInFile->each(function ($monitorAttributes) {
-            if (!Str::startsWith($monitorAttributes['url'], ['https://', 'http://'])) {
+            if (! Str::startsWith($monitorAttributes['url'], ['https://', 'http://'])) {
                 throw new CannotSaveMonitor("URL `{$monitorAttributes['url']}` is invalid (is the URL scheme included?)");
             }
         });
@@ -57,7 +57,7 @@ class SyncFile extends BaseCommand
 
     protected function deleteMissingMonitors($monitorsInFile)
     {
-        if (!$this->option('delete-missing')) {
+        if (! $this->option('delete-missing')) {
             return;
         }
 
