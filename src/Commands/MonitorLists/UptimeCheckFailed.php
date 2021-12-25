@@ -12,7 +12,7 @@ class UptimeCheckFailed
     {
         $failingMonitors = MonitorRepository::getWithFailingUptimeCheck();
 
-        if (! $failingMonitors->count()) {
+        if (!$failingMonitors->count()) {
             return;
         }
 
