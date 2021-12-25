@@ -28,7 +28,7 @@ class CheckCertificatesTest extends TestCase
     {
         $monitor1 = factory(Monitor::class)->create(['certificate_check_enabled' => true]);
         $monitor2 = factory(Monitor::class)->create([
-            'url' => 'https://google.com',
+            'url'                       => 'https://google.com',
             'certificate_check_enabled' => true,
         ]);
 
@@ -45,11 +45,11 @@ class CheckCertificatesTest extends TestCase
     {
         $monitor1 = factory(Monitor::class)->create(['certificate_check_enabled' => false]);
         $monitor2 = factory(Monitor::class)->create([
-            'url' => 'https://google.com',
+            'url'                       => 'https://google.com',
             'certificate_check_enabled' => true,
         ]);
         $monitor3 = factory(Monitor::class)->create([
-            'url' => 'https://bing.com',
+            'url'                       => 'https://bing.com',
             'certificate_check_enabled' => true,
         ]);
 

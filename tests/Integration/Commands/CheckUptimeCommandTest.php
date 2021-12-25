@@ -28,7 +28,7 @@ class CheckUptimeCommandTest extends TestCase
         $monitor1 = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
         $monitor2 = factory(Monitor::class)->create([
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
-            'url' => 'https://google.com',
+            'url'           => 'https://google.com',
         ]);
 
         Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url]);
@@ -48,12 +48,12 @@ class CheckUptimeCommandTest extends TestCase
         $monitor1 = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
         $monitor2 = factory(Monitor::class)->create([
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
-            'url' => 'https://google.com',
+            'url'           => 'https://google.com',
         ]);
 
         $monitor3 = factory(Monitor::class)->create([
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
-            'url' => 'https://bing.com',
+            'url'           => 'https://bing.com',
         ]);
 
         Artisan::call('monitor:check-uptime', ['--url' => $monitor1->url.','.$monitor2->url]);
@@ -71,11 +71,11 @@ class CheckUptimeCommandTest extends TestCase
     public function it_can_post_a_payload()
     {
         $monitor = factory(Monitor::class)->create([
-            'url' => sprintf('http://localhost:%s/testPost', env('TEST_SERVER_PORT')),
-            'uptime_check_method' => 'post',
-            'uptime_check_payload' => json_encode(['foo' => 'bar']),
+            'url'                             => sprintf('http://localhost:%s/testPost', env('TEST_SERVER_PORT')),
+            'uptime_check_method'             => 'post',
+            'uptime_check_payload'            => json_encode(['foo' => 'bar']),
             'uptime_check_additional_headers' => ['Content-Type' => 'application/json'],
-            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'uptime_status'                   => UptimeStatus::NOT_YET_CHECKED,
         ]);
 
         Artisan::call('monitor:check-uptime');
@@ -89,7 +89,7 @@ class CheckUptimeCommandTest extends TestCase
     public function it_can_use_a_custom_response_checker()
     {
         $monitor = factory(Monitor::class)->create([
-            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'uptime_status'                 => UptimeStatus::NOT_YET_CHECKED,
             'uptime_check_response_checker' => ResponseCheckerFailureFake::class,
         ]);
 

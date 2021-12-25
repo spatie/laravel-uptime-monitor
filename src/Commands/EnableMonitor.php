@@ -19,7 +19,7 @@ class EnableMonitor extends BaseCommand
 
     protected function enableMonitor(string $url)
     {
-        if (! $monitor = MonitorRepository::findByUrl($url)) {
+        if (!$monitor = MonitorRepository::findByUrl($url)) {
             $this->error("There is no monitor configured for url `{$url}`.");
 
             return;
