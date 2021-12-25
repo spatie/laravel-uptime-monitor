@@ -16,8 +16,8 @@ class SyncFileTest extends TestCase
         parent::setUp();
 
         Monitor::create([
-            'url' => 'https://www.example.com',
-            'uptime_check_enabled' => false,
+            'url'                       => 'https://www.example.com',
+            'uptime_check_enabled'      => false,
             'certificate_check_enabled' => true,
         ]);
     }
@@ -65,7 +65,7 @@ class SyncFileTest extends TestCase
     public function it_can_delete_monitors_not_found_in_file()
     {
         Artisan::call('monitor:sync-file', [
-            'path' => $this->stubsDirectory.'sync-file-original.json',
+            'path'             => $this->stubsDirectory.'sync-file-original.json',
             '--delete-missing' => true,
         ]);
 
