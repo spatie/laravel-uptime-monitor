@@ -12,7 +12,7 @@ class Unchecked
     {
         $uncheckedMonitors = MonitorRepository::getUnchecked();
 
-        if (!$uncheckedMonitors->count()) {
+        if (! $uncheckedMonitors->count()) {
             return;
         }
 

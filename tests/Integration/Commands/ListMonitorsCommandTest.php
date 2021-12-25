@@ -62,7 +62,7 @@ class ListMonitorsCommandTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create([
             'certificate_check_enabled' => true,
-            'certificate_status'        => CertificateStatus::INVALID,
+            'certificate_status' => CertificateStatus::INVALID,
         ]);
 
         Artisan::call('monitor:list');
