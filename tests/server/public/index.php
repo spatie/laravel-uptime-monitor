@@ -11,7 +11,7 @@ $app = new Laravel\Lumen\Application(
 $storagePath = __DIR__.'/../storage/server-status-code.json';
 
 $app->router->get('/', function () use ($storagePath) {
-    if (!file_exists($storagePath)) {
+    if (! file_exists($storagePath)) {
         return response('Site is up', 200);
     }
 
