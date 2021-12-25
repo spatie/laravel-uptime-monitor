@@ -18,6 +18,7 @@ class UptimeCheckFailed extends BaseNotification
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -55,7 +56,7 @@ class UptimeCheckFailed extends BaseNotification
         $date = $this->event->monitor->formattedLastUpdatedStatusChangeDate();
 
         $extraProperties = [
-            $since => $date,
+            $since           => $date,
             'Failure reason' => $this->getMonitor()->uptime_check_failure_reason,
         ];
 

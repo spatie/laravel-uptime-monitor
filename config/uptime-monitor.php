@@ -9,12 +9,12 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed::class    => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered::class => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded::class => [],
 
-            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckFailed::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateExpiresSoon::class => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckFailed::class    => ['slack'],
+            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateExpiresSoon::class    => ['slack'],
             \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded::class => [],
         ],
 

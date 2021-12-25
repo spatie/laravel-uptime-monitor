@@ -12,7 +12,7 @@ class Healthy
     {
         $healthyMonitor = MonitorRepository::getHealthy();
 
-        if (! $healthyMonitor->count()) {
+        if (!$healthyMonitor->count()) {
             return;
         }
 

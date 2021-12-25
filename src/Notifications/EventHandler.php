@@ -26,7 +26,7 @@ class EventHandler
         $events->listen($this->allEventClasses(), function ($event) {
             $notification = $this->determineNotification($event);
 
-            if (! $notification) {
+            if (!$notification) {
                 return;
             }
 
