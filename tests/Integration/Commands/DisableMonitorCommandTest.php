@@ -13,7 +13,7 @@ class DisableMonitorCommandTest extends TestCase
     {
         $monitor = factory(Monitor::class)->create([
             'uptime_check_enabled' => true,
-            'url'                  => 'http://mysite.com',
+            'url' => 'http://mysite.com',
         ]);
 
         $this->assertTrue($monitor->fresh()->uptime_check_enabled);
@@ -36,12 +36,12 @@ class DisableMonitorCommandTest extends TestCase
     {
         $monitor1 = factory(Monitor::class)->create([
             'uptime_check_enabled' => true,
-            'url'                  => 'http://mysite.com',
+            'url' => 'http://mysite.com',
         ]);
 
         $monitor2 = factory(Monitor::class)->create([
             'uptime_check_enabled' => true,
-            'url'                  => 'http://mysite2.com',
+            'url' => 'http://mysite2.com',
         ]);
 
         $this->artisan('monitor:disable', ['url' => 'http://mysite.com, http://mysite2.com']);

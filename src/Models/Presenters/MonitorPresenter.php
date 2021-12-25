@@ -63,7 +63,7 @@ trait MonitorPresenter
 
     protected function formatDate(string $attributeName, string $format = ''): string
     {
-        if (!$this->$attributeName) {
+        if (! $this->$attributeName) {
             return '';
         }
 
