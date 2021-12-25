@@ -23,7 +23,7 @@ class CertificateCheckSucceededTest extends TestCase
 
         $this->monitor = factory(Monitor::class)->create([
             'certificate_check_enabled' => true,
-            'url'                       => 'https://google.com',
+            'url' => 'https://google.com',
         ]);
     }
 
