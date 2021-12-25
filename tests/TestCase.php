@@ -50,8 +50,8 @@ abstract class TestCase extends Orchestra
 
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'prefix' => '',
+            'driver'   => 'sqlite',
+            'prefix'   => '',
             'database' => ':memory:',
         ]);
 
@@ -87,7 +87,7 @@ abstract class TestCase extends Orchestra
      */
     protected function seeInConsoleOutput($searchStrings)
     {
-        if (! is_array($searchStrings)) {
+        if (!is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
 
@@ -103,7 +103,7 @@ abstract class TestCase extends Orchestra
      */
     protected function dontSeeInConsoleOutput($searchStrings)
     {
-        if (! is_array($searchStrings)) {
+        if (!is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
 
