@@ -57,37 +57,37 @@ class MonitorRepositoryTest extends TestCase
         Monitor::create(['url' => 'http://up.com', 'uptime_status' => UptimeStatus::UP]);
 
         Monitor::create([
-            'url' => 'http://checked.com',
-            'uptime_status' => UptimeStatus::UP,
+            'url'                => 'http://checked.com',
+            'uptime_status'      => UptimeStatus::UP,
             'certificate_status' => CertificateStatus::VALID,
         ]);
 
         Monitor::create([
-            'url' => 'http://unchecked1.com',
-            'uptime_status' => UptimeStatus::UP,
+            'url'                       => 'http://unchecked1.com',
+            'uptime_status'             => UptimeStatus::UP,
             'certificate_check_enabled' => true,
-            'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
+            'certificate_status'        => CertificateStatus::NOT_YET_CHECKED,
         ]);
 
         Monitor::create([
-            'url' => 'http://unchecked2.com',
-            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'url'                       => 'http://unchecked2.com',
+            'uptime_status'             => UptimeStatus::NOT_YET_CHECKED,
             'certificate_check_enabled' => true,
-            'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
+            'certificate_status'        => CertificateStatus::NOT_YET_CHECKED,
         ]);
 
         Monitor::create([
-            'url' => 'http://disabled1.com',
-            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'url'                  => 'http://disabled1.com',
+            'uptime_status'        => UptimeStatus::NOT_YET_CHECKED,
             'uptime_check_enabled' => false,
-            'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
+            'certificate_status'   => CertificateStatus::NOT_YET_CHECKED,
         ]);
 
         Monitor::create([
-            'url' => 'http://enabled.com',
-            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
-            'uptime_check_enabled' => false,
-            'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
+            'url'                       => 'http://enabled.com',
+            'uptime_status'             => UptimeStatus::NOT_YET_CHECKED,
+            'uptime_check_enabled'      => false,
+            'certificate_status'        => CertificateStatus::NOT_YET_CHECKED,
             'certificate_check_enabled' => true,
         ]);
 
@@ -129,38 +129,38 @@ class MonitorRepositoryTest extends TestCase
     public function it_can_get_all_monitors_with_certificate_problems()
     {
         Monitor::create([
-            'url' => 'http://site1.com',
-            'uptime_check_enabled' => false,
+            'url'                       => 'http://site1.com',
+            'uptime_check_enabled'      => false,
             'certificate_check_enabled' => false,
-            'certificate_status' => CertificateStatus::INVALID,
+            'certificate_status'        => CertificateStatus::INVALID,
         ]);
 
         Monitor::create([
-            'url' => 'http://site2.com',
-            'uptime_check_enabled' => true,
+            'url'                       => 'http://site2.com',
+            'uptime_check_enabled'      => true,
             'certificate_check_enabled' => false,
-            'certificate_status' => CertificateStatus::INVALID,
+            'certificate_status'        => CertificateStatus::INVALID,
         ]);
 
         Monitor::create([
-            'url' => 'http://site3.com',
-            'uptime_check_enabled' => true,
+            'url'                       => 'http://site3.com',
+            'uptime_check_enabled'      => true,
             'certificate_check_enabled' => true,
-            'certificate_status' => CertificateStatus::INVALID,
+            'certificate_status'        => CertificateStatus::INVALID,
         ]);
 
         Monitor::create([
-            'url' => 'http://site4.com',
-            'uptime_check_enabled' => true,
+            'url'                       => 'http://site4.com',
+            'uptime_check_enabled'      => true,
             'certificate_check_enabled' => true,
-            'certificate_status' => CertificateStatus::VALID,
+            'certificate_status'        => CertificateStatus::VALID,
         ]);
 
         Monitor::create([
-            'url' => 'http://site5.com',
-            'uptime_check_enabled' => true,
+            'url'                       => 'http://site5.com',
+            'uptime_check_enabled'      => true,
             'certificate_check_enabled' => true,
-            'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
+            'certificate_status'        => CertificateStatus::NOT_YET_CHECKED,
         ]);
 
         $monitors = MonitorRepository::getWithFailingCertificateCheck();
