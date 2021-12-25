@@ -121,7 +121,7 @@ class MonitorRepository
     {
         $monitorModel = config('uptime-monitor.monitor_model') ?? Monitor::class;
 
-        if (!is_a($monitorModel, Monitor::class, true)) {
+        if (! is_a($monitorModel, Monitor::class, true)) {
             throw InvalidConfiguration::modelIsNotValid($monitorModel);
         }
 
