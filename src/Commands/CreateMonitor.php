@@ -15,7 +15,7 @@ class CreateMonitor extends BaseCommand
     {
         $url = Url::fromString($this->argument('url'));
 
-        if (!in_array($url->getScheme(), ['http', 'https'])) {
+        if (! in_array($url->getScheme(), ['http', 'https'])) {
             if ($scheme = $this->choice("Which protocol needs to be used for checking `{$url}`?", [1 => 'https', 2 => 'http'], 1)) {
                 $url = $url->withScheme($scheme);
             }
@@ -26,10 +26,10 @@ class CreateMonitor extends BaseCommand
         }
 
         $monitor = Monitor::create([
-            'url'                              => trim($url, '/'),
-            'look_for_string'                  => $lookForString ?? '',
-            'uptime_check_method'              => isset($lookForString) ? 'get' : 'head',
-            'certificate_check_enabled'        => $url->getScheme() === 'https',
+            'url' => trim($url, '/'),
+            'look_for_string' => $lookForString ?? '',
+            'uptime_check_method' => isset($lookForString) ? 'get' : 'head',
+            'certificate_check_enabled' => $url->getScheme() === 'https',
             'uptime_check_interval_in_minutes' => config('uptime-monitor.uptime_check.run_interval_in_minutes'),
         ]);
 
