@@ -12,9 +12,9 @@ class EnableMonitorCommandTest extends TestCase
     public function it_can_enable_a_disabled_monitor()
     {
         $monitor = factory(Monitor::class)->create([
-            'uptime_check_enabled'      => false,
+            'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
-            'url'                       => 'https://mysite.com',
+            'url' => 'https://mysite.com',
         ]);
 
         $this->assertFalse($monitor->fresh()->uptime_check_enabled);
@@ -31,9 +31,9 @@ class EnableMonitorCommandTest extends TestCase
     public function it_will_only_not_enable_the_uptime_check_if_the_url_starts_with_http()
     {
         $monitor = factory(Monitor::class)->create([
-            'uptime_check_enabled'      => false,
+            'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
-            'url'                       => 'http://mysite.com',
+            'url' => 'http://mysite.com',
         ]);
 
         $this->assertFalse($monitor->fresh()->uptime_check_enabled);
@@ -58,15 +58,15 @@ class EnableMonitorCommandTest extends TestCase
     public function it_can_enable_multiple_urls_at_once()
     {
         $monitor1 = factory(Monitor::class)->create([
-            'uptime_check_enabled'      => false,
+            'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
-            'url'                       => 'https://mysite.com',
+            'url' => 'https://mysite.com',
         ]);
 
         $monitor2 = factory(Monitor::class)->create([
-            'uptime_check_enabled'      => false,
+            'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
-            'url'                       => 'http://mysite2.com',
+            'url' => 'http://mysite2.com',
         ]);
 
         $this->artisan('monitor:enable', ['url' => 'https://mysite.com, http://mysite2.com']);
