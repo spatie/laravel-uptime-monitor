@@ -12,7 +12,7 @@ class Disabled
     {
         $disabledMonitors = MonitorRepository::getDisabled();
 
-        if (!$disabledMonitors->count()) {
+        if (! $disabledMonitors->count()) {
             return;
         }
 
