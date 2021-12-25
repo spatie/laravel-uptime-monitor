@@ -67,7 +67,7 @@ class EventHandlerTest extends TestCase
             );
         }
 
-        if (!$shouldSendNotification) {
+        if (! $shouldSendNotification) {
             Notification::assertNotSentTo(
                 new Notifiable(),
                 $notificationClass
