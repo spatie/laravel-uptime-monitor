@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
@@ -16,6 +17,7 @@ class Monitor extends Model
     use SupportsUptimeCheck;
     use SupportsCertificateCheck;
     use MonitorPresenter;
+    use HasFactory;
 
     protected $guarded = [];
 

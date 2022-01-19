@@ -2,7 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
@@ -11,7 +11,7 @@ class EnableMonitorCommandTest extends TestCase
     /** @test */
     public function it_can_enable_a_disabled_monitor()
     {
-        $monitor = factory(Monitor::class)->create([
+        $monitor = Monitor::factory()->create([
             'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
             'url' => 'https://mysite.com',
@@ -30,7 +30,7 @@ class EnableMonitorCommandTest extends TestCase
     /** @test */
     public function it_will_only_not_enable_the_uptime_check_if_the_url_starts_with_http()
     {
-        $monitor = factory(Monitor::class)->create([
+        $monitor = Monitor::factory()->create([
             'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
             'url' => 'http://mysite.com',
@@ -57,13 +57,13 @@ class EnableMonitorCommandTest extends TestCase
     /** @test */
     public function it_can_enable_multiple_urls_at_once()
     {
-        $monitor1 = factory(Monitor::class)->create([
+        $monitor1 = Monitor::factory()->create([
             'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
             'url' => 'https://mysite.com',
         ]);
 
-        $monitor2 = factory(Monitor::class)->create([
+        $monitor2 = Monitor::factory()->create([
             'uptime_check_enabled' => false,
             'certificate_check_enabled' => false,
             'url' => 'http://mysite2.com',

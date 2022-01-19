@@ -5,6 +5,7 @@ namespace Spatie\UptimeMonitor\Test;
 use Artisan;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Notifications\SlackChannelServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -12,8 +13,7 @@ use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
-    /** @var \Spatie\UptimeMonitor\Test\Server */
-    protected $server;
+    protected Server $server;
 
     public function setUp(): void
     {
@@ -23,7 +23,10 @@ abstract class TestCase extends Orchestra
 
         parent::setUp();
 
-        $this->withFactories(__DIR__.'/factories');
+        Factory::guessFactoryNamesUsing(
+            fn (string $modelName) => 'Spatie\\UptimeMonitor\\Database\\Factories\\'.class_basename($modelName).'Factory'
+        );
+
     }
 
     /**

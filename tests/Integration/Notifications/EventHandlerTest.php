@@ -46,7 +46,7 @@ class EventHandlerTest extends TestCase
             ['slack']
         );
 
-        $monitor = factory(Monitor::class)->create($monitorAttributes);
+        $monitor = Monitor::factory()->create($monitorAttributes);
 
         if (in_array($eventClass, [
             UptimeCheckFailedEvent::class,
@@ -89,7 +89,7 @@ class EventHandlerTest extends TestCase
 
     public function it_send_a_notification_when_the_invalid_certificate_event_is_fired()
     {
-        $monitor = factory(Monitor::class)->create();
+        $monitor = Monitor::factory()->create();
 
         event(new CertificateCheckFailed($monitor, 'fail reason'));
 
@@ -114,7 +114,7 @@ class EventHandlerTest extends TestCase
             $configuredChannels
         );
 
-        $monitor = factory(Monitor::class)->create();
+        $monitor = Monitor::factory()->create();
 
         event(new UptimeCheckSucceededEvent($monitor));
 

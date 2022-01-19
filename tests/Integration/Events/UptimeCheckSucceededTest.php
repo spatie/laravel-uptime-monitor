@@ -19,7 +19,7 @@ class UptimeCheckSucceededTest extends TestCase
 
         Event::fake();
 
-        $this->monitor = factory(Monitor::class)->create();
+        $this->monitor = Monitor::factory()->create();
     }
 
     /** @test */

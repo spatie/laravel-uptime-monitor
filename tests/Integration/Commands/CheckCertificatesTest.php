@@ -12,7 +12,7 @@ class CheckCertificatesTest extends TestCase
     /** @test */
     public function it_has_a_command_to_check_certificates()
     {
-        $monitor = factory(Monitor::class)->create(['certificate_check_enabled' => true]);
+        $monitor = Monitor::factory()->create(['certificate_check_enabled' => true]);
 
         Artisan::call('monitor:check-certificate');
 
@@ -26,8 +26,8 @@ class CheckCertificatesTest extends TestCase
     /** @test */
     public function it_can_check_the_certificate_for_a_specific_monitor()
     {
-        $monitor1 = factory(Monitor::class)->create(['certificate_check_enabled' => true]);
-        $monitor2 = factory(Monitor::class)->create([
+        $monitor1 = Monitor::factory()->create(['certificate_check_enabled' => true]);
+        $monitor2 = Monitor::factory()->create([
             'url' => 'https://google.com',
             'certificate_check_enabled' => true,
         ]);
@@ -43,12 +43,12 @@ class CheckCertificatesTest extends TestCase
     /** @test */
     public function it_can_check_the_certificates_for_a_specific_set_of_monitors()
     {
-        $monitor1 = factory(Monitor::class)->create(['certificate_check_enabled' => false]);
-        $monitor2 = factory(Monitor::class)->create([
+        $monitor1 = Monitor::factory()->create(['certificate_check_enabled' => false]);
+        $monitor2 = Monitor::factory()->create([
             'url' => 'https://google.com',
             'certificate_check_enabled' => true,
         ]);
-        $monitor3 = factory(Monitor::class)->create([
+        $monitor3 = Monitor::factory()->create([
             'url' => 'https://bing.com',
             'certificate_check_enabled' => true,
         ]);

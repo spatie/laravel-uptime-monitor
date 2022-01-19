@@ -16,7 +16,7 @@ class SupportsUptimeCheckTest extends TestCase
     {
         parent::setUp();
 
-        $this->monitor = factory(Monitor::class)->create(['uptime_last_check_date' => Carbon::now()]);
+        $this->monitor = Monitor::factory()->create(['uptime_last_check_date' => Carbon::now()]);
     }
 
     /** @test */

@@ -21,7 +21,7 @@ class ListMonitorsCommandTest extends TestCase
     /** @test */
     public function it_can_show_monitors_that_have_not_been_checked_yet()
     {
-        $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
+        $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
 
         Artisan::call('monitor:list');
 
@@ -34,7 +34,7 @@ class ListMonitorsCommandTest extends TestCase
     /** @test */
     public function it_can_show_healthy_monitors()
     {
-        $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::UP]);
+        $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::UP]);
 
         Artisan::call('monitor:list');
 
@@ -47,7 +47,7 @@ class ListMonitorsCommandTest extends TestCase
     /** @test */
     public function it_can_show_monitors_with_failing_uptime_checks()
     {
-        $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::DOWN]);
+        $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::DOWN]);
 
         Artisan::call('monitor:list');
 
@@ -60,7 +60,7 @@ class ListMonitorsCommandTest extends TestCase
     /** @test */
     public function it_can_show_monitors_that_have_certificate_problems()
     {
-        $monitor = factory(Monitor::class)->create([
+        $monitor = Monitor::factory()->create([
             'certificate_check_enabled' => true,
             'certificate_status' => CertificateStatus::INVALID,
         ]);
@@ -76,7 +76,7 @@ class ListMonitorsCommandTest extends TestCase
     /** @test */
     public function it_can_show_disabled_monitors()
     {
-        $monitor = factory(Monitor::class)->create([
+        $monitor = Monitor::factory()->create([
             'uptime_check_enabled' => false,
         ]);
 

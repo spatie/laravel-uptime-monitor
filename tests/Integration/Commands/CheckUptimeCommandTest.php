@@ -13,7 +13,7 @@ class CheckUptimeCommandTest extends TestCase
     /** @test */
     public function it_has_a_command_to_perform_uptime_checks()
     {
-        $monitor = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
+        $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
 
         Artisan::call('monitor:check-uptime');
 
@@ -25,8 +25,8 @@ class CheckUptimeCommandTest extends TestCase
     /** @test */
     public function it_can_perform_an_uptime_check_for_specific_monitor()
     {
-        $monitor1 = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
-        $monitor2 = factory(Monitor::class)->create([
+        $monitor1 = Monitor::factory()->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
+        $monitor2 = Monitor::factory()->create([
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
             'url' => 'https://google.com',
         ]);
@@ -45,13 +45,13 @@ class CheckUptimeCommandTest extends TestCase
     {
         $this->skipIfNotConnectedToTheInternet();
 
-        $monitor1 = factory(Monitor::class)->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
-        $monitor2 = factory(Monitor::class)->create([
+        $monitor1 = Monitor::factory()->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
+        $monitor2 = Monitor::factory()->create([
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
             'url' => 'https://google.com',
         ]);
 
-        $monitor3 = factory(Monitor::class)->create([
+        $monitor3 = Monitor::factory()->create([
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
             'url' => 'https://bing.com',
         ]);
@@ -70,7 +70,7 @@ class CheckUptimeCommandTest extends TestCase
     /** @test */
     public function it_can_post_a_payload()
     {
-        $monitor = factory(Monitor::class)->create([
+        $monitor = Monitor::factory()->create([
             'url' => sprintf('http://localhost:%s/testPost', env('TEST_SERVER_PORT')),
             'uptime_check_method' => 'post',
             'uptime_check_payload' => json_encode(['foo' => 'bar']),
@@ -88,7 +88,7 @@ class CheckUptimeCommandTest extends TestCase
     /** @test */
     public function it_can_use_a_custom_response_checker()
     {
-        $monitor = factory(Monitor::class)->create([
+        $monitor = Monitor::factory()->create([
             'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
             'uptime_check_response_checker' => ResponseCheckerFailureFake::class,
         ]);

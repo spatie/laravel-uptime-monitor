@@ -20,20 +20,21 @@
         "ext-intl": "*",
         "graham-campbell/guzzle-factory": "^5.0",
         "guzzlehttp/guzzle": "^7.4",
-        "laravel/framework": "^8.73",
+        "laravel/framework": "^8.73|^9.0",
         "laravel/slack-notification-channel": "^2.3",
         "spatie/ssl-certificate": "^1.22|^2.1.2",
         "spatie/url": "^1.0.1"
     },
     "require-dev": {
-        "laravel/legacy-factories": "^1.1",
         "mockery/mockery": "^1.4",
-        "orchestra/testbench": "^6.23",
+        "orchestra/testbench": "^6.23|^7.0",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\UptimeMonitor\\": "src"
+            "Spatie\\UptimeMonitor\\": "src",
+            "Spatie\\UptimeMonitor\\Database\\Factories\\": "database/factories"
+
         }
     },
     "autoload-dev": {

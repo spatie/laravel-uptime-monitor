@@ -11,7 +11,7 @@ class DisableMonitorCommandTest extends TestCase
     /** @test */
     public function it_can_disable_an_enabled_monitor()
     {
-        $monitor = factory(Monitor::class)->create([
+        $monitor = Monitor::factory()->create([
             'uptime_check_enabled' => true,
             'url' => 'http://mysite.com',
         ]);
@@ -34,12 +34,12 @@ class DisableMonitorCommandTest extends TestCase
     /** @test */
     public function it_can_disable_multiple_urls_at_once()
     {
-        $monitor1 = factory(Monitor::class)->create([
+        $monitor1 = Monitor::factory()->create([
             'uptime_check_enabled' => true,
             'url' => 'http://mysite.com',
         ]);
 
-        $monitor2 = factory(Monitor::class)->create([
+        $monitor2 = Monitor::factory()->create([
             'uptime_check_enabled' => true,
             'url' => 'http://mysite2.com',
         ]);

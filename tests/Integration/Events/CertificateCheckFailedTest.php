@@ -18,7 +18,7 @@ class CertificateCheckFailedTest extends TestCase
 
         Event::fake();
 
-        $this->monitor = factory(Monitor::class)->create(['certificate_check_enabled' => true]);
+        $this->monitor = Monitor::factory()->create(['certificate_check_enabled' => true]);
     }
 
     /** @test */

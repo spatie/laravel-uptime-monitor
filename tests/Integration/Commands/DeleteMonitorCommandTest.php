@@ -27,7 +27,7 @@ class DeleteMonitorCommandTest extends TestCase
 
         $this->url = 'https://mysite.com';
 
-        factory(Monitor::class)->create(['url' => $this->url]);
+        Monitor::factory()->create(['url' => $this->url]);
     }
 
     /** @test */

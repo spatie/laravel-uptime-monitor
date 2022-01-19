@@ -15,7 +15,7 @@ class MonitorTest extends TestCase
     {
         parent::setUp();
 
-        $this->monitor = factory(Monitor::class)->create([
+        $this->monitor = Monitor::factory()->create([
             'url' => 'http://mysite.com',
             'uptime_check_enabled' => true,
             'certificate_check_enabled' => true,
@@ -27,13 +27,13 @@ class MonitorTest extends TestCase
     {
         $this->expectException(CannotSaveMonitor::class);
 
-        factory(Monitor::class)->create(['url' => 'http://mysite.com']);
+        Monitor::factory()->create(['url' => 'http://mysite.com']);
     }
 
     /** @test */
     public function it_will_throw_an_exception_when_updating_a_monitor_to_an_url_of_a_monitor_that_already_exists()
     {
-        $monitor = factory(Monitor::class)->create(['url' => 'http://myothersite.com']);
+        $monitor = Monitor::factory()->create(['url' => 'http://myothersite.com']);
 
         $this->expectException(CannotSaveMonitor::class);
 

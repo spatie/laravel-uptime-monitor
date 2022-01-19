@@ -11,7 +11,7 @@ class ConfigurationTest extends TestCase
     /** @test */
     public function a_custom_monitor_model_can_be_specified()
     {
-        factory(Monitor::class)->create();
+        Monitor::factory()->create();
 
         $customModel = new class () extends Monitor {
             public $table = 'monitors';
