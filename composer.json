@@ -54,5 +54,7 @@
                 "Spatie\\UptimeMonitor\\UptimeMonitorServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
