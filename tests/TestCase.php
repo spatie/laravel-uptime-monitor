@@ -26,7 +26,6 @@ abstract class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Spatie\\UptimeMonitor\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
-
     }
 
     /**
