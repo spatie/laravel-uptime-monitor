@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.1.1 - 2022-02-13
+
+## What's Changed
+
+- Modify composer requires to illuminate/* alternatives by @mallardduck in https://github.com/spatie/laravel-uptime-monitor/pull/311
+
+## New Contributors
+
+- @mallardduck made their first contribution in https://github.com/spatie/laravel-uptime-monitor/pull/311
+
+**Full Changelog**: https://github.com/spatie/laravel-uptime-monitor/compare/4.1.0...4.1.1
+
 ## 4.1.0 - 2022-01-19
 
 - add support for Laravel 9
