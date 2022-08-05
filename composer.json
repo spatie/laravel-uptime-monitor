@@ -44,7 +44,6 @@
         "psr-4": {
             "Spatie\\UptimeMonitor\\": "src",
             "Spatie\\UptimeMonitor\\Database\\Factories\\": "database/factories"
-
         }
     },
     "autoload-dev": {
