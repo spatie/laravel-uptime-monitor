@@ -99,7 +99,7 @@ trait SupportsUptimeCheck
         $this->uptime_status = UptimeStatus::DOWN;
         $this->uptime_check_times_failed_in_a_row++;
         $this->uptime_last_check_date = Carbon::now();
-        $this->uptime_check_failure_reason = $reason;
+        $this->uptime_check_failure_reason = (string) mb_convert_encoding($reason,'UTF-8');
         $this->save();
 
         if ($this->shouldFireUptimeCheckFailedEvent()) {
