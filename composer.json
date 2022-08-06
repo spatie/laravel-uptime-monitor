@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.0",
         "ext-intl": "*",
         "ext-json": "*",
         "graham-campbell/guzzle-factory": "^5.0",
@@ -32,7 +32,7 @@
         "illuminate/support": "^8.73|^9.0",
         "laravel/slack-notification-channel": "^2.4",
         "spatie/ssl-certificate": "^1.22|^2.1.2",
-        "spatie/url": "^1.0.1"
+        "spatie/url": "^2.0.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.4",
@@ -44,7 +44,6 @@
         "psr-4": {
             "Spatie\\UptimeMonitor\\": "src",
             "Spatie\\UptimeMonitor\\Database\\Factories\\": "database/factories"
-
         }
     },
     "autoload-dev": {
