@@ -11,6 +11,19 @@ Laravel-uptime-monitor is a laravel package that provides a powerful, easy to co
 
 If you' not familiar with Laravel, but still want to use this uptime monitor, take a look at the [uptime-monitor-app](https://github.com/spatie/uptime-monitor-app) repo which contains a stand alone version of this package.
 
+## Looking for a hosted solution?
+
+If you're looking for a hosted solution, we can highly recommend [Oh Dear](https://ohdear.app). This service features monitoring:
+
+- uptime
+- SSL certificates
+- broken links (Oh Dear will crawl your entire site)
+- mixed content
+- scheduled jobs
+- application health
+- all dns records
+- domain expiration
+
 ## We have badges!
 
 <section class="article_badges">
