@@ -13,16 +13,17 @@ If you' not familiar with Laravel, but still want to use this uptime monitor, ta
 
 ## Looking for a hosted solution?
 
-If you're looking for a hosted solution, we can highly recommend [Oh Dear](https://ohdear.app). This service features monitoring:
+If you're looking for a hosted solution, we can highly recommend [Oh Dear](https://ohdear.app). This service can:
 
-- uptime
-- SSL certificates
-- broken links (Oh Dear will crawl your entire site)
-- mixed content
-- scheduled jobs
-- application health
-- all dns records
-- domain expiration
+- perform multi-location uptime checks
+- crawl your entire site and report any broken links
+- check your SSL certificate
+- measure your site's performance
+- make sure your scheduled jobs run on time
+- check if your application is healthy (by monitoring your free disk space, database, Redis, Horizon, security warnings, and more!)
+- notify you of any changes to your DNS records
+- monitor the expiry date of your domain
+- display status pages so you can inform your users about the state of your service
 
 ## We have badges!
 
