@@ -3,7 +3,7 @@ title: Customizing notifications
 weight: 4
 ---
 
-This package leverages [Laravel's native notification capabilites](https://laravel.com/docs/5.4/notifications) to send out [several](https://docs.spatie.be/laravel-uptime-monitor/v3/monitoring-uptime/notifications) [notifications](https://docs.spatie.be/laravel-uptime-monitor/v3/monitoring-ssl-certificates/notifications).
+This package leverages [Laravel's native notification capabilites](https://laravel.com/docs/notifications) to send out [several](https://docs.spatie.be/laravel-uptime-monitor/v3/monitoring-uptime/notifications) [notifications](https://docs.spatie.be/laravel-uptime-monitor/v3/monitoring-ssl-certificates/notifications).
 
 ```php
 'notifications' => [
