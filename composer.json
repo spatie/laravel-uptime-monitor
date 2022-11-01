@@ -35,9 +35,10 @@
         "spatie/url": "^2.0.0"
     },
     "require-dev": {
-        "mockery/mockery": "^1.4",
         "illuminate/testing": "^8.73|^9.0",
+        "mockery/mockery": "^1.4",
         "orchestra/testbench": "^6.23|^7.0",
+        "pestphp/pest": "^1.22",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
@@ -55,7 +56,10 @@
         "test": "vendor/bin/phpunit"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
