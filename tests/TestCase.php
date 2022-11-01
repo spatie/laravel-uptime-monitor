@@ -15,7 +15,7 @@ abstract class TestCase extends Orchestra
 {
     protected Server $server;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->server = new Server(new Client());
 
@@ -24,7 +24,7 @@ abstract class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Spatie\\UptimeMonitor\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Spatie\\UptimeMonitor\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -62,7 +62,7 @@ abstract class TestCase extends Orchestra
 
     protected function setUpDatabase()
     {
-        include_once __DIR__.'/../database/migrations/create_monitors_table.php.stub';
+        include_once __DIR__ . '/../database/migrations/create_monitors_table.php.stub';
 
         (new \CreateMonitorsTable())->up();
     }
@@ -89,7 +89,7 @@ abstract class TestCase extends Orchestra
      */
     protected function seeInConsoleOutput($searchStrings)
     {
-        if (! is_array($searchStrings)) {
+        if (!is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
 
@@ -105,7 +105,7 @@ abstract class TestCase extends Orchestra
      */
     protected function dontSeeInConsoleOutput($searchStrings)
     {
-        if (! is_array($searchStrings)) {
+        if (!is_array($searchStrings)) {
             $searchStrings = [$searchStrings];
         }
 
