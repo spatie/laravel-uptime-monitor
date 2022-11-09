@@ -47,7 +47,7 @@ class UptimeCheckFailedTest extends TestCase
     }
 
     /** @test */
-    public function it_will_fire_the_failed_event_again_if_a_monitor_keeps_failing_after_the_configured_amount_of_minutes()
+    public function it_will_fire_the_failed_event_again_if_a_monitor_keeps_failing_after_the_configured_fixed_amount_of_minutes()
     {
         $this->server->down();
 
@@ -78,6 +78,51 @@ class UptimeCheckFailedTest extends TestCase
         $monitors->checkUptime();
 
         Event::assertDispatched(UptimeCheckFailed::class);
+    }
+
+    /** @test */
+    public function it_will_fire_the_failed_event_again_if_a_monitor_keeps_failing_after_the_configured_dynamic_amount_of_minutes()
+    {
+        config(['uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes' => [
+            0 => 1, // Start by notifying every 5 minutes
+            4 => 2, // After 30 minutes notify every 10 minutes
+            8 => 4, // After 60 minutes notify every 30 minutes
+        ]]);
+
+        $this->server->down();
+
+        $monitors = MonitorRepository::getForUptimeCheck();
+
+        $consecutiveFailsNeeded = config('uptime-monitor.uptime_check.fire_monitor_failed_event_after_consecutive_failures');
+
+        foreach (range(1, $consecutiveFailsNeeded) as $index) {
+            $monitors->checkUptime();
+
+            if ($index < $consecutiveFailsNeeded) {
+                Event::assertNotDispatched(UptimeCheckFailed::class);
+            }
+        }
+
+        Event::assertDispatched(UptimeCheckFailed::class);
+
+        $this->resetEventAssertions();
+
+        $monitors->checkUptime();
+
+        Event::assertNotDispatched(UptimeCheckFailed::class);
+
+        $this->resetEventAssertions();
+
+        for ($i = 1; $i <= 12; $i++) {
+            $this->progressMinutes(1);
+            $monitors->checkUptime();
+            if (in_array($i, [1, 2, 3, 4, 6, 8, 12])) {
+                Event::assertDispatched(UptimeCheckFailed::class);
+                $this->resetEventAssertions();
+            } else {
+                Event::assertNotDispatched(UptimeCheckFailed::class);
+            }
+        }
     }
 
     /** @test */

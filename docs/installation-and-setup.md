@@ -52,9 +52,20 @@ return [
 
         /*
          * To keep reminding you that a site is down, notifications
-         * will be resent every given number of minutes.
+         * will be resent every given number of minutes. Value can 
+         * be either an integer to send at a fixed interval, or 
+         * an array where key is minutes since down and value
+         * is minutes between notifications
          */
         'resend_uptime_check_failed_notification_every_minutes' => 60,
+
+        // 'resend_uptime_check_failed_notification_every_minutes' => [
+        //     0 => 15, // Start by notifying every 15 minutes
+        //     6* 60 => 30, // After 6 hours notify every 30 minutes
+        //     24 * 60 => 60, // After 24 hours notify every 60 minutes
+        //     3 * 24 * 60 => 4 * 60, // After 3 days notify every 4 hours
+        //     7 * 24 * 60 => 24 * 60 // After 7 days notify every 24 hours
+        // ],
 
         'mail' => [
             'to' => ['your@email.com'],

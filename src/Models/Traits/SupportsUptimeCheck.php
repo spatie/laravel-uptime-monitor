@@ -124,11 +124,19 @@ trait SupportsUptimeCheck
             return false;
         }
 
-        if (config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes') === 0) {
+        if (is_array(config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes'))) {
+            $resend_failed_notification_delay = collect(config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes'))->sortKeysDesc()->firstWhere(function ($value, $key) {
+                return $key < $this->uptime_status_last_change_date->diffInMinutes() || $this->uptime_status_last_change_date->diffInMinutes() == 0;
+            });
+        } else {
+            $resend_failed_notification_delay = config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes');
+        }
+
+        if ($resend_failed_notification_delay === 0) {
             return false;
         }
 
-        if ($this->uptime_check_failed_event_fired_on_date->diffInMinutes() >= config('uptime-monitor.notifications.resend_uptime_check_failed_notification_every_minutes')) {
+        if ($this->uptime_check_failed_event_fired_on_date->diffInMinutes() >= $resend_failed_notification_delay) {
             return true;
         }
 
