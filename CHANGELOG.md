@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.2.1 - 2023-02-17
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.4 to 1.3.5 by @dependabot in https://github.com/spatie/laravel-uptime-monitor/pull/332
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-uptime-monitor/pull/334
+- Laravel 10.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-uptime-monitor/pull/335
+
+### New Contributors
+
+- @laravel-shift made their first contribution in https://github.com/spatie/laravel-uptime-monitor/pull/335
+
+**Full Changelog**: https://github.com/spatie/laravel-uptime-monitor/compare/4.2.0...4.2.1
+
 ## 4.2.0 - 2022-10-07
 
 ### What's Changed
