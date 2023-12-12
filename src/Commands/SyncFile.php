@@ -48,7 +48,7 @@ class SyncFile extends BaseCommand
 
     protected function createOrUpdateMonitor(array $monitorAttributes)
     {
-        $this->determineHostModelClass()::firstOrNew([
+        Monitor::firstOrNew([
             'url' => $monitorAttributes['url'],
         ])
             ->fill($monitorAttributes)
@@ -61,7 +61,7 @@ class SyncFile extends BaseCommand
             return;
         }
 
-        $this->determineHostModelClass()::all()
+        Monitor::all()
             ->reject(function (Monitor $monitor) use ($monitorsInFile) {
                 return $monitorsInFile->contains('url', $monitor->url);
             })
