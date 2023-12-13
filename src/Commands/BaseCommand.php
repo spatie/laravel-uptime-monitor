@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Spatie\UptimeMonitor\MonitorRepository;
 
 abstract class BaseCommand extends Command
 {
@@ -14,5 +15,10 @@ abstract class BaseCommand extends Command
         app(ConsoleOutput::class)->setOutput($this);
 
         return parent::run($input, $output);
+    }
+
+    public function determineHostModelClass()
+    {
+        return MonitorRepository::determineMonitorModel();
     }
 }

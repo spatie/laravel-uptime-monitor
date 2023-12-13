@@ -14,7 +14,7 @@ class DeleteMonitor extends BaseCommand
     {
         $url = $this->argument('url');
 
-        $monitor = Monitor::where('url', $url)->first();
+        $monitor = $this->determineHostModelClass()::where('url', $url)->first();
 
         if (! $monitor) {
             $this->error("Monitor {$url} is not configured");
