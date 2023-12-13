@@ -16,9 +16,9 @@ abstract class BaseCommand extends Command
 
         return parent::run($input, $output);
     }
+
     public function determineHostModelClass()
     {
         return MonitorRepository::determineMonitorModel();
     }
-
 }
