@@ -117,7 +117,7 @@ class MonitorRepository
         return $modelClass::enabled();
     }
 
-    protected static function determineMonitorModel(): string
+    public static function determineMonitorModel(): string
     {
         $monitorModel = config('uptime-monitor.monitor_model') ?? Monitor::class;
 
