@@ -29,7 +29,7 @@ class PeriodTest extends TestCase
         $this->assertEquals($formattedString, $period->duration());
     }
 
-    public function periodDataProvider(): array
+    public static function periodDataProvider(): array
     {
         return [
             [10, '10m'],
@@ -54,7 +54,7 @@ class PeriodTest extends TestCase
         $this->assertEquals($text, $period->toText());
     }
 
-    public function textDataProvider(): array
+    public static function textDataProvider(): array
     {
         Carbon::setTestNow(Carbon::create(2016, 1, 1, 00, 00, 00));
 

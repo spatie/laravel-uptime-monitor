@@ -75,7 +75,7 @@ class EventHandlerTest extends TestCase
         }
     }
 
-    public function eventClassDataProvider(): array
+    public static function eventClassDataProvider(): array
     {
         return [
             [UptimeCheckSucceededEvent::class, UptimeCheckSucceeded::class, ['uptime_status' => UptimeStatus::UP], true],
@@ -127,7 +127,7 @@ class EventHandlerTest extends TestCase
         );
     }
 
-    public function channelDataProvider(): array
+    public static function channelDataProvider(): array
     {
         return [
             [['mail']],
