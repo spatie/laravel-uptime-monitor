@@ -30,7 +30,7 @@ class SupportsCertificateCheckTest extends TestCase
         $this->monitor = Monitor::factory()->create([
             'certificate_check_enabled' => true,
             'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
-            'url' => self::DOMAIN
+            'url' => self::DOMAIN,
         ]);
 
         $this->certificate = Downloader::downloadCertificateFromUrl(self::DOMAIN);
