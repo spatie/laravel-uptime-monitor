@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Models\Traits;
 
 use Carbon\Carbon;
+use PHPUnit\Framework\Constraint\IsEqualWithDelta;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -101,6 +102,14 @@ class SupportsUptimeCheckTest extends TestCase
     {
         $this->monitor = $this->monitor->fresh();
 
-        return $this->monitor->$attribute->diffInMinutes() === 0;
+        $constraint = new IsEqualWithDelta(
+            value: 0,
+            delta: 1,
+        );
+
+        return $constraint->evaluate(
+            other: $this->monitor->$attribute->diffInMinutes(),
+            returnResult: true
+        );
     }
 }

@@ -47,7 +47,7 @@ trait SupportsUptimeCheck
             return true;
         }
 
-        return $this->uptime_last_check_date->diffInMinutes() >= $this->uptime_check_interval_in_minutes;
+        return (int)$this->uptime_last_check_date->diffInMinutes(absolute: true) >= $this->uptime_check_interval_in_minutes;
     }
 
     public function uptimeRequestSucceeded(ResponseInterface $response): void

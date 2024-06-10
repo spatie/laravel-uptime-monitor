@@ -26,11 +26,11 @@ class Period
     {
         $interval = $this->startDateTime->diff($this->endDateTime);
 
-        if (! $this->startDateTime->diffInHours($this->endDateTime)) {
+        if ($this->startDateTime->diffInHours($this->endDateTime) < 1) {
             return $interval->format('%im');
         }
 
-        if (! $this->startDateTime->diffInDays($this->endDateTime)) {
+        if ($this->startDateTime->diffInDays($this->endDateTime) < 1) {
             return $interval->format('%hh %im');
         }
 

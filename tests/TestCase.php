@@ -57,6 +57,9 @@ abstract class TestCase extends Orchestra
             'database' => ':memory:',
         ]);
 
+        $app['config']->set('uptime-monitor.notifications.slack.webhook_url', 'https://hooks.slack.com/fake');
+        $app['config']->set('uptime-monitor.certificate_check.fire_expiring_soon_event_if_certificate_expires_within_days', 15);
+
         $this->setUpDatabase();
     }
 
