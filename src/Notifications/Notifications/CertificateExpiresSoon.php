@@ -54,7 +54,7 @@ class CertificateExpiresSoon extends BaseNotification
         return $this;
     }
 
-    protected function getMessageText(): string
+    public function getMessageText(): string
     {
         return "SSL certificate for {$this->getMonitor()->url} expires soon";
     }
