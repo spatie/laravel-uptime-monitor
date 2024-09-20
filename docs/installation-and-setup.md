@@ -170,14 +170,16 @@ php artisan migrate
 
 After you have performed the basic installation you can check the uptime and ssl certificates of sites using the `monitor:check-uptime` and `monitor:check-certificate` commands. In most cases you'll want to schedule them. We recommend that you run the uptime check every minute and the ssl certificate check daily. 
 
-You can schedule the commands, like any other command, in the console Kernel.
+You can schedule the commands, like any other command, in the `routes/console.php` file.
 
 ```php
-// app/Console/Kernel.php
+// routes/console.php
 
-protected function schedule(Schedule $schedule)
-{
-   $schedule->command('monitor:check-uptime')->everyMinute();
-   $schedule->command('monitor:check-certificate')->daily();
-}
+use Illuminate\Support\Facades\Schedule;
+use Spatie\UptimeMonitor\Commands\CheckCertificates;
+use Spatie\UptimeMonitor\Commands\CheckUptime;
+
+
+Schedule::command(CheckUptime::class)->everyMinute();
+Schedule::command(CheckCertificates::class)->daily();
 ```
