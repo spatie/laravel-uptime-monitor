@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.4.0 - 2024-09-20
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/spatie/laravel-uptime-monitor/pull/360
+* Update installation-and-setup.md by @xnekv03 in https://github.com/spatie/laravel-uptime-monitor/pull/364
+* Make other notification getMessageText() public aswell by @FinnPaes in https://github.com/spatie/laravel-uptime-monitor/pull/361
+
+### New Contributors
+
+* @xnekv03 made their first contribution in https://github.com/spatie/laravel-uptime-monitor/pull/364
+* @FinnPaes made their first contribution in https://github.com/spatie/laravel-uptime-monitor/pull/361
+
+**Full Changelog**: https://github.com/spatie/laravel-uptime-monitor/compare/4.3.0...4.4.0
+
 ## 4.3.0 - 2024-06-10
 
 ### What's Changed
