@@ -55,6 +55,17 @@ class MonitorCollection extends Collection
                     'headers' => $this->promiseHeaders($monitor),
                     'body' => $monitor->uptime_check_payload,
                 ])
+            )->then(
+                function (ResponseInterface $response) {
+                    return $response;
+                },
+                function (TransferException $exception) {
+                    if (in_array($exception->getCode(), config('uptime-monitor.uptime_check.additional_status_codes', []))) {
+                        return $exception->getResponse();
+                    }
+
+                    throw $exception;
+                }
             );
 
             yield $promise;

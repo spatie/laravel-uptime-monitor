@@ -113,6 +113,11 @@ return [
          * When reaching out to the sites these headers will be added.
          */
         'additional_headers' => [],
+
+        /*
+         * All status codes in this array will be interpreted as successful requests.
+         */
+        'additional_status_codes' => [],
     ],
 
     'certificate_check' => [
