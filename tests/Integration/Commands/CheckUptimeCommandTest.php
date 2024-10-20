@@ -100,4 +100,40 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(UptimeStatus::DOWN, $monitor->uptime_status);
         $this->assertEquals(ResponseCheckerFailureFake::FAILURE_REASON, $monitor->uptime_check_failure_reason);
     }
+
+    /** @test */
+    public function it_handles_additional_status_codes_as_valid_responses()
+    {
+        config()->set('uptime-monitor.uptime_check.additional_status_codes', [401]);
+
+        $monitor = Monitor::factory()->create([
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+        ]);
+
+        $this->server->setResponseBody('', 401);
+
+        Artisan::call('monitor:check-uptime');
+
+        $monitor = $monitor->fresh();
+
+        $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
+    }
+
+    /** @test */
+    public function it_handles_additional_status_codes_as_valid_responses_and_still_fails_on_others()
+    {
+        config()->set('uptime-monitor.uptime_check.additional_status_codes', [401]);
+
+        $monitor = Monitor::factory()->create([
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+        ]);
+
+        $this->server->setResponseBody('', 418);
+
+        Artisan::call('monitor:check-uptime');
+
+        $monitor = $monitor->fresh();
+
+        $this->assertEquals(UptimeStatus::DOWN, $monitor->uptime_status);
+    }
 }
