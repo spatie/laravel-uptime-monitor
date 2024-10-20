@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.5.0 - 2024-10-20
+
+### What's Changed
+
+* Allow custom success status codes by @emilsundberg in https://github.com/spatie/laravel-uptime-monitor/pull/362
+
+### New Contributors
+
+* @emilsundberg made their first contribution in https://github.com/spatie/laravel-uptime-monitor/pull/362
+
+**Full Changelog**: https://github.com/spatie/laravel-uptime-monitor/compare/4.4.0...4.5.0
+
 ## 4.4.0 - 2024-09-20
 
 ### What's Changed
