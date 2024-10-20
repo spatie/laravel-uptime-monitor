@@ -127,6 +127,11 @@ return [
          * When reaching out to the sites these headers will be added.
          */
         'additional_headers' => [],
+        
+        /*
+         * Allow status codes other than 200 to be considered as successful uptime checks.
+         */
+        'additional_status_codes' => [],
     ],
 
     'certificate_check' => [
