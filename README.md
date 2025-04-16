@@ -1,9 +1,19 @@
-# A powerful, easy to configure uptime monitor
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-uptime-monitor">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-uptime-monitor/html/dark.webp?1">
+        <img alt="Logo for laravel-uptime-monitor" src=" https://spatie.be/packages/header/laravel-uptime-monitor/html/light.webp?1" height="190">
+      </picture>
+    </a>
+
+<h1>Powerful and easy to configure uptime monitor</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-uptime-monitor.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-uptime-monitor)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-uptime-monitor/run-tests?label=tests)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-uptime-monitor.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-uptime-monitor)
+    
+</div>
 
 Laravel-uptime-monitor is a powerful, easy to configure uptime monitor. It will notify you when your site is down (and when it comes back up). You can also be notified a few days before an SSL certificate on one of your sites expires. Under the hood, the package leverages Laravel native notifications, so it's easy to use Slack, Telegram or your preferred notification provider.
 
