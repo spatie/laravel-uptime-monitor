@@ -36,7 +36,7 @@ trait SupportsCertificateCheck
         $this->fireEventsForUpdatedMonitorWithCertificate($this, $certificate);
     }
 
-    public function setCertificateException(\Throwable $exception): void
+    public function setCertificateException(Throwable $exception): void
     {
         $this->certificate_status = CertificateStatus::INVALID;
         $this->certificate_expiration_date = null;
