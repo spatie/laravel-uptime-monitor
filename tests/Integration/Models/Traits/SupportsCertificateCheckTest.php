@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Models\Traits;
 
 use Carbon\Carbon;
+use Error;
 use Exception;
 use Illuminate\Support\Facades\Event;
 use Spatie\SslCertificate\Downloader;
@@ -113,5 +114,51 @@ class SupportsCertificateCheckTest extends TestCase
         $this->assertSame('', $this->monitor->certificate_issuer);
         $this->assertNull($this->monitor->certificate_expiration_date);
         Event::assertDispatched(CertificateCheckFailed::class);
+    }
+
+    /** @test */
+    public function it_can_set_certificate_error()
+    {
+        // Collect
+        // Error is a PHP 7+ class that implements Throwable but doesn't extend Exception
+        // This simulates DNS resolution failures and SSL errors that can throw Error in PHP 8+
+        $error = new Error('DNS resolution failed: getaddrinfo failed');
+
+        // Act
+        $this->monitor->setCertificateException($error);
+
+        // Assert
+        $this->monitor->fresh();
+        $this->assertSame(CertificateStatus::INVALID, $this->monitor->certificate_status);
+        $this->assertSame('DNS resolution failed: getaddrinfo failed', $this->monitor->certificate_check_failure_reason);
+        $this->assertSame('', $this->monitor->certificate_issuer);
+        $this->assertNull($this->monitor->certificate_expiration_date);
+        Event::assertDispatched(CertificateCheckFailed::class);
+    }
+
+    /** @test */
+    public function it_catches_error_exceptions_during_certificate_check()
+    {
+        // Arrange
+        // Use an invalid hostname that will cause DNS resolution to fail
+        // In PHP 8+, DNS failures can throw Error exceptions (not Exception)
+        $monitor = Monitor::factory()->create([
+            'certificate_check_enabled' => true,
+            'certificate_status' => CertificateStatus::NOT_YET_CHECKED,
+            'url' => 'https://this-domain-definitely-does-not-exist-12345.invalid',
+        ]);
+
+        // Act
+        $monitor->checkCertificate();
+
+        // Assert
+        $monitor->fresh();
+        $this->assertSame(CertificateStatus::INVALID, $monitor->certificate_status);
+        $this->assertNotNull($monitor->certificate_check_failure_reason);
+        $this->assertSame('', $monitor->certificate_issuer);
+        $this->assertNull($monitor->certificate_expiration_date);
+        Event::assertDispatched(CertificateCheckFailed::class, function ($event) use ($monitor) {
+            return $event->monitor->id === $monitor->id;
+        });
     }
 }
