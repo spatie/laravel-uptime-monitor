@@ -2,13 +2,13 @@
 
 namespace Spatie\UptimeMonitor\Models\Traits;
 
-use Exception;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 use Spatie\UptimeMonitor\Events\CertificateExpiresSoon;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
+use Throwable;
 
 trait SupportsCertificateCheck
 {
@@ -18,7 +18,7 @@ trait SupportsCertificateCheck
             $certificate = SslCertificate::createForHostName($this->url->getHost());
 
             $this->setCertificate($certificate);
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->setCertificateException($exception);
         }
     }
@@ -36,7 +36,7 @@ trait SupportsCertificateCheck
         $this->fireEventsForUpdatedMonitorWithCertificate($this, $certificate);
     }
 
-    public function setCertificateException(Exception $exception): void
+    public function setCertificateException(Throwable $exception): void
     {
         $this->certificate_status = CertificateStatus::INVALID;
         $this->certificate_expiration_date = null;
