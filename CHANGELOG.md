@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.5.2 - 2026-02-01
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/368
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-uptime-monitor/pull/372
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/376
+* Bump actions/checkout from 2 to 6 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/374
+* Bump stefanzweifel/git-auto-commit-action from 4 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/373
+* Exception -> Throwable by @swilla in https://github.com/spatie/laravel-uptime-monitor/pull/375
+
+### New Contributors
+
+* @swilla made their first contribution in https://github.com/spatie/laravel-uptime-monitor/pull/375
+
+**Full Changelog**: https://github.com/spatie/laravel-uptime-monitor/compare/4.5.1...4.5.2
+
 ## 4.5.1 - 2025-02-21
 
 ### What's Changed
