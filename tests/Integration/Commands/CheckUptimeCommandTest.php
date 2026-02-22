@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\Integration\Helpers\ResponseCheckerFailureFake;
@@ -10,7 +11,7 @@ use Spatie\UptimeMonitor\Test\TestCase;
 
 class CheckUptimeCommandTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_has_a_command_to_perform_uptime_checks()
     {
         $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
@@ -22,7 +23,7 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_perform_an_uptime_check_for_specific_monitor()
     {
         $monitor1 = Monitor::factory()->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
@@ -40,7 +41,7 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(UptimeStatus::NOT_YET_CHECKED, $monitor2->uptime_status);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_perform_an_uptime_checks_for_a_set_of_specific_monitors()
     {
         $this->skipIfNotConnectedToTheInternet();
@@ -67,7 +68,7 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(UptimeStatus::NOT_YET_CHECKED, $monitor3->uptime_status);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_post_a_payload()
     {
         $monitor = Monitor::factory()->create([
@@ -85,7 +86,7 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_use_a_custom_response_checker()
     {
         $monitor = Monitor::factory()->create([
@@ -101,7 +102,7 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(ResponseCheckerFailureFake::FAILURE_REASON, $monitor->uptime_check_failure_reason);
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_additional_status_codes_as_valid_responses()
     {
         config()->set('uptime-monitor.uptime_check.additional_status_codes', [401]);
@@ -119,7 +120,7 @@ class CheckUptimeCommandTest extends TestCase
         $this->assertEquals(UptimeStatus::UP, $monitor->uptime_status);
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_additional_status_codes_as_valid_responses_and_still_fails_on_others()
     {
         config()->set('uptime-monitor.uptime_check.additional_status_codes', [401]);

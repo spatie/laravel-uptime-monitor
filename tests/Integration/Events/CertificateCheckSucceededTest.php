@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -27,7 +28,7 @@ class CertificateCheckSucceededTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function the_valid_certificate_found_event_will_be_fired_when_a_valid_certificate_is_found()
     {
         $this->skipIfNotConnectedToTheInternet();

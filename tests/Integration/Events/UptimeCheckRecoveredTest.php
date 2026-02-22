@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
@@ -23,7 +24,7 @@ class UptimeCheckRecoveredTest extends TestCase
         $this->monitor = Monitor::factory()->create();
     }
 
-    /** @test */
+    #[Test]
     public function the_recovered_event_will_be_fired_when_an_uptime_check_succeeds_after_it_has_failed()
     {
         $monitors = MonitorRepository::getForUptimeCheck();

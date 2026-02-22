@@ -2,13 +2,14 @@
 
 namespace Spatie\UptimeMonitor\Test;
 
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Exceptions\InvalidConfiguration;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
 
 class ConfigurationTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function a_custom_monitor_model_can_be_specified()
     {
         Monitor::factory()->create();
@@ -22,7 +23,7 @@ class ConfigurationTest extends TestCase
         $this->assertInstanceOf(get_class($customModel), MonitorRepository::getEnabled()->first());
     }
 
-    /** @test */
+    #[Test]
     public function when_an_invalid_monitor_model_is_specified_an_exception_will_be_thrown()
     {
         $customModel = new class () {

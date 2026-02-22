@@ -16,29 +16,29 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-intl": "*",
         "ext-json": "*",
-        "graham-campbell/guzzle-factory": "^5.0|^7.0",
-        "guzzlehttp/guzzle": "^7.4|^7.2",
-        "illuminate/cache": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/config": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/console": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/container": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/contracts": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/events": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/filesystem": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/notifications": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
-        "laravel/slack-notification-channel": "^2.4|^3.2",
-        "spatie/ssl-certificate": "^1.22|^2.1.2",
+        "graham-campbell/guzzle-factory": "^7.0",
+        "guzzlehttp/guzzle": "^7.4",
+        "illuminate/cache": "^11.0|^12.0|^13.0",
+        "illuminate/config": "^11.0|^12.0|^13.0",
+        "illuminate/console": "^11.0|^12.0|^13.0",
+        "illuminate/container": "^11.0|^12.0|^13.0",
+        "illuminate/contracts": "^11.0|^12.0|^13.0",
+        "illuminate/events": "^11.0|^12.0|^13.0",
+        "illuminate/filesystem": "^11.0|^12.0|^13.0",
+        "illuminate/notifications": "^11.0|^12.0|^13.0",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "laravel/slack-notification-channel": "^3.2",
+        "spatie/ssl-certificate": "^2.1.2",
         "spatie/url": "^2.0.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.4",
-        "illuminate/testing": "^10.0|^11.0|^12.0|^13.0",
-        "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
-        "phpunit/phpunit": "^9.5|^10.5|^11.5.3|^12.5.12"
+        "illuminate/testing": "^11.0|^12.0|^13.0",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "phpunit/phpunit": "^11.5.3|^12.5.12"
     },
     "autoload": {
         "psr-4": {

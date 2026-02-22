@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -22,7 +23,7 @@ class SyncFileTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_monitors()
     {
         Artisan::call('monitor:sync-file', ['path' => $this->stubsDirectory.'sync-file-original.json']);
@@ -38,7 +39,7 @@ class SyncFileTest extends TestCase
         $this->assertFalse($importMonitor2->certificate_check_enabled);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_for_invalid_urls()
     {
         $this->expectException(CannotSaveMonitor::class);
@@ -48,7 +49,7 @@ class SyncFileTest extends TestCase
         $this->assertEmpty(Monitor::where('url', 'www.example.com'));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_existing_monitors()
     {
         Artisan::call('monitor:sync-file', ['path' => $this->stubsDirectory.'sync-file-update.json']);
@@ -61,7 +62,7 @@ class SyncFileTest extends TestCase
         $this->assertTrue($updatedMonitor->certificate_check_enabled);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_monitors_not_found_in_file()
     {
         Artisan::call('monitor:sync-file', [

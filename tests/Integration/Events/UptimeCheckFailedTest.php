@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
@@ -24,7 +25,7 @@ class UptimeCheckFailedTest extends TestCase
         $this->monitor = Monitor::factory()->create();
     }
 
-    /** @test */
+    #[Test]
     public function the_down_event_will_be_fired_when_the_uptime_check_failed_for_the_configured_amount_of_times()
     {
         $this->server->down();
@@ -46,7 +47,7 @@ class UptimeCheckFailedTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function it_will_fire_the_failed_event_again_if_a_monitor_keeps_failing_after_the_configured_amount_of_minutes()
     {
         $this->server->down();
@@ -80,7 +81,7 @@ class UptimeCheckFailedTest extends TestCase
         Event::assertDispatched(UptimeCheckFailed::class);
     }
 
-    /** @test */
+    #[Test]
     public function the_failing_event_will_be_fired_when_a_site_is_but_the_look_for_string_is_not_found_on_the_response()
     {
         $this->server->setResponseBody('Hi, welcome on the page');
@@ -99,7 +100,7 @@ class UptimeCheckFailedTest extends TestCase
         Event::assertNotDispatched(UptimeCheckRecovered::class);
     }
 
-    /** @test */
+    #[Test]
     public function the_uptime_checker_will_fail_without_configured_guzzle_options()
     {
         $this->server->up();

@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
@@ -18,7 +19,7 @@ class ListMonitorsCommandTest extends TestCase
         $this->dontSeeInConsoleOutput('Healthy monitors');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_monitors_that_have_not_been_checked_yet()
     {
         $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::NOT_YET_CHECKED]);
@@ -31,7 +32,7 @@ class ListMonitorsCommandTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_healthy_monitors()
     {
         $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::UP]);
@@ -44,7 +45,7 @@ class ListMonitorsCommandTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_monitors_with_failing_uptime_checks()
     {
         $monitor = Monitor::factory()->create(['uptime_status' => UptimeStatus::DOWN]);
@@ -57,7 +58,7 @@ class ListMonitorsCommandTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_monitors_that_have_certificate_problems()
     {
         $monitor = Monitor::factory()->create([
@@ -73,7 +74,7 @@ class ListMonitorsCommandTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_disabled_monitors()
     {
         $monitor = Monitor::factory()->create([

@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Models\Traits;
 
 use Carbon\Carbon;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Constraint\IsEqualWithDelta;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
@@ -20,7 +21,7 @@ class SupportsUptimeCheckTest extends TestCase
         $this->monitor = Monitor::factory()->create(['uptime_last_check_date' => Carbon::now()]);
     }
 
-    /** @test */
+    #[Test]
     public function it_will_determine_that_a_monitor_most_be_rechecked_after_the_specified_amount_of_minutes()
     {
         $this->assertFalse($this->monitor->shouldCheckUptime());
@@ -34,7 +35,7 @@ class SupportsUptimeCheckTest extends TestCase
         $this->assertTrue($this->monitor->shouldCheckUptime());
     }
 
-    /** @test */
+    #[Test]
     public function it_will_determine_that_a_failing_monitor_must_always_be_checked()
     {
         $this->monitor->uptime_status = UptimeStatus::DOWN;
@@ -47,7 +48,7 @@ class SupportsUptimeCheckTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_will_determine_that_a_monitor_that_is_not_enabled_must_never_be_checked()
     {
         $this->monitor->uptime_check_enabled = false;
@@ -60,7 +61,7 @@ class SupportsUptimeCheckTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_will_set_uptime_status_last_change_date_when_the_status_changes()
     {
         $this->progressMinutes(5);
@@ -82,7 +83,7 @@ class SupportsUptimeCheckTest extends TestCase
         $this->assertTrue($this->monitorAttributeIsSetToNow('uptime_status_last_change_date'));
     }
 
-    /** @test */
+    #[Test]
     public function it_will_update_the_last_checked_date_no_matter_what_the_uptime_status_of_a_monitor_is()
     {
         foreach ([UptimeStatus::UP, UptimeStatus::DOWN, UptimeStatus::NOT_YET_CHECKED] as $status) {
