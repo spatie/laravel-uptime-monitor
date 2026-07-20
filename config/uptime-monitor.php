@@ -91,6 +91,12 @@ return [
         'retry_connection_after_milliseconds' => 100,
 
         /*
+         * The number of times the package will attempt to connect to a server in one
+         * uptime check. Set to 0 to disable retries entirely.
+         */
+        'retries' => 3,
+
+        /*
          * If you want to change the default Guzzle client behaviour, you can do so by
          * passing custom options that will be used when making requests.
          */

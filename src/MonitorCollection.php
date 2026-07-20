@@ -42,6 +42,8 @@ class MonitorCollection extends Collection
         $client = GuzzleFactory::make(
             config('uptime-monitor.uptime_check.guzzle_options', []),
             config('uptime-monitor.uptime_check.retry_connection_after_milliseconds', 100),
+            null,
+            config('uptime-monitor.uptime_check.retries', 3)
         );
 
         foreach ($this->items as $monitor) {
