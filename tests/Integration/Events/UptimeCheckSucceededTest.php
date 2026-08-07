@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Events\UptimeCheckSucceeded;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
@@ -22,7 +23,7 @@ class UptimeCheckSucceededTest extends TestCase
         $this->monitor = Monitor::factory()->create();
     }
 
-    /** @test */
+    #[Test]
     public function the_succeeded_event_will_be_fired_when_an_uptime_check_succeeds()
     {
         MonitorRepository::getForUptimeCheck()->checkUptime();
@@ -32,7 +33,7 @@ class UptimeCheckSucceededTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function the_succeed_event_will_be_fired_when_a_site_is_up_and_the_look_for_string_is_found_on_the_response()
     {
         $this->server->setResponseBody('Hi, welcome on the page');
@@ -45,7 +46,7 @@ class UptimeCheckSucceededTest extends TestCase
         Event::assertDispatched(UptimeCheckSucceeded::class);
     }
 
-    /** @test */
+    #[Test]
     public function the_uptime_checker_will_succeed_with_configured_guzzle_options()
     {
         $this->server->up();

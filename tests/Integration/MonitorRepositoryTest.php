@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration;
 
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Models\Enums\CertificateStatus;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
@@ -17,7 +18,7 @@ class MonitorRepositoryTest extends TestCase
         parent::setUp();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_all_enabled_monitors()
     {
         Monitor::create(['url' => 'http://enabled1.com', 'uptime_check_enabled' => true]);
@@ -33,7 +34,7 @@ class MonitorRepositoryTest extends TestCase
         $this->assertEquals(['http://enabled1.com', 'http://enabled2.com'], $this->getMonitorUrls($enabledMonitors));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_all_disabled_monitors()
     {
         Monitor::create(['url' => 'http://enabled1.com', 'uptime_check_enabled' => true]);
@@ -49,7 +50,7 @@ class MonitorRepositoryTest extends TestCase
         $this->assertEquals(['http://disabled1.com', 'http://disabled2.com'], $this->getMonitorUrls($disabledMonitors));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_all_unchecked_monitors()
     {
         Monitor::create(['url' => 'http://down1.com', 'uptime_status' => UptimeStatus::DOWN]);
@@ -95,7 +96,7 @@ class MonitorRepositoryTest extends TestCase
         $this->assertEquals(['http://enabled.com', 'http://unchecked1.com', 'http://unchecked2.com'], $this->getMonitorUrls($uncheckedMonitors));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_all_monitors_that_are_failing()
     {
         Monitor::create(['url' => 'http://down1.com', 'uptime_status' => UptimeStatus::DOWN]);
@@ -109,7 +110,7 @@ class MonitorRepositoryTest extends TestCase
         $this->assertEquals(['http://down1.com', 'http://down2.com'], $this->getMonitorUrls($failingMonitors));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_all_monitors_that_need_an_certificate_check()
     {
         Monitor::create(['url' => 'http://site1.com', 'uptime_check_enabled' => false, 'certificate_check_enabled' => false]);
@@ -125,7 +126,7 @@ class MonitorRepositoryTest extends TestCase
         $this->assertEquals(['http://site2.com', 'http://site4.com'], $this->getMonitorUrls($monitors));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_all_monitors_with_certificate_problems()
     {
         Monitor::create([

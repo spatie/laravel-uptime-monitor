@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
 use Mockery as m;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -24,7 +25,7 @@ class MonitorCreateCommandTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_monitor_for_a_https_site()
     {
         $this->command
@@ -41,7 +42,7 @@ class MonitorCreateCommandTest extends TestCase
         $this->assertTrue($monitor->certificate_check_enabled);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_monitor_for_a_http_site()
     {
         $this->command

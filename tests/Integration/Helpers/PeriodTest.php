@@ -3,13 +3,15 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Helpers;
 
 use Carbon\Carbon;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Exceptions\InvalidPeriod;
 use Spatie\UptimeMonitor\Helpers\Period;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class PeriodTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_will_throw_an_exception_when_the_start_date_comes_after_the_end_date()
     {
         $this->expectException(InvalidPeriod::class);
@@ -17,11 +19,8 @@ class PeriodTest extends TestCase
         new Period(Carbon::now(), Carbon::now()->subMinutes(1));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider periodDataProvider
-     */
+    #[Test]
+    #[DataProvider('periodDataProvider')]
     public function it_can_generate_a_string_representation_of_the_duration(int $differenceInMinutes, string $formattedString)
     {
         $period = new Period(Carbon::now(), Carbon::now()->addMinutes($differenceInMinutes));
@@ -42,11 +41,8 @@ class PeriodTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider textDataProvider
-     */
+    #[Test]
+    #[DataProvider('textDataProvider')]
     public function it_has_a_text_representation(Carbon $startDateTime, Carbon $endDateTime, string $text)
     {
         $period = new Period($startDateTime, $endDateTime);
