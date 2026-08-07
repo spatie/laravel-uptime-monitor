@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration;
 
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
@@ -10,7 +11,7 @@ use Spatie\UptimeMonitor\Test\TestCase;
 
 class MonitorCollectionTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_uses_the_action_configured_to_send_the_uptime_check_request()
     {
         config()->set(
