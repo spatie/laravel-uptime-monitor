@@ -6,10 +6,16 @@ All notable changes to `laravel-uptime-monitor` will be documented in this file
 
 ### What's Changed
 
+The uptime check request is now performed by `SendUptimeCheckRequestAction`, which you can swap out via the new `actions` key in the config file. This lets you customize anything about how requests are made (Guzzle client, request options, headers) without a config option for each setting. See [customizing actions](https://spatie.be/docs/laravel-uptime-monitor/v4/advanced-usage/customizing-actions).
+
+Existing config files keep working: when the `actions` key is absent, the default action is used.
+
+Also fixes a typo that made `retry_connection_after_milliseconds` never be read.
+
+* Fix typo in retry connection and make the uptime check request customizable through an action by @MoT3rror in https://github.com/spatie/laravel-uptime-monitor/pull/382
 * Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/378
 * Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/379
 * Bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/381
-* Fix typo in retry connection and add retries configuration for uptime checks by @MoT3rror in https://github.com/spatie/laravel-uptime-monitor/pull/382
 
 ### New Contributors
 
