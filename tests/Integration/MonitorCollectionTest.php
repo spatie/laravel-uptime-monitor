@@ -2,37 +2,30 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration;
 
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Request;
-use PHPUnit\Framework\Attributes\Test;
+use Spatie\UptimeMonitor\Models\Enums\UptimeStatus;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\MonitorRepository;
+use Spatie\UptimeMonitor\Test\Integration\Helpers\SendUptimeCheckRequestActionFake;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class MonitorCollectionTest extends TestCase
 {
-    #[Test]
-    public function it_does_not_retry_when_retries_is_zero()
+    /** @test */
+    public function it_uses_the_action_configured_to_send_the_uptime_check_request()
     {
-        $this->app['config']->set('uptime-monitor.uptime_check.retries', 0);
+        config()->set(
+            'uptime-monitor.actions.send_uptime_check_request',
+            SendUptimeCheckRequestActionFake::class
+        );
 
-        $history = [];
-        $mockHandler = new MockHandler([
-            new ConnectException('Connection refused', new Request('GET', 'http://failing-url.test')),
+        $monitor = Monitor::factory()->create([
+            'uptime_status' => UptimeStatus::NOT_YET_CHECKED,
+            'url' => 'https://this-url-is-never-requested.test',
+            'look_for_string' => SendUptimeCheckRequestActionFake::RESPONSE_BODY,
         ]);
-
-        $stack = HandlerStack::create($mockHandler);
-        $stack->push(Middleware::history($history));
-
-        $this->app['config']->set('uptime-monitor.uptime_check.guzzle_options', ['handler' => $stack]);
-
-        Monitor::factory()->create(['url' => 'http://failing-url.test', 'uptime_check_enabled' => true]);
 
         MonitorRepository::getForUptimeCheck()->checkUptime();
 
-        $this->assertCount(1, $history);
+        $this->assertEquals(UptimeStatus::UP, $monitor->fresh()->uptime_status);
     }
 }
