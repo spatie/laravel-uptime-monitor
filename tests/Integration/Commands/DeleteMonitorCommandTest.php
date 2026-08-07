@@ -4,6 +4,7 @@ namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
 use Mockery as m;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
@@ -30,7 +31,7 @@ class DeleteMonitorCommandTest extends TestCase
         Monitor::factory()->create(['url' => $this->url]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_monitor()
     {
         $this->assertEquals(1, Monitor::where('url', $this->url)->count());
