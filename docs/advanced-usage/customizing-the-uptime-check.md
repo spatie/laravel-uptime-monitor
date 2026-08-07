@@ -5,6 +5,8 @@ weight: 3
 
 This package ships with a default configured uptime check. You can modify the behaviour of the uptime check by changing the values under the `uptime_check` key in the config file.
 
+If you need control over how the request itself is made, take a look at [customizing actions](/docs/laravel-uptime-monitor/v4/advanced-usage/customizing-actions).
+
 These are the default values:
 
 ```php

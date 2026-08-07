@@ -3,11 +3,11 @@
 namespace Spatie\UptimeMonitor;
 
 use Generator;
-use GrahamCampbell\GuzzleFactory\GuzzleFactory;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Promise\EachPromise;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
+use Spatie\UptimeMonitor\Actions\SendUptimeCheckRequestAction;
 use Spatie\UptimeMonitor\Helpers\ConsoleOutput;
 use Spatie\UptimeMonitor\Models\Monitor;
 
@@ -39,23 +39,12 @@ class MonitorCollection extends Collection
 
     protected function getPromises(): Generator
     {
-        $client = GuzzleFactory::make(
-            config('uptime-monitor.uptime_check.guzzle_options', []),
-            config('uptime-monitor.uptime-check.retry_connection_after_milliseconds', 100)
-        );
+        $sendUptimeCheckRequest = $this->getSendUptimeCheckRequestAction();
 
         foreach ($this->items as $monitor) {
             ConsoleOutput::info("Checking {$monitor->url}");
 
-            $promise = $client->requestAsync(
-                $monitor->uptime_check_method,
-                $monitor->url,
-                array_filter([
-                    'connect_timeout' => config('uptime-monitor.uptime_check.timeout_per_site'),
-                    'headers' => $this->promiseHeaders($monitor),
-                    'body' => $monitor->uptime_check_payload,
-                ])
-            )->then(
+            $promise = $sendUptimeCheckRequest->execute($monitor)->then(
                 function (ResponseInterface $response) {
                     return $response;
                 },
@@ -72,13 +61,14 @@ class MonitorCollection extends Collection
         }
     }
 
-    private function promiseHeaders(Monitor $monitor): array
+    protected function getSendUptimeCheckRequestAction(): SendUptimeCheckRequestAction
     {
-        return collect([])
-            ->merge(['User-Agent' => config('uptime-monitor.uptime_check.user_agent')])
-            ->merge(config('uptime-monitor.uptime_check.additional_headers') ?? [])
-            ->merge($monitor->uptime_check_additional_headers)
-            ->toArray();
+        $actionClass = config(
+            'uptime-monitor.actions.send_uptime_check_request',
+            SendUptimeCheckRequestAction::class
+        );
+
+        return app($actionClass);
     }
 
     /**

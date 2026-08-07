@@ -136,4 +136,12 @@ return [
      * `Spatie\UptimeMonitor\Models\Monitor`.
      */
     'monitor_model' => Spatie\UptimeMonitor\Models\Monitor::class,
+
+    /*
+     * These actions perform the work of this package. To customize behaviour,
+     * extend the default action and register your own class here.
+     */
+    'actions' => [
+        'send_uptime_check_request' => Spatie\UptimeMonitor\Actions\SendUptimeCheckRequestAction::class,
+    ],
 ];
