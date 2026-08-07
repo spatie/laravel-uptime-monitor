@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.7.0 - 2026-08-07
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/378
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/379
+* Bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-uptime-monitor/pull/381
+* Fix typo in retry connection and add retries configuration for uptime checks by @MoT3rror in https://github.com/spatie/laravel-uptime-monitor/pull/382
+
+### New Contributors
+
+* @MoT3rror made their first contribution in https://github.com/spatie/laravel-uptime-monitor/pull/382
+
+**Full Changelog**: https://github.com/spatie/laravel-uptime-monitor/compare/4.6.0...4.7.0
+
 ## 4.6.0 - 2026-02-22
 
 Add Laravel 13.x support
