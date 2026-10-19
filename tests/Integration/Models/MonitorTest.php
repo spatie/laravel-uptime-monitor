@@ -2,6 +2,7 @@
 
 namespace Spatie\UptimeMonitor\Test\Integration\Models;
 
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Exceptions\CannotSaveMonitor;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -22,7 +23,7 @@ class MonitorTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_will_throw_an_exception_when_creating_a_monitor_that_already_exists()
     {
         $this->expectException(CannotSaveMonitor::class);
@@ -30,7 +31,7 @@ class MonitorTest extends TestCase
         Monitor::factory()->create(['url' => 'http://mysite.com']);
     }
 
-    /** @test */
+    #[Test]
     public function it_will_throw_an_exception_when_updating_a_monitor_to_an_url_of_a_monitor_that_already_exists()
     {
         $monitor = Monitor::factory()->create(['url' => 'http://myothersite.com']);
@@ -42,7 +43,7 @@ class MonitorTest extends TestCase
         $monitor->save();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_disable_and_enable_itself_for_an_http_url()
     {
         $this->monitor->disable();
@@ -62,7 +63,7 @@ class MonitorTest extends TestCase
         $this->assertFalse($this->monitor->certificate_check_enabled);
     }
 
-    /** @test */
+    #[Test]
     public function raw_url_is_appended_during_serialization()
     {
         $this->assertEquals(

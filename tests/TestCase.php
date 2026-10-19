@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Notifications\SlackChannelServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\UptimeMonitor\UptimeMonitorServiceProvider;
 
@@ -22,6 +23,8 @@ abstract class TestCase extends Orchestra
         Carbon::setTestNow(Carbon::create(2016, 1, 1, 00, 00, 00));
 
         parent::setUp();
+
+        Notification::fake();
 
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Spatie\\UptimeMonitor\\Database\\Factories\\'.class_basename($modelName).'Factory'

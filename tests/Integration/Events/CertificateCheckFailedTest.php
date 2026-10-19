@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Events;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
@@ -21,7 +22,7 @@ class CertificateCheckFailedTest extends TestCase
         $this->monitor = Monitor::factory()->create(['certificate_check_enabled' => true]);
     }
 
-    /** @test */
+    #[Test]
     public function the_invalid_certificate_found_event_will_be_fired_when_an_invalid_certificate_is_found()
     {
         $this->monitor->checkCertificate();

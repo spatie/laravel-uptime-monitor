@@ -3,12 +3,13 @@
 namespace Spatie\UptimeMonitor\Test\Integration\Commands;
 
 use Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\UptimeMonitor\Test\TestCase;
 
 class DisableMonitorCommandTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_disable_an_enabled_monitor()
     {
         $monitor = Monitor::factory()->create([
@@ -23,7 +24,7 @@ class DisableMonitorCommandTest extends TestCase
         $this->assertFalse($monitor->fresh()->uptime_check_enabled);
     }
 
-    /** @test */
+    #[Test]
     public function it_displays_a_message_if_the_monitor_is_not_found()
     {
         Artisan::call('monitor:disable', ['url' => 'https://mysite.com']);
@@ -31,7 +32,7 @@ class DisableMonitorCommandTest extends TestCase
         $this->seeInConsoleOutput('There is no monitor configured for url');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_disable_multiple_urls_at_once()
     {
         $monitor1 = Monitor::factory()->create([

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Error;
 use Exception;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\SslCertificate\Downloader;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
@@ -40,7 +41,7 @@ class SupportsCertificateCheckTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_valid_certificate_not_within_expiration_range()
     {
         // Collect
@@ -59,7 +60,7 @@ class SupportsCertificateCheckTest extends TestCase
         Event::assertNotDispatched(CertificateExpiresSoon::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_valid_certificate_within_expiration_range()
     {
         // Collect
@@ -78,7 +79,7 @@ class SupportsCertificateCheckTest extends TestCase
         Event::assertNotDispatched(CertificateCheckFailed::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_invalid_certificate()
     {
         // Collect
@@ -98,7 +99,7 @@ class SupportsCertificateCheckTest extends TestCase
         Event::assertNotDispatched(CertificateExpiresSoon::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_certificate_exception()
     {
         // Collect
@@ -116,7 +117,7 @@ class SupportsCertificateCheckTest extends TestCase
         Event::assertDispatched(CertificateCheckFailed::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_certificate_error()
     {
         // Collect
@@ -136,7 +137,7 @@ class SupportsCertificateCheckTest extends TestCase
         Event::assertDispatched(CertificateCheckFailed::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_catches_error_exceptions_during_certificate_check()
     {
         // Arrange

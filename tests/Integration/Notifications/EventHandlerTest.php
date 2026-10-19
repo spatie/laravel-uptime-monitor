@@ -4,6 +4,8 @@ namespace Spatie\UptimeMonitor\Test\Integration\Notifications;
 
 use Carbon\Carbon;
 use Notification;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
 use Spatie\UptimeMonitor\Events\UptimeCheckFailed as UptimeCheckFailedEvent;
 use Spatie\UptimeMonitor\Events\UptimeCheckRecovered as UptimeCheckRecoveredEvent;
@@ -30,11 +32,8 @@ class EventHandlerTest extends TestCase
         Notification::fake();
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider eventClassDataProvider
-     */
+    #[Test]
+    #[DataProvider('eventClassDataProvider')]
     public function it_can_send_a_notifications_for_certain_events(
         $eventClass,
         $notificationClass,
@@ -102,11 +101,8 @@ class EventHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider channelDataProvider
-     */
+    #[Test]
+    #[DataProvider('channelDataProvider')]
     public function it_send_notifications_to_the_channels_configured_in_the_config_file(array $configuredChannels)
     {
         $this->app['config']->set(
