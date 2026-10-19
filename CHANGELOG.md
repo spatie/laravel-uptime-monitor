@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-uptime-monitor` will be documented in this file
 
+## 4.7.1 - 2026-10-19
+
+### What changed
+
+- Fix the published monitors migration in applications that do not register the global `Schema` alias by explicitly importing `Illuminate\Support\Facades\Schema` (#380, thanks @flightsupport).
+- Add regression coverage for publishing, migrating, database defaults, and rollback with and without facade aliases.
+- Extend the CI matrix to PHP 8.4 and 8.5 on compatible Laravel versions.
+
+No breaking changes or changes to supported PHP/Laravel versions. Laravel 10–13 already provide `Schema` with their default aliases; this fix removes that dependency from newly published migrations. Existing published copies are not rewritten by an upgrade. Add the same import to an existing copy if your application disables aliases.
+
+Validation: the full suite passed locally on Laravel 10, 11, 12, and 13 (84 tests, 225 assertions per run), including Laravel 13 on PHP 8.5. GitHub Actions remained queued during the ongoing Actions incident; this release was authorized without waiting for CI.
+
+**Full changelog:** https://github.com/spatie/laravel-uptime-monitor/compare/4.7.0...4.7.1
+
 ## 4.7.0 - 2026-08-07
 
 ### What's Changed
